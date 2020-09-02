@@ -1,0 +1,26 @@
+site_name: HStream Docs
+
+theme:
+  name: 'material'
+  font: false
+  features:
+    - instant
+    - navigation.expand
+    - tabs
+
+plugins:
+  - search
+
+nav:
+  - Home: index.md
+  - Getting started:
+    - Installation: getting-started.md
+
+repo_url: https://github.com/hstreamdb/hstream
+repo_name: hstreamdb/hstream
+
+edit_uri: ""
+
+markdown_extensions:
+  - toc:
+      permalink: true
