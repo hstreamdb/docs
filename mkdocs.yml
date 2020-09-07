@@ -1,7 +1,7 @@
 site_name: HStream Docs
 
 theme:
-  name: 'material'
+  name: "material"
   font: false
   features:
     - instant
@@ -13,8 +13,11 @@ plugins:
 
 nav:
   - Home: index.md
-  - Getting started:
-    - Installation: getting-started.md
+  - Tutorial:
+      - Quickstart with Docker: tutorial/quick-start-with-docker.md
+  - Development:
+      - Haskell style: development/haskell-style.md
+      - Building from source: development/build-from-source.md
 
 repo_url: https://github.com/hstreamdb/hstream
 repo_name: hstreamdb/hstream
@@ -24,3 +27,6 @@ edit_uri: ""
 markdown_extensions:
   - toc:
       permalink: true
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
