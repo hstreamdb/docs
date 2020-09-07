@@ -1,4 +1,4 @@
-site_name: HStream Docs
+site_name: HStreamDB Docs
 
 theme:
   name: "material"
