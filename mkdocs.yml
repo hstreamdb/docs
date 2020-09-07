@@ -3,6 +3,7 @@ site_name: HStream Docs
 theme:
   name: "material"
   font: false
+  favicon: images/favicon.png
   features:
     - instant
     - navigation.expand
