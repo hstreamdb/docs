@@ -16,6 +16,8 @@ nav:
   - Home: index.md
   - Getting started:
       - Quickstart with Docker: start/quickstart-with-docker.md
+  - Reference:
+      - Streaming SQL quick reference: reference/sql-quick-reference.md
   - Development:
       - Haskell style: development/haskell-style.md
       - Building from source: development/build-from-source.md
