@@ -8,6 +8,8 @@ theme:
     - instant
     - navigation.expand
     - tabs
+  palette:
+    primary: deep purple
 
 plugins:
   - search
