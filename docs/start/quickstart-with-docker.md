@@ -3,7 +3,7 @@ Quickstart with Docker
 
 ## Installation
 
-### 1. Install docker
+### Install docker
 
 !!! note
     If you have already installed docker, you can skip this step.
@@ -22,25 +22,32 @@ docker version
     On Linux, Docker needs root privileges. You can also run Docker as
     a non-root user, see [Post-installation steps for Linux][non-root-docker].
 
+### Pull docker images
+
+```sh
+docker pull hstreamdb/logdevice
+docker pull hstreamdb/hstream
+```
+
 
 ## Start a local standalone HStream-Server in Docker
 
 !!! warning
     Do NOT use this configuration in your production environment!
 
-Create a directory for storing db datas:
+### Create a directory for storing db datas
 
 ```sh
 mkdir ./dbdata
 ```
 
-Start local logdevice cluster:
+### Start local logdevice cluster
 
 ```sh
 docker run -td --rm --name some-hstream-store -v dbdata:/data/store --network host hstreamdb/logdevice ld-dev-cluster --root /data/store --use-tcp
 ```
 
-Start HStreamDB Server:
+### Start HStreamDB Server
 
 ```sh
 docker run -it --rm --name some-hstream-server -v dbdata:/data/store --network host hstreamdb/hstream hstream-server --port 6570 -l /data/store/logdevice.conf
@@ -50,7 +57,7 @@ docker run -it --rm --name some-hstream-server -v dbdata:/data/store --network h
 ## Start HStreamDB's interactive SQL CLI
 
 ```sh
-docker run -it --rm --name some-hstream-cli -v dbdata:/data/store --network host hstreamdb/hstream hstream-client --host some-hstream-server --port 6570
+docker run -it --rm --name some-hstream-cli -v dbdata:/data/store --network host hstreamdb/hstream hstream-client --port 6570
 ```
 
 If everything works fine, you will enter an interactive CLI and see help information like
@@ -68,7 +75,7 @@ Command
 >
 ```
 
-### 3. Create a stream
+## Create a stream
 
 What we are going to do first is create a stream by `CREATE STREAM` query.
 
@@ -94,7 +101,7 @@ Right
 which means the query is successfully executed.
 
 
-### 4. Run a continuous query over the stream
+## Run a continuous query over the stream
 
 Now we can run a continuous query over the stream we just created by `SELECT` query.
 
@@ -106,11 +113,16 @@ SELECT * FROM weather WHERE humidity > 70;
 
 It seems that nothing happened. But do not worry because there is no data in the stream now. Next, we will fill the stream with some data so the query can produce output we want.
 
-### 5. Start another CLI session
 
-Start another CLI session like what we did in (2). This CLI will be used for inserting data into the stream.
+## Start another CLI session
 
-### 6. Insert data into the stream
+Start another CLI session, this CLI will be used for inserting data into the stream.
+
+```sh
+docker exec -it some-hstream-cli hstream-client --port 6570
+```
+
+## Insert data into the stream
 
 Run each of the given `INSERT` query in the new CLI session and keep an eye on the CLI session created in (2).
 

@@ -14,8 +14,8 @@ plugins:
 
 nav:
   - Home: index.md
-  - Tutorial:
-      - Quickstart with Docker: tutorial/quick-start-with-docker.md
+  - Getting started:
+      - Quickstart with Docker: start/quickstart-with-docker.md
   - Development:
       - Haskell style: development/haskell-style.md
       - Building from source: development/build-from-source.md
