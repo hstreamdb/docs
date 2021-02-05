@@ -67,9 +67,9 @@ Start HStream-Cli!
 Command
   :h                     help command
   :q                     quit cli
-  show tasks             list all tasks
+  show queries           list all queries
   delete query <taskid>  delete query by id
-  deletet query all      delete all queries
+  delete query all       delete all queries
   <sql>                  run sql
 
 >
