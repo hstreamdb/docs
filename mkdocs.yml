@@ -17,10 +17,16 @@ plugins:
         'index.md': 'start/quickstart-with-docker.md'
 
 nav:
+  - Introduction:
+      - Feature list
   - Getting started:
       - Quickstart with Docker: start/quickstart-with-docker.md
-  - Reference:
-      - SQL quick reference: reference/sql-quick-reference.md
+  - User guide: 
+      - Reference:
+          - SQL quick reference: guide/reference/sql-quick-reference.md
+  - Command
+  - Configuration
+  - FAQ
   - Development:
       - Haskell style: development/haskell-style.md
       - Building from source: development/build-from-source.md
