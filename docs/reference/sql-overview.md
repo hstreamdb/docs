@@ -41,17 +41,14 @@ Literals objects with known values before being executed. By now, there are six 
 
 ### Integers
 
-Integers are in the form of `digits`, where `digits` is one or more single-digit integers (0 through 9). Note that scientific notation is not supported yet.
-
-> :warning: Due to the limitations of the grammar, please write `0-n` when you want to represent a negative `-n`.
+Integers are in the form of `digits`, where `digits` is one or more single-digit integers (0 through 9). **Note that scientific notation is not supported yet. And due to the limitations of the grammar, please write `0-n` when you want to represent a negative `-n`**.
 
 ### Floats
 
-Floats are in the form of `digits . digits`. Note that scientific notation is not supported yet.
+Floats are in the form of `digits . digits`. Note that scientific notation is not supported yet. Note that
 
-> :warning: Due to the limitations of the grammar, please write `0-n` when you want to represent a negative `-n`.
-
-> :warning: Forms such as `1.` and `.99` are not supported yet.
+- **Due to the limitations of the grammar, please write `0-n` when you want to represent a negative `-n`**.
+- **Forms such as `1.` and `.99` are not supported yet**.
 
 ### Strings
 
@@ -86,8 +83,7 @@ For a complete list of functions and operators, see the appendix.
 There are some special characters in the SQL syntax with particular meanings:
 
 - Parentheses (`()`) are used outside an expression for controlling the order of evaluation or specifying a function application.
-- Brackets (`[]`) are used with maps and arrays for accessing their substructures, such as `some_map[temp]` and `some_array[1]`.
-  > :warning: It is not supported yet.
+- Brackets (`[]`) are used with maps and arrays for accessing their substructures, such as `some_map[temp]` and `some_array[1]`. **Note that it is not supported yet**.
 - Commas (`,`) are used for delineating a list of objects.
 - The semicolons (`;`) represent the end of a SQL statement.
 - The asterisk (`*`) represents "all fields", such as `SELECT * FROM  my_stream;`.
