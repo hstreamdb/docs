@@ -20,8 +20,10 @@ nav:
   - Getting started:
       - Quickstart with Docker: start/quickstart-with-docker.md
   - Reference:
-      - SQL overview: reference/sql-overview.md
-      - SQL quick reference: reference/sql-quick-reference.md
+      - SQL:
+        - SQL overview: reference/sql/sql-overview.md
+        - SQL quick reference: reference/sql/sql-quick-reference.md
+        - Appendix: reference/sql/appendix.md
   - Development:
       - Haskell style: development/haskell-style.md
       - Building from source: development/build-from-source.md

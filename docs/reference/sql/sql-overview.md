@@ -25,7 +25,7 @@ INSERT INTO weather (cityId, temperature, humidity) VALUES (11254469, 12, 65);
 
 Some tokens such as `SELECT`, `INSERT` and `WHERE` are reserved *keywords*, which have specific meaning in SQL syntax. Keywords are case insensitive, which means that `SELECT` and `select` are equivalent. A keyword can not be used as an identifier.
 
-For a complete list of keywords, see the appendix.
+For a complete list of keywords, see the [appendix](appendix.md).
 
 ## Identifiers
 
@@ -76,7 +76,7 @@ Example: `INTERVAL 5 SECOND`
 
 Functions are special keywords which mean some computation, such as `SUM` and `MIN`. And operators are infix functions composed of special characters, such as `>=` and `<>`.
 
-For a complete list of functions and operators, see the appendix.
+For a complete list of functions and operators, see the [appendix](appendix.md).
 
 ## Special characters
 
