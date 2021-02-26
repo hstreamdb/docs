@@ -18,7 +18,7 @@ SELECT <* | expression [ AS field_alias ] [, ...]>
 
 ## Notes
 
-- `expression` can be a field name, a constant or their association, such as `temperature`, `weather.humidity`, `114514`, `1 + 2` and `SUM(productions)`.
+- `expression` can be a field name, a constant, or their association, such as `temperature`, `weather.humidity`, `114514`, `1 + 2` and `SUM(productions)`.
 - `some_interval` represents a period of time. See [Intervals](../sql-overview.md#intervals).
 - `join_type` specifies the type of joining operation. Only `INNER` is supported yet.
 - `window_type` specifies the type of time window:
