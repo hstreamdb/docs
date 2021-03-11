@@ -65,12 +65,12 @@ If everything works fine, you will enter an interactive CLI and see help informa
 ```
 Start HStream-Cli!
 Command
-  :h                     help command
-  :q                     quit cli
-  show queries           list all queries
-  delete query <taskid>  delete query by id
-  delete query all       delete all queries
-  <sql>                  run sql
+  :h                        help command
+  :q                        quit cli
+  show queries              list all queries
+  terminate query <taskid>  terminate query by id
+  terminate query all       terminate all queries
+  <sql>                     run sql
 
 >
 ```
@@ -82,7 +82,7 @@ What we are going to do first is create a stream by `CREATE STREAM` query.
 The `FORMAT` parameter after `WITH` specifies the format of data in the stream. Note that only `"JSON"` format is supported now.
 
 ```sql
-CREATE STREAM weather WITH (FORMAT = "JSON");
+CREATE STREAM demo WITH (FORMAT = "JSON");
 ```
 
 Copy and paste this query into the interactive CLI session, and press enter to execute the statement. If everything works fine, you will get something like
@@ -91,8 +91,8 @@ Copy and paste this query into the interactive CLI session, and press enter to e
 Right
     ( CreateTopic
         { taskid = 0
-        , tasksql = "CREATE STREAM weather WITH (FORMAT = "JSON");"
-        , taskTopic = "weather"
+        , tasksql = "CREATE STREAM demo WITH (FORMAT = "JSON");"
+        , taskStream = "demo"
         , taskState = Finished
         , createTime = 2021 - 02 - 04 09 : 07 : 25.639197201 UTC
         }
@@ -105,10 +105,10 @@ which means the query is successfully executed.
 
 Now we can run a continuous query over the stream we just created by `SELECT` query.
 
-The query will output all records from the `weather` stream whose humidity is above 70 percent.
+The query will output all records from the `demo` stream whose humidity is above 70 percent.
 
 ```sql
-SELECT * FROM weather WHERE humidity > 70;
+SELECT * FROM demo WHERE humidity > 70 EMIT CHANGES;
 ```
 
 It seems that nothing happened. But do not worry because there is no data in the stream now. Next, we will fill the stream with some data so the query can produce output we want.
@@ -127,16 +127,22 @@ docker exec -it some-hstream-cli hstream-client --port 6570
 Run each of the given `INSERT` query in the new CLI session and keep an eye on the CLI session created in (2).
 
 ```sql
-INSERT INTO weather (cityId, temperature, humidity) VALUES (1, 22, 80);
-INSERT INTO weather (cityId, temperature, humidity) VALUES (2, 15, 20);
-INSERT INTO weather (cityId, temperature, humidity) VALUES (3, 31, 76);
-INSERT INTO weather (cityId, temperature, humidity) VALUES (4,  5, 45);
-INSERT INTO weather (cityId, temperature, humidity) VALUES (5, 27, 82);
-INSERT INTO weather (cityId, temperature, humidity) VALUES (6, 28, 86);
+INSERT INTO demo (temperature, humidity) VALUES (22, 80);
+INSERT INTO demo (temperature, humidity) VALUES (15, 20);
+INSERT INTO demo (temperature, humidity) VALUES (31, 76);
+INSERT INTO demo (temperature, humidity) VALUES ( 5, 45);
+INSERT INTO demo (temperature, humidity) VALUES (27, 82);
+INSERT INTO demo (temperature, humidity) VALUES (28, 86);
 ```
 
-If everything works fine, the continuous query will output matching records in real time.
+If everything works fine, the continuous query will output matching records in real time:
 
+```
+{"temperature":22,"humidity":80}
+{"temperature":31,"humidity":76}
+{"temperature":27,"humidity":82}
+{"temperature":28,"humidity":86}
+```
 
 
 
