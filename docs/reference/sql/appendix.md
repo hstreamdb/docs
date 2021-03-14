@@ -3,7 +3,7 @@ Appendix
 
 ## Keywords
 
-| keyword    | dscription                                                       |
+| keyword    | description                                                      |
 | ---------- | ---------------------------------------------------------------- |
 | `AND`      | logical and operator                                             |
 | `AS`       | stream or field name alias                                       |
@@ -14,7 +14,7 @@ Appendix
 | `CREATE`   | create a stream                                                  |
 | `DATE`     | prefix of date constant                                          |
 | `DAY`      | interval unit                                                    |
-| `FORMAT`   | specify format of a stream                                       |
+| `FORMAT`   | specify the format of a stream                                   |
 | `FROM`     | specify where to select data from                                |
 | `GROUP`    | group values by certain conditions, used with `BY`               |
 | `HAVING`   | filter select values by a condition                              |
@@ -39,7 +39,7 @@ Appendix
 | `SESSION`  | session window                                                   |
 | `STREAM`   | specify a stream, used with `CREATE`                             |
 | `SUM`      | sum function                                                     |
-| `TIME`     | prefix of time constant                                          |
+| `TIME`     | prefix of the time constant                                      |
 | `TUMBLING` | tumbling window                                                  |
 | `VALUES`   | specify inserted data, used with `INSERT INTO`                   |
 | `WEEK`     | interval unit                                                    |

@@ -3,7 +3,7 @@ SQL quick reference
 
 ## CREATE STREAM
 
-Registers a stream on the bottom layer topic with the same name as the stream. An exception will be thrown if the stream is already created. See [CREATE STREAM](statements/create-stream.md).
+Register a stream on the bottom layer topic with the same name as the stream. An exception will be thrown if the stream is already created. See [CREATE STREAM](statements/create-stream.md).
 
 ```sql
 CREATE STREAM stream_name [AS select_query] WITH (FORMAT = stream_format);
