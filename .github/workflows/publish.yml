@@ -2,15 +2,20 @@ name: Publish to github pages
 
 on:
   push:
-    branches: [master]
+    branches:
+      - master
+      - main
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
-    name: Build & Publish
     steps:
       - uses: actions/checkout@v2
-
-      - name: deploy
-        run: |
-          docker run --rm -v ${PWD}:/docs squidfunk/mkdocs-material gh-deploy --force
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+      - run: |
+          pip install mkdocs-material
+          pip install mkdocs-minify-plugin
+          pip install mkdocs-redirects
+      - run: mkdocs gh-deploy --force
