@@ -1,4 +1,5 @@
 site_name: HStreamDB Docs
+site_url: https://docs.hstream.io
 
 theme:
   name: "material"
