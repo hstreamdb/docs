@@ -1,5 +1,4 @@
-INSERT
-======
+# INSERT
 
 Insert a record into specified stream.
 

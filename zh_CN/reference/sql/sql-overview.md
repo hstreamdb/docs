@@ -1,5 +1,4 @@
-SQL Overview
-============
+# SQL Overview
 
 SQL is a domain-specific language used in programming and designed for managing data held in a database management system. A standard for the specification of SQL is maintained by the American National Standards Institute (ANSI). Also, there are many variants and extensions to SQL to express more specific programs.
 
