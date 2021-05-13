@@ -1,8 +1,5 @@
-HStreamDB Docs
-==============
-
+# HStreamDB Docs
 Documentation for HStreamDB.
-
 
 ## Preview with docker
 

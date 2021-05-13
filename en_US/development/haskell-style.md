@@ -1,5 +1,4 @@
-Haskell Style Guide
-===================
+# Haskell Style Guide
 
 This document is a slightly modified version of
 [style guide used in Kowainik](https://kowainik.github.io/posts/2019-02-06-style-guide).
@@ -193,8 +192,9 @@ veryLongProductionName
 + **lowerCamelCase** for function and variable names.
 + **UpperCamelCase** for data types, typeclasses and constructors.
 
-!!! note "Variant"
-    Use `ids_with_underscores` for **local variables** only.
+::: tip
+Use `ids_with_underscores` for **local variables** only.
+:::
 
 Try not to create new operators.
 

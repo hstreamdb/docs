@@ -1,12 +1,12 @@
-Quickstart with Docker
-======================
+# Quickstart with Docker
 
 ## Installation
 
 ### Install docker
 
-!!! note
-    If you have already installed docker, you can skip this step.
+::: tip
+If you have already installed docker, you can skip this step.
+:::
 
 See [Install Docker Engine](https://docs.docker.com/engine/install/),
 and install it for your operating system. Please carefully check that you
@@ -18,9 +18,9 @@ Confirm that the Docker daemon is running:
 docker version
 ```
 
-!!! Tips
-    On Linux, Docker needs root privileges. You can also run Docker as
-    a non-root user, see [Post-installation steps for Linux][non-root-docker].
+::: tip
+On Linux, Docker needs root privileges. You can also run Docker as a non-root user, see [Post-installation steps for Linux](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user).
+:::
 
 ### Pull docker images
 
@@ -143,7 +143,3 @@ If everything works fine, the continuous query will output matching records in r
 {"temperature":27,"humidity":82}
 {"temperature":28,"humidity":86}
 ```
-
-
-
-[non-root-docker]: https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user

@@ -1,5 +1,4 @@
-Building from source
-====================
+# Building from source
 
 This document describes how to build HStreamDB from source code.
 

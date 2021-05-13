@@ -1,5 +1,4 @@
-CREATE STREAM
-=============
+# CREATE STREAM
 
 Register a stream on the bottom layer topic with the same name as the stream. An exception will be thrown if the stream is already created.
 
