@@ -28,7 +28,6 @@ docker version
 docker pull hstreamdb/hstream
 ```
 
-
 ## Start a local standalone HStream-Server in Docker
 
 !!! warning
@@ -40,7 +39,7 @@ docker pull hstreamdb/hstream
 mkdir ./dbdata
 ```
 
-### Start local logdevice cluster
+### Start HStream Storage
 
 ```sh
 docker run -td --rm --name some-hstream-store -v dbdata:/data/store --network host hstreamdb/hstream ld-dev-cluster --root /data/store --use-tcp
@@ -69,10 +68,8 @@ If everything works fine, you will enter an interactive CLI and see help informa
 Command
   :h                        help command
   :q                        quit cli
-  show queries              list all queries
-  terminate query <taskid>  terminate query by id
-  terminate query all       terminate all queries
   <sql>                     run sql
+>
 ```
 
 
