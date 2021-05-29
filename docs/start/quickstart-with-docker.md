@@ -25,7 +25,6 @@ docker version
 ### Pull docker images
 
 ```sh
-docker pull hstreamdb/logdevice
 docker pull hstreamdb/hstream
 ```
 
@@ -44,15 +43,14 @@ mkdir ./dbdata
 ### Start local logdevice cluster
 
 ```sh
-docker run -td --rm --name some-hstream-store -v dbdata:/data/store --network host hstreamdb/logdevice ld-dev-cluster --root /data/store --use-tcp
+docker run -td --rm --name some-hstream-store -v dbdata:/data/store --network host hstreamdb/hstream ld-dev-cluster --root /data/store --use-tcp
 ```
 
 ### Start HStreamDB Server
 
 ```sh
-docker run -it --rm --name some-hstream-server -v dbdata:/data/store --network host hstreamdb/hstream hstream-server --port 6570 -l /data/store/logdevice.conf
+docker run -it --rm --name some-hstream-server -v dbdata:/data/store --network host hstreamdb/hstream hstream-server --port 6570 --config-path /data/store/logdevice.conf
 ```
-
 
 ## Start HStreamDB's interactive SQL CLI
 
@@ -63,7 +61,11 @@ docker run -it --rm --name some-hstream-cli -v dbdata:/data/store --network host
 If everything works fine, you will enter an interactive CLI and see help information like
 
 ```
-Start HStream-Cli!
+     / / / / ___/_  __/ __ \/ ____/   |  /  |/  /
+    / /_/ /\__ \ / / / /_/ / __/ / /| | / /|_/ /
+   / __  /___/ // / / _, _/ /___/ ___ |/ /  / /
+  /_/ /_//____//_/ /_/ |_/_____/_/  |_/_/  /_/
+
 Command
   :h                        help command
   :q                        quit cli
@@ -71,34 +73,16 @@ Command
   terminate query <taskid>  terminate query by id
   terminate query all       terminate all queries
   <sql>                     run sql
-
->
 ```
+
 
 ## Create a stream
 
 What we are going to do first is create a stream by `CREATE STREAM` query.
 
-The `FORMAT` parameter after `WITH` specifies the format of data in the stream. Note that only `"JSON"` format is supported now.
-
 ```sql
-CREATE STREAM demo WITH (FORMAT = "JSON");
+CREATE STREAM demo;
 ```
-
-Copy and paste this query into the interactive CLI session, and press enter to execute the statement. If everything works fine, you will get something like
-
-```Haskell
-Right
-    ( CreateTopic
-        { taskid = 0
-        , tasksql = "CREATE STREAM demo WITH (FORMAT = "JSON");"
-        , taskStream = "demo"
-        , taskState = Finished
-        , createTime = 2021 - 02 - 04 09 : 07 : 25.639197201 UTC
-        }
-    )
-```
-which means the query is successfully executed.
 
 
 ## Run a continuous query over the stream
@@ -143,6 +127,7 @@ If everything works fine, the continuous query will output matching records in r
 {"temperature":27,"humidity":82}
 {"temperature":28,"humidity":86}
 ```
+
 
 
 
