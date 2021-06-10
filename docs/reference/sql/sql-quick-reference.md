@@ -3,15 +3,20 @@ SQL quick reference
 
 ## CREATE STREAM
 
-Register a stream on the bottom layer topic with the same name as the stream. An exception will be thrown if the stream is already created. See [CREATE STREAM](statements/create-stream.md).
+Create a new HStreamDB stream with stream name given.
+An exception will be thrown if the stream is already created.
+See [CREATE STREAM](statements/create-stream.md).
 
 ```sql
-CREATE STREAM stream_name [AS select_query] WITH (FORMAT = stream_format);
+CREATE STREAM stream_name [AS select_query] ;
 ```
 
 ## SELECT
 
-Continuously pulls records from the stream(s) specified. It is usually used in an interactive CLI to monitor realtime changes of data. Note that the query writes records to a random-named stream. See [SELECT (Stream)](statements/select-stream.md).
+Continuously get records from the stream(s) specified as streaming data flows in.
+It is usually used in an interactive CLI to monitor realtime changes of data.
+Note that the query writes these records to a random-named stream.
+See [SELECT (Stream)](statements/select-stream.md).
 
 ```sql
 SELECT <* | expression [ AS field_alias ] [, ...]>
@@ -26,8 +31,37 @@ SELECT <* | expression [ AS field_alias ] [, ...]>
 
 ## INSERT
 
-Insert a record into specified stream. See [INSERT](statements/insert.md).
+Insert a record into the specified stream.
+See [INSERT](statements/insert.md).
 
 ```sql
 INSERT INTO stream_name (field_name [, ...]) VALUES (field_value [, ...]);
+```
+
+## DROP STREAM
+
+Delete a specified stream with the given stream name.
+
+```sql
+DROP STREAM stream_name ;
+```
+
+## SHOW
+
+Show the infomation of given category.
+
+### SHOW STREAM
+
+Show all stream names of streams in HStreamDB
+
+```sql
+SHOW STREAM
+```
+
+### SHOW QUERIES
+
+Show information of all queries ever created.
+
+```sql
+SHOW Queries
 ```

@@ -31,6 +31,7 @@ extra:
 
 nav:
   - Overview:
+      - overview/overview.md
       - Concepts:
           - Stream and Streaming Data: overview/concepts/stream.md
           - Query and Stream Processing: overview/concepts/query.md
@@ -49,8 +50,7 @@ nav:
       - Dashboard Overview: start/dashboard-overview.md
   - Using HStreamDB:
       - Connector:
-          - Import Data: using-hstreamdb/connectors/import-data.md
-          - Export Data: using-hstreamdb/connectors/export-data.md
+          - Connector Related Concepts: using-hstreamdb/connectors/concepts.md
           - Avaible Connectors: using-hstreamdb/connectors/available-connectors.md
       - Clients:
           - Java Client: using-hstreamdb/clients/java.md

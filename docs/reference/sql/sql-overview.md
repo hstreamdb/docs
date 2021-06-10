@@ -16,7 +16,7 @@ The following examples are syntactically valid SQL statements:
 ```sql
 SELECT * FROM my_stream;
 
-CREATE STREAM abnormal_weather AS SELECT * FROM weather WHERE temperature > 30 AND humidity > 80 WITH (FORMAT = "JSON");
+CREATE STREAM abnormal_weather AS SELECT * FROM weather WHERE temperature > 30 AND humidity > 80 WITH (REPLICATE = 3);
 
 INSERT INTO weather (cityId, temperature, humidity) VALUES (11254469, 12, 65);
 ```
@@ -45,8 +45,8 @@ Integers are in the form of `digits`, where `digits` are one or more single-digi
 
 ### Floats
 
-Floats are in the form of `digits . digits`. 
-Note that 
+Floats are in the form of `digits . digits`.
+Note that
 
 - **scientific notation is not supported yet**.
 - **due to the grammatical limitations, when you want to represent a negative `-n`, please write `0-n` instead**.
