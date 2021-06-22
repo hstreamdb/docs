@@ -1,6 +1,17 @@
 Appendix
 ========
 
+## Data Types
+
+| type    | examples         |
+| ------- | ---------------- |
+| Integer | 1, -1, 1234567   |
+| Double  | 2.3, -3.56, 232.4|
+| Bool    | TRUE, FALSE      |
+| Date    | 2020-06-10       |
+| Time    | 11:18:30         |
+| String  | "HStreamDB "     |
+
 ## Keywords
 
 | keyword    | description                                                      |
@@ -11,9 +22,10 @@ Appendix
 | `BETWEEN`  | range operator, used with `AND`                                  |
 | `BY`       | do something by certain conditions, used with `GROUP` or `ORDER` |
 | `COUNT`    | count function                                                   |
-| `CREATE`   | create a stream                                                  |
+| `CREATE`   | create a stream / connector                                      |
 | `DATE`     | prefix of date constant                                          |
 | `DAY`      | interval unit                                                    |
+| `DROP`     | drop a stream                                                    |
 | `FORMAT`   | specify the format of a stream                                   |
 | `FROM`     | specify where to select data from                                |
 | `GROUP`    | group values by certain conditions, used with `BY`               |
@@ -37,6 +49,7 @@ Appendix
 | `SECOND`   | interval unit                                                    |
 | `SELECT`   | query a stream                                                   |
 | `SESSION`  | session window                                                   |
+| `SHOW`     | show something to stdout                                         |
 | `STREAM`   | specify a stream, used with `CREATE`                             |
 | `SUM`      | sum function                                                     |
 | `TIME`     | prefix of the time constant                                      |

@@ -6,14 +6,14 @@ Register a stream on the bottom layer topic with the same name as the stream. An
 ## Synopsis
 
 ```sql
-CREATE STREAM stream_name [ AS select_query ] WITH (FORMAT = stream_format);
+CREATE STREAM stream_name [ AS select_query ] WITH (REPLICATE = INT);
 ```
 
 ## Notes
 
 - `stream_name` is a valid identifier.
 - `select_query` is an optional `SELECT` (Stream) query. For more information, see `SELECT` section. When `<select_query>` is specified, the created stream will be filled with records from the `SELECT` query continuously. Otherwise, the stream will only be created and kept empty.
-- `stream_format` specifies the format of records in the stream. Note that we only support `"JSON"` format now.
+
 
 ## Examples
 

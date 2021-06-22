@@ -10,6 +10,7 @@ theme:
     - navigation.expand
   palette:
     primary: deep purple
+  language: en
 
 plugins:
   - search
@@ -17,18 +18,64 @@ plugins:
       redirect_maps:
         'index.md': 'start/quickstart-with-docker.md'
 
+extra:
+  alternate:
+    - name: English
+      link: /
+      lang: en
+
+      # Switch to Chinese
+    - name: 中文
+      link: /zh_CN/start/quickstart-with-docker/
+      lang: zh
+
 nav:
+  - Overview:
+      - overview/overview.md
+      - Concepts:
+          - Stream and Streaming Data: overview/concepts/stream.md
+          - Query and Stream Processing: overview/concepts/query.md
+      - Architecture:
+          - Overview: overview/architecture/overview.md
+          - HStream Store (HStore): overview/architecture/hstream-store.md
+          - HStream Server (HSQL): overview/architecture/hstream-server.md
+      - Data Lifecycle: overview/data-lifecycle.md
+      - Features: overview/features.md
+      - Release Notes: overview/release-notes.md
+      - Learning Resources: overview/learning-resouces.md
   - Getting started:
       - Quickstart with Docker: start/quickstart-with-docker.md
+      - Basic Commands: start/basic-commands.md
+      - Configurarion Overview: start/configuration-overview.md
+      - Dashboard Overview: start/dashboard-overview.md
+  - Using HStreamDB:
+      - Connector:
+          - Connector Related Concepts: using-hstreamdb/connectors/concepts.md
+          - Avaible Connectors: using-hstreamdb/connectors/available-connectors.md
+      - Clients:
+          - Java Client: using-hstreamdb/clients/java.md
+          - REST API: using-hstreamdb/clients/restapi.md
+      - Table: using-hstreamdb/table.md
+      - Materialized View: using-hstreamdb/materialized-view.md
+      - Deployment:
+          - Overview: using-hstreamdb/deployment/overview.md
+      - CLI: using-hstreamdb/cli.md
   - Reference:
+      - Security:
+          - Security Checklist: reference/security/checklist.md
+          - Authentication: reference/security/authentication.md
+          - TLS/SSL: reference/security/tls-ssl.md
+          - Encryption: reference/security/encryption.md
+      - Performance: reference/performance/benchmark.md
       - SQL:
-        - SQL overview: reference/sql/sql-overview.md
-        - SQL quick reference: reference/sql/sql-quick-reference.md
-        - Statements:
-            - CREATE STREAM: reference/sql/statements/create-stream.md
-            - SELECT (Stream): reference/sql/statements/select-stream.md
-            - INSERT: reference/sql/statements/insert.md
-        - Appendix: reference/sql/appendix.md
+          - SQL overview: reference/sql/sql-overview.md
+          - SQL quick reference: reference/sql/sql-quick-reference.md
+          - Statements:
+              - CREATE STREAM: reference/sql/statements/create-stream.md
+              - SELECT (Stream): reference/sql/statements/select-stream.md
+              - INSERT: reference/sql/statements/insert.md
+          - Appendix: reference/sql/appendix.md
+      - Frequently Asked Questions: reference/frequently-asked-questions.md
   - Development:
       - Haskell style: development/haskell-style.md
       - Building from source: development/build-from-source.md
