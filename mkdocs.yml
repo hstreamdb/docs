@@ -4,6 +4,7 @@ site_url: https://docs.hstream.io
 theme:
   name: "material"
   font: false
+  logo: images/logo.png
   favicon: images/favicon.png
   features:
     - instant
@@ -16,7 +17,7 @@ plugins:
   - search
   - redirects:
       redirect_maps:
-        'index.md': 'start/quickstart-with-docker.md'
+        "index.md": "start/quickstart-with-docker.md"
 
 extra:
   alternate:
