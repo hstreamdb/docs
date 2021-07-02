@@ -6,15 +6,15 @@ A stream is a flow of endless data assigned with a unique name.
 
 ### Streaming Data
 
-These endless data are known as **Streaming data**. Streaming data are data that are generated continuously, and typically sent in data records with small sizes (order of Kilobytes).
+These endless data are known as **Streaming data**. Streaming data are data that are generated continuously and typically sent in data records with small sizes (order of Kilobytes).
 
 ### Stream
 
-Therefore, in a stream from HStreamDB, the default form of a single data is JSON. A flow indicates that the stream in HStreamDB is append only, which is true. It makes no sense to delete something from a stream. Implicitly, every append operation comes with a LSN, meaning that every data in stream is checkable and recoverable.
+Therefore, in a stream from HStreamDB, the default form of a single data is JSON. A flow indicates that the stream in HStreamDB is append-only, which is true. It makes no sense to delete something from a stream. Implicitly, every append operation comes with an *LSN*, meaning that every data in a stream is checkable and recoverable. LSN is the abbreviate for *log sequence number*, which is the combination of the epoch and the epoch sequence number. It is guaranteed to be monotonically increasing.
 
 #### Pub-Sub with Stream
 
-A stream can also be seen as a topic: data flows into stream is like producers publish messages to topics. Multiple queries process data from a stream and commit checkpoint is like consumers subscribe to topics and process incoming data and send an acknowledgement.
+A stream can also be seen as a topic: data flows into a stream is like producers publish messages to topics. Multiple queries process data from a stream and commit checkpoint is like consumers subscribe to topics and process incoming data and send an acknowledgement.
 
 ## Extra
 
@@ -22,7 +22,7 @@ A stream can also be seen as a topic: data flows into stream is like producers p
 
 *reference: [streaming-data](https://aws.amazon.com/streaming-data/)*
 
-> - Sensors in transportation vehicles, industrial equipment, and farm machinery send data to a streaming application. The application monitors performance, detects   any potential defects in advance, and places a spare part order automatically preventing equipment down time.
+> - Sensors in transportation vehicles, industrial equipment, and farm machinery send data to a streaming application. The application monitors performance, detects any potential defects in advance, and places a spare part order automatically preventing equipment down time.
 > - A financial institution tracks changes in the stock market in real time, computes value-at-risk, and automatically rebalances portfolios based on stock price movements.
 > - A real-estate website tracks a subset of data from consumers’ mobile devices and makes real-time property recommendations of properties to visit based on their geo-location.
 > - A solar power company has to maintain power throughput for its customers, or pay penalties. It implemented a streaming data application that monitors of all of panels in the field, and schedules service in real time, thereby minimizing the periods of low throughput from each panel and the associated penalty payouts.
