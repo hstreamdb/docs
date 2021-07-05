@@ -9,8 +9,20 @@ theme:
   features:
     - instant
     - navigation.expand
+    - navigation.instant
+    - navigation.tabs
+    - navigation.top
   palette:
-    primary: deep purple
+    - scheme: default
+      primary: deep purple
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - scheme: slate
+      primary: purple
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
   language: en
 
 plugins:
@@ -27,7 +39,7 @@ extra:
 
       # Switch to Chinese
     - name: 中文
-      link: /zh_CN/start/quickstart-with-docker/
+      link: https://docs-zh.hstream.io/
       lang: zh
 
 nav:
@@ -58,9 +70,9 @@ nav:
           - REST API: using-hstreamdb/clients/restapi.md
       - Table: using-hstreamdb/table.md
       - Materialized View: using-hstreamdb/materialized-view.md
-      - Deployment:
-          - Overview: using-hstreamdb/deployment/overview.md
       - CLI: using-hstreamdb/cli.md
+  - Deployment:
+      - Running on Kubernetes: deployment/deploy-k8s.md
   - Reference:
       - Security:
           - Security Checklist: reference/security/checklist.md
