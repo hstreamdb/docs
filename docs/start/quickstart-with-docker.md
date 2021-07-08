@@ -4,7 +4,9 @@
 
 ### Install docker
 
-!!! note If you have already installed docker, you can skip this step.
+!!! note
+
+    If you have already installed docker, you can skip this step.
 
 See [Install Docker Engine](https://docs.docker.com/engine/install/), and
 install it for your operating system. Please carefully check that you meet all
@@ -16,8 +18,10 @@ Confirm that the Docker daemon is running:
 docker version
 ```
 
-!!! Tips On Linux, Docker needs root privileges. You can also run Docker as a
-non-root user, see [Post-installation steps for Linux][non-root-docker].
+!!! Tips
+
+    On Linux, Docker needs root privileges. You can also run Docker as a
+    non-root user, see [Post-installation steps for Linux][non-root-docker].
 
 ### Pull docker images
 
@@ -32,25 +36,31 @@ docker pull hstreamdb/hstream
 ### Create a directory for storing db datas
 
 ```sh
-mkdir ./dbdata
+mkdir /dbdata
 ```
+
+!!! Tips
+
+    If you are a non-root user, that you can not create directory under the
+    root, you can also create it anywhere as you can, but you need to pass the
+    absolute data path to docker volume arguments.
 
 ### Start HStream Storage
 
 ```sh
-docker run -td --rm --name some-hstream-store -v dbdata:/data/store --network host hstreamdb/hstream ld-dev-cluster --root /data/store --use-tcp
+docker run -td --rm --name some-hstream-store -v /dbdata:/data/store --network host hstreamdb/hstream ld-dev-cluster --root /data/store --use-tcp
 ```
 
 ### Start HStreamDB Server
 
 ```sh
-docker run -it --rm --name some-hstream-server -v dbdata:/data/store --network host hstreamdb/hstream hstream-server --port 6570 --store-config /data/store/logdevice.conf
+docker run -it --rm --name some-hstream-server -v /dbdata:/data/store --network host hstreamdb/hstream hstream-server --port 6570 --store-config /data/store/logdevice.conf
 ```
 
 ## Start HStreamDB's interactive SQL CLI
 
 ```sh
-docker run -it --rm --name some-hstream-cli -v dbdata:/data/store --network host hstreamdb/hstream hstream-client --port 6570
+docker run -it --rm --name some-hstream-cli -v /dbdata:/data/store --network host hstreamdb/hstream hstream-client --port 6570
 ```
 
 If everything works fine, you will enter an interactive CLI and see help
