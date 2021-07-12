@@ -41,15 +41,14 @@ Literals are objects with known values before being executed. There are six type
 
 ### Integers
 
-Integers are in the form of `digits`, where `digits` are one or more single-digit integers (0 through 9). **Note that scientific notation is not supported yet. Also, due to the grammatical limitations, when you want to represent a negative `-n`, please write `0-n` instead**.
+Integers are in the form of `digits`, where `digits` are one or more single-digit integers (0 through 9). Negatives such as `-1` are also supported. **Note that scientific notation is not supported yet**.
 
 ### Floats
 
-Floats are in the form of `digits . digits`.
+Floats are in the form of `digits . digits`. Negative floats such as `-11.514` are supported.
 Note that
 
 - **scientific notation is not supported yet**.
-- **due to the grammatical limitations, when you want to represent a negative `-n`, please write `0-n` instead**.
 - **Forms such as `1.` and `.99` are not supported yet**.
 
 ### Strings
