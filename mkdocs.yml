@@ -61,16 +61,13 @@ nav:
       - Basic Commands: start/basic-commands.md
       - Configurarion Overview: start/configuration-overview.md
       - Dashboard Overview: start/dashboard-overview.md
-  - Using HStreamDB:
-      - Connector:
-          - Connector Related Concepts: using-hstreamdb/connectors/concepts.md
-          - Avaible Connectors: using-hstreamdb/connectors/available-connectors.md
-      - Clients:
-          - Java Client: using-hstreamdb/clients/java.md
-          - REST API: using-hstreamdb/clients/restapi.md
-      - Table: using-hstreamdb/table.md
-      - Materialized View: using-hstreamdb/materialized-view.md
-      - CLI: using-hstreamdb/cli.md
+  - Develop:
+    - Java SDK:
+      - Installation: develop/java-sdk/installation.md
+      - Connect: develop/java-sdk/connect.md
+      - Streams: develop/java-sdk/stream.md
+    - CLI:
+      - CLI Usage: develop/cli/cli.md
   - Deployment:
       - Running on Kubernetes: deployment/deploy-k8s.md
   - Reference:
@@ -89,9 +86,9 @@ nav:
               - INSERT: reference/sql/statements/insert.md
           - Appendix: reference/sql/appendix.md
       - Frequently Asked Questions: reference/frequently-asked-questions.md
-  - Development:
-      - Haskell style: development/haskell-style.md
-      - Building from source: development/build-from-source.md
+  - Contributing:
+      - Haskell style: contributing/haskell-style.md
+      - Building from source: contributing/build-from-source.md
 
 repo_url: https://github.com/hstreamdb/hstream
 repo_name: hstreamdb/hstream
