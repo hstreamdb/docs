@@ -66,6 +66,7 @@ nav:
       - Installation: develop/java-sdk/installation.md
       - Connect: develop/java-sdk/connect.md
       - Streams: develop/java-sdk/stream.md
+      - Write Data: develop/java-sdk/write.md
     - CLI:
       - CLI Usage: develop/cli/cli.md
   - Deployment:
