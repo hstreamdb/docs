@@ -12,10 +12,6 @@ These endless data are known as **Streaming data**. Streaming data are data that
 
 Therefore, in a stream from HStreamDB, the default form of a single data is JSON. A flow indicates that the stream in HStreamDB is append-only, which is true. It makes no sense to delete something from a stream. Implicitly, every append operation comes with an *LSN*, meaning that every data in a stream is checkable and recoverable. LSN is the abbreviate for *log sequence number*, which is the combination of the epoch and the epoch sequence number. It is guaranteed to be monotonically increasing.
 
-#### Pub-Sub with Stream
-
-A stream can also be seen as a topic: data flows into a stream is like producers publish messages to topics. Multiple queries process data from a stream and commit checkpoint is like consumers subscribe to topics and process incoming data and send an acknowledgement.
-
 ## Extra
 
 ### Examples of Streaming Data

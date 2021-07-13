@@ -21,17 +21,9 @@ HStreamDB supports the creation and management of large data streams. The creati
 
 HStreamDB provides low latency and reliable data stream storage. It ensures that written data messages are not lost and can be consumed repeatedly. HStreamDB replicates written data messages to multiple storage nodes for high availability and fault tolerance and supports dumping cold data to lower-cost storage services, such as object storage, distributed file storage, etc. This means the storage capacity can be infinitely scalable and achieve permanent storage of data.
 
-## Schema Management of Data Streams
-
-HStreamDB emphasizes flexible schema support. Data streams can be schema-less or schema-ed by JSON, Avro, Protobuf, etc. It will support schema evolution and automatically manages the compatibility between multiple versions of schemas.
-
 ## Data streams access and distribution
 
 Connector deals with access and distribution of HStreamDB data. They connect to various data systems, including MQTT Broker, MySQL, ElasticSearch, Redis, etc., facilitating integration with external data systems for users.
-
-## Security Mechanism
-
-The security will be ensured by TLS encrypted transport and OAuth and JWT based authentication and authorization mechanism. The security plug-in interface is reserved for users to extend the default security mechanisms as needed.
 
 ## Monitoring and O&M tools
 
