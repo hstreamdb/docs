@@ -10,7 +10,7 @@ Appendix
 | Bool    | TRUE, FALSE      |
 | Date    | 2020-06-10       |
 | Time    | 11:18:30         |
-| String  | "HStreamDB "     |
+| String  | "HStreamDB"      |
 
 ## Keywords
 
@@ -81,7 +81,7 @@ Appendix
 | `NOT`     | logical not operator             |
 | `BETWEEN` | range operator                   |
 
-## Functions
+## Aggregate Functions
 
 | function | description |
 | -------- | ----------- |
