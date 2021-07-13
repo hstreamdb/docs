@@ -56,12 +56,9 @@ nav:
       - Learning Resources: overview/learning-resouces.md
   - Getting started:
       - Quickstart with Docker: start/quickstart-with-docker.md
-      - Basic Commands: start/basic-commands.md
+      - CLI usage : start/cli.md
       - Configurarion Overview: start/configuration-overview.md
       - Dashboard Overview: start/dashboard-overview.md
-  - Connector:
-      - Overview: connector/overview.md
-      - Use: connector/use.md
   - Develop:
     - Java SDK:
       - Installation: develop/java-sdk/installation.md
@@ -70,8 +67,6 @@ nav:
       - Write Data: develop/java-sdk/write.md
       - Consume Data: develop/java-sdk/consume.md
       - Stream Processing with SQL: develop/java-sdk/query.md
-    - CLI:
-      - CLI Usage: develop/cli/cli.md
   - Deployment:
       - Running on Kubernetes: deployment/deploy-k8s.md
   - HStreamDB SQL:
@@ -85,6 +80,9 @@ nav:
       - SELECT (View): sql/statements/select-view.md
       - INSERT: sql/statements/insert.md
     - Appendix: sql/appendix.md
+  - Connector:
+      - Overview: connector/overview.md
+      - Use: connector/use.md
   - Contributing:
       - Haskell style: contributing/haskell-style.md
       - Building from source: contributing/build-from-source.md
