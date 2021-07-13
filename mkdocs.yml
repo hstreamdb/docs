@@ -67,6 +67,7 @@ nav:
       - Connect: develop/java-sdk/connect.md
       - Streams: develop/java-sdk/stream.md
       - Write Data: develop/java-sdk/write.md
+      - Consume Data: develop/java-sdk/consume.md
     - CLI:
       - CLI Usage: develop/cli/cli.md
   - Deployment:
