@@ -1,7 +1,7 @@
 SELECT (Stream)
 ===============
 
-Continuously pulls records from the stream(s) specified. It is usually used in an interactive CLI to monitor realtime changes of data. Note that the query writes records to a random-named stream.
+Continuously pulls records from the stream(s) specified. It is usually used in an interactive CLI to monitor realtime changes of data. Note that the query writes records to a random-named stream which is hidden from users.
 
 ## Synopsis
 
