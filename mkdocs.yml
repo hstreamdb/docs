@@ -58,9 +58,9 @@ nav:
       - Learning Resources: overview/learning-resouces.md
   - Getting started:
       - Quickstart with Docker: start/quickstart-with-docker.md
-      - Basic Commands: start/basic-commands.md
       - Configurarion Overview: start/configuration-overview.md
       - Dashboard Overview: start/dashboard-overview.md
+      - CLI Usage: start/cli.md
   - Develop:
     - Java SDK:
       - Installation: develop/java-sdk/installation.md
@@ -69,8 +69,6 @@ nav:
       - Write Data: develop/java-sdk/write.md
       - Consume Data: develop/java-sdk/consume.md
       - Stream Processing with SQL: develop/java-sdk/query.md
-    - CLI:
-      - CLI Usage: develop/cli/cli.md
   - Deployment:
       - Running on Kubernetes: deployment/deploy-k8s.md
   - Reference:
