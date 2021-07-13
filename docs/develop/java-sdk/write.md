@@ -107,12 +107,50 @@ CompletableFuture<RecordId> future = producer.write(hRecord);
 
 ```
 
-## Buffered Writes for higher throughput (Preferred)
+## Buffered Writes (Preferred)
 
-TODO
+When writing to HStreamDB, sending many small records limits throughput.
+To achieve higher thoughput, you can enable batch mode of ``Producer``.
+
+```java
+
+Producer producer = client.newProducer()
+        .stream("test_stream")
+        .enableBatch()
+        .recordCountLimit(100)
+        .build();
+
+```
+
+Then you can still write data using the ``Producer.writeAsync()``
+
+```java
+
+Random random = new Random();
+final int count = 1000;
+CompletableFuture<RecordId>[] recordIdFutures = new CompletableFuture[count];
+for(int i = 0; i < count; ++i) {
+    byte[] rawRecord = new byte[100];
+    random.nextBytes(rawRecord);
+    CompletableFuture<RecordId> future = producer.writeAsync(rawRecord);
+    recordIdFutures[i] = future;
+}
+
+```
+
+Now the producer will first put the data submitted by the ``writeAsync`` method 
+in an internal buffer and send it together to the HStreamDB server 
+when the number reaches ``recordLimitCount``, 
+or you can call ``flush`` method manually at any time to flush the buffer.
+
+```java
+
+producer.flush();
+
+```
+
 
 ## Warnings 
 
 - ** Please do not write both binary data and hrecord in one stream.**
-
 
