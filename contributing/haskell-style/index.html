@@ -1,0 +1,2260 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://docs.hstream.io/contributing/haskell-style/">
+      
+      <link rel="icon" href="../../images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.10">
+    
+    
+      
+        <title>Haskell style - HStreamDB Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.1fe995fd.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.f1a3b89f.min.css">
+        
+      
+    
+    
+    
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="">
+  
+    
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#haskell-style-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="HStreamDB Docs" class="md-header__button md-logo" aria-label="HStreamDB Docs" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HStreamDB Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Haskell style
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2m10-3a5 5 0 0 1 5 5 5 5 0 0 1-5 5H7a5 5 0 0 1-5-5 5 5 0 0 1 5-5h10M7 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3h10a3 3 0 0 0 3-3 3 3 0 0 0-3-3H7z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+      <div class="md-header__option">
+        <div class="md-select">
+          
+          <button class="md-header__button md-icon" aria-label="Select language">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04M18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12m-2.62 7 1.62-4.33L19.12 17h-3.24z"/></svg>
+          </button>
+          <div class="md-select__inner">
+            <ul class="md-select__list">
+              
+                <li class="md-select__item">
+                  <a href="/" hreflang="en" class="md-select__link">
+                    English
+                  </a>
+                </li>
+                
+                <li class="md-select__item">
+                  <a href="https://docs-zh.hstream.io/" hreflang="zh" class="md-select__link">
+                    中文
+                  </a>
+                </li>
+                
+            </ul>
+          </div>
+        </div>
+      </div>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/hstreamdb/hstream" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hstreamdb/hstream
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../overview/overview/" class="md-tabs__link">
+        Overview
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../start/quickstart-with-docker/" class="md-tabs__link">
+        Getting started
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../connector/overview/" class="md-tabs__link">
+        Connector
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../develop/java-sdk/installation/" class="md-tabs__link">
+        Develop
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../deployment/deploy-k8s/" class="md-tabs__link">
+        Deployment
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../reference/security/checklist/" class="md-tabs__link">
+        Reference
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="./" class="md-tabs__link md-tabs__link--active">
+        Contributing
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="HStreamDB Docs" class="md-nav__button md-logo" aria-label="HStreamDB Docs" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    HStreamDB Docs
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/hstreamdb/hstream" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hstreamdb/hstream
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" data-md-state="indeterminate" type="checkbox" id="__nav_1" checked>
+      
+      <label class="md-nav__link" for="__nav_1">
+        Overview
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Overview" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Overview
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/overview/" class="md-nav__link">
+        HStream Streaming Database Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_2" data-md-state="indeterminate" type="checkbox" id="__nav_1_2" checked>
+      
+      <label class="md-nav__link" for="__nav_1_2">
+        Concepts
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Concepts" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          Concepts
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/concepts/stream/" class="md-nav__link">
+        Stream and Streaming Data
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/concepts/query/" class="md-nav__link">
+        Query and Stream Processing
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_3" data-md-state="indeterminate" type="checkbox" id="__nav_1_3" checked>
+      
+      <label class="md-nav__link" for="__nav_1_3">
+        Architecture
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Architecture" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          Architecture
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/architecture/overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/architecture/hstream-store/" class="md-nav__link">
+        HStream Store (HStore)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/architecture/hstream-server/" class="md-nav__link">
+        HStream Server (HSQL)
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/data-lifecycle/" class="md-nav__link">
+        Data Lifecycle
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/features/" class="md-nav__link">
+        Features
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/release-notes/" class="md-nav__link">
+        Release Notes
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/learning-resouces/" class="md-nav__link">
+        Learning Resources
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" data-md-state="indeterminate" type="checkbox" id="__nav_2" checked>
+      
+      <label class="md-nav__link" for="__nav_2">
+        Getting started
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Getting started" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Getting started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../start/quickstart-with-docker/" class="md-nav__link">
+        Quickstart with Docker
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../start/basic-commands/" class="md-nav__link">
+        Basic Commands
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../start/configuration-overview/" class="md-nav__link">
+        Configurarion Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../start/dashboard-overview/" class="md-nav__link">
+        Dashboard Overview
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" data-md-state="indeterminate" type="checkbox" id="__nav_3" checked>
+      
+      <label class="md-nav__link" for="__nav_3">
+        Connector
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Connector" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Connector
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connector/overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connector/use/" class="md-nav__link">
+        Use
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" data-md-state="indeterminate" type="checkbox" id="__nav_4" checked>
+      
+      <label class="md-nav__link" for="__nav_4">
+        Develop
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Develop" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Develop
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_1" data-md-state="indeterminate" type="checkbox" id="__nav_4_1" checked>
+      
+      <label class="md-nav__link" for="__nav_4_1">
+        Java SDK
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Java SDK" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          Java SDK
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../develop/java-sdk/installation/" class="md-nav__link">
+        Installation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../develop/java-sdk/connect/" class="md-nav__link">
+        Connect
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../develop/java-sdk/stream/" class="md-nav__link">
+        Streams
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../develop/java-sdk/write/" class="md-nav__link">
+        Write Data
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../develop/java-sdk/consume/" class="md-nav__link">
+        Consume Data
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../develop/java-sdk/query/" class="md-nav__link">
+        Stream Processing with SQL
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" data-md-state="indeterminate" type="checkbox" id="__nav_4_2" checked>
+      
+      <label class="md-nav__link" for="__nav_4_2">
+        CLI
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="CLI" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          CLI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../develop/cli/cli/" class="md-nav__link">
+        CLI Usage
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" data-md-state="indeterminate" type="checkbox" id="__nav_5" checked>
+      
+      <label class="md-nav__link" for="__nav_5">
+        Deployment
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Deployment" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Deployment
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/deploy-k8s/" class="md-nav__link">
+        Running on Kubernetes
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" data-md-state="indeterminate" type="checkbox" id="__nav_6" checked>
+      
+      <label class="md-nav__link" for="__nav_6">
+        Reference
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1" data-md-state="indeterminate" type="checkbox" id="__nav_6_1" checked>
+      
+      <label class="md-nav__link" for="__nav_6_1">
+        Security
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Security" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          Security
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/security/checklist/" class="md-nav__link">
+        Security Checklist
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/security/authentication/" class="md-nav__link">
+        Authentication
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/security/tls-ssl/" class="md-nav__link">
+        TLS/SSL
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/security/encryption/" class="md-nav__link">
+        Encryption
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/performance/benchmark/" class="md-nav__link">
+        Performance
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3" data-md-state="indeterminate" type="checkbox" id="__nav_6_3" checked>
+      
+      <label class="md-nav__link" for="__nav_6_3">
+        SQL
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="SQL" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          SQL
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sql/sql-overview/" class="md-nav__link">
+        SQL overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sql/sql-quick-reference/" class="md-nav__link">
+        SQL quick reference
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_3" data-md-state="indeterminate" type="checkbox" id="__nav_6_3_3" checked>
+      
+      <label class="md-nav__link" for="__nav_6_3_3">
+        Statements
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Statements" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Statements
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sql/statements/create-stream/" class="md-nav__link">
+        CREATE STREAM
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sql/statements/select-stream/" class="md-nav__link">
+        SELECT (Stream)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sql/statements/insert/" class="md-nav__link">
+        INSERT
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sql/appendix/" class="md-nav__link">
+        Appendix
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/frequently-asked-questions/" class="md-nav__link">
+        Frequently Asked Questions
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
+      
+      <label class="md-nav__link" for="__nav_7">
+        Contributing
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Contributing" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Contributing
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Haskell style
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Haskell style
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#style-guide-goals" class="md-nav__link">
+    Style guide goals
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#indentation" class="md-nav__link">
+    Indentation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#line-length" class="md-nav__link">
+    Line length
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whitespaces" class="md-nav__link">
+    Whitespaces
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alignment" class="md-nav__link">
+    Alignment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#naming" class="md-nav__link">
+    Naming
+  </a>
+  
+    <nav class="md-nav" aria-label="Naming">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functions-and-variables" class="md-nav__link">
+    Functions and variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-types" class="md-nav__link">
+    Data types
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comments" class="md-nav__link">
+    Comments
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#guideline-for-module-formatting" class="md-nav__link">
+    Guideline for module formatting
+  </a>
+  
+    <nav class="md-nav" aria-label="Guideline for module formatting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#language" class="md-nav__link">
+    LANGUAGE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#export-lists" class="md-nav__link">
+    Export lists
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports" class="md-nav__link">
+    Imports
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-declaration" class="md-nav__link">
+    Data declaration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strictness" class="md-nav__link">
+    Strictness
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deriving" class="md-nav__link">
+    Deriving
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-declaration" class="md-nav__link">
+    Function declaration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-then-else-clauses" class="md-nav__link">
+    if-then-else clauses
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#case-expressions" class="md-nav__link">
+    Case expressions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#let-expressions" class="md-nav__link">
+    let expressions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-recommendations" class="md-nav__link">
+    General recommendations
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-from-source/" class="md-nav__link">
+        Building from source
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#style-guide-goals" class="md-nav__link">
+    Style guide goals
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#indentation" class="md-nav__link">
+    Indentation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#line-length" class="md-nav__link">
+    Line length
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whitespaces" class="md-nav__link">
+    Whitespaces
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alignment" class="md-nav__link">
+    Alignment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#naming" class="md-nav__link">
+    Naming
+  </a>
+  
+    <nav class="md-nav" aria-label="Naming">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functions-and-variables" class="md-nav__link">
+    Functions and variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-types" class="md-nav__link">
+    Data types
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comments" class="md-nav__link">
+    Comments
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#guideline-for-module-formatting" class="md-nav__link">
+    Guideline for module formatting
+  </a>
+  
+    <nav class="md-nav" aria-label="Guideline for module formatting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#language" class="md-nav__link">
+    LANGUAGE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#export-lists" class="md-nav__link">
+    Export lists
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports" class="md-nav__link">
+    Imports
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-declaration" class="md-nav__link">
+    Data declaration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strictness" class="md-nav__link">
+    Strictness
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deriving" class="md-nav__link">
+    Deriving
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-declaration" class="md-nav__link">
+    Function declaration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-then-else-clauses" class="md-nav__link">
+    if-then-else clauses
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#case-expressions" class="md-nav__link">
+    Case expressions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#let-expressions" class="md-nav__link">
+    let expressions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-recommendations" class="md-nav__link">
+    General recommendations
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="haskell-style-guide">Haskell Style Guide<a class="headerlink" href="#haskell-style-guide" title="Permanent link">&para;</a></h1>
+<p>This document is a slightly modified version of
+<a href="https://kowainik.github.io/posts/2019-02-06-style-guide">style guide used in Kowainik</a>.</p>
+<h2 id="style-guide-goals">Style guide goals<a class="headerlink" href="#style-guide-goals" title="Permanent link">&para;</a></h2>
+<p>The purpose of this document is to help developers and people working on
+Haskell code-bases to have a smoother experience while dealing with code in different
+situations. This style guide aims to increase productivity by defining the
+following goals:</p>
+<ol>
+<li>Make code <strong>easier to understand:</strong>  ideas for solutions should not be hidden
+   behind complex and obscure code.</li>
+<li>Make code <strong>easier to read:</strong> code arrangement should be immediately apparent
+   after looking at the existing code. Names of functions &amp; variables should be transparent and obvious.</li>
+<li>Make code <strong>easier to write:</strong> developers should think about code formatting
+   rules as little as possible. The style guide should answer any query pertaining to
+   the formatting of a specific piece of code.</li>
+<li>Make code <strong>easier to maintain:</strong> this style guide aims to reduce the burden
+   of maintaining packages using version control systems unless this conflicts
+   with the previous points.</li>
+</ol>
+<div class="admonition hint">
+<p class="admonition-title">Rule of thumb when working with existing source code</p>
+<p>The general rule is to stick to the same coding style that is already used in the
+file you are editing. If you must make significant style modifications, then commit them
+independently from the functional changes so that someone looking back through the
+changelog can easily distinguish between them.</p>
+</div>
+<h2 id="indentation">Indentation<a class="headerlink" href="#indentation" title="Permanent link">&para;</a></h2>
+<p>Indent code blocks with <em>2 spaces</em>.</p>
+<p>Always put a <code>where</code> keyword on a new line.</p>
+<div class="highlight"><pre><span></span><code><span class="nf">showSign</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">String</span>
+<span class="nf">showSign</span> <span class="n">n</span>
+  <span class="o">|</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span>    <span class="ow">=</span> <span class="s">&quot;Zero&quot;</span>
+  <span class="o">|</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span>     <span class="ow">=</span> <span class="s">&quot;Negative&quot;</span>
+  <span class="o">|</span> <span class="n">otherwise</span> <span class="ow">=</span> <span class="s">&quot;Positive&quot;</span>
+
+<span class="nf">greet</span> <span class="ow">::</span> <span class="kt">IO</span> <span class="nb">()</span>
+<span class="nf">greet</span> <span class="ow">=</span> <span class="kr">do</span>
+  <span class="n">putStrLn</span> <span class="s">&quot;What is your name?&quot;</span>
+  <span class="n">name</span> <span class="ow">&lt;-</span> <span class="n">getLine</span>
+  <span class="n">putStrLn</span> <span class="o">$</span> <span class="n">greeting</span> <span class="n">name</span>
+  <span class="kr">where</span>
+    <span class="n">greeting</span> <span class="ow">::</span> <span class="kt">String</span> <span class="ow">-&gt;</span> <span class="kt">String</span>
+    <span class="n">greeting</span> <span class="n">name</span> <span class="ow">=</span> <span class="s">&quot;Hey &quot;</span> <span class="o">++</span> <span class="n">name</span> <span class="o">++</span> <span class="s">&quot;!&quot;</span>
+</code></pre></div>
+<h2 id="line-length">Line length<a class="headerlink" href="#line-length" title="Permanent link">&para;</a></h2>
+<p>The maximum preferred line length is <em>80 characters</em>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>There is no hard rules when it comes to line length. Some lines just have
+to be a bit longer than usual. However, if your line of code exceeds this
+limit, try to split code into smaller chunks or break long lines over
+multiple shorter ones as much as you can.</p>
+</div>
+<h2 id="whitespaces">Whitespaces<a class="headerlink" href="#whitespaces" title="Permanent link">&para;</a></h2>
+<p><strong>No trailing whitespaces</strong> (use some tools to automatically cleanup trailing
+whitespaces).</p>
+<p>Surround binary operators with a single space on either side.</p>
+<h2 id="alignment">Alignment<a class="headerlink" href="#alignment" title="Permanent link">&para;</a></h2>
+<p>Use <em>comma-leading</em> style for formatting module exports, lists, tuples, records, etc.</p>
+<div class="highlight"><pre><span></span><code><span class="nf">answers</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">Maybe</span> <span class="kt">Int</span><span class="p">]</span>
+<span class="nf">answers</span> <span class="ow">=</span>
+  <span class="p">[</span> <span class="kt">Just</span> <span class="mi">42</span>
+  <span class="p">,</span> <span class="kt">Just</span> <span class="mi">7</span>
+  <span class="p">,</span> <span class="kt">Nothing</span>
+  <span class="p">]</span>
+</code></pre></div>
+<p>If a function definition doesn't fit the line limit then align multiple lines
+according to the same separator like <code>::</code>, <code>=&gt;</code>, <code>-&gt;</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- + Good</span>
+<span class="nf">printQuestion</span>
+  <span class="ow">::</span> <span class="kt">Show</span> <span class="n">a</span>
+  <span class="ow">=&gt;</span> <span class="kt">Text</span>  <span class="c1">-- ^ Question text</span>
+  <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>   <span class="c1">-- ^ List of available answers</span>
+  <span class="ow">-&gt;</span> <span class="kt">IO</span> <span class="nb">()</span>
+
+<span class="c1">-- + Acceptable if function name is short</span>
+<span class="nf">fun</span> <span class="ow">::</span> <span class="kt">Show</span> <span class="n">a</span>
+    <span class="ow">=&gt;</span> <span class="kt">Text</span>  <span class="c1">-- ^ Question text</span>
+    <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>   <span class="c1">-- ^ List of available answers</span>
+    <span class="ow">-&gt;</span> <span class="kt">IO</span> <span class="nb">()</span>
+</code></pre></div>
+<p>Align records with every field on a separate line with leading commas.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- + Good</span>
+<span class="kr">data</span> <span class="kt">Foo</span> <span class="ow">=</span> <span class="kt">Foo</span>
+  <span class="p">{</span> <span class="n">fooBar</span>  <span class="ow">::</span> <span class="kt">Bar</span>
+  <span class="p">,</span> <span class="n">fooBaz</span>  <span class="ow">::</span> <span class="kt">Baz</span>
+  <span class="p">,</span> <span class="n">fooQuux</span> <span class="ow">::</span> <span class="kt">Quux</span>
+  <span class="p">}</span> <span class="kr">deriving</span> <span class="p">(</span><span class="kt">Eq</span><span class="p">,</span> <span class="kt">Show</span><span class="p">,</span> <span class="kt">Generic</span><span class="p">)</span>
+    <span class="kr">deriving</span> <span class="n">anyclass</span> <span class="p">(</span><span class="kt">FromJSON</span><span class="p">,</span> <span class="kt">ToJSON</span><span class="p">)</span>
+
+<span class="c1">-- + Acceptable</span>
+<span class="kr">data</span> <span class="kt">Foo</span> <span class="ow">=</span>
+  <span class="kt">Foo</span> <span class="p">{</span> <span class="n">fooBar</span>  <span class="ow">::</span> <span class="kt">Bar</span>
+      <span class="p">,</span> <span class="n">fooBaz</span>  <span class="ow">::</span> <span class="kt">Baz</span>
+      <span class="p">,</span> <span class="n">fooQuux</span> <span class="ow">::</span> <span class="kt">Quux</span>
+      <span class="p">}</span> <span class="kr">deriving</span> <span class="p">(</span><span class="kt">Eq</span><span class="p">,</span> <span class="kt">Show</span><span class="p">,</span> <span class="kt">Generic</span><span class="p">)</span>
+        <span class="kr">deriving</span> <span class="n">anyclass</span> <span class="p">(</span><span class="kt">FromJSON</span><span class="p">,</span> <span class="kt">ToJSON</span><span class="p">)</span>
+</code></pre></div>
+<p>Align sum types with every constructor on its own line with leading <code>=</code> and <code>|</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- + Good</span>
+<span class="kr">data</span> <span class="kt">TrafficLight</span>
+  <span class="ow">=</span> <span class="kt">Red</span>
+  <span class="o">|</span> <span class="kt">Yellow</span>
+  <span class="o">|</span> <span class="kt">Green</span>
+  <span class="kr">deriving</span> <span class="p">(</span><span class="kt">Eq</span><span class="p">,</span> <span class="kt">Ord</span><span class="p">,</span> <span class="kt">Enum</span><span class="p">,</span> <span class="kt">Bounded</span><span class="p">,</span> <span class="kt">Show</span><span class="p">,</span> <span class="kt">Read</span><span class="p">)</span>
+
+<span class="c1">-- + Acceptable</span>
+<span class="kr">data</span> <span class="kt">TrafficLight</span> <span class="ow">=</span> <span class="kt">Red</span>
+                  <span class="o">|</span> <span class="kt">Yellow</span>
+                  <span class="o">|</span> <span class="kt">Green</span>
+  <span class="kr">deriving</span> <span class="p">(</span><span class="kt">Eq</span><span class="p">,</span> <span class="kt">Ord</span><span class="p">,</span> <span class="kt">Enum</span><span class="p">,</span> <span class="kt">Bounded</span><span class="p">,</span> <span class="kt">Show</span><span class="p">,</span> <span class="kt">Read</span><span class="p">)</span>
+</code></pre></div>
+<p>Try to follow the above rule inside function definitions but without fanatism:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- + Good</span>
+<span class="nf">createFoo</span> <span class="ow">=</span> <span class="kt">Foo</span>
+  <span class="o">&lt;$&gt;</span> <span class="n">veryLongBar</span>
+  <span class="o">&lt;*&gt;</span> <span class="n">veryLongBaz</span>
+
+<span class="c1">-- + Acceptable</span>
+<span class="nf">createFoo</span> <span class="ow">=</span> <span class="kt">Foo</span>
+        <span class="o">&lt;$&gt;</span> <span class="n">veryLongBar</span>
+        <span class="o">&lt;*&gt;</span> <span class="n">veryLongBaz</span>
+
+<span class="c1">-- + Acceptable</span>
+<span class="nf">createFoo</span> <span class="ow">=</span>
+  <span class="kt">Foo</span> <span class="o">&lt;$&gt;</span> <span class="n">veryLongBar</span>
+      <span class="o">&lt;*&gt;</span> <span class="n">veryLongBaz</span>
+
+<span class="c1">-- - Bad</span>
+<span class="nf">createFoo</span> <span class="ow">=</span> <span class="kt">Foo</span> <span class="o">&lt;$&gt;</span> <span class="n">veryLongBar</span>
+                <span class="o">&lt;*&gt;</span> <span class="n">veryLongBaz</span>
+
+<span class="c1">-- - Bad</span>
+<span class="nf">createFoo</span> <span class="ow">=</span>
+  <span class="kt">Foo</span>  <span class="c1">-- there&#39;s no need to put the constructor on a separate line and have an extra line</span>
+  <span class="o">&lt;$&gt;</span> <span class="n">veryLongBar</span>
+  <span class="o">&lt;*&gt;</span> <span class="n">veryLongBaz</span>
+</code></pre></div>
+<p>Basically, it is often possible to join consequent lines without introducing
+alignment dependency. Try not to span multiple short lines unnecessarily.</p>
+<p>If a function application must spawn multiple lines to fit within the maximum line
+length, then write one argument on each line following the head, indented by one
+level:</p>
+<div class="highlight"><pre><span></span><code><span class="nf">veryLongProductionName</span>
+  <span class="n">firstArgumentOfThisFunction</span>
+  <span class="n">secondArgumentOfThisFunction</span>
+  <span class="p">(</span><span class="kt">DummyDatatype</span> <span class="n">withDummyField1</span> <span class="n">andDummyField2</span><span class="p">)</span>
+  <span class="n">lastArgumentOfThisFunction</span>
+</code></pre></div>
+<h2 id="naming">Naming<a class="headerlink" href="#naming" title="Permanent link">&para;</a></h2>
+<h3 id="functions-and-variables">Functions and variables<a class="headerlink" href="#functions-and-variables" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>lowerCamelCase</strong> for function and variable names.</li>
+<li><strong>UpperCamelCase</strong> for data types, typeclasses and constructors.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Variant</p>
+<p>Use <code>ids_with_underscores</code> for <strong>local variables</strong> only.</p>
+</div>
+<p>Try not to create new operators.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- What does this &#39;mouse operator&#39; mean? :thinking_suicide:</span>
+<span class="p">(</span><span class="o">~@@^&gt;</span><span class="p">)</span> <span class="ow">::</span> <span class="kt">Functor</span> <span class="n">f</span> <span class="ow">=&gt;</span> <span class="p">(</span><span class="n">a</span> <span class="ow">-&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="p">(</span><span class="n">a</span> <span class="ow">-&gt;</span> <span class="n">c</span> <span class="ow">-&gt;</span> <span class="n">d</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="p">(</span><span class="n">b</span> <span class="ow">-&gt;</span> <span class="n">f</span> <span class="n">c</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="n">f</span> <span class="n">d</span>
+</code></pre></div>
+<p>Do not use ultra-short or indescriptive names like <code>a</code>, <code>par</code>, <code>g</code> unless the types of these variables are general enough.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- + Good</span>
+<span class="nf">mapSelect</span> <span class="ow">::</span> <span class="n">forall</span> <span class="n">a</span> <span class="o">.</span> <span class="p">(</span><span class="n">a</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="p">(</span><span class="n">a</span> <span class="ow">-&gt;</span> <span class="n">a</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="p">(</span><span class="n">a</span> <span class="ow">-&gt;</span> <span class="n">a</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="nf">mapSelect</span> <span class="n">test</span> <span class="n">ifTrue</span> <span class="n">ifFalse</span> <span class="ow">=</span> <span class="n">go</span>
+  <span class="kr">where</span>
+    <span class="n">go</span> <span class="ow">::</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+    <span class="n">go</span> <span class="kt">[]</span> <span class="ow">=</span> <span class="kt">[]</span>
+    <span class="n">go</span> <span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xs</span><span class="p">)</span> <span class="ow">=</span>
+      <span class="kr">if</span> <span class="n">test</span> <span class="n">x</span>
+         <span class="kr">then</span> <span class="n">ifTrue</span>  <span class="n">x</span> <span class="kt">:</span> <span class="n">go</span> <span class="n">xs</span>
+         <span class="kr">else</span> <span class="n">ifFalse</span> <span class="n">x</span> <span class="kt">:</span> <span class="n">go</span> <span class="n">xs</span>
+
+<span class="c1">-- - Bad</span>
+<span class="nf">mapSelect</span> <span class="ow">::</span> <span class="n">forall</span> <span class="n">a</span> <span class="o">.</span> <span class="p">(</span><span class="n">a</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="p">(</span><span class="n">a</span> <span class="ow">-&gt;</span> <span class="n">a</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="p">(</span><span class="n">a</span> <span class="ow">-&gt;</span> <span class="n">a</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="nf">mapSelect</span> <span class="n">p</span> <span class="n">f</span> <span class="n">g</span> <span class="ow">=</span> <span class="n">go</span>
+  <span class="kr">where</span>
+    <span class="n">go</span> <span class="ow">::</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+    <span class="n">go</span> <span class="kt">[]</span> <span class="ow">=</span> <span class="kt">[]</span>
+    <span class="n">go</span> <span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xs</span><span class="p">)</span> <span class="ow">=</span>
+      <span class="kr">if</span> <span class="n">p</span> <span class="n">x</span>
+         <span class="kr">then</span> <span class="n">f</span> <span class="n">x</span> <span class="kt">:</span> <span class="n">go</span> <span class="n">xs</span>
+         <span class="kr">else</span> <span class="n">g</span> <span class="n">x</span> <span class="kt">:</span> <span class="n">go</span> <span class="n">xs</span>
+</code></pre></div>
+<p>Do not introduce unnecessarily long names for variables.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- + Good</span>
+<span class="nf">map</span> <span class="ow">::</span> <span class="p">(</span><span class="n">a</span> <span class="ow">-&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">b</span><span class="p">]</span>
+<span class="nf">map</span> <span class="kr">_</span> <span class="kt">[]</span>     <span class="ow">=</span> <span class="kt">[]</span>
+<span class="nf">map</span> <span class="n">f</span> <span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xs</span><span class="p">)</span> <span class="ow">=</span> <span class="n">f</span> <span class="n">x</span> <span class="kt">:</span> <span class="n">map</span> <span class="n">f</span> <span class="n">xs</span>
+
+<span class="c1">-- - Bad</span>
+<span class="nf">map</span> <span class="ow">::</span> <span class="p">(</span><span class="n">a</span> <span class="ow">-&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">b</span><span class="p">]</span>
+<span class="nf">map</span> <span class="kr">_</span> <span class="kt">[]</span> <span class="ow">=</span> <span class="kt">[]</span>
+<span class="nf">map</span> <span class="n">function</span> <span class="p">(</span><span class="n">firstElement</span><span class="kt">:</span><span class="n">remainingList</span><span class="p">)</span> <span class="ow">=</span>
+    <span class="n">function</span> <span class="n">firstElement</span> <span class="kt">:</span> <span class="n">map</span> <span class="n">function</span> <span class="n">remainingList</span>
+</code></pre></div>
+<p>For readability reasons, do not capitalize all letters when using an
+abbreviation as a part of a longer name. For example, write <code>TomlException</code> instead
+of <code>TOMLException</code>.</p>
+<p>Unicode symbols are allowed only in modules that already use unicode symbols. If
+you create a unicode name, you should also create a non-unicode one as an alias.</p>
+<h3 id="data-types">Data types<a class="headerlink" href="#data-types" title="Permanent link">&para;</a></h3>
+<p>Creating data types is extremely easy in Haskell. It is usually a good idea to
+introduce a custom data type (enum or <code>newtype</code>) instead of using a commonly used
+data type (like <code>Int</code>, <code>String</code>, <code>Set Text</code>, etc.).</p>
+<p><code>type</code> aliases are allowed only for specializing general types:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- + Good</span>
+<span class="kr">data</span> <span class="kt">StateT</span> <span class="n">s</span> <span class="n">m</span> <span class="n">a</span>
+<span class="kr">type</span> <span class="kt">State</span> <span class="n">s</span> <span class="ow">=</span> <span class="kt">StateT</span> <span class="n">s</span> <span class="kt">Identity</span>
+
+<span class="c1">-- - Bad</span>
+<span class="kr">type</span> <span class="kt">Size</span> <span class="ow">=</span> <span class="kt">Int</span>
+</code></pre></div>
+<p>Use the data type name as the constructor name for <code>data</code> with single
+constructor and <code>newtype</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="kr">data</span> <span class="kt">User</span> <span class="ow">=</span> <span class="kt">User</span> <span class="kt">Int</span> <span class="kt">String</span>
+</code></pre></div>
+<p>The field name for a <code>newtype</code> must be prefixed by <code>un</code> followed by the type name.</p>
+<div class="highlight"><pre><span></span><code><span class="kr">newtype</span> <span class="kt">Size</span> <span class="ow">=</span> <span class="kt">Size</span> <span class="p">{</span> <span class="n">unSize</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="p">}</span>
+<span class="kr">newtype</span> <span class="kt">App</span> <span class="n">a</span> <span class="ow">=</span> <span class="kt">App</span> <span class="p">{</span> <span class="n">unApp</span> <span class="ow">::</span> <span class="kt">ReaderT</span> <span class="kt">Context</span> <span class="kt">IO</span> <span class="n">a</span> <span class="p">}</span>
+</code></pre></div>
+<p>Field names for the record data type should start with the full name of the data type.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- + Good</span>
+<span class="kr">data</span> <span class="kt">HealthReading</span> <span class="ow">=</span> <span class="kt">HealthReading</span>
+  <span class="p">{</span> <span class="n">healthReadingDate</span>        <span class="ow">::</span> <span class="kt">UTCTime</span>
+  <span class="p">,</span> <span class="n">healthReadingMeasurement</span> <span class="ow">::</span> <span class="kt">Double</span>
+  <span class="p">}</span>
+</code></pre></div>
+<p>It is acceptable to use an abbreviation as the field prefix if the data type name is
+too long.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- + Acceptable</span>
+<span class="kr">data</span> <span class="kt">HealthReading</span> <span class="ow">=</span> <span class="kt">HealthReading</span>
+  <span class="p">{</span> <span class="n">hrDate</span>        <span class="ow">::</span> <span class="kt">UTCTime</span>
+  <span class="p">,</span> <span class="n">hrMeasurement</span> <span class="ow">::</span> <span class="kt">Double</span>
+  <span class="p">}</span>
+</code></pre></div>
+<h2 id="comments">Comments<a class="headerlink" href="#comments" title="Permanent link">&para;</a></h2>
+<p>Separate end-of-line comments from the code with <em>2 spaces</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="kr">newtype</span> <span class="kt">Measure</span> <span class="ow">=</span> <span class="kt">Measure</span>
+  <span class="p">{</span> <span class="n">unMeasure</span> <span class="ow">::</span> <span class="kt">Double</span>  <span class="c1">-- ^ See how 2 spaces separate this comment</span>
+  <span class="p">}</span>
+</code></pre></div>
+<p>Write <a href="https://haskell-haddock.readthedocs.io/en/latest/markup.html">Haddock documentation</a>
+for the top-level functions, function arguments
+and data type fields. The documentation should give enough
+information to apply the function without looking at its definition.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- | Single-line short comment.</span>
+<span class="nf">foo</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+
+<span class="c1">-- | Example of multi-line block comment which is very long</span>
+<span class="c1">-- and doesn&#39;t fit single line.</span>
+<span class="nf">foo</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+
+<span class="c1">-- + Good</span>
+<span class="c1">-- | &#39;replicate&#39; @n x@ returns list of length @n@ with @x@ as the value of</span>
+<span class="c1">-- every element. This function is lazy in its returned value.</span>
+<span class="nf">replicate</span>
+  <span class="ow">::</span> <span class="kt">Int</span>  <span class="c1">-- ^ Length of returned list</span>
+  <span class="ow">-&gt;</span> <span class="n">a</span>    <span class="c1">-- ^ Element to populate list</span>
+  <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+
+<span class="c1">-- - Bad</span>
+<span class="c1">-- | &#39;replicate&#39; @n x@ returns list of length @n@ with @x@ as the value of</span>
+<span class="c1">-- every element. This function is lazy in its returned value.</span>
+<span class="nf">replicate</span>
+  <span class="ow">::</span> <span class="kt">Int</span>  <span class="c1">-- ^ Length of returned list</span>
+  <span class="cm">{- | Element to populate list -}</span>
+  <span class="ow">-&gt;</span> <span class="n">a</span>
+  <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+</code></pre></div>
+<p>If possible, include typeclass laws and function usage examples into the
+documentation.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- | The class of semigroups (types with an associative binary operation).</span>
+<span class="c1">--</span>
+<span class="c1">-- Instances should satisfy the associativity law:</span>
+<span class="c1">--</span>
+<span class="c1">-- * @x &#39;&lt;&gt;&#39; (y &#39;&lt;&gt;&#39; z) = (x &#39;&lt;&gt;&#39; y) &#39;&lt;&gt;&#39; z@</span>
+<span class="kr">class</span> <span class="kt">Semigroup</span> <span class="n">a</span> <span class="kr">where</span>
+  <span class="p">(</span><span class="o">&lt;&gt;</span><span class="p">)</span> <span class="ow">::</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="n">a</span>
+
+<span class="c1">-- | The &#39;intersperse&#39; function takes a character and places it</span>
+<span class="c1">-- between the characters of a &#39;Text&#39;.</span>
+<span class="c1">--</span>
+<span class="c1">-- &gt;&gt;&gt; T.intersperse &#39;.&#39; &quot;SHIELD&quot;</span>
+<span class="c1">-- &quot;S.H.I.E.L.D&quot;</span>
+<span class="nf">intersperse</span> <span class="ow">::</span> <span class="kt">Char</span> <span class="ow">-&gt;</span> <span class="kt">Text</span> <span class="ow">-&gt;</span> <span class="kt">Text</span>
+</code></pre></div>
+<h2 id="guideline-for-module-formatting">Guideline for module formatting<a class="headerlink" href="#guideline-for-module-formatting" title="Permanent link">&para;</a></h2>
+<p>Allowed tools for automatic module formatting:</p>
+<ul>
+<li><a href="https://github.com/jaspervdj/stylish-haskell"><code>stylish-haskell</code></a>: for formatting the import section and for alignment.</li>
+</ul>
+<h3 id="language">LANGUAGE<a class="headerlink" href="#language" title="Permanent link">&para;</a></h3>
+<p>Put <code>OPTIONS_GHC</code> pragma before <code>LANGUAGE</code> pragmas in a separate section. Write
+each <code>LANGUAGE</code> pragma on its own line, sort them alphabetically and align by
+max width among them.</p>
+<div class="highlight"><pre><span></span><code><span class="cm">{-# OPTIONS_GHC -fno-warn-orphans #-}</span>
+
+<span class="cm">{-# LANGUAGE ApplicativeDo       #-}</span>
+<span class="cm">{-# LANGUAGE ScopedTypeVariables #-}</span>
+<span class="cm">{-# LANGUAGE TypeApplications    #-}</span>
+</code></pre></div>
+<p>Always put language extensions in the relevant source file.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Language extensions must be listed at the very top of the file,
+above the module name.</p>
+</div>
+<h3 id="export-lists">Export lists<a class="headerlink" href="#export-lists" title="Permanent link">&para;</a></h3>
+<p>Use the following rules to format the export section:</p>
+<ol>
+<li><strong>Always write</strong> an explicit export list.</li>
+<li>Indent the export list by <em>2 spaces</em>.</li>
+<li>You can split the export list into sections. Use Haddock to assign names to
+   these sections.</li>
+<li>Classes, data types and type aliases should be written before functions in
+   each section.</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="kr">module</span> <span class="nn">Map</span>
+  <span class="p">(</span> <span class="c1">-- * Data type</span>
+    <span class="kt">Map</span>
+  <span class="p">,</span> <span class="kt">Key</span>
+  <span class="p">,</span> <span class="nf">empty</span>
+
+    <span class="c1">-- * Update</span>
+  <span class="p">,</span> <span class="nf">insert</span>
+  <span class="p">,</span> <span class="nf">insertWith</span>
+  <span class="p">,</span> <span class="nf">alter</span>
+  <span class="p">)</span> <span class="kr">where</span>
+</code></pre></div>
+<h3 id="imports">Imports<a class="headerlink" href="#imports" title="Permanent link">&para;</a></h3>
+<p>Always use explicit import lists or qualified imports. Use qualified
+imports only if the import list is big enough or there are conflicts in names. This
+makes the code more robust against changes in dependent libraries.</p>
+<ul>
+<li><strong>Exception:</strong> modules that only reexport other entire modules.</li>
+</ul>
+<p>Imports should be grouped in the following order:</p>
+<ol>
+<li>Imports from Hackage packages.</li>
+<li>Imports from the current project.</li>
+</ol>
+<p>Put a blank line between each group of imports.</p>
+<p>The imports in each group should be sorted alphabetically by module name.</p>
+<div class="highlight"><pre><span></span><code><span class="kr">module</span> <span class="nn">MyProject.Foo</span>
+  <span class="p">(</span> <span class="kt">Foo</span> <span class="p">(</span><span class="o">..</span><span class="p">)</span>
+  <span class="p">)</span> <span class="kr">where</span>
+
+<span class="kr">import</span>           <span class="nn">Control.Exception</span>   <span class="p">(</span><span class="nf">catch</span><span class="p">,</span> <span class="nf">try</span><span class="p">)</span>
+<span class="kr">import</span> <span class="k">qualified</span> <span class="nn">Data.Aeson</span>          <span class="k">as</span> <span class="n">Json</span>
+<span class="kr">import</span> <span class="k">qualified</span> <span class="nn">Data.Text</span>           <span class="k">as</span> <span class="n">Text</span>
+<span class="kr">import</span>           <span class="nn">Data.Traversable</span>    <span class="p">(</span><span class="nf">for</span><span class="p">)</span>
+
+<span class="kr">import</span>           <span class="nn">MyProject.Ansi</span>      <span class="p">(</span><span class="nf">errorMessage</span><span class="p">,</span> <span class="nf">infoMessage</span><span class="p">)</span>
+<span class="kr">import</span> <span class="k">qualified</span> <span class="nn">MyProject.BigModule</span> <span class="k">as</span> <span class="n">Big</span>
+
+<span class="kr">data</span> <span class="kt">Foo</span>
+<span class="o">...</span>
+</code></pre></div>
+<h3 id="data-declaration">Data declaration<a class="headerlink" href="#data-declaration" title="Permanent link">&para;</a></h3>
+<p>Refer to the <a href="#alignment">Alignment section</a> to see how to format data type
+declarations.</p>
+<p>Records for data types with multiple constructors are forbidden.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- - Bad</span>
+<span class="kr">data</span> <span class="kt">Foo</span>
+  <span class="ow">=</span> <span class="kt">Bar</span> <span class="p">{</span> <span class="n">bar1</span> <span class="ow">::</span> <span class="kt">Int</span><span class="p">,</span> <span class="n">bar2</span> <span class="ow">::</span> <span class="kt">Double</span> <span class="p">}</span>
+  <span class="o">|</span> <span class="kt">Baz</span> <span class="p">{</span> <span class="n">baz1</span> <span class="ow">::</span> <span class="kt">Int</span><span class="p">,</span> <span class="n">baz2</span> <span class="ow">::</span> <span class="kt">Double</span><span class="p">,</span> <span class="n">baz3</span> <span class="ow">::</span> <span class="kt">Text</span> <span class="p">}</span>
+
+<span class="c1">-- + Good</span>
+<span class="kr">data</span> <span class="kt">Foo</span>
+  <span class="ow">=</span> <span class="kt">FooBar</span> <span class="kt">Bar</span>
+  <span class="o">|</span> <span class="kt">FooBaz</span> <span class="kt">Baz</span>
+
+<span class="kr">data</span> <span class="kt">Bar</span> <span class="ow">=</span> <span class="kt">Bar</span> <span class="p">{</span> <span class="n">bar1</span> <span class="ow">::</span> <span class="kt">Int</span><span class="p">,</span> <span class="n">bar2</span> <span class="ow">::</span> <span class="kt">Double</span> <span class="p">}</span>
+<span class="kr">data</span> <span class="kt">Baz</span> <span class="ow">=</span> <span class="kt">Baz</span> <span class="p">{</span> <span class="n">baz1</span> <span class="ow">::</span> <span class="kt">Int</span><span class="p">,</span> <span class="n">baz2</span> <span class="ow">::</span> <span class="kt">Double</span><span class="p">,</span> <span class="n">baz3</span> <span class="ow">::</span> <span class="kt">Text</span> <span class="p">}</span>
+
+<span class="c1">-- + Also good</span>
+<span class="kr">data</span> <span class="kt">Foo</span>
+  <span class="ow">=</span> <span class="kt">Bar</span> <span class="kt">Int</span> <span class="kt">Double</span>
+  <span class="o">|</span> <span class="kt">Baz</span> <span class="kt">Int</span> <span class="kt">Double</span> <span class="kt">Text</span>
+</code></pre></div>
+<h3 id="strictness">Strictness<a class="headerlink" href="#strictness" title="Permanent link">&para;</a></h3>
+<p>Fields of data type constructors should be strict. Specify strictness explicitly
+with <code>!</code>. This helps to avoid space leaks and gives you an error instead of a
+warning in case you forget to initialize some fields.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- + Good</span>
+<span class="kr">data</span> <span class="kt">Settings</span> <span class="ow">=</span> <span class="kt">Settings</span>
+  <span class="p">{</span> <span class="n">settingsHasTravis</span>  <span class="ow">::</span> <span class="o">!</span><span class="kt">Bool</span>
+  <span class="p">,</span> <span class="n">settingsConfigPath</span> <span class="ow">::</span> <span class="o">!</span><span class="kt">FilePath</span>
+  <span class="p">,</span> <span class="n">settingsRetryCount</span> <span class="ow">::</span> <span class="o">!</span><span class="kt">Int</span>
+  <span class="p">}</span>
+
+<span class="c1">-- - Bad</span>
+<span class="kr">data</span> <span class="kt">Settings</span> <span class="ow">=</span> <span class="kt">Settings</span>
+  <span class="p">{</span> <span class="n">settingsHasTravis</span>  <span class="ow">::</span> <span class="kt">Bool</span>
+  <span class="p">,</span> <span class="n">settingsConfigPath</span> <span class="ow">::</span> <span class="kt">FilePath</span>
+  <span class="p">,</span> <span class="n">settingsRetryCount</span> <span class="ow">::</span> <span class="kt">Int</span>
+  <span class="p">}</span>
+</code></pre></div>
+<h3 id="deriving">Deriving<a class="headerlink" href="#deriving" title="Permanent link">&para;</a></h3>
+<p>Type classes in the deriving section should always be surrounded by parentheses.
+Don't derive typeclasses unnecessarily.</p>
+<p>Use <a href="https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#deriving-strategies"><code>-XDerivingStrategies</code></a>
+extension for <code>newtype</code>s to explicitly specify the way you want to derive type classes:</p>
+<div class="highlight"><pre><span></span><code><span class="cm">{-# LANGUAGE DeriveAnyClass             #-}</span>
+<span class="cm">{-# LANGUAGE DerivingStrategies         #-}</span>
+<span class="cm">{-# LANGUAGE GeneralizedNewtypeDeriving #-}</span>
+
+<span class="kr">newtype</span> <span class="kt">Id</span> <span class="n">a</span> <span class="ow">=</span> <span class="kt">Id</span> <span class="p">{</span> <span class="n">unId</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="p">}</span>
+  <span class="kr">deriving</span> <span class="n">stock</span>    <span class="p">(</span><span class="kt">Generic</span><span class="p">)</span>
+  <span class="kr">deriving</span> <span class="kr">newtype</span>  <span class="p">(</span><span class="kt">Eq</span><span class="p">,</span> <span class="kt">Ord</span><span class="p">,</span> <span class="kt">Show</span><span class="p">,</span> <span class="kt">Hashable</span><span class="p">)</span>
+  <span class="kr">deriving</span> <span class="n">anyclass</span> <span class="p">(</span><span class="kt">FromJSON</span><span class="p">,</span> <span class="kt">ToJSON</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="function-declaration">Function declaration<a class="headerlink" href="#function-declaration" title="Permanent link">&para;</a></h3>
+<p>All top-level functions <em>must</em> have type signatures.</p>
+<p>All functions inside a <code>where</code> block <em>must</em> have type signatures. Explicit type
+signatures help to avoid cryptic type errors.</p>
+<blockquote>
+<p>You might need the <code>-XScopedTypeVariables</code> extension to write the polymorphic types
+of functions inside a <code>where</code> block.</p>
+</blockquote>
+<p>Surround <code>.</code> after <code>forall</code> in type signatures with spaces.</p>
+<div class="highlight"><pre><span></span><code><span class="nf">lookup</span> <span class="ow">::</span> <span class="n">forall</span> <span class="n">a</span> <span class="n">f</span> <span class="o">.</span> <span class="kt">Typeable</span> <span class="n">a</span> <span class="ow">=&gt;</span> <span class="kt">TypeRepMap</span> <span class="n">f</span> <span class="ow">-&gt;</span> <span class="kt">Maybe</span> <span class="p">(</span><span class="n">f</span> <span class="n">a</span><span class="p">)</span>
+</code></pre></div>
+<p>If the function type signature is very long, then place the type of each argument under
+its own line with respect to alignment.</p>
+<div class="highlight"><pre><span></span><code><span class="nf">sendEmail</span>
+  <span class="ow">::</span> <span class="n">forall</span> <span class="n">env</span> <span class="n">m</span> <span class="o">.</span>
+     <span class="p">(</span> <span class="kt">MonadLog</span> <span class="n">m</span>
+     <span class="p">,</span> <span class="kt">MonadEmail</span> <span class="n">m</span>
+     <span class="p">,</span> <span class="kt">WithDb</span> <span class="n">env</span> <span class="n">m</span>
+     <span class="p">)</span>
+  <span class="ow">=&gt;</span> <span class="kt">Email</span>
+  <span class="ow">-&gt;</span> <span class="kt">Subject</span>
+  <span class="ow">-&gt;</span> <span class="kt">Body</span>
+  <span class="ow">-&gt;</span> <span class="kt">Template</span>
+  <span class="ow">-&gt;</span> <span class="n">m</span> <span class="nb">()</span>
+</code></pre></div>
+<p>If the line with argument names is too big, then put each argument on its own line
+and separate it somehow from the body section.</p>
+<div class="highlight"><pre><span></span><code><span class="nf">sendEmail</span>
+  <span class="n">toEmail</span>
+  <span class="n">subject</span><span class="o">@</span><span class="p">(</span><span class="kt">Subject</span> <span class="n">subj</span><span class="p">)</span>
+  <span class="n">body</span>
+  <span class="kt">Template</span><span class="p">{</span><span class="o">..</span><span class="p">}</span>  <span class="c1">-- default body variables</span>
+  <span class="ow">=</span> <span class="kr">do</span>
+    <span class="o">&lt;</span><span class="n">code</span> <span class="n">goes</span> <span class="n">here</span><span class="o">&gt;</span>
+</code></pre></div>
+<p>In other cases, place an <code>=</code> sign on the same line where the function definition is.</p>
+<p>Put operator fixity before operator signature:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- | Flipped version of &#39;&lt;$&gt;&#39;.</span>
+<span class="kr">infixl</span> <span class="mi">1</span> <span class="o">&lt;&amp;&gt;</span>
+<span class="p">(</span><span class="o">&lt;&amp;&gt;</span><span class="p">)</span> <span class="ow">::</span> <span class="kt">Functor</span> <span class="n">f</span> <span class="ow">=&gt;</span> <span class="n">f</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="p">(</span><span class="n">a</span> <span class="ow">-&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="n">f</span> <span class="n">b</span>
+<span class="nf">as</span> <span class="o">&lt;&amp;&gt;</span> <span class="n">f</span> <span class="ow">=</span> <span class="n">f</span> <span class="o">&lt;$&gt;</span> <span class="n">as</span>
+</code></pre></div>
+<p>Put pragmas immediately following the function they apply to.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- | Lifted version of &#39;T.putStrLn&#39;.</span>
+<span class="nf">putTextLn</span> <span class="ow">::</span> <span class="kt">MonadIO</span> <span class="n">m</span> <span class="ow">=&gt;</span> <span class="kt">Text</span> <span class="ow">-&gt;</span> <span class="n">m</span> <span class="nb">()</span>
+<span class="nf">putTextLn</span> <span class="ow">=</span> <span class="n">liftIO</span> <span class="o">.</span> <span class="kt">Text</span><span class="o">.</span><span class="n">putStrLn</span>
+<span class="cm">{-# INLINE putTextLn #-}</span>
+<span class="cm">{-# SPECIALIZE putTextLn :: Text -&gt; IO () #-}</span>
+</code></pre></div>
+<p>In case of data type definitions, you must put the pragma before
+the type it applies to. Example:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">data</span> <span class="kt">TypeRepMap</span> <span class="p">(</span><span class="n">f</span> <span class="ow">::</span> <span class="n">k</span> <span class="ow">-&gt;</span> <span class="kt">Type</span><span class="p">)</span> <span class="ow">=</span> <span class="kt">TypeRepMap</span>
+  <span class="p">{</span> <span class="n">fingerprintAs</span> <span class="ow">::</span> <span class="cm">{-# UNPACK #-}</span> <span class="o">!</span><span class="p">(</span><span class="kt">PrimArray</span> <span class="kt">Word64</span><span class="p">)</span>
+  <span class="p">,</span> <span class="n">fingerprintBs</span> <span class="ow">::</span> <span class="cm">{-# UNPACK #-}</span> <span class="o">!</span><span class="p">(</span><span class="kt">PrimArray</span> <span class="kt">Word64</span><span class="p">)</span>
+  <span class="p">,</span> <span class="n">trAnys</span>        <span class="ow">::</span> <span class="cm">{-# UNPACK #-}</span> <span class="o">!</span><span class="p">(</span><span class="kt">Array</span> <span class="kt">Any</span><span class="p">)</span>
+  <span class="p">,</span> <span class="n">trKeys</span>        <span class="ow">::</span> <span class="cm">{-# UNPACK #-}</span> <span class="o">!</span><span class="p">(</span><span class="kt">Array</span> <span class="kt">Any</span><span class="p">)</span>
+  <span class="p">}</span>
+</code></pre></div>
+<h3 id="if-then-else-clauses">if-then-else clauses<a class="headerlink" href="#if-then-else-clauses" title="Permanent link">&para;</a></h3>
+<p>Prefer guards over <em>if-then-else</em> where possible.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- + Good</span>
+<span class="nf">showParity</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span>
+<span class="nf">showParity</span> <span class="n">n</span>
+  <span class="o">|</span> <span class="n">even</span> <span class="n">n</span>    <span class="ow">=</span> <span class="s">&quot;even&quot;</span>
+  <span class="o">|</span> <span class="n">otherwise</span> <span class="ow">=</span> <span class="s">&quot;odd&quot;</span>
+
+<span class="c1">-- - Meh</span>
+<span class="nf">showParity</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span>
+<span class="nf">showParity</span> <span class="n">n</span> <span class="ow">=</span>
+  <span class="kr">if</span> <span class="n">even</span> <span class="n">n</span>
+     <span class="kr">then</span> <span class="s">&quot;even&quot;</span>
+     <span class="kr">else</span> <span class="s">&quot;odd&quot;</span>
+</code></pre></div>
+<p>In the code outside <code>do</code>-blocks you can align <em>if-then-else</em> clauses
+like you would normal expressions:</p>
+<div class="highlight"><pre><span></span><code><span class="nf">shiftInts</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span>
+<span class="nf">shiftInts</span> <span class="ow">=</span> <span class="n">map</span> <span class="o">$</span> <span class="nf">\</span><span class="n">n</span> <span class="ow">-&gt;</span> <span class="kr">if</span> <span class="n">even</span> <span class="n">n</span> <span class="kr">then</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span> <span class="kr">else</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span>
+</code></pre></div>
+<h3 id="case-expressions">Case expressions<a class="headerlink" href="#case-expressions" title="Permanent link">&para;</a></h3>
+<p>Align the <code>-&gt;</code> arrows in the alternatives when it helps readability.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- + Good</span>
+<span class="nf">firstOrDefault</span> <span class="ow">::</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="n">a</span>
+<span class="nf">firstOrDefault</span> <span class="n">list</span> <span class="n">def</span> <span class="ow">=</span> <span class="kr">case</span> <span class="n">list</span> <span class="kr">of</span>
+  <span class="kt">[]</span>  <span class="ow">-&gt;</span> <span class="n">def</span>
+  <span class="n">x</span><span class="kt">:</span><span class="kr">_</span> <span class="ow">-&gt;</span> <span class="n">x</span>
+
+<span class="c1">-- - Bad</span>
+<span class="nf">foo</span> <span class="ow">::</span> <span class="kt">IO</span> <span class="nb">()</span>
+<span class="nf">foo</span> <span class="ow">=</span> <span class="n">getArgs</span> <span class="o">&gt;&gt;=</span> <span class="nf">\</span><span class="kr">case</span>
+  <span class="kt">[]</span>                      <span class="ow">-&gt;</span> <span class="kr">do</span>
+      <span class="n">putStrLn</span> <span class="s">&quot;No arguments provided&quot;</span>
+      <span class="n">runWithNoArgs</span>
+  <span class="n">firstArg</span><span class="kt">:</span><span class="n">secondArg</span><span class="kt">:</span><span class="n">rest</span> <span class="ow">-&gt;</span> <span class="kr">do</span>
+      <span class="n">putStrLn</span> <span class="o">$</span> <span class="s">&quot;The first argument is &quot;</span> <span class="o">++</span> <span class="n">firstArg</span>
+      <span class="n">putStrLn</span> <span class="o">$</span> <span class="s">&quot;The second argument is &quot;</span> <span class="o">++</span> <span class="n">secondArg</span>
+  <span class="kr">_</span>                       <span class="ow">-&gt;</span> <span class="n">pure</span> <span class="nb">()</span>
+</code></pre></div>
+<p>Use the <code>-XLambdaCase</code> extension when you perform pattern matching over the last
+argument of the function:</p>
+<div class="highlight"><pre><span></span><code><span class="nf">fromMaybe</span> <span class="ow">::</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="kt">Maybe</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="n">a</span>
+<span class="nf">fromMaybe</span> <span class="n">v</span> <span class="ow">=</span> <span class="nf">\</span><span class="kr">case</span>
+  <span class="kt">Nothing</span> <span class="ow">-&gt;</span> <span class="n">v</span>
+  <span class="kt">Just</span> <span class="n">x</span>  <span class="ow">-&gt;</span> <span class="n">x</span>
+</code></pre></div>
+<h3 id="let-expressions">let expressions<a class="headerlink" href="#let-expressions" title="Permanent link">&para;</a></h3>
+<p>Write every <code>let</code>-binding on a new line:</p>
+<div class="highlight"><pre><span></span><code><span class="nf">isLimitedBy</span> <span class="ow">::</span> <span class="kt">Integer</span> <span class="ow">-&gt;</span> <span class="kt">Natural</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span>
+<span class="nf">isLimitedBy</span> <span class="n">n</span> <span class="n">limit</span> <span class="ow">=</span>
+  <span class="kr">let</span> <span class="n">intLimit</span> <span class="ow">=</span> <span class="n">toInteger</span> <span class="n">limit</span>
+   <span class="kr">in</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="n">intLimit</span>
+</code></pre></div>
+<p>Put a <code>let</code> before each variable inside a <code>do</code> block.</p>
+<h2 id="general-recommendations">General recommendations<a class="headerlink" href="#general-recommendations" title="Permanent link">&para;</a></h2>
+<p>Try to split code into separate modules.</p>
+<p>Avoid abusing point-free style. Sometimes code is clearer when <strong>not</strong> written
+in point-free style:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- + Good</span>
+<span class="nf">foo</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="kt">Int</span>
+<span class="nf">foo</span> <span class="n">n</span> <span class="n">x</span> <span class="ow">=</span> <span class="n">length</span> <span class="o">$</span> <span class="n">replicate</span> <span class="n">n</span> <span class="n">x</span>
+
+<span class="c1">-- - Bad</span>
+<span class="nf">foo</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="kt">Int</span>
+<span class="nf">foo</span> <span class="ow">=</span> <span class="p">(</span><span class="n">length</span> <span class="o">.</span> <span class="p">)</span> <span class="o">.</span> <span class="n">replicate</span>
+</code></pre></div>
+<p>Code should be compilable with the following ghc options without warnings:</p>
+<ul>
+<li><code>-Wall</code></li>
+<li><code>-Wincomplete-uni-patterns</code></li>
+<li><code>-Wincomplete-record-updates</code></li>
+<li><code>-Wcompat</code></li>
+<li><code>-Widentities</code></li>
+<li><code>-Wredundant-constraints</code></li>
+<li><code>-Wmissing-export-lists</code></li>
+<li><code>-Wpartial-fields</code></li>
+</ul>
+<p>Enable <code>-fhide-source-paths</code> and <code>-freverse-errors</code> for cleaner compiler output.</p>
+<p>Use <code>-XApplicativeDo</code> in combination with <code>-XRecordWildCards</code> to prevent
+position-sensitive errors where possible.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../../reference/frequently-asked-questions/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Frequently Asked Questions" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Frequently Asked Questions
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../build-from-source/" class="md-footer__link md-footer__link--next" aria-label="Next: Building from source" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Building from source
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["instant", "navigation.expand", "navigation.instant", "navigation.tabs", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.ddd52ceb.min.js"></script>
+      
+    
+  </body>
+</html>
