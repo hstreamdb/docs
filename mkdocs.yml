@@ -61,6 +61,9 @@ nav:
       - Basic Commands: start/basic-commands.md
       - Configurarion Overview: start/configuration-overview.md
       - Dashboard Overview: start/dashboard-overview.md
+  - Connector:
+      - Overview: connector/overview.md
+      - Use: connector/use.md
   - Develop:
     - Java SDK:
       - Installation: develop/java-sdk/installation.md
