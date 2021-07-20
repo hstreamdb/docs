@@ -1,5 +1,19 @@
 @import './bulma.scss';
 
+.button {
+  box-sizing: border-box;
+  border-radius: 8px;
+  &:focus {
+    box-shadow: none !important;
+  }
+}
+.is-trans-top {
+  transition: transform 0.25s ease;
+  will-change: transform;
+  &:hover {
+    transform: translateY(-4px);
+  }
+}
 .display-none-block {
   display: none !important;
 }
@@ -162,14 +176,9 @@ div[class*='language-'].line-numbers-mode {
 // navbar
 .navbar {
   font-size: 0;
-  padding: 0 !important;
+  padding: 0;
   min-height: 72px;
   .navbar-left {
-    display: inline-block;
-    position: relative;
-    box-sizing: border-box;
-    line-height: initial;
-    vertical-align: top;
     @media (min-width: 769px) {
       width: 275px !important;
     }
@@ -177,7 +186,7 @@ div[class*='language-'].line-numbers-mode {
       width: 300px !important;
     }
     .logo {
-      height: 40px;
+      height: 30px;
     }
     .home-link {
       .logo {
@@ -196,7 +205,6 @@ div[class*='language-'].line-numbers-mode {
       transform: translate(-50%);
       background: #fff;
       width: auto !important;
-      height: 59px;
       border: none;
       .home-link {
         margin-left: 16px;
@@ -208,14 +216,11 @@ div[class*='language-'].line-numbers-mode {
     color: #a9abb1;
   }
   .search-box {
-    vertical-align: top;
-    line-height: initial;
-    padding-top: 12px;
     font-size: 16px;
     background-color: #fff;
     @media (max-width: 719px) {
-      float: right;
-      display: block;
+      position: absolute;
+      right: 0;
     }
     input {
       left: 0;
@@ -297,17 +302,20 @@ div[class*='language-'].line-numbers-mode {
     }
   }
   .links {
-    top: -1px !important;
+    justify-content: flex-end;
+    flex-grow: 1;
     .nav-links {
+      display: flex;
+      align-items: center;
       > .nav-item {
         &:nth-child(4) {
           display: none !important;
         }
         a,
         .title {
-          font-size: 14px;
+          margin: 0.5rem 1rem;
+          font-size: 16px;
           font-weight: 500;
-          color: #424a55;
         }
         .arrow.down {
           margin-left: 0.2rem;
@@ -346,15 +354,11 @@ div[class*='language-'].line-numbers-mode {
         display: inline-block;
         margin-left: 1.4rem;
         a {
-          font-size: 14px;
-          font-weight: 500;
-          width: 102px;
-          height: 34px;
-          line-height: 34px;
-          text-align: center;
+          width: 120px;
+          font-size: 1rem;
           &.github {
-            border: 1px solid #2e2e2e;
-            color: #2e2e2e;
+            color: #272350;
+            border: 1px solid #e2e0eb;
           }
           &.downloads {
             margin-left: 8px;
@@ -396,6 +400,10 @@ div[class*='language-'].line-numbers-mode {
       font-size: 14px;
       font-weight: 500;
       color: #6b6b6b;
+    }
+    .nav-links .btns a {
+      text-align: left;
+      border: none;
     }
     .version-pick {
       padding: 48px 0 16px 0;
@@ -488,7 +496,6 @@ div[class*='language-'].line-numbers-mode {
     .page {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 !important;
       .page-nav {
         margin-bottom: 16px;
         span,
@@ -659,13 +666,13 @@ div[class*='language-'].line-numbers-mode {
       background-color: white;
     }
     .sub-btn {
-      cursor: pointer;
       position: absolute;
       right: 6px;
       top: 6px;
       width: 100px;
       height: 28px;
       border: none;
+      border-radius: 4px;
       background: #613eda;
       font-size: 14px;
       font-weight: 500;

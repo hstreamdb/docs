@@ -14,13 +14,24 @@
 
     <!-- nav-button -->
     <div class="btns">
-      <a class="github nav-item" href="https://github.com/nanomq/nanomq" target="_blank" rel="noopener">
+      <a
+        class="button is-trans-top github nav-item"
+        href="https://github.com/hstreamdb/hstream/"
+        target="_blank"
+        rel="noopener"
+      >
         <img :src="$withBase('/images/github-black.png')" />
         Star
       </a>
       <a
-        class="downloads nav-item"
-        :href="$lang === 'zh-CN' ? 'https://nanomq.io/zh/downloads' : 'https://nanomq.io/downloads'"
+        class="button is-trans-top downloads nav-item"
+        :href="
+          $lang === 'zh-CN'
+            ? 'https://www.emqx.com/zh/downloads?product=hstreamdb'
+            : 'https://www.emqx.com/en/downloads?product=hstreamdb'
+        "
+        target="_blank"
+        rel="noopener"
       >
         <img :src="$withBase('/images/download.png')" />
         {{ $lang === 'zh-CN' ? '下载' : 'Download' }}
@@ -56,7 +67,7 @@ export default {
         const languageDropdown = {
           text: this.$themeLocaleConfig.selectText || 'Languages',
           ariaLabel: this.$themeLocaleConfig.ariaLabel || 'Select language',
-          items: Object.keys(locales).map((path) => {
+          items: Object.keys(locales).map(path => {
             const locale = locales[path]
             const text = (themeLocales[path] && themeLocales[path].label) || locale.lang
             let link
@@ -74,7 +85,7 @@ export default {
     },
 
     userLinks() {
-      return (this.nav || []).map((link) => {
+      return (this.nav || []).map(link => {
         return Object.assign(resolveNavLinkItem(link), {
           items: (link.items || []).map(resolveNavLinkItem),
         })
@@ -122,7 +133,6 @@ export default {
     position relative
     display inline-block
     margin-left 1.5rem
-    line-height 2rem
     &:first-child
       margin-left 0
   .repo-link

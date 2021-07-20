@@ -124,7 +124,7 @@ export default {
         const data = {
           email: this.emailAddress,
           language,
-          source: 'nanomq',
+          source: 'hstream',
         }
         this.$axios
           .post(`/api/${language}/subscriptions`, data)
@@ -138,7 +138,7 @@ export default {
               this.isError = false
             }
           })
-          .catch((_error) => {
+          .catch(_error => {
             this.message = this.$lang === 'zh-CN' ? '该邮件已订阅' : 'Email has exist'
             this.isSuccess = false
             this.isError = true

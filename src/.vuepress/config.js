@@ -17,11 +17,11 @@ module.exports = {
         content: 'width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no',
       },
     ],
-    ['meta', { property: 'og:site_name', content: 'nanomq.io' }],
+    ['meta', { property: 'og:site_name', content: 'hstream.io' }],
     ['meta', { property: 'og:type', content: 'website' }],
-    ['meta', { property: 'og:url', content: 'https://nanomq.io/' }],
-    ['meta', { property: 'og:title', content: 'NanoMQ Docs' }],
-    ['meta', { property: 'og:image', content: 'https://nanomq.io/logo-512.png' }],
+    ['meta', { property: 'og:url', content: 'https://hstream.io/' }],
+    ['meta', { property: 'og:title', content: 'HStreamDB Docs' }],
+    ['meta', { property: 'og:image', content: 'https://hstream.io/logo-512.png' }],
   ],
   plugins: [
     [
@@ -65,7 +65,7 @@ module.exports = {
     [
       'vuepress-plugin-code-copy',
       {
-        color: '#22bb7a',
+        color: '#613EDA',
       },
     ],
     [
@@ -79,7 +79,7 @@ module.exports = {
     [
       'sitemap',
       {
-        hostname: 'https://nanomq.io',
+        hostname: 'https://hstream.io',
         exclude: ['/404.html'],
         outFile: 'sitemap_docs.xml',
       },
@@ -140,13 +140,13 @@ module.exports = {
   locales: {
     '/': {
       lang: 'en',
-      title: 'NanoMQ Docs',
-      description: 'NanoMQ Docs',
+      title: 'HStreamDB Docs',
+      description: 'HStreamDB Docs',
     },
     '/zh/': {
       lang: 'zh-CN',
-      title: 'NanoMQ Docs',
-      description: 'NanoMQ 使用文档',
+      title: 'HStreamDB Docs',
+      description: 'HStreamDB 使用文档',
     },
   },
   markdown: {

@@ -1,18 +1,9 @@
 <template>
-  <header class="navbar">
+  <header class="navbar is-flex is-align-items-center is-justify-content-space-between">
     <SidebarButton @toggle-sidebar="$emit('toggle-sidebar')" />
-
     <div class="navbar-left">
-      <a :href="$lang === 'zh-CN' ? 'https://nanomq.io/zh' : 'https://nanomq.io/'" class="home-link">
+      <a :href="$lang === 'zh-CN' ? 'https://hstream.io/zh' : 'https://hstream.io/'" class="home-link">
         <img v-if="$site.themeConfig.logo" class="logo" :src="$withBase($site.themeConfig.logo)" />
-        <!-- <span
-          v-if="$siteTitle"
-          ref="siteName"
-          class="site-name"
-          :class="{ 'can-hide': $site.themeConfig.logo }"
-        >
-          {{ $siteTitle }}
-        </span> -->
       </a>
     </div>
     <SearchBox />
@@ -26,10 +17,6 @@
           : {}
       "
     >
-      <!-- <AlgoliaSearchBox v-if="isAlgoliaSearch" :options="algolia" />
-      <SearchBox
-        v-else-if="$site.themeConfig.search !== false && $page.frontmatter.search !== false"
-      /> -->
       <NavLinks class="can-hide" />
     </div>
   </header>
@@ -64,11 +51,6 @@ export default {
 
     isAlgoliaSearch() {
       return this.algolia && this.algolia.apiKey && this.algolia.indexName
-    },
-
-    langLink() {
-      const products = this.$themeConfig.gitHubConfig[this.$lang].docType
-      return `/${products}/latest/`
     },
   },
 
@@ -122,9 +104,6 @@ $navbar-horizontal-padding = 1.5rem
     box-sizing border-box
     white-space nowrap
     font-size 0.9rem
-    position absolute
-    right $navbar-horizontal-padding
-    top $navbar-vertical-padding
     display flex
     .search-box
       flex: 0 0 auto
@@ -136,7 +115,7 @@ $navbar-horizontal-padding = 1.5rem
     .can-hide
       display none
     .links
-      padding-left 0
+      display none
     .site-name
       width calc(100vw - 9.4rem)
       overflow hidden

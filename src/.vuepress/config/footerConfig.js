@@ -3,7 +3,7 @@ module.exports = {
     column: [
       {
         title: 'GitHub',
-        link: 'https://github.com/nanomq/nanomq',
+        link: 'https://github.com/hstreamdb/hstream/',
       },
       {
         title: '文档',
@@ -11,15 +11,15 @@ module.exports = {
       },
       {
         title: '博客',
-        link: 'https://www.emqx.com/zh/blog/category/nanomq',
+        link: 'https://www.emqx.com/zh/blog/category/hstream',
       },
       {
         title: '社区',
-        link: 'https://askemq.com/c/nanomq/9',
+        link: 'https://hstream.io/zh/community',
       },
     ],
     followList: [
-      { img: '/images/github.png', link: 'https://github.com/nanomq/nanomq' },
+      { img: '/images/github.png', link: 'https://github.com/hstreamdb/hstream/' },
       {
         img: '/images/youtube.png',
         link: 'https://www.youtube.com/channel/UCir_r04HIsLjf2qqyZ4A8Cg',
@@ -33,7 +33,7 @@ module.exports = {
     column: [
       {
         title: 'GitHub',
-        link: 'https://github.com/nanomq/nanomq',
+        link: 'https://github.com/hstreamdb/hstream/',
       },
       {
         title: 'Docs',
@@ -41,15 +41,15 @@ module.exports = {
       },
       {
         title: 'Blog',
-        link: 'https://www.emqx.com/en/blog/category/nanomq',
+        link: 'https://www.emqx.com/en/blog/category/hstream',
       },
       {
         title: 'Community',
-        link: 'https://github.com/nanomq/nanomq/discussions',
+        link: 'https://hstream.io/community',
       },
     ],
     followList: [
-      { img: '/images/github.png', link: 'https://github.com/nanomq/nanomq' },
+      { img: '/images/github.png', link: 'https://github.com/hstreamdb/hstream/' },
       { img: '/images/twitter.png', link: 'https://twitter.com/EMQTech' },
       {
         img: '/images/youtube.png',

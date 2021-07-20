@@ -39,7 +39,7 @@ export default {
       const { docsRepo, docsBranch, docsDir } = this.gitHubConfig
       const prefix = Object.keys(this.$themeLocaleConfig.sidebar)[0]
       const docsPath = ('/' + this.$page.relativePath).replace(prefix, '')
-      const href = `https://nanomq.io${this.$route.path}`
+      const href = `https://hstream.io${this.$route.path}`
       return `https://github.com/${docsRepo}/issues/new?body=File:%20[/${docsDir}/${docsPath}](${href})`
     },
   },
