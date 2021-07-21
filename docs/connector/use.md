@@ -1,11 +1,9 @@
 # How to use HStream connectors
 This tutorial describes how to use HStream connectors. 
 
-!!! Note
+!!! Note 
 
-```
-Up to the present, we only provide two built-in sink connectors which can subscribe data from streams and write them into mysql and clickhouse.
-```
+	Up to the present, we only provide two built-in sink connectors which can subscribe data from 	streams and write them into mysql and clickhouse.
 
 ## Prerequisites 
 Make sure you have HStreamDB running and accessible. Also available mysql and clickhouse service are required if you want to use related connectors.

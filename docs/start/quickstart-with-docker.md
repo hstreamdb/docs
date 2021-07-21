@@ -37,9 +37,7 @@ docker pull hstreamdb/hstream
 
 !!! Warning 
 
-```
-Do NOT use this configuration in your production environment!
-```
+	Do NOT use this configuration in your production environment!
 
 ### Create a directory for storing db datas
 
