@@ -1,5 +1,9 @@
 # Quickstart with Docker
 
+## Requirement
+
+Start HStream requires an operating system kernel version greater than at least Linux 4.14
+
 ## Installation
 
 ### Install docker
@@ -31,7 +35,11 @@ docker pull hstreamdb/hstream
 
 ## Start a local standalone HStream-Server in Docker
 
-!!! warning Do NOT use this configuration in your production environment!
+!!! Warning 
+
+```
+Do NOT use this configuration in your production environment!
+```
 
 ### Create a directory for storing db datas
 
@@ -73,9 +81,20 @@ information like
   /_/ /_//____//_/ /_/ |_/_____/_/  |_/_/  /_/
 
 Command
-  :h                        help command
-  :q                        quit cli
-  <sql>                     run sql
+  :h                           To show these help info
+  :q                           To exit command line interface
+  :help [sql_operation]        To show full usage of sql statement
+
+SQL STATEMENTS:
+  To create a simplest stream:
+    CREATE STREAM stream_name;
+
+  To create a query select all fields from a stream:
+    SELECT * FROM stream_name EMIT CHANGES;
+
+  To insert values to a stream:
+    INSERT INTO stream_name (field1, field2) VALUES (1, 2);
+
 >
 ```
 

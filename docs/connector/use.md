@@ -1,5 +1,11 @@
 # How to use HStream connectors
-This tutorial describes how to use HStream connectors. Up to the present, we only provide two built-in sink connectors which can subscribe data from streams and write them into mysql and clickhouse.
+This tutorial describes how to use HStream connectors. 
+
+!!! Note
+
+```
+Up to the present, we only provide two built-in sink connectors which can subscribe data from streams and write them into mysql and clickhouse.
+```
 
 ## Prerequisites 
 Make sure you have HStreamDB running and accessible. Also available mysql and clickhouse service are required if you want to use related connectors.
@@ -29,7 +35,7 @@ database = "mysql"
 
 An example to create a mysql connector which subscribes from stream `source` and write data to mysql looks like:
 ```sql
-CREATE SINK CONNECTOR mysql WITH (type = mysql, host = \"127.0.0.1\", stream = source);
+CREATE SINK CONNECTOR mysql WITH (type = mysql, host = "127.0.0.1", stream = source);
 ```
 The mysql table name will be the same as the stream name.
 
@@ -46,7 +52,7 @@ database = "default"
 
 An example to create a clickhouse connector which subscribes from stream `source` and write data to clickhouse looks like:
 ```sql
-CREATE SINK CONNECTOR mysql WITH (type = clickhouse, host = \"127.0.0.1\", stream = source);
+CREATE SINK CONNECTOR mysql WITH (type = clickhouse, host = "127.0.0.1", stream = source);
 ```
 The clickhouse table name will be the same as the stream name.
 
@@ -55,7 +61,7 @@ Once you create a connector which subscribe a particular stream and write data t
 
 For example, if you create mysql connector like this: 
 ```sql
-CREATE SINK CONNECTOR mysql WITH (type = mysql, host = \"127.0.0.1\", stream = source);
+CREATE SINK CONNECTOR mysql WITH (type = mysql, host = "127.0.0.1", stream = source);
 ```
 
 Since the stream data shema is always known advanced, we assume the mysql table named `source` is created advanced. The table schema should looks as the same of stream. In this example, we will insert data looks like `(temperature, humidity) VALUES (12, 84)`. Both `temperature` and `humidity` are numbers.
