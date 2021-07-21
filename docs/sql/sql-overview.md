@@ -9,7 +9,7 @@ The [SQL grammar of HStreamDB](https://github.com/hstreamdb/hstream/blob/master/
 
 SQL inputs are made up of a series of statements. Each statement is made up of a series of tokens and ends in a semicolon (`;`).
 
-A token can be a keyword argument, an identifier, a literal, an operator, or a special character. The details of the rules can be found in the [BNFC grammar file](https://github.com/hstreamdb/hstream/blob/master/hstream-sql/etc/SQL.cf) or [generated alex file](https://github.com/hstreamdb/hstream/blob/master/hstream-sql/etc/Lex.x). Normally, tokens are separated by whitespace.
+A token can be a keyword argument, an identifier, a literal, an operator, or a special character. The details of the rules can be found in the [BNFC grammar file](https://github.com/hstreamdb/hstream/blob/master/hstream-sql/etc/SQL.cf). Normally, tokens are separated by whitespace.
 
 The following examples are syntactically valid SQL statements:
 

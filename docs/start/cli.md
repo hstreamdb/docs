@@ -53,12 +53,11 @@ To show specific usage of some sql statement:
 > :help CREATE
 
   CREATE STREAM <stream_name> [IF EXIST] [AS <select_query>] [ WITH ( {stream_options} ) ];
-  CREATE {SOURCE|SINK} CONNECTOR <stream_name> [IF NOT EXIST] WITH ( {connector_options} ) ;
-  CREATE VIEW <stream_name> AS <select_query> ;
-
+  CREATE {SOURCE|SINK} CONNECTOR <stream_name> [IF NOT EXIST] WITH ( {connector_options} );
+  CREATE VIEW <stream_name> AS <select_query>;
 ```
 
-Available sql operations includes: `CREATE`, `DROP`, `SELECT`, `SHOW`, `INSERT`, `Terminate`.
+Available sql operations includes: `CREATE`, `DROP`, `SELECT`, `SHOW`, `INSERT`, `TERMINATE`.
 
 ## SQL Statements
 
@@ -71,7 +70,7 @@ All the processing and storage operations are done via SQL statements.
 1. Create an ordinary stream:
 
 ```sql
-CREATE STREAM stream_name ;
+CREATE STREAM stream_name;
 ```
 
 This will create a stream with no special function. You can `SELECT` data from the
@@ -94,7 +93,7 @@ it will create a stream which will also select all the data from demo.
 #### After Creating the stream, we can insert values into the stream.
 
 ```sql
-INSERT INTO stream_name (field1, field2) VALUES (1, 2) ;
+INSERT INTO stream_name (field1, field2) VALUES (1, 2);
 ```
 
 There is no restriction on the number of fields a query can insert.
@@ -158,20 +157,20 @@ queries that depends on the stream.
 For example:
 
 ```sql
-SELECT * FROM demo EMIT CHANGES ;
+SELECT * FROM demo EMIT CHANGES;
 ```
 
 will be terminated if the stream demo is deleted;
 
 ```sql
-DROP STREAM demo ;
+DROP STREAM demo;
 ```
 
 If you try to delete a stream that does not exist, an error message will be returned.
 To turn it off, you can use add `IF EXISTS` after the stream_name:
 
 ```sql
-DROP STREAM demo IF EXISTS ;
+DROP STREAM demo IF EXISTS;
 ```
 
 #### Show all streams
