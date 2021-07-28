@@ -857,6 +857,13 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
+"@emqx/community-websites-header@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@emqx/community-websites-header/-/community-websites-header-1.0.1.tgz#dc374980f25c1fae204aed428d9fa146219aabee"
+  integrity sha512-TvxklT7vW/LeJgHS73Xom9kKkfoTeaZELmaomn9XKfRuLoxZAfuk1J+GOMIPL8l3pyNgtyz1hPM4DxUG4bed+Q==
+  dependencies:
+    bulma "^0.9.3"
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.npm.taobao.org/@mrmlnc/readdir-enhanced/download/@mrmlnc/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"

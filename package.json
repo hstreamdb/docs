@@ -23,6 +23,7 @@
     "vuepress-plugin-sitemap-tranhom": "^1.0.3"
   },
   "dependencies": {
+    "@emqx/community-websites-header": "^1.0.1",
     "axios": "^0.21.0",
     "bulma": "^0.9.3"
   }

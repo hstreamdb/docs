@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BrandHeader />
+    <EMQHeader :lang="$lang === 'en' ? 'en' : 'zh'" />
     <div class="theme-container" :class="pageClasses" @touchstart="onTouchStart" @touchend="onTouchEnd">
       <Navbar v-if="shouldShowNavbar" @toggle-sidebar="toggleSidebar" />
 
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import BrandHeader from '@theme/components/BrandHeader.vue'
+import EMQHeader from '@emqx/community-websites-header'
 import Navbar from '@theme/components/Navbar.vue'
 import Page from '@theme/components/Page.vue'
 import Edit from '@theme/components/Edit.vue'
@@ -47,7 +47,7 @@ export default {
   name: 'Layout',
 
   components: {
-    BrandHeader,
+    EMQHeader,
     Navbar,
     Page,
     Edit,
