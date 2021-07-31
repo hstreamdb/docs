@@ -34,7 +34,6 @@
 </template>
 
 <script>
-import EMQHeader from '@emqx/community-websites-header'
 import Navbar from '@theme/components/Navbar.vue'
 import Page from '@theme/components/Page.vue'
 import Edit from '@theme/components/Edit.vue'
@@ -47,7 +46,6 @@ export default {
   name: 'Layout',
 
   components: {
-    EMQHeader,
     Navbar,
     Page,
     Edit,
