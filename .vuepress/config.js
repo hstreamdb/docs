@@ -1,7 +1,11 @@
 const navConfig = require('./config/navConfig')
 const footerConfig = require('./config/footerConfig')
-const gitHubConfig = require('./config/githubConfig.json')
-const directory = require('./config/directory.json')
+const gitHubConfig = require('./config/githubConfig')
+const directory = require('../directory.json')
+const version = process.env.VERSION
+const prefixEN = `/docs/en/${version ? `${version}/` : ''}`
+const prefixZH = `/docs/zh/${version ? `${version}/` : ''}`
+
 const { removePlugin, PLUGINS } = require('@vuepress/markdown')
 const fs = require('fs')
 const { path } = require('@vuepress/shared-utils')
@@ -96,12 +100,11 @@ module.exports = {
         editLinkText: 'Edit this page on GitHub',
         nav: navConfig.en,
         sidebarDepth: 1,
-        sidebar: directory.en,
-        // sidebar: {
-        //   '/docs/latest/': directory.en,
-        // },
+        sidebar: {
+          [prefixEN]: directory.en,
+        },
       },
-      '/zh/': {
+      '/docs/zh/': {
         lang: 'zh-CN',
         lastUpdated: '更新时间',
         selectText: '选择语言',
@@ -109,10 +112,9 @@ module.exports = {
         editLinkText: '在 GitHub 上编辑此页',
         nav: navConfig.zh,
         sidebarDepth: 1,
-        sidebar: directory.zh,
-        // sidebar: {
-        //   '/zh/docs/latest/': directory.zh,
-        // },
+        sidebar: {
+          [prefixZH]: directory.zh,
+        },
       },
     },
     // 默认值是 true 。设置为 false 来禁用所有页面的 下一篇 链接
@@ -138,7 +140,7 @@ module.exports = {
       title: 'HStreamDB Docs',
       description: 'HStreamDB Docs',
     },
-    '/zh/': {
+    '/docs/zh/': {
       lang: 'zh-CN',
       title: 'HStreamDB Docs',
       description: 'HStreamDB 使用文档',

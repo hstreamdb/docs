@@ -1,0 +1,128 @@
+{
+  "zh": [
+    {
+      "title": "Getting started",
+      "children": [
+        {
+          "title": "Quickstart with Docker",
+          "path": "./start/quickstart-with-docker"
+        }
+      ]
+    },
+    {
+      "title": "Reference",
+      "children": [
+        {
+          "title": "SQL",
+          "children": [
+            {
+              "title": "SQL overview",
+              "path": "./reference/sql/sql-overview"
+            },
+            {
+              "title": "SQL quick reference",
+              "path": "./reference/sql/sql-quick-reference"
+            },
+            {
+              "title": "Statements",
+              "children": [
+                {
+                  "title": "CREATE STREAM",
+                  "path": "./reference/sql/statements/create-stream"
+                },
+                {
+                  "title": "SELECT (Stream)",
+                  "path": "./reference/sql/statements/select-stream"
+                },
+                {
+                  "title": "INSERT",
+                  "path": "./reference/sql/statements/insert"
+                }
+              ]
+            },
+            {
+              "title": "Appendix",
+              "path": "./reference/sql/appendix"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Development",
+      "children": [
+        {
+          "title": "Haskell style",
+          "path": "./development/haskell-style"
+        },
+        {
+          "title": "Building from source",
+          "path": "./development/build-from-source"
+        }
+      ]
+    }
+  ],
+  "en": [
+    {
+      "title": "Getting started",
+      "children": [
+        {
+          "title": "Quickstart with Docker",
+          "path": "./start/quickstart-with-docker"
+        }
+      ]
+    },
+    {
+      "title": "Reference",
+      "children": [
+        {
+          "title": "SQL",
+          "children": [
+            {
+              "title": "SQL overview",
+              "path": "./reference/sql/sql-overview"
+            },
+            {
+              "title": "SQL quick reference",
+              "path": "./reference/sql/sql-quick-reference"
+            },
+            {
+              "title": "Statements",
+              "children": [
+                {
+                  "title": "CREATE STREAM",
+                  "path": "./reference/sql/statements/create-stream"
+                },
+                {
+                  "title": "SELECT (Stream)",
+                  "path": "./reference/sql/statements/select-stream"
+                },
+                {
+                  "title": "INSERT",
+                  "path": "./reference/sql/statements/insert"
+                }
+              ]
+            },
+            {
+              "title": "Appendix",
+              "path": "./reference/sql/appendix"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Development",
+      "children": [
+        {
+          "title": "Haskell style",
+          "path": "./development/haskell-style"
+        },
+        {
+          "title": "Building from source",
+          "path": "./development/build-from-source"
+        }
+      ]
+    }
+  ]
+}
