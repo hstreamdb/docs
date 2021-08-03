@@ -41,7 +41,7 @@ module.exports = {
     [
       '@vuepress/google-analytics',
       {
-        ga: 'UA-145467055-1',
+        ga: 'UA-177396745-1',
       },
     ],
     [
@@ -86,6 +86,36 @@ module.exports = {
         hostname: 'https://hstream.io',
         exclude: ['/404.html'],
         outFile: 'sitemap_docs.xml',
+      },
+    ],
+    [
+      'vuepress-plugin-container',
+      {
+        type: 'tip',
+        defaultTitle: {
+          '/docs/en/': 'TIP',
+          '/docs/zh/': '提示',
+        },
+      },
+    ],
+    [
+      'vuepress-plugin-container',
+      {
+        type: 'warning',
+        defaultTitle: {
+          '/docs/en/': 'WARING',
+          '/docs/zh/': '注意',
+        },
+      },
+    ],
+    [
+      'vuepress-plugin-container',
+      {
+        type: 'danger',
+        defaultTitle: {
+          '/docs/en/': 'DANGER',
+          '/docs/zh/': '警告',
+        },
       },
     ],
   ],
