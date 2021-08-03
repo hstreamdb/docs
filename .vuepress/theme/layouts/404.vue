@@ -17,7 +17,7 @@
 export default {
   data() {
     return {
-      backHomeLink: 'https://hstream.io/zh/dosc/latest/',
+      backHomeLink: '',
       backHome: '返回首页',
       msg: '抱歉，你访问的页面不存在。',
       msgs: [
@@ -33,7 +33,9 @@ export default {
     if (this.$route.path.indexOf('/en/') !== -1) {
       this.msg = this.msgs[Math.floor(Math.random() * this.msgs.length)]
       this.backHome = 'Take me home'
-      this.backHomeLink = 'https://hstream.io/dosc/latest/'
+      this.backHomeLink = `https://hstream.io${this.$themeConfig.baseUrl.en}`
+    } else {
+      this.backHomeLink = `https://hstream.io${this.$themeConfig.baseUrl.zh}`
     }
   },
 }

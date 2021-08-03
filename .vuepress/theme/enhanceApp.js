@@ -9,6 +9,10 @@ export default ({
 }) => {
   Vue.prototype.$axios = axios
 
+  // add redirect
+  router.addRoute({ path: '/docs/en', redirect: '/docs/en/start/quickstart-with-docker' })
+  router.addRoute({ path: '/docs/zh', redirect: '/docs/zh/start/quickstart-with-docker' })
+
   // fix unable to scroll to anchor
   if (typeof document === 'undefined') return
   document.onreadystatechange = () => {
