@@ -8,12 +8,6 @@ export default ({
   siteData, // site metadata
 }) => {
   Vue.prototype.$axios = axios
-  Vue.mixin({
-    mounted() {
-      const EMQHeader = require('@emqx/community-websites-header')
-      Vue.use(EMQHeader)
-    },
-  })
 
   // fix unable to scroll to anchor
   if (typeof document === 'undefined') return

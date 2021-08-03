@@ -903,13 +903,6 @@
     "@babel/helper-validator-identifier" "^7.14.8"
     to-fast-properties "^2.0.0"
 
-"@emqx/community-websites-header@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@emqx/community-websites-header/-/community-websites-header-1.0.2.tgz#ce0a12741654ea346864fcc94d5f528fcf64ace8"
-  integrity sha512-UYCKFUAyrsNhDz29LuNWoJ0NIpAetmyE/N3n1jZVYVdf7zTi5G+1Q91D1wOKcs2zN4Tk4emqJ3Td9iS2wPfIwA==
-  dependencies:
-    core-js "^3.6.5"
-
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <EMQHeader :lang="$lang === 'en' ? 'en' : 'zh'" />
     <div class="theme-container" :class="pageClasses" @touchstart="onTouchStart" @touchend="onTouchEnd">
       <Navbar v-if="shouldShowNavbar" @toggle-sidebar="toggleSidebar" />
 
