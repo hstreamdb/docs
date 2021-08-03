@@ -1,3 +1,6 @@
+const version = process.env.VERSION || 'latest'
+const docsBranch = process.env.DOCSBRANCH || 'master'
+
 module.exports = {
   'zh-CN': {
     docName: 'HStreamDB 文档',
@@ -5,8 +8,8 @@ module.exports = {
     editLinkText: '编辑此页',
     feedbackLinkText: '反馈问题',
     docsRepo: 'hstreamdb/docs',
-    docsBranch: 'main',
-    version: 'latest',
+    docsBranch,
+    version,
   },
   en: {
     docName: 'HStreamDB Docs',
@@ -14,7 +17,7 @@ module.exports = {
     editLinkText: 'Edit this page',
     feedbackLinkText: 'Request docs changes',
     docsRepo: 'hstreamdb/docs',
-    docsBranch: 'main',
-    version: 'latest',
+    docsBranch,
+    version,
   },
 }

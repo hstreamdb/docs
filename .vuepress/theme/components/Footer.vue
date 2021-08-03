@@ -127,7 +127,7 @@ export default {
           source: 'hstream',
         }
         this.$axios
-          .post(`/api/${language}/subscriptions`, data)
+          .post('/api/v1/subscriptions', data)
           .then(({ status, data }) => {
             if (status === 200 && data) {
               this.message =
