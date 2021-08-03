@@ -70,12 +70,7 @@ export default {
           items: Object.keys(locales).map(path => {
             const locale = locales[path]
             const text = (themeLocales[path] && themeLocales[path].label) || locale.lang
-            let link
-            if (path === '/zh/') {
-              link = `/zh/docs/latest/`
-            } else {
-              link = `/docs/latest/`
-            }
+            let link = locale.url
             return { text, link }
           }),
         }

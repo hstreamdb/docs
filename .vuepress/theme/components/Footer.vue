@@ -19,13 +19,13 @@
                 <ul :class="{ 'dropdown-menu': true, 'is-active': changeLangFlag }">
                   <li
                     :class="['dropdown-item', { 'is-active': $lang === 'en' }]"
-                    @click="changeLanguage('/docs/latest/')"
+                    @click="changeLanguage($themeConfig.baseUrl.en)"
                   >
                     English
                   </li>
                   <li
                     :class="['dropdown-item', { 'is-active': $lang === 'zh-CN' }]"
-                    @click="changeLanguage('/zh/docs/latest/')"
+                    @click="changeLanguage($themeConfig.baseUrl.zh)"
                   >
                     中文
                   </li>

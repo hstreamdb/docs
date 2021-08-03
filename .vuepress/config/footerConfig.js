@@ -1,3 +1,7 @@
+const version = process.env.VERSION
+const prefixEN = `/docs/en/${version ? `${version}/` : ''}`
+const prefixZH = `/docs/zh/${version ? `${version}/` : ''}`
+
 module.exports = {
   'zh-CN': {
     column: [
@@ -7,7 +11,7 @@ module.exports = {
       },
       {
         title: '文档',
-        link: '/zh/docs/latest/',
+        link: prefixZH,
       },
       {
         title: '博客',
@@ -37,7 +41,7 @@ module.exports = {
       },
       {
         title: 'Docs',
-        link: '/docs/latest/',
+        link: prefixEN,
       },
       {
         title: 'Blog',

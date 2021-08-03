@@ -159,6 +159,10 @@ module.exports = {
     gitHubConfig: gitHubConfig,
     // 页脚设置
     footerConfig: footerConfig,
+    baseUrl: {
+      en: prefixEN,
+      zh: prefixZH,
+    },
     // 搜索最大数量
     searchMaxSuggestions: 30,
   },
@@ -169,11 +173,13 @@ module.exports = {
       lang: 'en',
       title: 'HStreamDB Docs',
       description: 'HStreamDB Docs',
+      url: prefixEN,
     },
     '/docs/zh/': {
       lang: 'zh-CN',
       title: 'HStreamDB Docs',
       description: 'HStreamDB 使用文档',
+      url: prefixZH,
     },
   },
   markdown: {
