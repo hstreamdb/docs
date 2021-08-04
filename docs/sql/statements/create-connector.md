@@ -7,7 +7,7 @@ Create a new connector for fetching data from or writing data to an external sys
 ## Synopsis
 
 ```sql
-CREATE CONNECTOR <SOURCE|SINK> CONNECTOR connector_name [IF NOT EXIST] WITH (connector_option [, ...]);
+CREATE <SOURCE|SINK> CONNECTOR connector_name [IF NOT EXIST] WITH (connector_option [, ...]);
 ```
 
 ## Notes
@@ -35,7 +35,7 @@ CREATE CONNECTOR <SOURCE|SINK> CONNECTOR connector_name [IF NOT EXIST] WITH (con
         <tr>
             <td>port</td>
             <td>Port of MySQL server</td>
-            <td>"3306"</td>
+            <td>3306</td>
         </tr>
         <tr>
             <td>username</td>
@@ -61,7 +61,7 @@ CREATE CONNECTOR <SOURCE|SINK> CONNECTOR connector_name [IF NOT EXIST] WITH (con
         <tr>
             <td>port</td>
             <td>Port of ClickHouse server</td>
-            <td>"9000"</td>
+            <td>9000</td>
         </tr>
         <tr>
             <td>username</td>
