@@ -40,14 +40,14 @@ SHOW CONNECTORS;
 
 One of the following states is assigned to the connectors:
 
-| state | description 
-|-------|------------
-| Creating | The server has started to process the request
-| Created  | The connection has been established but it has not started to process the data
-| CreationAbort | The process of creating the connection failed and it is frozon
-| Running  | The connector is ready to process requests
-| ExecutionAbort | The connector failed to execute a SQL statement and it is frozen
-| Terminate | The connector is frozen by a user request
+| state          | description                                                                    |
+|----------------|--------------------------------------------------------------------------------|
+| Creating       | The server has started to process the request                                  |
+| Created        | The connection has been established but it has not started to process the data |
+| CreationAbort  | The process of creating the connection failed and it is frozon                 |
+| Running        | The connector is ready to process requests                                     |
+| ExecutionAbort | The connector failed to execute a SQL statement and it is frozen               |
+| Terminate      | The connector is frozen by a user request                                      |
 
 Please wait for it to finish setting up if the state of the connector is `Creating` or `Created`. You can restart an aborted or terminated connector (in the future). You may also abandon connectors by using
 
