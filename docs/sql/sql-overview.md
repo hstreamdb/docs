@@ -3,13 +3,13 @@ SQL Overview
 
 SQL is a domain-specific language used in programming and designed for managing data held in a database management system. A standard for the specification of SQL is maintained by the American National Standards Institute (ANSI). Also, there are many variants and extensions to SQL to express more specific programs.
 
-The [SQL grammar of HStreamDB](https://github.com/hstreamdb/hstream/blob/master/hstream-sql/etc/SQL.cf) is based on a subset of SQL-92 with some extensions to support stream operations.
+The [SQL grammar of HStreamDB](https://github.com/hstreamdb/hstream/blob/main/hstream-sql/etc/SQL.cf) is based on a subset of SQL-92 with some extensions to support stream operations.
 
 ## Syntax
 
 SQL inputs are made up of a series of statements. Each statement is made up of a series of tokens and ends in a semicolon (`;`).
 
-A token can be a keyword argument, an identifier, a literal, an operator, or a special character. The details of the rules can be found in the [BNFC grammar file](https://github.com/hstreamdb/hstream/blob/master/hstream-sql/etc/SQL.cf). Normally, tokens are separated by whitespace.
+A token can be a keyword argument, an identifier, a literal, an operator, or a special character. The details of the rules can be found in the [BNFC grammar file](https://github.com/hstreamdb/hstream/blob/main/hstream-sql/etc/SQL.cf). Normally, tokens are separated by whitespace.
 
 The following examples are syntactically valid SQL statements:
 
