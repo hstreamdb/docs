@@ -32,6 +32,9 @@ plugins:
         "index.md": "start/quickstart-with-docker.md"
 
 extra:
+  version:
+    provider: mike
+
   alternate:
     - name: English
       link: /
@@ -56,30 +59,30 @@ nav:
       - Learning Resources: overview/learning-resouces.md
   - Getting started:
       - Quickstart with Docker: start/quickstart-with-docker.md
-      - CLI usage : start/cli.md
+      - CLI usage: start/cli.md
       - Configurarion Overview: start/configuration-overview.md
       - Dashboard Overview: start/dashboard-overview.md
   - Develop:
-    - Java SDK:
-      - Installation: develop/java-sdk/installation.md
-      - Connect: develop/java-sdk/connect.md
-      - Streams: develop/java-sdk/stream.md
-      - Write Data: develop/java-sdk/write.md
-      - Consume Data: develop/java-sdk/consume.md
-      - Stream Processing with SQL: develop/java-sdk/query.md
+      - Java SDK:
+          - Installation: develop/java-sdk/installation.md
+          - Connect: develop/java-sdk/connect.md
+          - Streams: develop/java-sdk/stream.md
+          - Write Data: develop/java-sdk/write.md
+          - Consume Data: develop/java-sdk/consume.md
+          - Stream Processing with SQL: develop/java-sdk/query.md
   - Deployment:
       - Running on Kubernetes: deployment/deploy-k8s.md
   - HStreamDB SQL:
-    - HStreamDB SQL overview: sql/sql-overview.md
-    - HStreamDB SQL quick reference: sql/sql-quick-reference.md
-    - Statements:
-      - CREATE STREAM: sql/statements/create-stream.md
-      - CREATE VIEW: sql/statements/create-view.md
-      - CREATE CONNECTOR: sql/statements/create-connector.md
-      - SELECT (Stream): sql/statements/select-stream.md
-      - SELECT (View): sql/statements/select-view.md
-      - INSERT: sql/statements/insert.md
-    - Appendix: sql/appendix.md
+      - HStreamDB SQL overview: sql/sql-overview.md
+      - HStreamDB SQL quick reference: sql/sql-quick-reference.md
+      - Statements:
+          - CREATE STREAM: sql/statements/create-stream.md
+          - CREATE VIEW: sql/statements/create-view.md
+          - CREATE CONNECTOR: sql/statements/create-connector.md
+          - SELECT (Stream): sql/statements/select-stream.md
+          - SELECT (View): sql/statements/select-view.md
+          - INSERT: sql/statements/insert.md
+      - Appendix: sql/appendix.md
   - Connector:
       - Overview: connector/overview.md
       - Use: connector/use.md

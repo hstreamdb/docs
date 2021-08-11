@@ -1,9 +1,9 @@
-name: Publish to github pages
+name: Tag docs
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - "*"
 
 jobs:
   deploy:
@@ -25,5 +25,6 @@ jobs:
           git config user.name "GithubAction"
           git config user.email "z@hstream.io"
 
-          mike deploy --push --rebase --force latest
+          TAG=${GITHUB_REF#refs/*/}
+          mike deploy --push --rebase --force ${TAG}
           mike set-default --push latest
