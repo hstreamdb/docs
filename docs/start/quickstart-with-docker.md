@@ -73,6 +73,7 @@ If everything works fine, you will enter an interactive CLI and see help
 information like
 
 ```
+      __  _________________  _________    __  ___
      / / / / ___/_  __/ __ \/ ____/   |  /  |/  /
     / /_/ /\__ \ / / / /_/ / __/ / /| | / /|_/ /
    / __  /___/ // / / _, _/ /___/ ___ |/ /  / /
