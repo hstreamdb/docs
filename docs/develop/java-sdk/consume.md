@@ -2,59 +2,71 @@
 
 This page shows how to consume data from HStreamDB using Java SDK.
 
-## Prerequisites 
+## Prerequisites
 
 Make sure you have HStreamDB running and accessible.
 
-## Consumer
+## Concepts
 
-Before you can consume data, you first need to create a ``Consumer`` object
-using the ``HStreamClient.newConsumer()`` method:
+A client can consume data from a consumer object. A consumer object will join a
+subscription with a subscriptionID, and then the client can fetch data from the
+subscribed stream.
+
+Each consumer object will contain a `RawRecordReceiver` and a `HRecordReceiver`,
+so users can consume raw records or HRecords according to their needs.
+
+With consumer, the client will continuously fetch data from the subscription in
+a background thread, also the client will periodically send heartbeats to the
+server to maintain the subscription.
+
+## Consume Records
+
+You can consume records like this:
 
 ```java
 
-Consumer consumer = client.newConsumer()
+Consumer consumer =
+    client
+        .newConsumer()
         .subscription("test_subscription")
-        .stream("test_stream")
-        .maxPollRecords(100)
-        .pollTimeoutMs(1000)
+        .rawRecordReceiver((receivedRawRecord, responder) -> {
+            // You can execute some callback function here.
+            System.out.Println("Received Raw Record: " + receivedRawRecord.getRecordId())
+        })
         .build();
+consumer.startAsync().awaitRunning();
+
+// after you consume enough data, you can stop the consumer
+consumer.stopAsync().awaitTerminated();
 
 ```
 
-A consumer must be associated with a subscription, and a subscription contains a
-stream.
+- the example use `rawRecordReceiver()` to consume raw records, if you want to
+  consume HReacord, just use `hRecordReceiver()` instead.
 
-Once the consumer is created successfully, it can be used to continuously
-receive data from the subscribed stream.
+## Responder
 
-## Receive Raw Records 
-
-You can receive receive raw records using the ``Consumer.pollRawRecords()`` method:
+HStreamDB support `checkpoint`. Consumer can use responder to ack server and
+commit a checkpoint when it receives data from server.
 
 ```java
 
-while(true) {
-    List<ReceivedRawRecord> receivedRawRecords = consumer.pollRawRecords();
-    for(ReceivedRawRecord receivedRawRecord: receivedRawRecords) {
-        System.out.println(receivedRawRecord.getRecordId());
-    }
-}
+AtomicInteger consumedCount = new AtomicInteger();
+Consumer consumer =
+    client
+        .newConsumer()
+        .subscription("test_subscription")
+        .hRecordReceiver((receivedHRecord, responder) -> {
+           System.out.println("enter process, count is " + consumedCount.incrementAndGet());
+           if (consumedCount.get() == 3) {
+             responder.ack();
+             System.out.println("finished ack");
+           }
+        })
+        .build();
+consumer.startAsync().awaitRunning();
 
-```
-
-## Receive HRecords 
-
-You can receive receive hrecords using the ``Consumer.pollHRecords()`` method:
-
-```java
-
-while(true) {
-    List<ReceivedHRecord> receivedHRecords = consumer.pollHRecords();
-    for(ReceivedHRecord receivedHRecord: receivedHRecords) {
-        System.out.println(receivedHRecord.getRecordId());
-    }
-}
-
+// after you consume enough data, you can stop the consumer
+consumer.stopAsync().awaitTerminated();
 
 ```
