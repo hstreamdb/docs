@@ -67,6 +67,7 @@ nav:
           - Installation: develop/java-sdk/installation.md
           - Connect: develop/java-sdk/connect.md
           - Streams: develop/java-sdk/stream.md
+          - Subscriptions: develop/java-sdk/subscription.md
           - Write Data: develop/java-sdk/write.md
           - Consume Data: develop/java-sdk/consume.md
           - Stream Processing with SQL: develop/java-sdk/query.md
