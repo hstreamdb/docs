@@ -83,6 +83,9 @@ nav:
           - SELECT (Stream): sql/statements/select-stream.md
           - SELECT (View): sql/statements/select-view.md
           - INSERT: sql/statements/insert.md
+      - Functions:
+          - Aggregation Functions: sql/functions/aggregation.md
+          - Scalar Functions: sql/functions/scalar.md
       - Appendix: sql/appendix.md
   - Connector:
       - Overview: connector/overview.md
