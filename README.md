@@ -1,8 +1,10 @@
-HStreamDB Docs
-==============
+# HStreamDB Docs
 
 Documentation for HStreamDB.
 
+Push to the `main` branch will automatically deploy the `latest` document
+through GitHub action. Tagging will deploy a specfic versioned document which is
+just the tag's name.
 
 ## Preview with docker
 
