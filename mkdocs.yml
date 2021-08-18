@@ -89,7 +89,9 @@ nav:
       - Appendix: sql/appendix.md
   - Connector:
       - Overview: connector/overview.md
-      - Use: connector/use.md
+      - Tutorial:
+          - MySQL: connector/tutorial/MySQL.md
+          - ClickHouse: connector/tutorial/ClickHouse.md
   - Contributing:
       - Haskell style: contributing/haskell-style.md
       - Building from source: contributing/build-from-source.md
