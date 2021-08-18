@@ -4,8 +4,7 @@ This tutorial describes how to use HStream connectors.
 
 !!! Note
 
-    Up to the present, we only provide two built-in sink connectors which can
-    subscribe data from streams and write them into MySQL and clickhouse.
+    Up to the present, we only provide sink connectors writing to MySQL or ClickHouse. **The recommended verion of MySQL is 5.7** and MySQL versions after 8.0 are not supported yet.
 
 ## Prerequisites
 
@@ -35,9 +34,13 @@ We first create a source stream called `hstreamsrc` in our server via an HStream
 CREATE STREAM hstreamsrc;
 ```
 
-Before we create a sink connector to subscribe to the `hstreamsrc` stream, make
-sure that there is a table in the database with the same name as the source
-stream. Otherwise, we need to create one with the schema of our interest.
+!!! Note
+
+    Before we create a sink connector to subscribe to the source stream, **make sure that there is a table in the database with the same name as the source stream**. 
+
+[^1]: We will no longer have this restriction in the next release.
+
+Otherwise, we need to create one with the schema of our interest.[^1]
 
 ```sql
 > CREATE TABLE IF NOT EXISTS hstreamsrc (temperature INT, humidity INT);
@@ -118,11 +121,11 @@ After inserting the data into the source stream, you should be able to view the 
 
 * What happened if the status of the connector is `CreationAbort`?
 
-This is caused by an error occured when the server tried to connect to the MySQL service. Please double check you have passed the correct configuration options, especially the port number. Please drop the connector before you try again.
+This is caused by an error occured when the server tried to connect to the MySQL service. Please double check that you have passed the correct configuration options, especially the port number, and that the database has been created. Please drop the connector before you try again.
 
 * What happened if the status of the connector is `ExecutionAbort`?
 
-This is caused by an error occured in the execution of a MySQL command, e.g. the data fed into the source stream do not follow the table schema. You could restart the connection (in the future) or drop it.
+This is caused by an error occured in the execution of a MySQL command, e.g. the table with the same name as the source stream does not exist or the data fed into the source stream do not follow the table schema. You could restart the connection (in the future) or drop it.
 
 * What happened if the status of the connector is `Terminate`?
 
