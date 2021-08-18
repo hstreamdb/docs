@@ -80,6 +80,9 @@ nav:
           - CREATE STREAM: sql/statements/create-stream.md
           - CREATE VIEW: sql/statements/create-view.md
           - CREATE CONNECTOR: sql/statements/create-connector.md
+          - DROP STREAM: sql/statements/drop-stream.md
+          - DROP VIEW: sql/statements/drop-view.md
+          - DROP CONNECTOR: sql/statements/drop-connector.md
           - SELECT (Stream): sql/statements/select-stream.md
           - SELECT (View): sql/statements/select-view.md
           - INSERT: sql/statements/insert.md
@@ -107,3 +110,4 @@ markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+  - footnotes
