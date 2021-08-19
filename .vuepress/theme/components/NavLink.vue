@@ -1,5 +1,5 @@
 <template>
-  <RouterLink v-if="isInternal" class="nav-link" :to="link" :exact="exact" @focusout.native="focusoutAction">
+  <RouterLink v-if="isInternal" class="nav-link" :to="link" @focusout.native="focusoutAction">
     {{ item.text }}
   </RouterLink>
   <!-- 对站内文档跳转特殊处理 -->
@@ -41,7 +41,7 @@ export default {
 
     exact() {
       if (this.$site.locales) {
-        return Object.keys(this.$site.locales).some((rootLink) => rootLink === this.link)
+        return Object.keys(this.$site.locales).some(rootLink => rootLink === this.link)
       }
       return this.link === '/'
     },

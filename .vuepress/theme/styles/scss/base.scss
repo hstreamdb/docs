@@ -314,6 +314,8 @@ div[class*='language-'].line-numbers-mode {
       display: flex;
       align-items: center;
       > .nav-item {
+        color: #605f6a;
+        margin-left: 0;
         &:nth-child(4) {
           display: none !important;
         }
@@ -367,7 +369,7 @@ div[class*='language-'].line-numbers-mode {
             border: 1px solid #e2e0eb;
           }
           &.downloads {
-            margin-left: 8px;
+            margin-left: 24px;
             border: 1px solid#613EDA;
             background: #613eda;
             color: #fff;
