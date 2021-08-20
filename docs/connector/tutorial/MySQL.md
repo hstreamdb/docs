@@ -19,11 +19,12 @@ host address and port number with your own configuration.
 mycli --host 127.0.0.1 --port 3306 --user root
 ```
 
-I will be using a database called `hstreamdb` in MySQL.
+I will be using a database called `hstreamdb` in MySQL and a table called `hstreamtbl` with two columns of integers in the database.
 
 ```sql
 > CREATE DATABASE hstreamdb;
 > USE hstreamdb;
+> CREATE TABLE IF NOT EXISTS hstreamtbl (temperature INT, humidity INT);
 ```
 
 ## Create Built-In Connectors
@@ -32,18 +33,6 @@ We first create a source stream called `hstreamsrc` in our server via an HStream
 
 ```sql
 CREATE STREAM hstreamsrc;
-```
-
-!!! Note
-
-    Before we create a sink connector to subscribe to the source stream, **make sure that there is a table in the database with the same name as the source stream**. 
-
-[^1]: We will no longer have this restriction in the next release.
-
-Otherwise, we need to create one with the schema of our interest.[^1]
-
-```sql
-> CREATE TABLE IF NOT EXISTS hstreamsrc (temperature INT, humidity INT);
 ```
 
 Then, let's take a look at the usage of the command to create a connector.
@@ -56,22 +45,23 @@ CREATE SINK CONNECTOR connector_name [IF NOT EXIST] WITH (connector_options [...
 
 Connector options include:
 
-| Option   | Type       | Description or default value |
-|----------|------------|------------------------------|
-| type*    | Identifier | [`mysql` \| `clickhouse`]    |
-| stream*  | Identifier | Name of the source stream    |
-| username | String     | "root"                       |
-| password | String     | "password"                   |
-| host     | String     | "127.0.0.1"                  |
-| port*    | Int        | Port number for connection   |
-| database | String     | "mysql"                      |
+| Option   | Type       | Description or default value      |
+|----------|------------|-----------------------------------|
+| type*    | Identifier | [`mysql` \| `clickhouse`]         |
+| stream*  | Identifier | Name of the source stream         |
+| username | String     | "root"                            |
+| password | String     | "password"                        |
+| host     | String     | "127.0.0.1"                       |
+| port*    | Int        | Port number for connection        |
+| database | String     | "mysql"                           |
+| table    | String     | Name of the table in the database |
 
-Options with a * symbol are required and others are optional. The `type` option has to be either `mysql` or `clickhouse` for now and the default value listed above are specific to the MySQL option.
+Options with a * symbol are required and others are optional. The `type` option has to be either `mysql` or `clickhouse` for now and the default value listed above are specific to the MySQL option. If the name of table is omitted, the connector will write the data to a table with the same name as the source stream.
 
 Back to our example, we will use the following command to create a sink connector called `mysql_conn` that subsribes to the `hstreamsrc` stream.
 
 ```sql
-CREATE SINK CONNECTOR mysql_conn WITH (type = mysql, stream = hstreamsrc, username = "root", password = "", host = "127.0.0.1", port = 3306, database = "hstreamdb");
+CREATE SINK CONNECTOR mysql_conn WITH (type = mysql, stream = hstreamsrc, username = "root", password = "", host = "127.0.0.1", port = 3306, database = "hstreamdb", table = "hstreamtbl");
 ```
 
 You can use the following command to check the status of a connector.
@@ -114,7 +104,7 @@ Please make sure that the data inserted into the source stream follow the schema
 After inserting the data into the source stream, you should be able to view the data on MySQL end,
 
 ```sql
-> SELECT * FROM hstreamsrc;
+> SELECT * FROM hstreamtbl;
 ```
 
 ### Troubleshooting
@@ -125,7 +115,7 @@ This is caused by an error occured when the server tried to connect to the MySQL
 
 * What happened if the status of the connector is `ExecutionAbort`?
 
-This is caused by an error occured in the execution of a MySQL command, e.g. the table with the same name as the source stream does not exist or the data fed into the source stream do not follow the table schema. You could restart the connection (in the future) or drop it.
+This is caused by an error occured in the execution of a MySQL command, e.g. the table does not exist in the database or the data fed into the source stream do not follow the table schema. You could restart the connection (in the future) or drop it.
 
 * What happened if the status of the connector is `Terminate`?
 
