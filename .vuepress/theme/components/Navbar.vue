@@ -2,7 +2,7 @@
   <header class="navbar is-flex is-align-items-center is-justify-content-space-between">
     <SidebarButton @toggle-sidebar="$emit('toggle-sidebar')" />
     <div class="navbar-left">
-      <a :href="$lang === 'zh-CN' ? 'https://hstream.io/zh' : 'https://hstream.io/'" class="home-link">
+      <a :href="$lang === 'zh-CN' ? '/zh' : '/'" class="home-link">
         <img v-if="$site.themeConfig.logo" class="logo" :src="$withBase($site.themeConfig.logo)" />
       </a>
     </div>

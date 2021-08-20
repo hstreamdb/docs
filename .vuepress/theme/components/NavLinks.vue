@@ -74,7 +74,7 @@ export default {
             return { text, link }
           }),
         }
-        return [...this.userNav, languageDropdown]
+        return [...this.userNav]
       }
       return this.userNav
     },

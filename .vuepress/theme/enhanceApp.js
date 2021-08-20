@@ -10,8 +10,9 @@ export default ({
   Vue.prototype.$axios = axios
 
   // add redirect
-  router.addRoute({ path: '/docs/en', redirect: '/docs/en/start/quickstart-with-docker' })
-  router.addRoute({ path: '/docs/zh', redirect: '/docs/zh/start/quickstart-with-docker' })
+  const { baseUrl } = siteData.themeConfig
+  router.addRoute({ path: '/docs/en/', redirect: `${baseUrl.en}start/quickstart-with-docker.html` })
+  router.addRoute({ path: '/docs/zh/', redirect: `${baseUrl.zh}start/quickstart-with-docker.html` })
 
   // fix unable to scroll to anchor
   if (typeof document === 'undefined') return

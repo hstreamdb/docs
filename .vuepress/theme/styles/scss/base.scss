@@ -316,9 +316,6 @@ div[class*='language-'].line-numbers-mode {
       > .nav-item {
         color: #605f6a;
         margin-left: 0;
-        &:nth-child(4) {
-          display: none !important;
-        }
         a,
         .title {
           margin: 0.5rem 1rem;
