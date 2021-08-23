@@ -1,48 +1,106 @@
 {
   "zh": [
     {
-      "title": "Getting started",
+      "title": "Overview",
       "children": [
         {
-          "title": "Quickstart with Docker",
-          "path": "./start/quickstart-with-docker"
+          "title": "HStream Streaming Database Overview",
+          "path": "overview/overview"
+        },
+        {
+          "title": "Concepts",
+          "children": [
+            {
+              "title": "Stream and Streaming Data",
+              "path": "overview/concepts/stream"
+            }
+          ]
+        },
+        {
+          "title": "Architecture",
+          "children": [
+            {
+              "title": "Overview",
+              "path": "overview/architecture/overview"
+            },
+            {
+              "title": "HStream Store (HStore)",
+              "path": "overview/architecture/hstream-store"
+            },
+            {
+              "title": "HStream Server (HSQL)",
+              "path": "overview/architecture/hstream-server"
+            }
+          ]
+        },
+        {
+          "title": "Features",
+          "path": "overview/features"
+        },
+        {
+          "title": "Release Notes",
+          "path": "overview/release-notes"
+        },
+        {
+          "title": "Learning Resources",
+          "path": "overview/learning-resouces"
         }
       ]
     },
     {
-      "title": "Reference",
+      "title": "Getting started",
       "children": [
         {
-          "title": "SQL",
+          "title": "Quickstart with Docker",
+          "path": "start/quickstart-with-docker"
+        },
+        {
+          "title": "CLI usage",
+          "path": "start/cli"
+        },
+        {
+          "title": "Configurarion Overview",
+          "path": "start/configuration-overview"
+        },
+        {
+          "title": "Dashboard Overview",
+          "path": "start/dashboard-overview"
+        }
+      ]
+    },
+    {
+      "title": "Develop",
+      "children": [
+        {
+          "title": "Java SDK",
           "children": [
             {
-              "title": "SQL overview",
-              "path": "./reference/sql/sql-overview"
+              "title": "Installation",
+              "path": "develop/java-sdk/installation"
             },
             {
-              "title": "SQL quick reference",
-              "path": "./reference/sql/sql-quick-reference"
+              "title": "Connect",
+              "path": "develop/java-sdk/connect"
             },
             {
-              "title": "Statements",
-              "children": [
-                {
-                  "title": "CREATE STREAM",
-                  "path": "./reference/sql/statements/create-stream"
-                },
-                {
-                  "title": "SELECT (Stream)",
-                  "path": "./reference/sql/statements/select-stream"
-                },
-                {
-                  "title": "INSERT",
-                  "path": "./reference/sql/statements/insert"
-                }
-              ]
+              "title": "Streams",
+              "path": "develop/java-sdk/stream"
             },
             {
-              "title": "Appendix",
-              "path": "./reference/sql/appendix"
+              "title": "Subscriptions",
+              "path": "develop/java-sdk/subscription"
+            },
+            {
+              "title": "Write Data",
+              "path": "develop/java-sdk/write"
+            },
+            {
+              "title": "Consume Data",
+              "path": "develop/java-sdk/consume"
+            },
+            {
+              "title": "Stream Processing with SQL",
+              "path": "develop/java-sdk/query"
             }
           ]
         }
@@ -52,60 +110,220 @@
       "title": "Development",
       "children": [
         {
+          "title": "Running on Kubernetes",
+          "path": "deployment/deploy-k8s"
+        }
+      ]
+    },
+    {
+      "title": "HStreamDB SQL",
+      "children": [
+        {
+          "title": "HStreamDB SQL overview",
+          "path": "sql/sql-overview"
+        },
+        {
+          "title": "HStreamDB SQL quick reference",
+          "path": "sql/sql-quick-reference"
+        },
+        {
+          "title": "Statements",
+          "children": [
+            {
+              "title": "CREATE STREAM",
+              "path": "sql/statements/create-stream"
+            },
+            {
+              "title": "CREATE VIEW",
+              "path": "sql/statements/create-view"
+            },
+            {
+              "title": "CREATE CONNECTOR",
+              "path": "sql/statements/create-connector"
+            },
+            {
+              "title": "DROP STREAM",
+              "path": "sql/statements/drop-stream"
+            },
+            {
+              "title": "DROP VIEW",
+              "path": "sql/statements/drop-view"
+            },
+            {
+              "title": "DROP CONNECTOR",
+              "path": "sql/statements/drop-connector"
+            },
+            {
+              "title": "SELECT (Stream)",
+              "path": "sql/statements/select-stream"
+            },
+            {
+              "title": "SELECT (View)",
+              "path": "sql/statements/select-view"
+            },
+            {
+              "title": "INSERT",
+              "path": "sql/statements/insert"
+            }
+          ]
+        },
+        {
+          "title": "Functions",
+          "children": [
+            {
+              "title": "Aggregation Functions",
+              "path": "sql/functions/aggregation"
+            },
+            {
+              "title": "Scalar Functions",
+              "path": "sql/functions/scalar"
+            }
+          ]
+        },
+        {
+          "title": "Appendix",
+          "path": "sql/appendix"
+        }
+      ]
+    },
+    {
+      "title": "Connector",
+      "children": [
+        {
+          "title": "Overview",
+          "path": "connector/overview"
+        },
+        {
+          "title": "Tutorial",
+          "children": [
+            {
+              "title": "MySQL",
+              "path": "connector/tutorial/MySQL"
+            },
+            {
+              "title": "ClickHouse",
+              "path": "connector/tutorial/ClickHouse"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Contributing",
+      "children": [
+        {
           "title": "Haskell style",
-          "path": "./development/haskell-style"
+          "path": "contributing/haskell-style"
         },
         {
           "title": "Building from source",
-          "path": "./development/build-from-source"
+          "path": "contributing/build-from-source"
         }
       ]
     }
   ],
   "en": [
     {
-      "title": "Getting started",
+      "title": "Overview",
       "children": [
         {
-          "title": "Quickstart with Docker",
-          "path": "./start/quickstart-with-docker"
+          "title": "HStream Streaming Database Overview",
+          "path": "overview/overview"
+        },
+        {
+          "title": "Concepts",
+          "children": [
+            {
+              "title": "Stream and Streaming Data",
+              "path": "overview/concepts/stream"
+            }
+          ]
+        },
+        {
+          "title": "Architecture",
+          "children": [
+            {
+              "title": "Overview",
+              "path": "overview/architecture/overview"
+            },
+            {
+              "title": "HStream Store (HStore)",
+              "path": "overview/architecture/hstream-store"
+            },
+            {
+              "title": "HStream Server (HSQL)",
+              "path": "overview/architecture/hstream-server"
+            }
+          ]
+        },
+        {
+          "title": "Features",
+          "path": "overview/features"
+        },
+        {
+          "title": "Release Notes",
+          "path": "overview/release-notes"
+        },
+        {
+          "title": "Learning Resources",
+          "path": "overview/learning-resouces"
         }
       ]
     },
     {
-      "title": "Reference",
+      "title": "Getting started",
       "children": [
         {
-          "title": "SQL",
+          "title": "Quickstart with Docker",
+          "path": "start/quickstart-with-docker"
+        },
+        {
+          "title": "CLI usage",
+          "path": "start/cli"
+        },
+        {
+          "title": "Configurarion Overview",
+          "path": "start/configuration-overview"
+        },
+        {
+          "title": "Dashboard Overview",
+          "path": "start/dashboard-overview"
+        }
+      ]
+    },
+    {
+      "title": "Develop",
+      "children": [
+        {
+          "title": "Java SDK",
           "children": [
             {
-              "title": "SQL overview",
-              "path": "./reference/sql/sql-overview"
+              "title": "Installation",
+              "path": "develop/java-sdk/installation"
             },
             {
-              "title": "SQL quick reference",
-              "path": "./reference/sql/sql-quick-reference"
+              "title": "Connect",
+              "path": "develop/java-sdk/connect"
             },
             {
-              "title": "Statements",
-              "children": [
-                {
-                  "title": "CREATE STREAM",
-                  "path": "./reference/sql/statements/create-stream"
-                },
-                {
-                  "title": "SELECT (Stream)",
-                  "path": "./reference/sql/statements/select-stream"
-                },
-                {
-                  "title": "INSERT",
-                  "path": "./reference/sql/statements/insert"
-                }
-              ]
+              "title": "Streams",
+              "path": "develop/java-sdk/stream"
             },
             {
-              "title": "Appendix",
-              "path": "./reference/sql/appendix"
+              "title": "Subscriptions",
+              "path": "develop/java-sdk/subscription"
+            },
+            {
+              "title": "Write Data",
+              "path": "develop/java-sdk/write"
+            },
+            {
+              "title": "Consume Data",
+              "path": "develop/java-sdk/consume"
+            },
+            {
+              "title": "Stream Processing with SQL",
+              "path": "develop/java-sdk/query"
             }
           ]
         }
@@ -115,12 +333,114 @@
       "title": "Development",
       "children": [
         {
+          "title": "Running on Kubernetes",
+          "path": "deployment/deploy-k8s"
+        }
+      ]
+    },
+    {
+      "title": "HStreamDB SQL",
+      "children": [
+        {
+          "title": "HStreamDB SQL overview",
+          "path": "sql/sql-overview"
+        },
+        {
+          "title": "HStreamDB SQL quick reference",
+          "path": "sql/sql-quick-reference"
+        },
+        {
+          "title": "Statements",
+          "children": [
+            {
+              "title": "CREATE STREAM",
+              "path": "sql/statements/create-stream"
+            },
+            {
+              "title": "CREATE VIEW",
+              "path": "sql/statements/create-view"
+            },
+            {
+              "title": "CREATE CONNECTOR",
+              "path": "sql/statements/create-connector"
+            },
+            {
+              "title": "DROP STREAM",
+              "path": "sql/statements/drop-stream"
+            },
+            {
+              "title": "DROP VIEW",
+              "path": "sql/statements/drop-view"
+            },
+            {
+              "title": "DROP CONNECTOR",
+              "path": "sql/statements/drop-connector"
+            },
+            {
+              "title": "SELECT (Stream)",
+              "path": "sql/statements/select-stream"
+            },
+            {
+              "title": "SELECT (View)",
+              "path": "sql/statements/select-view"
+            },
+            {
+              "title": "INSERT",
+              "path": "sql/statements/insert"
+            }
+          ]
+        },
+        {
+          "title": "Functions",
+          "children": [
+            {
+              "title": "Aggregation Functions",
+              "path": "sql/functions/aggregation"
+            },
+            {
+              "title": "Scalar Functions",
+              "path": "sql/functions/scalar"
+            }
+          ]
+        },
+        {
+          "title": "Appendix",
+          "path": "sql/appendix"
+        }
+      ]
+    },
+    {
+      "title": "Connector",
+      "children": [
+        {
+          "title": "Overview",
+          "path": "connector/overview"
+        },
+        {
+          "title": "Tutorial",
+          "children": [
+            {
+              "title": "MySQL",
+              "path": "connector/tutorial/MySQL"
+            },
+            {
+              "title": "ClickHouse",
+              "path": "connector/tutorial/ClickHouse"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Contributing",
+      "children": [
+        {
           "title": "Haskell style",
-          "path": "./development/haskell-style"
+          "path": "contributing/haskell-style"
         },
         {
           "title": "Building from source",
-          "path": "./development/build-from-source"
+          "path": "contributing/build-from-source"
         }
       ]
     }
