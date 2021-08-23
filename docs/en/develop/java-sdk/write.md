@@ -134,9 +134,9 @@ for(int i = 0; i < count; ++i) {
 
 ```
 
-!!! Warning
-
-    Do not use a synchronized write method in buffered mode
+::: warning
+Do not use a synchronized write method in buffered mode
+:::
 
 Now the producer will first put the data submitted by the `writeAsync` method in
 an internal buffer and send it together to the HStreamDB server when the number
@@ -149,6 +149,6 @@ producer.flush();
 
 ```
 
-!!! Warning
-
-    Please do not write both binary data and hrecord in one stream.
+::: warning
+Please do not write both binary data and hrecord in one stream.
+:::

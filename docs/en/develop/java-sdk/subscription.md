@@ -10,9 +10,9 @@ HStreamDB uses subscription to manage the progress information of consumption
 (e.g. checkpoint, offset). For consumer to consume the data, it **must join** a
 subscription that **already exists**.
 
-!!! Tips
-
-    Currently, only one consumer is allowed to join the same subscription at a time.
+::: tip
+Currently, only one consumer is allowed to join the same subscription at a time.
+:::
 
 ## Prerequisites
 

@@ -1,9 +1,7 @@
-Haskell Style Guide
-===================
+# Haskell Style Guide
 
 This document is a slightly modified version of
 [style guide used in Kowainik](https://kowainik.github.io/posts/2019-02-06-style-guide).
-
 
 ## Style guide goals
 
@@ -12,7 +10,7 @@ Haskell code-bases to have a smoother experience while dealing with code in diff
 situations. This style guide aims to increase productivity by defining the
 following goals:
 
-1. Make code **easier to understand:**  ideas for solutions should not be hidden
+1. Make code **easier to understand:** ideas for solutions should not be hidden
    behind complex and obscure code.
 2. Make code **easier to read:** code arrangement should be immediately apparent
    after looking at the existing code. Names of functions & variables should be transparent and obvious.
@@ -23,12 +21,13 @@ following goals:
    of maintaining packages using version control systems unless this conflicts
    with the previous points.
 
-!!! hint "Rule of thumb when working with existing source code"
-    The general rule is to stick to the same coding style that is already used in the
-    file you are editing. If you must make significant style modifications, then commit them
-    independently from the functional changes so that someone looking back through the
-    changelog can easily distinguish between them.
-
+::: tip
+"Rule of thumb when working with existing source code"
+The general rule is to stick to the same coding style that is already used in the
+file you are editing. If you must make significant style modifications, then commit them
+independently from the functional changes so that someone looking back through the
+changelog can easily distinguish between them.
+:::
 
 ## Indentation
 
@@ -53,17 +52,16 @@ greet = do
     greeting name = "Hey " ++ name ++ "!"
 ```
 
-
 ## Line length
 
 The maximum preferred line length is _80 characters_.
 
-!!! Tip
-    There is no hard rules when it comes to line length. Some lines just have
-    to be a bit longer than usual. However, if your line of code exceeds this
-    limit, try to split code into smaller chunks or break long lines over
-    multiple shorter ones as much as you can.
-
+::: tip
+There is no hard rules when it comes to line length. Some lines just have
+to be a bit longer than usual. However, if your line of code exceeds this
+limit, try to split code into smaller chunks or break long lines over
+multiple shorter ones as much as you can.
+:::
 
 ## Whitespaces
 
@@ -71,7 +69,6 @@ The maximum preferred line length is _80 characters_.
 whitespaces).
 
 Surround binary operators with a single space on either side.
-
 
 ## Alignment
 
@@ -185,16 +182,16 @@ veryLongProductionName
   lastArgumentOfThisFunction
 ```
 
-
 ## Naming
 
 ### Functions and variables
 
-+ **lowerCamelCase** for function and variable names.
-+ **UpperCamelCase** for data types, typeclasses and constructors.
+- **lowerCamelCase** for function and variable names.
+- **UpperCamelCase** for data types, typeclasses and constructors.
 
-!!! note "Variant"
-    Use `ids_with_underscores` for **local variables** only.
+::: tip Variant
+Use `ids_with_underscores` for **local variables** only.
+:::
 
 Try not to create new operators.
 
@@ -303,7 +300,6 @@ data HealthReading = HealthReading
   }
 ```
 
-
 ## Comments
 
 Separate end-of-line comments from the code with _2 spaces_.
@@ -365,12 +361,11 @@ class Semigroup a where
 intersperse :: Char -> Text -> Text
 ```
 
-
 ## Guideline for module formatting
 
 Allowed tools for automatic module formatting:
 
-* [`stylish-haskell`](https://github.com/jaspervdj/stylish-haskell): for formatting the import section and for alignment.
+- [`stylish-haskell`](https://github.com/jaspervdj/stylish-haskell): for formatting the import section and for alignment.
 
 ### LANGUAGE
 
@@ -388,9 +383,10 @@ max width among them.
 
 Always put language extensions in the relevant source file.
 
-!!! Tip
-    Language extensions must be listed at the very top of the file,
-    above the module name.
+::: tip
+Language extensions must be listed at the very top of the file,
+above the module name.
+:::
 
 ### Export lists
 
@@ -423,7 +419,7 @@ Always use explicit import lists or qualified imports. Use qualified
 imports only if the import list is big enough or there are conflicts in names. This
 makes the code more robust against changes in dependent libraries.
 
-* __Exception:__ modules that only reexport other entire modules.
+- **Exception:** modules that only reexport other entire modules.
 
 Imports should be grouped in the following order:
 
@@ -671,7 +667,6 @@ isLimitedBy n limit =
 
 Put a `let` before each variable inside a `do` block.
 
-
 ## General recommendations
 
 Try to split code into separate modules.
@@ -691,14 +686,14 @@ foo = (length . ) . replicate
 
 Code should be compilable with the following ghc options without warnings:
 
-* `-Wall`
-* `-Wincomplete-uni-patterns`
-* `-Wincomplete-record-updates`
-* `-Wcompat`
-* `-Widentities`
-* `-Wredundant-constraints`
-* `-Wmissing-export-lists`
-* `-Wpartial-fields`
+- `-Wall`
+- `-Wincomplete-uni-patterns`
+- `-Wincomplete-record-updates`
+- `-Wcompat`
+- `-Widentities`
+- `-Wredundant-constraints`
+- `-Wmissing-export-lists`
+- `-Wpartial-fields`
 
 Enable `-fhide-source-paths` and `-freverse-errors` for cleaner compiler output.
 

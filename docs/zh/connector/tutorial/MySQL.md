@@ -2,9 +2,9 @@
 
 This tutorial describes how to use HStream connectors.
 
-!!! Note
-
-    Up to the present, we only provide sink connectors writing to MySQL or ClickHouse. **The recommended verion of MySQL is 5.7** and MySQL versions after 8.0 are not supported yet.
+::: tip
+Up to the present, we only provide sink connectors writing to MySQL or ClickHouse. **The recommended verion of MySQL is 5.7** and MySQL versions after 8.0 are not supported yet.
+:::
 
 ## Prerequisites
 
@@ -34,9 +34,9 @@ We first create a source stream called `hstreamsrc` in our server via an HStream
 CREATE STREAM hstreamsrc;
 ```
 
-!!! Note
-
-    Before we create a sink connector to subscribe to the source stream, **make sure that there is a table in the database with the same name as the source stream**. 
+::: tip
+Before we create a sink connector to subscribe to the source stream, **make sure that there is a table in the database with the same name as the source stream**.
+:::
 
 [^1]: We will no longer have this restriction in the next release.
 
@@ -57,16 +57,16 @@ CREATE SINK CONNECTOR connector_name [IF NOT EXIST] WITH (connector_options [...
 Connector options include:
 
 | Option   | Type       | Description or default value |
-|----------|------------|------------------------------|
-| type*    | Identifier | [`mysql` \| `clickhouse`]    |
-| stream*  | Identifier | Name of the source stream    |
+| -------- | ---------- | ---------------------------- |
+| type\*   | Identifier | [`mysql` \| `clickhouse`]    |
+| stream\* | Identifier | Name of the source stream    |
 | username | String     | "root"                       |
 | password | String     | "password"                   |
 | host     | String     | "127.0.0.1"                  |
-| port*    | Int        | Port number for connection   |
+| port\*   | Int        | Port number for connection   |
 | database | String     | "mysql"                      |
 
-Options with a * symbol are required and others are optional. The `type` option has to be either `mysql` or `clickhouse` for now and the default value listed above are specific to the MySQL option.
+Options with a \* symbol are required and others are optional. The `type` option has to be either `mysql` or `clickhouse` for now and the default value listed above are specific to the MySQL option.
 
 Back to our example, we will use the following command to create a sink connector called `mysql_conn` that subsribes to the `hstreamsrc` stream.
 
@@ -83,7 +83,7 @@ SHOW CONNECTORS;
 One of the following states is assigned to the connectors:
 
 | state          | description                                                                    |
-|----------------|--------------------------------------------------------------------------------|
+| -------------- | ------------------------------------------------------------------------------ |
 | Creating       | The server has started to process the request                                  |
 | Created        | The connection has been established but it has not started to process the data |
 | CreationAbort  | The process of creating the connection failed and it is frozon                 |
@@ -119,14 +119,14 @@ After inserting the data into the source stream, you should be able to view the 
 
 ### Troubleshooting
 
-* What happened if the status of the connector is `CreationAbort`?
+- What happened if the status of the connector is `CreationAbort`?
 
 This is caused by an error occured when the server tried to connect to the MySQL service. Please double check that you have passed the correct configuration options, especially the port number, and that the database has been created. Please drop the connector before you try again.
 
-* What happened if the status of the connector is `ExecutionAbort`?
+- What happened if the status of the connector is `ExecutionAbort`?
 
 This is caused by an error occured in the execution of a MySQL command, e.g. the table with the same name as the source stream does not exist or the data fed into the source stream do not follow the table schema. You could restart the connection (in the future) or drop it.
 
-* What happened if the status of the connector is `Terminate`?
+- What happened if the status of the connector is `Terminate`?
 
 It means a client has requested that the connector be terminated. You could restart the connection (in the future) or drop it in this circumstance.
