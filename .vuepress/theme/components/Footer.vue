@@ -113,7 +113,7 @@ export default {
 
   methods: {
     changeLanguage(url) {
-      this.$router.push(url)
+      window.location.href = `${window.location.origin}${url}`
     },
 
     newsLetter() {
