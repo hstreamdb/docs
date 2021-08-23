@@ -130,28 +130,28 @@ div[class*='language-'] {
 .custom-block.tip,
 .custom-block.warning,
 .custom-block.danger {
-  border-left-width: 0.4rem !important;
-  color: #515151 !important;
+  border-left-width: 0.4rem;
+  color: #515151;
 }
 .custom-block.danger {
-  background-color: #fff1f0 !important;
-  border-color: #de4b45 !important;
+  background-color: #fff1f0;
+  border-color: #de4b45;
   .custom-block-title {
-    color: #de4b45 !important;
+    color: #de4b45;
   }
 }
 .custom-block.warning {
-  background-color: #fff9e5 !important;
-  border-color: #ffc600 !important;
+  background-color: #fff9e5;
+  border-color: #ffc600;
   .custom-block-title {
-    color: #e48e00 !important;
+    color: #e48e00;
   }
 }
 .custom-block.tip {
-  background-color: #eefff8 !important;
-  border-color: #55bb77 !important;
+  background-color: rgba(97, 62, 218, 0.1);
+  border-color: #613eda;
   .custom-block-title {
-    color: #2c8e4c !important;
+    color: #613eda;
   }
 }
 div[class*='language-'].line-numbers-mode {
