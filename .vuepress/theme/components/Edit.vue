@@ -28,17 +28,19 @@ export default {
     },
     editLink() {
       const { docsRepo, docsBranch, docsDir } = this.gitHubConfig
-      const { relativePath } = this.$page
-      return `https://github.com/${docsRepo}/edit/${docsBranch || 'main'}/${docsDir || ''}${relativePath}`
+      const prefix = Object.keys(this.$themeLocaleConfig.sidebar)[0]
+      const docsPath = ('/' + this.$page.relativePath).replace(prefix, '')
+      return `https://github.com/${docsRepo}/edit/${docsBranch}/${docsDir}/${docsPath}`
     },
     feedbackLinkText() {
       return this.gitHubConfig.feedbackLinkText
     },
     feedbackLink() {
-      const { docsRepo, docsBranch, docsDir } = this.gitHubConfig
-      const { relativePath } = this.$page
+      const { docsRepo, docsDir } = this.gitHubConfig
+      const prefix = Object.keys(this.$themeLocaleConfig.sidebar)[0]
+      const docsPath = ('/' + this.$page.relativePath).replace(prefix, '')
       const href = `https://hstream.io${this.$route.path}`
-      return `https://github.com/${docsRepo}/issues/new?body=File:%20[${docsDir || ''}/${relativePath}](${href})`
+      return `https://github.com/${docsRepo}/issues/new?body=File:%20[${docsDir}/${docsPath}](${href})`
     },
   },
 }
