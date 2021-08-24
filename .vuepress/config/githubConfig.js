@@ -9,6 +9,7 @@ module.exports = {
     feedbackLinkText: '反馈问题',
     docsRepo: 'hstreamdb/docs',
     docsBranch,
+    docsDir: 'docs/zh',
     version,
   },
   en: {
@@ -18,6 +19,7 @@ module.exports = {
     feedbackLinkText: 'Request docs changes',
     docsRepo: 'hstreamdb/docs',
     docsBranch,
+    docsDir: 'docs/en',
     version,
   },
 }
