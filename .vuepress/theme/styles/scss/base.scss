@@ -233,7 +233,7 @@ div[class*='language-'].line-numbers-mode {
       margin: 0 12px;
       height: 36px;
       border-radius: 0;
-      background-image: url(/images/search.png);
+      background-image: url(/docs-images/search.png);
       background-position: 0.6rem;
       border: none;
       transition: width 0.5s ease;
@@ -555,11 +555,11 @@ div[class*='language-'].line-numbers-mode {
         height: 15px;
       }
       &.improve-doc::before {
-        background: url(/images/edit.png) no-repeat;
+        background: url(/docs-images/edit.png) no-repeat;
         background-size: contain;
       }
       &.feedback-doc::before {
-        background: url(/images/feedback.png) no-repeat;
+        background: url(/docs-images/feedback.png) no-repeat;
         background-size: contain;
       }
     }

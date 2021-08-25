@@ -1,7 +1,7 @@
 <template>
   <div class="theme-container">
     <div class="theme-default-content not-find">
-      <img :src="$withBase('/images/404.png')" alt="404" />
+      <img :src="$withBase('/docs-images/404.png')" alt="404" />
       <h1 class="not-find-title">{{ msg }}</h1>
 
       <a :href="backHomeLink">

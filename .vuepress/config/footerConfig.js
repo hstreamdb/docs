@@ -23,14 +23,14 @@ module.exports = {
       },
     ],
     followList: [
-      { img: '/images/github.png', link: 'https://github.com/hstreamdb/hstream/' },
+      { img: '/docs-images/github.png', link: 'https://github.com/hstreamdb/hstream/' },
       {
-        img: '/images/youtube.png',
+        img: '/docs-images/youtube.png',
         link: 'https://www.youtube.com/channel/UCir_r04HIsLjf2qqyZ4A8Cg',
       },
-      { img: '/images/weibo.png', link: 'https://weibo.com/emqtt' },
-      { img: '/images/linkedin.png', link: 'https://www.linkedin.com/company/emqtech' },
-      { img: '/images/bilibili.png', link: 'https://space.bilibili.com/522222081' },
+      { img: '/docs-images/weibo.png', link: 'https://weibo.com/emqtt' },
+      { img: '/docs-images/linkedin.png', link: 'https://www.linkedin.com/company/emqtech' },
+      { img: '/docs-images/bilibili.png', link: 'https://space.bilibili.com/522222081' },
     ],
   },
   en: {
@@ -53,13 +53,13 @@ module.exports = {
       },
     ],
     followList: [
-      { img: '/images/github.png', link: 'https://github.com/hstreamdb/hstream/' },
-      { img: '/images/twitter.png', link: 'https://twitter.com/EMQTech' },
+      { img: '/docs-images/github.png', link: 'https://github.com/hstreamdb/hstream/' },
+      { img: '/docs-images/twitter.png', link: 'https://twitter.com/EMQTech' },
       {
-        img: '/images/youtube.png',
+        img: '/docs-images/youtube.png',
         link: 'https://www.youtube.com/channel/UC5FjR77ErAxvZENEWzQaO5Q',
       },
-      { img: '/images/linkedin.png', link: 'https://www.linkedin.com/company/emqtech' },
+      { img: '/docs-images/linkedin.png', link: 'https://www.linkedin.com/company/emqtech' },
     ],
   },
 }

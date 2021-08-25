@@ -13,7 +13,7 @@ const { path } = require('@vuepress/shared-utils')
 module.exports = {
   host: '0.0.0.0',
   head: [
-    ['link', { rel: 'shortcut icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    ['link', { rel: 'shortcut icon', type: 'image/x-icon', href: '/docs-images/favicon.ico' }],
     [
       'meta',
       {
@@ -152,7 +152,7 @@ module.exports = {
     // 默认值是 true 。设置为 false 来禁用所有页面的 上一篇 链接
     preLinks: true,
     // 左上放 logo
-    logo: '/logo.png',
+    logo: '/docs-images/logo.png',
     // 页面滚动
     smoothScroll: true,
     // GitHub设置
@@ -188,7 +188,37 @@ module.exports = {
       removePlugin(config, PLUGINS.EMOJI)
     },
   },
+  configureWebpack: (config, isServer) => {
+    config.module.rules[4] = {
+      test: /\.(png|jpe?g|gif)(\?.*)?$/,
+      use: [
+        {
+          loader: 'url-loader',
+          options: {
+            limit: 10000,
+            name: 'docs-assets/img/[name].[hash:8].[ext]',
+          },
+        },
+      ],
+    }
+    config.module.rules[5] = {
+      test: /\.(svg)(\?.*)?$/,
+      use: [
+        {
+          loader: 'file-loader',
+          options: { name: 'docs-assets/img/[name].[hash:8].[ext]' },
+        },
+      ],
+    }
+    config.plugins[1].options = {
+      filename: 'docs-assets/css/styles.[chunkhash:8].css',
+      chunkFilename: 'docs-assets/css/[id].styles.[chunkhash:8].css',
+    }
+  },
   chainWebpack: (webpackConfig, isServer) => {
+    webpackConfig.when(process.env.NODE_ENV === 'production', config => {
+      config.output.filename('docs-assets/js/[name].[chunkhash:8].js')
+    })
     webpackConfig.module
       .rule('compile')
       .test(/\.js$/)

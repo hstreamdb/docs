@@ -20,7 +20,7 @@
         target="_blank"
         rel="noopener"
       >
-        <img :src="$withBase('/images/github-black.png')" />
+        <img :src="$withBase('/docs-images/github-black.png')" />
         Star
       </a>
       <a
@@ -33,7 +33,7 @@
         target="_blank"
         rel="noopener"
       >
-        <img :src="$withBase('/images/download.png')" />
+        <img :src="$withBase('/docs-images/download.png')" />
         {{ $lang === 'zh-CN' ? '下载' : 'Download' }}
       </a>
     </div>
