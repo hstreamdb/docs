@@ -46,6 +46,7 @@ jobs:
         cp -r docs-files/en/* frontend/docs/en/${VERSION}/ || true
         cp -r docs-files/zh/* frontend/docs/zh/${VERSION}/ || true
         cp -r docs-files/directory.json frontend/docs/directory.json
+        rm frontend/*.md
 
     - name: build docs
       run: |
@@ -72,4 +73,4 @@ jobs:
         tccli configure set secretId ${{ secrets.COS_ID }}
         tccli configure set secretKey ${{ secrets.COS_KEY }}
         tccli configure set region ${{ secrets.COS_REGION }}
-        tccli cdn PurgePathCache --Paths '["https://hstream.io/"]' --FlushType flush
+        tccli cdn PurgePathCache --Paths '["https://hstream.io/", "https://hstream-static.emqx.com/"]' --FlushType delete
