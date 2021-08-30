@@ -8,9 +8,9 @@ Start HStream requires an operating system kernel version greater than at least 
 
 ### Install docker
 
-!!! note
-
-    If you have already installed docker, you can skip this step.
+::: tip
+If you have already installed docker, you can skip this step.
+:::
 
 See [Install Docker Engine](https://docs.docker.com/engine/install/), and
 install it for your operating system. Please carefully check that you meet all
@@ -22,10 +22,10 @@ Confirm that the Docker daemon is running:
 docker version
 ```
 
-!!! Tips
-
-    On Linux, Docker needs root privileges. You can also run Docker as a
-    non-root user, see [Post-installation steps for Linux][non-root-docker].
+::: tip
+On Linux, Docker needs root privileges. You can also run Docker as a
+non-root user, see [Post-installation steps for Linux][non-root-docker].
+:::
 
 ### Pull docker images
 
@@ -35,9 +35,9 @@ docker pull hstreamdb/hstream
 
 ## Start a local standalone HStream-Server in Docker
 
-!!! Warning 
-
-	Do NOT use this configuration in your production environment!
+::: warning
+Do NOT use this configuration in your production environment!
+:::
 
 ### Create a directory for storing db datas
 
@@ -45,11 +45,11 @@ docker pull hstreamdb/hstream
 mkdir /dbdata
 ```
 
-!!! Tips
-
-    If you are a non-root user, that you can not create directory under the
-    root, you can also create it anywhere as you can, but you need to pass the
-    absolute data path to docker volume arguments.
+::: tip
+If you are a non-root user, that you can not create directory under the
+root, you can also create it anywhere as you can, but you need to pass the
+absolute data path to docker volume arguments.
+:::
 
 ### Start HStream Storage
 
@@ -153,5 +153,4 @@ real time:
 {"temperature":28,"humidity":86}
 ```
 
-[non-root-docker]:
-  https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user
+[non-root-docker]: https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user

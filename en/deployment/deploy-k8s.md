@@ -107,10 +107,10 @@ $ cat hstream-server.yaml | grep -A 1 zkuri
             - "zookeeper-0.zookeeper-headless:2181,zookeeper-1.zookeeper-headless:2181,zookeeper-2.zookeeper-headless:2181"
 ```
 
-!!! Tips
-
-    The zookeeper connection string in stotage config file and the service file
-    can be different. But for normal scenario, they are the same.
+::: tip
+The zookeeper connection string in stotage config file and the service file
+can be different. But for normal scenario, they are the same.
+:::
 
 By default, this spec installs a 3 nodes HStream server cluster and 4 nodes
 storage cluster. If you want a bigger cluster, modify the `hstream-server.yaml`
