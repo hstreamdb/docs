@@ -43,8 +43,8 @@ jobs:
       run: |
         mkdir -p frontend/docs/en/${VERSION}/
         mkdir -p frontend/docs/zh/${VERSION}/
-        cp -r docs-files/en/* frontend/docs/en/${VERSION}/
-        cp -r docs-files/zh/* frontend/docs/zh/${VERSION}/
+        cp -r docs-files/en/* frontend/docs/en/${VERSION}/ || true
+        cp -r docs-files/zh/* frontend/docs/zh/${VERSION}/ || true
         cp -r docs-files/directory.json frontend/docs/directory.json
 
     - name: build docs
