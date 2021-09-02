@@ -108,7 +108,7 @@
       ]
     },
     {
-      "title": "Development",
+      "title": "Deployment",
       "children": [
         {
           "title": "Running on Kubernetes",

@@ -51,14 +51,11 @@ You can create a new subscription using the
 
 ```java
 
-Subscription subscription = Subscription.newBuilder()
-    .setSubscriptionId("test_subscription")
-    .setStreamName("test_stream")
-    .setOffset(
-        SubscriptionOffset.newBuilder()
-            .setSpecialOffset(SubscriptionOffset.SpecialOffset.LATEST)
-            .build())
-    .build();
+Subscription subscription =
+    new Subscription(
+        "test_subscription",
+        "test_stream",
+        new SubscriptionOffset(SubscriptionOffset.SpecialOffset.LATEST));
 
 client.createSubscription(subscription);
 
