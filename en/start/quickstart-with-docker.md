@@ -30,7 +30,8 @@ non-root user, see [Post-installation steps for Linux][non-root-docker].
 ### Pull docker images
 
 ```sh
-docker pull hstreamdb/hstream
+docker pull hstreamdb/hstream:v0.5.3.0
+docker tag hstreamdb/hstream:v0.5.3.0 hstreamdb/hstream
 ```
 
 ## Start a local standalone HStream-Server in Docker
