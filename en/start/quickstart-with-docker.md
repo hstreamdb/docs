@@ -58,10 +58,16 @@ absolute data path to docker volume arguments.
 docker run -td --rm --name some-hstream-store -v /dbdata:/data/store --network host hstreamdb/hstream ld-dev-cluster --root /data/store --use-tcp
 ```
 
+### Start ZooKeeper Server
+
+```sh
+docker run --rm -d --network host --name some-zookeeper-demo zookeeper
+```
+
 ### Start HStreamDB Server
 
 ```sh
-docker run -it --rm --name some-hstream-server -v /dbdata:/data/store --network host hstreamdb/hstream hstream-server --port 6570 --store-config /data/store/logdevice.conf
+docker run -it --rm --name some-hstream-server -v /dbdata:/data/store --network host hstreamdb/hstream hstream-server --port 6570 --store-config /data/store/logdevice.conf --zkuri 127.0.0.1:2181
 ```
 
 ## Start HStreamDB's interactive SQL CLI
