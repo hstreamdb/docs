@@ -67,19 +67,20 @@ docker run --rm -d --network host --name some-zookeeper-demo zookeeper
 ### Start HStreamDB Server
 
 ```sh
-docker run -it --rm --name some-hstream-server -v /dbdata:/data/store --network host hstreamdb/hstream hstream-server --port 6570 --store-config /data/store/logdevice.conf --zkuri 127.0.0.1:2181
+docker run -it --rm --name some-hstream-server -v /dbdata:/data/store --network host hstreamdb/hstream hstream-server --port 6570 --store-config /data/store/logdevice.conf --zkuri 127.0.0.1:2181 --server-id 1
 ```
 
 ## Start HStreamDB's interactive SQL CLI
 
 ```sh
-docker run -it --rm --name some-hstream-cli -v /dbdata:/data/store --network host hstreamdb/hstream hstream-client --port 6570
+docker run -it --rm --name some-hstream-cli -v /dbdata:/data/store --network host hstreamdb/hstream hstream-client --port 6570 --client-id 1
 ```
 
 If everything works fine, you will enter an interactive CLI and see help
 information like
 
 ```
+      __  _________________  _________    __  ___
      / / / / ___/_  __/ __ \/ ____/   |  /  |/  /
     / /_/ /\__ \ / / / /_/ / __/ / /| | / /|_/ /
    / __  /___/ // / / _, _/ /___/ ___ |/ /  / /
