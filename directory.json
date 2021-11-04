@@ -214,6 +214,15 @@
       ]
     },
     {
+      "title": "Release notes",
+      "children": [
+        {
+            "title": "HStreamDB release notes",
+            "path": "release_notes/HStreamDB"
+        }
+      ]
+    },
+    {
       "title": "Contributing",
       "children": [
         {
