@@ -40,40 +40,20 @@ Producer producer = client.newProducer().stream("test_stream").build();
 A producer has some options, for now, let's just ignore them and use the default
 settings.
 
-## Write Binary Data
+## Write Data
 
-### Write Binary Data Synchronously
-
-You can write binary data synchronously using the `Producer.write()` method:
+You can write binary data using the `Producer.write()` method:
 
 ```java
 
 Random random = new Random();
 byte[] rawRecord = new byte[100];
 random.nextBytes(rawRecord);
-RecordId recordId = producer.write(rawRecord);
+CompletableFuture<RecordId> future = producer.write(rawRecord);
 
 ```
 
-### Write Binary Data Asynchronously
-
-You can write binary data asynchronously using the `Producer.writeAsync()`
-method:
-
-```java
-
-Random random = new Random();
-byte[] rawRecord = new byte[100];
-random.nextBytes(rawRecord);
-CompletableFuture<RecordId> future = producer.writeAsync(rawRecord);
-
-```
-
-## Write HRecord
-
-### Write HRecord Synchronously
-
-You can write hrecords synchronously using the `Producer.write()` method:
+Similarly, you can use the same method to write hrecords:
 
 ```java
 
@@ -83,23 +63,7 @@ HRecord hRecord = HRecord.newBuilder()
         .put("key3", true)
         .build();
 
-RecordId recordId = producer.write(hRecord);
-
-```
-
-### Write HRecord Asynchronously
-
-You can write hrecords asynchronously using the `Producer.writeAsync()` method:
-
-```java
-
-HRecord hRecord = HRecord.newBuilder()
-        .put("key1", 10)
-        .put("key2", "hello")
-        .put("key3", true)
-        .build();
-
-CompletableFuture<RecordId> future = producer.writeAsync(hRecord);
+CompletableFuture<RecordId> future = producer.write(hRecord);
 
 ```
 
@@ -116,39 +80,13 @@ Producer producer = client.newProducer()
         .recordCountLimit(100)
         .build();
 
-```
-
-Then you can still write data using the `Producer.writeAsync()`
-
-```java
-
 Random random = new Random();
-final int count = 1000;
-CompletableFuture<RecordId>[] recordIdFutures = new CompletableFuture[count];
-for(int i = 0; i < count; ++i) {
+for(int i = 0; i < 1000; ++i) {
     byte[] rawRecord = new byte[100];
     random.nextBytes(rawRecord);
-    CompletableFuture<RecordId> future = producer.writeAsync(rawRecord);
-    recordIdFutures[i] = future;
+    CompletableFuture<RecordId> future = producer.write(rawRecord);
 }
 
 ```
 
-::: warning
-Do not use a synchronized write method in buffered mode
-:::
-
-Now the producer will first put the data submitted by the `writeAsync` method in
-an internal buffer and send it together to the HStreamDB server when the number
-reaches `recordLimitCount`, or you can call `flush` method manually at any time
-to flush the buffer.
-
-```java
-
-producer.flush();
-
-```
-
-::: warning
-Please do not write both binary data and hrecord in one stream.
-:::
+::: warning Please do not write both binary data and hrecord in one stream! :::
