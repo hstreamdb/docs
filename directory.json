@@ -39,10 +39,6 @@
           "path": "overview/features"
         },
         {
-          "title": "Release Notes",
-          "path": "overview/release-notes"
-        },
-        {
           "title": "Learning Resources",
           "path": "overview/learning-resouces"
         }
