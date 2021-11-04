@@ -22,7 +22,7 @@ oject.
 
 ```java
 
-HStreamClient client = HStreamClient.builder().serviceUrl("SERVER_HOST:SERVER_PORT).build();
+HStreamClient client = HStreamClient.builder().serviceUrl("SERVER_HOST:SERVER_PORT").build();
 
 ```
 
@@ -41,11 +41,20 @@ for(Stream stream: client.listStreams()) {
 
 ## Create a New Stream
 
-You can create a new stream using the `HStreamClient.createStream()` method:
+You can create a new stream with 3 replicators (default value) using the
+`HStreamClient.createStream()` method:
 
 ```java
 
 client.createStream("test_stream");
+
+```
+
+You can also specify the number of replicators:
+
+```java
+
+client.createStream("test_stream", 5);
 
 ```
 

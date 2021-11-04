@@ -10,39 +10,9 @@ HStreamDB uses subscription to manage the progress information of consumption
 (e.g. checkpoint, offset). For consumer to consume the data, it **must join** a
 subscription that **already exists**.
 
-::: tip
-Currently, only one consumer is allowed to join the same subscription at a time.
-:::
-
 ## Prerequisites
 
 Make sure you have HStreamDB running and accessible.
-
-## Subscription Object
-
-A subscription object is defined in protobuf:
-
-```protobuf
-
-message Subscription {
-  string subscriptionId = 1; // the unique identifier of the subscription
-  string streamName = 2; // streams to be consumed
-  SubscriptionOffset offset = 3; // the starting position of consumption
-}
-
-message SubscriptionOffset {
-  enum SpecialOffset {
-    EARLIST = 0; // consume from the start of the stream
-    LATEST = 1; // consume from the tail of the stream
-  }
-
-  oneof offset {
-    SpecialOffset specialOffset = 1;
-    RecordId recordOffset = 2; // consume from a customer specified position
-  }
-}
-
-```
 
 ## Create a New Subscription
 
@@ -52,12 +22,29 @@ You can create a new subscription using the
 ```java
 
 Subscription subscription =
-    new Subscription(
-        "test_subscription",
-        "test_stream",
-        new SubscriptionOffset(SubscriptionOffset.SpecialOffset.LATEST));
-
+    Subscription
+        .newBuilder()
+        .subscription("my_subscription")
+        .stream("my_stream")
+        .offset(new SubscriptionOffset(SubscriptionOffset.SpecialOffset.LATEST))
+        .ackTimeoutSeconds(600)
+        .build();
 client.createSubscription(subscription);
+
+```
+
+the `SubscriptionOffset` can have three types of values:
+
+```java
+
+// consume from the start of the stream
+SubscriptionOffset.SpecialOffset offset = SubscriptionOffset.SpecialOffset.EARLIST;
+
+// consume from the tail of the stream
+SubscriptionOffset.SpecialOffset offset = SubscriptionOffset.SpecialOffset.LATEST;
+
+// consume from RecordId with specified LSN and offset
+RecordId rid = new RecordId(1, 2);
 
 ```
 

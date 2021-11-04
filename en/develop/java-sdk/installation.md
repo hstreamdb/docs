@@ -13,7 +13,7 @@ For Maven Users, the library can be included easily like this:
   <dependency>
     <groupId>io.hstream</groupId>
     <artifactId>hstreamdb-java</artifactId>
-    <version>${hstreamdbClient.version}</version>
+    <version>0.6.0</version>
   </dependency>
 </dependencies>
 
@@ -25,6 +25,6 @@ For Gradle Users, the library can be included easily like this:
 
 ```groovy
 
-compile group: 'io.hstreamdb', name: 'hstreamdb-java', version: "${hstreamdbClientVersion}"
+implementation 'io.hstream:hstreamdb-java:0.6.0'
 
 ```
