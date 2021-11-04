@@ -30,8 +30,7 @@ non-root user, see [Post-installation steps for Linux][non-root-docker].
 ### Pull docker images
 
 ```sh
-docker pull hstreamdb/hstream:v0.5.3.0
-docker tag hstreamdb/hstream:v0.5.3.0 hstreamdb/hstream
+docker pull hstreamdb/hstream:v0.6.0.0
 ```
 
 ## Start a local standalone HStream-Server in Docker
@@ -55,7 +54,7 @@ absolute data path to docker volume arguments.
 ### Start HStream Storage
 
 ```sh
-docker run -td --rm --name some-hstream-store -v /dbdata:/data/store --network host hstreamdb/hstream ld-dev-cluster --root /data/store --use-tcp
+docker run -td --rm --name some-hstream-store -v /dbdata:/data/store --network host hstreamdb/hstream:v0.6.0.0 ld-dev-cluster --root /data/store --use-tcp
 ```
 
 ### Start ZooKeeper Server
@@ -67,13 +66,13 @@ docker run --rm -d --network host --name some-zookeeper-demo zookeeper
 ### Start HStreamDB Server
 
 ```sh
-docker run -it --rm --name some-hstream-server -v /dbdata:/data/store --network host hstreamdb/hstream hstream-server --port 6570 --store-config /data/store/logdevice.conf --zkuri 127.0.0.1:2181 --server-id 1
+docker run -it --rm --name some-hstream-server -v /dbdata:/data/store --network host hstreamdb/hstream:v0.6.0.0 hstream-server --port 6570 --store-config /data/store/logdevice.conf --zkuri 127.0.0.1:2181 --server-id 1
 ```
 
 ## Start HStreamDB's interactive SQL CLI
 
 ```sh
-docker run -it --rm --name some-hstream-cli -v /dbdata:/data/store --network host hstreamdb/hstream hstream-client --port 6570 --client-id 1
+docker run -it --rm --name some-hstream-cli -v /dbdata:/data/store --network host hstreamdb/hstream:v0.6.0.0 hstream-client --port 6570 --client-id 1
 ```
 
 If everything works fine, you will enter an interactive CLI and see help

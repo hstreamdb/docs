@@ -30,15 +30,15 @@ Note that every server needs the following options to be unique to work properly
 For example, run the following commands to start a cluster with 3 nodes:
 
 ```sh
-docker run -it --rm --name some-hstream-server -v /dbdata:/data/store --network host hstreamdb/hstream hstream-server --store-config /data/store/logdevice.conf --zkuri 127.0.0.1:2181 --port 6570 --internal-port 6571 --server-id 1
+docker run -it --rm --name some-hstream-server -v /dbdata:/data/store --network host hstreamdb/hstream:v0.6.0.0 hstream-server --store-config /data/store/logdevice.conf --zkuri 127.0.0.1:2181 --port 6570 --internal-port 6571 --server-id 1
 ```
 
 ```sh
-docker run -it --rm --name some-hstream-server -v /dbdata:/data/store --network host hstreamdb/hstream hstream-server --store-config /data/store/logdevice.conf --zkuri 127.0.0.1:2181 --port 6572 --internal-port 6573 --server-id 2
+docker run -it --rm --name some-hstream-server -v /dbdata:/data/store --network host hstreamdb/hstream:v0.6.0.0 hstream-server --store-config /data/store/logdevice.conf --zkuri 127.0.0.1:2181 --port 6572 --internal-port 6573 --server-id 2
 ```
 
 ```sh
-docker run -it --rm --name some-hstream-server -v /dbdata:/data/store --network host hstreamdb/hstream hstream-server --store-config /data/store/logdevice.conf --zkuri 127.0.0.1:2181 --port 6574 --internal-port 6575 --server-id 3
+docker run -it --rm --name some-hstream-server -v /dbdata:/data/store --network host hstreamdb/hstream:v0.6.0.0 hstream-server --store-config /data/store/logdevice.conf --zkuri 127.0.0.1:2181 --port 6574 --internal-port 6575 --server-id 3
 ```
 
 ### Start HStreamDB's interactive SQL CLI
@@ -47,5 +47,5 @@ docker run -it --rm --name some-hstream-server -v /dbdata:/data/store --network 
 An HStream Server Cluster does not affect how you use CLI.
 
 ```sh
-docker run -it --rm --name some-hstream-cli -v /dbdata:/data/store --network host hstreamdb/hstream hstream-client --port 6570 --client-id 1
+docker run -it --rm --name some-hstream-cli -v /dbdata:/data/store --network host hstreamdb/hstream:v0.6.0.0 hstream-client --port 6570 --client-id 1
 ```
