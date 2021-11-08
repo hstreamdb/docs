@@ -51,7 +51,7 @@ Create a docker-compose.yaml file for docker compose,
 you can [download][quick-start.yaml] or paste the following contents:
 
 ```yaml
-## docker-compose.yaml
+## quick-start.yaml
 ```
 
 then run:

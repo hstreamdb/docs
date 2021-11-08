@@ -40,13 +40,13 @@ To Quit current cli session:
 > :q
 ```
 
-To print out help info over view:
+To print out help info overview:
 
 ```sh
 > :h
 ```
 
-To show specific usage of some sql statement:
+To show specific usage of some SQL statements:
 
 ```sh
 > :help CREATE
@@ -56,7 +56,8 @@ To show specific usage of some sql statement:
   CREATE VIEW <stream_name> AS <select_query>;
 ```
 
-Available sql operations includes: `CREATE`, `DROP`, `SELECT`, `SHOW`, `INSERT`, `TERMINATE`.
+Available SQL operations include: `CREATE`, `DROP`, `SELECT`, `SHOW`, `INSERT`,
+`TERMINATE`.
 
 ## SQL Statements
 
@@ -72,13 +73,14 @@ All the processing and storage operations are done via SQL statements.
 CREATE STREAM stream_name;
 ```
 
-This will create a stream with no special function. You can `SELECT` data from the
-stream and `INSERT` to via corresponding SQL statement.
+This will create a stream with no particular function. You can `SELECT` data from
+the stream and `INSERT` to via corresponding SQL statement.
 
-2. Create a stream and this stream will also run a query to select specified data from some other stream.
+2. Create a stream, and this stream will also run a query to select specified
+   data from some other stream.
 
-Adding an Select statement after Create with a keyword `AS` can create a stream
-will create a stream which processing data from another stream.
+Adding a Select statement after Create with a keyword `AS` can create a stream
+will create a stream that processes data from another stream.
 
 For example:
 
@@ -86,8 +88,9 @@ For example:
 CREATE STREAM stream_name AS SELECT * from demo EMIT CHANGES;
 ```
 
-In the example above, by adding an `AS` followed by a `SELECT` statement to the normal `CREATE` operation,
-it will create a stream which will also select all the data from demo.
+In the example above, by adding an `AS` followed by a `SELECT` statement to the
+normal `CREATE` operation, it will create a stream that will also select all
+the data from the `demo`.
 
 #### After Creating the stream, we can insert values into the stream.
 
@@ -95,18 +98,19 @@ it will create a stream which will also select all the data from demo.
 INSERT INTO stream_name (field1, field2) VALUES (1, 2);
 ```
 
-There is no restriction on the number of fields a query can insert.
-Also, the type of value are not restricted. However, you do need to make sure
-that the number of fields and the number of values are aligned.
+There is no restriction on the number of fields a query can insert. Also, the
+type of value is not restricted. However, you need to make sure that the
+number of fields and the number of values are aligned.
 
 #### Select data from a stream
 
-When we have a stream, we can select data from the stream in real-time.
-All the data inserted after the select query is created will be print out
-when the insert operation happens. Select supports real-time processing on the
-data inserted to the stream.
+After creating a stream, we can select data from the stream in real-time. All the
+data inserted after the select query is created will be printed out when the
+insert operation happens. Select supports real-time processing on the data
+inserted into the stream.
 
-For example, we can choose the field and filter the data selected from the stream.
+For example, we can choose the field and filter the data selected from the
+stream.
 
 ```sql
 SELECT a FROM demo EMIT CHANGES;
@@ -116,7 +120,7 @@ This will only select field `a` from stream demo.
 
 #### Terminate a query
 
-A query can be terminated if the we know the query id:
+A query can be terminated if we know the query id:
 
 ```sql
 TERMINATE QUERY <id>;
@@ -150,8 +154,8 @@ Or under some circumstances, you can choose to `TERMINATE ALL ;`.
 
 #### Delete a stream
 
-Deletion command is `DROP STREAM <Stream_name> ;`, which deletes a stream, and terminate all the
-queries that depends on the stream.
+Deletion command is `DROP STREAM <Stream_name> ;`, which deletes a stream, and
+terminate all the queries that depend on the stream.
 
 For example:
 
@@ -165,8 +169,8 @@ will be terminated if the stream demo is deleted;
 DROP STREAM demo;
 ```
 
-If you try to delete a stream that does not exist, an error message will be returned.
-To turn it off, you can use add `IF EXISTS` after the stream_name:
+If you try to delete a stream that does not exist, an error message will be
+returned. To turn it off, you can use add `IF EXISTS` after the stream_name:
 
 ```sql
 DROP STREAM demo IF EXISTS;
@@ -184,15 +188,15 @@ View is a projection of specified data from streams. For example,
 CREATE VIEW v_demo AS SELECT SUM(a) FROM demo GROUP BY a EMIT CHANGES;
 ```
 
-the above command will create a view which keep track of the sum of `a`
-(which have the same values,because of group by) and have
-the same value from the point this query is executed.
+the above command will create a view that keeps track of the sum of `a` (which
+have the same values, because of groupby) and have the same value from the point
+this query is executed.
 
 The operations on view are very similar to those on streams.
 
-Except we can not use `SELECT ... EMIT CHANGES` performed on streams,
-because a view is static and there are no changes to emit. Instead, for example
-we select from view with:
+Except we can not use `SELECT ... EMIT CHANGES` performed on streams because a
+view is static and there are no changes to emit. Instead, for example, we select
+from view with:
 
 ```sql
 SELECT * FROM v_demo WHERE a = 1;
