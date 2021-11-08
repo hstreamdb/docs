@@ -1,6 +1,45 @@
 {
   "zh": [
     {
+      "title": "概览",
+      "children": [
+        {
+          "title": "流数据库 HStream 概览",
+          "path": "overview/overview"
+        },
+        {
+          "title": "概念",
+          "children": [
+            {
+              "title": "流和流式数据",
+              "path": "overview/concepts/stream"
+            }
+          ]
+        },
+        {
+          "title": "架构",
+          "children": [
+            {
+              "title": "概览",
+              "path": "overview/architecture/overview"
+            },
+            {
+              "title": "HStream Store (HStore)",
+              "path": "overview/architecture/hstream-store"
+            },
+            {
+              "title": "HStream Server (HSQL)",
+              "path": "overview/architecture/hstream-server"
+            }
+          ]
+        },
+        {
+          "title": "功能特性",
+          "path": "overview/features"
+        }
+      ]
+    },
+    {
       "title": "快速上手",
       "children":[
         {
@@ -8,6 +47,10 @@
           "path" :"start/quickstart-with-docker"
         }
       ]
+    },
+    {
+      "title": "Release notes",
+      "path": "release_notes/HStreamDB"
     }
   ],
   "en": [
@@ -47,10 +90,6 @@
         {
           "title": "Features",
           "path": "overview/features"
-        },
-        {
-          "title": "Learning Resources",
-          "path": "overview/learning-resouces"
         }
       ]
     },
@@ -72,10 +111,6 @@
         {
           "title": "Configurarion Overview",
           "path": "start/configuration-overview"
-        },
-        {
-          "title": "Dashboard Overview",
-          "path": "start/dashboard-overview"
         }
       ]
     },

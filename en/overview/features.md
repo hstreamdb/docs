@@ -5,6 +5,7 @@
 ![](https://static.emqx.net/images/ca810cdf1d13ffbc1fe15ce41daa1695.png)
 
 <center>HStreamDB Functional architecture</center>
+
 ## Streaming data processing via SQL
 
 HStreamDB has designed a complete processing solution based on event time. It supports basic filtering and conversion operations, aggregations by key, calculations based on various time windows, joining between data streams, and processing disordered and late messages to ensure the accuracy of calculation results. Simultaneously, the stream processing solution of HStream is highly extensible, and users can extend the interface according to their own needs.
