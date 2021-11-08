@@ -1,6 +1,6 @@
-# CLI
+# 命令行界面
 
-Once you entered CLI, you can see the following help info:
+每次进入命令行界面时，都会出现下列信息：
 
 ```sh
       __  _________________  _________    __  ___
@@ -27,26 +27,26 @@ SQL STATEMENTS:
 
 ```
 
-There are two kinds of commands:
+命令行界面可以处理以下两种指令
 
-1. Basic Cli Operations, start with `:`
-2. SQL statements end with `;`
+1. 以 `:` 开头的基本命令
+2. 以 `;` 结尾的 SQL 语句
 
-## Basic CLI Operations
+## 基本命令
 
-To Quit current cli session:
+退出当前命令行界面：
 
 ```sh
 > :q
 ```
 
-To print out help info over view:
+显示所有帮助信息：
 
 ```sh
 > :h
 ```
 
-To show specific usage of some sql statement:
+显示某一种 SQL 语句的帮助信息：
 
 ```sh
 > :help CREATE
@@ -56,79 +56,74 @@ To show specific usage of some sql statement:
   CREATE VIEW <stream_name> AS <select_query>;
 ```
 
-Available sql operations includes: `CREATE`, `DROP`, `SELECT`, `SHOW`, `INSERT`, `TERMINATE`.
+当前仅支持显示以下 SQL 语句的帮助信息: `CREATE`, `DROP`, `SELECT`, `SHOW`, `INSERT`, `TERMINATE`.
 
-## SQL Statements
+## SQL 语句
 
-All the processing and storage operations are done via SQL statements.
+所有的 HStreamDB 的处理和存储操作都可以通过 SQL 语句来完成
 
-### Stream
+### Stream 相关的语句
 
-#### There are two ways to create a new data stream.
+#### 当前有两种方法来创造一个新的 Stream
 
-1. Create an ordinary stream:
+1. 创建一个普通的 Stream：
 
 ```sql
 CREATE STREAM stream_name;
 ```
 
-This will create a stream with no special function. You can `SELECT` data from the
-stream and `INSERT` to via corresponding SQL statement.
+这条命令会创建一个普通的 stream 。用户可以用相应的 SQL 语句从这个 stream 中 `INSERT` 插入和 `SELECT` 提取数据。
 
-2. Create a stream and this stream will also run a query to select specified data from some other stream.
+2. 创建一个带有 `SELECT` 任务的 stream
 
-Adding an Select statement after Create with a keyword `AS` can create a stream
-will create a stream which processing data from another stream.
+在原本的创建语句后面加一个 `AS` 和一个 `SELECT` 语句，可以创建一个 stream，
+这个 Stream 会根据提供的 `SELECT` 语句提取和处理指定 stream 的数据。
 
-For example:
+例如：
 
 ```sql
 CREATE STREAM stream_name AS SELECT * from demo EMIT CHANGES;
 ```
 
-In the example above, by adding an `AS` followed by a `SELECT` statement to the normal `CREATE` operation,
-it will create a stream which will also select all the data from demo.
+在上述的例子中，stream_name 会提取所有写入 demo 的数据。
 
-#### After Creating the stream, we can insert values into the stream.
+#### 创建完一个 stream 之后，我们可以往这个 stream 中 写入（INSERT）数据。
 
 ```sql
 INSERT INTO stream_name (field1, field2) VALUES (1, 2);
 ```
 
-There is no restriction on the number of fields a query can insert.
-Also, the type of value are not restricted. However, you do need to make sure
-that the number of fields and the number of values are aligned.
+当前并没有限制可以插入的字段数量，也没有值的类型。但是，你确实需要确保字段的数量和后面值的数量是一致的。
 
-#### Select data from a stream
+#### 从一个 stream 中 SELECT 数据
 
-When we have a stream, we can select data from the stream in real-time.
-All the data inserted after the select query is created will be print out
-when the insert operation happens. Select supports real-time processing on the
-data inserted to the stream.
+当我们有一个 stream 时，我们可以实时地从这个 stream 中查询数据，
+这个查询任务会把所有在这个查询任务运行开始后写入的数据进行过滤和处理，
+并把符合条件的结果打印出来。
 
-For example, we can choose the field and filter the data selected from the stream.
+比如，我们可以选择从 stream 中提取一个字段的值。
 
 ```sql
 SELECT a FROM demo EMIT CHANGES;
 ```
 
-This will only select field `a` from stream demo.
+这句 SQL 仅会 SELECT demo 中字段 `a` 的值。
 
-#### Terminate a query
+#### 终止一个查询任务（TERMINATE a query）
 
-A query can be terminated if the we know the query id:
+当我们有一个查询任务的 ID 的时候，我们就可以终止这个任务：
 
 ```sql
 TERMINATE QUERY <id>;
 ```
 
-We can get all the query information by command `SHOW`:
+当然，我们也可以 `SHOW` 出所有的查询任务信息：
 
 ```sql
 SHOW QUERIES;
 ```
 
-output just for demonstration :
+仅作展示用的输出结果：
 
 ```sh
 ╭─────────────────┬────────────────┬────────────────┬─────────────────╮
@@ -143,64 +138,58 @@ output just for demonstration :
 ╰─────────────────┴────────────────┴────────────────┴─────────────────╯
 ```
 
-Find the query to terminate, make sure is id not already terminated, and pass
-the query id to `TERMINATE QUERY`
+找到你想要终止的任务，确认任务的状态还未被终止，把查询任务的 ID 传给 `TERMINATE QUERY`。
 
-Or under some circumstances, you can choose to `TERMINATE ALL ;`.
+或者，你也可以选择终止所有 `TERMINATE ALL`。
 
-#### Delete a stream
+#### 删除一个 stream
 
-Deletion command is `DROP STREAM <Stream_name> ;`, which deletes a stream, and terminate all the
-queries that depends on the stream.
+`DROP STREAM <Stream_name> ;` 是删除操作，它不仅会删除所指定的 stream，还会终止所有依赖于这个 stream 的查询任务。
 
-For example:
+例如：
 
 ```sql
 SELECT * FROM demo EMIT CHANGES;
 ```
 
-will be terminated if the stream demo is deleted;
+如果 demo 被删除，上述的查询任务就会被终止：
 
 ```sql
 DROP STREAM demo;
 ```
 
-If you try to delete a stream that does not exist, an error message will be returned.
-To turn it off, you can use add `IF EXISTS` after the stream_name:
+当试图删除一个不存在的 stream 时，cli 会打印出错误信息；在 stream_name 后面加上 `IF EXISTS`, 这个错误将不会出现。
 
 ```sql
 DROP STREAM demo IF EXISTS;
 ```
 
-#### Show all streams
+#### SHOW 所有的 streams
 
-You can also show all streams by using the `SHOW STREAMS` command.
+通过使用 `SHOW STREAMS`命令可以显示所有当前存在 stream 。
 
-### View
+### 物化视图 （View）
 
-View is a projection of specified data from streams. For example,
+视图是 streams 中一些被指定的数据的投射。举例来说，
 
 ```sql
 CREATE VIEW v_demo AS SELECT SUM(a) FROM demo GROUP BY a EMIT CHANGES;
 ```
 
-the above command will create a view which keep track of the sum of `a`
-(which have the same values,because of group by) and have
-the same value from the point this query is executed.
+上述命令将创建一个视图，它记录了当前具有相同值 的`a` 的总和 (由于 group by 的缘故，只有 `a` 的值相同时才会被分归到一起)。
 
-The operations on view are very similar to those on streams.
-
-Except we can not use `SELECT ... EMIT CHANGES` performed on streams,
-because a view is static and there are no changes to emit. Instead, for example
-we select from view with:
+对视图的操作与对流的操作非常相似。但是，我们不能使用在 stream 上执行的`SELECT ... EMIT CHANGES`。
+因为视图是静态的，没有任何变化需要 EMIT。相对的，比如说
+我们从视图中 SELECT：
 
 ```sql
-SELECT * FROM v_demo WHERE a = 1;
+SELECT * FROM v_demo WHERE a = 2;
 ```
 
-This will print the sum of `a` when `a` = 1.
+上述命令会 SELECT 当 a = 2 时，我们记录的所有视图，即为所有当 a = 2 时，
+所有 a 的总和，可以理解为：“a = 2的次数” * “2”。
 
-If we want to create a view to record the sum of `a`s, we can:
+假设我们想创建一个视图记录所有 a 的总和，我们可以：
 
 ```sql
 CREATE STREAM demo2 AS SELECT a, 1 AS b FROM demo EMIT CHANGES;
@@ -208,21 +197,21 @@ CREATE VIEW v_demo2 AS SELECT SUM(a) FROM demo2 GROUP BY b EMIT CHANGES;
 SELECT * FROM demo2 WHERE b = 1;
 ```
 
-## CLI admin mode
+## 命令行界面：admin 模式
 
-CLI has an admin mode, in which you can get statistics of streams.
+CLI 可以切换到 admin 模式，现在你可以在这个模式中拿到 stream 的一些统计数据。
 
-### Enter admin mode
+### 进入 admin 模式
 
 ```sh
 > USE ADMIN;
 ADMIN>
 ```
 
-### Admin Commands
+### 一些 admin 指令
 
-Use `show tables;` to get all the value tables collected from server.
-It explains all the available data.
+通过 `show tables;` 可以拿到所有从服务端收集的数据表的信息。
+他会展示并说明以拿到哪些数据。
 
 ```sh
 ADMIN> show tables;
@@ -256,7 +245,7 @@ describe streams;
 +----------------------+--------+------------------------------------------+
 ```
 
-You can use `select` intuitively to get and calculate the data you want.
+你可以像常规使用 `select` 的方式来从存在的表中读取和处理数据；
 
 ```sh
 ADMIN> select * from streams;
@@ -269,7 +258,7 @@ ADMIN> select * from streams;
 
 #### example
 
-Find the top 5 streams that have had the highest throughput in the last 10 minutes.
+找到最近十分钟内写吞吐最高的5个 stream 。
 
 ```sql
 SELECT streams.name, sum(append_throughput.throughput_10min) AS total_throughput
