@@ -1,5 +1,15 @@
 {
-  "zh": [],
+  "zh": [
+    {
+      "title": "快速上手",
+      "children":[
+        {
+          "title":"使用 docker 快速上手",
+          "path" :"start/quickstart-with-docker"
+        }
+      ]
+    }
+  ],
   "en": [
     {
       "title": "Overview",

@@ -22,3 +22,5 @@ yarn-error.log*
 
 # docs pdf
 *.pdf
+
+local*

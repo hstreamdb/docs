@@ -1,83 +1,78 @@
-# Quickstart with Docker
+# 使用 Docker 快速上手
 
-## Requirement
+## 前提条件
 
-Start HStream requires an operating system kernel version greater than at least Linux 4.14
+启动 HStream 需要一个内核版本不小于 Linux 4.14 的操作系统。
 
-## Installation
+## 安装 Installation
 
-### Install docker
+### 安装镜像Install docker
 
 ::: tip
-If you have already installed docker, you can skip this step.
+如果您已经有一安装好的 Docker，可以跳过这一步
 :::
 
-See [Install Docker Engine](https://docs.docker.com/engine/install/), and
-install it for your operating system. Please carefully check that you meet all
-prerequisites.
+浏览查阅 [Install Docker Engine](https://docs.docker.com/engine/install/)，然后安装到您的操作系统上。 安装时，请注意检查您的设备是否满足所有的前置条件。
 
-Confirm that the Docker daemon is running:
+确认 Docker daemon 正在运行：
 
 ```sh
 docker version
 ```
 
 ::: tip
-On Linux, Docker needs root privileges. You can also run Docker as a
-non-root user, see [Post-installation steps for Linux][non-root-docker].
+在 Linux，Docker 需要 root 权限。
+当然，你也可以以非 root 用户的方式运行 Docker，详情可以参考 [Post-installation steps for Linux][non-root-docker]。
 :::
 
-### Pull docker images
+### 更新 Docker 镜像 Pull docker images
 
 ```sh
 docker pull hstreamdb/hstream:v0.6.0
 docker tag hstreamdb/hstream:v0.6.0 hstreamdb/hstream
 ```
 
-## Start a local standalone HStream-Server in Docker
+## 在 Docker 容器里，启动一个本地独立的 HStreamDB
 
 ::: warning
-Do NOT use this configuration in your production environment!
+请不要在生产环境中使用以下配置
 :::
 
-### Create a directory for storing db datas
+### 创建一个存储 db 数据的文件目录
 
 ```sh
 mkdir /dbdata
 ```
 
 ::: tip
-If you are a non-root user, that you can not create directory under the
-root, you can also create it anywhere as you can, but you need to pass the
-absolute data path to docker volume arguments.
+如果您是非 root 用户，您将无法在根（root）路径下创建文件夹，那么您可以在任意位置创建该文件夹，只要将目录的绝对路径传给 Docker 的 volume 参数。
 :::
 
-### Start HStream Storage
+### 启动 HStream 的存储模块
 
 ```sh
 docker run -td --rm --name some-hstream-store -v /dbdata:/data/store --network host hstreamdb/hstream ld-dev-cluster --root /data/store --use-tcp
 ```
 
-### Start ZooKeeper Server
+### 启动一个 Zookeeper 服务
 
 ```sh
 docker run --rm -d --network host --name some-zookeeper-demo zookeeper
 ```
 
-### Start HStreamDB Server
+### 启动 HStream 的服务器
 
 ```sh
 docker run -it --rm --name some-hstream-server -v /dbdata:/data/store --network host hstreamdb/hstream hstream-server --port 6570 --store-config /data/store/logdevice.conf --zkuri 127.0.0.1:2181 --server-id 1
 ```
 
-## Start HStreamDB's interactive SQL CLI
+## 启动 HStreamDB 的 SQL 命令行界面
 
 ```sh
 docker run -it --rm --name some-hstream-cli -v /dbdata:/data/store --network host hstreamdb/hstream hstream-client --port 6570 --client-id 1
 ```
 
-If everything works fine, you will enter an interactive CLI and see help
-information like
+如果所有的步骤都正确运行，您将会进入到命令行界面，并且能看见一下帮助信息：
 
 ```
       __  _________________  _________    __  ___
@@ -104,43 +99,40 @@ SQL STATEMENTS:
 >
 ```
 
-## Create a stream
+## 创建一个 stream
 
-What we are going to do first is create a stream by `CREATE STREAM` statement.
+首先，我们可以用 `CREATE STREAM` 语句创建一个名为 demo 的 stream.
 
 ```sql
 CREATE STREAM demo;
 ```
 
-## Run a continuous query over the stream
+## 对这个 stream 执行一个持久的查询操作
 
-Now we can run a continuous query over the stream we just created by `SELECT`
-query.
+现在，我们可以通过 `SELECT` 在这个 stream 上执行一个持久的查询。
 
-The query will output all records from the `demo` stream whose humidity is above
-70 percent.
+这个查询的结果将被直接展现在 CLI 中。
+
+以下查询任务会输出所有 `demo` stream 中具有 humidity 大于 70 的数据。
 
 ```sql
 SELECT * FROM demo WHERE humidity > 70 EMIT CHANGES;
 ```
 
-It seems that nothing happened. But do not worry because there is no data in the
-stream now. Next, we will fill the stream with some data so the query can
-produce output we want.
+现在看起来好像无事发生。这是因为从这个任务执行开始，还没有数据被写入到 demo 中。
+接下来，我们会写入一些数据，然后符合条件的数据就会被以上任务输出。
 
-## Start another CLI session
+## 启动另一个 CLI 窗口
 
-Start another CLI session, this CLI will be used for inserting data into the
-stream.
+我们可以利用这个新的 CLI 来插入数据：
 
 ```sh
 docker exec -it some-hstream-cli hstream-client --port 6570 --client-id 2
 ```
 
-## Insert data into the stream
+## 向 stream 中写入数据
 
-Run each of the given `INSERT` statement in the new CLI session and keep an eye on
-the CLI session created in (2).
+输入并运行以下所有 `INSERT` 语句，然后关注我们之创建的 CLI 窗口。
 
 ```sql
 INSERT INTO demo (temperature, humidity) VALUES (22, 80);
@@ -151,8 +143,7 @@ INSERT INTO demo (temperature, humidity) VALUES (27, 82);
 INSERT INTO demo (temperature, humidity) VALUES (28, 86);
 ```
 
-If everything works fine, the continuous query will output matching records in
-real time:
+不出意外的话，你将看到以下的结果。
 
 ```
 {"temperature":22,"humidity":80}
