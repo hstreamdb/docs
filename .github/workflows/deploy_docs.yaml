@@ -18,6 +18,12 @@ jobs:
         with:
           path: docs-files
 
+      - name: update embedded file
+        run: |
+          wget -O docker-compose.yaml https://raw.githubusercontent.com/hstreamdb/hstream/main/docker/quick-start.yaml
+          npm install embedme
+          npx embedme --source-root / docs-files/*/start/quickstart-with-docker.md
+
       - name: clone frontend
         uses: actions/checkout@v2
         with:
