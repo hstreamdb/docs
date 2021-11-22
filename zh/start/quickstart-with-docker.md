@@ -48,22 +48,26 @@ mkdir /dbdata
 如果您是非 root 用户，您将无法在根（root）路径下创建文件夹，那么您可以在任意位置创建该文件夹，只要将目录的绝对路径传给 Docker 的 volume 参数。
 :::
 
-### 启动 HStream 的存储模块
+## 启动 HStreamDB 服务和存储模块
 
-```sh
-docker run -td --rm --name some-hstream-store -v /dbdata:/data/store --network host hstreamdb/hstream ld-dev-cluster --root /data/store --use-tcp
+创建一个 [docker-compose.yaml](https://github.com/hstreamdb/hstream/raw/main/docker/quick-start.yaml):
+
+```yaml
+## docker-compose.yaml
 ```
 
-### 启动一个 Zookeeper 服务
+在同一个文件夹中运行：
 
 ```sh
-docker run --rm -d --network host --name some-zookeeper-demo zookeeper
+docker-compose up
 ```
 
-### 启动 HStream 的服务器
+如果出现如下信息，表明现在已经有了一个运行中的 HServer：
 
-```sh
-docker run -it --rm --name some-hstream-server -v /dbdata:/data/store --network host hstreamdb/hstream hstream-server --port 6570 --store-config /data/store/logdevice.conf --zkuri 127.0.0.1:2181 --server-id 1
+```
+hserver_1    | [INFO][2021-11-22T09:15:18+0000][app/server.hs:137:3][thread#67]************************
+hserver_1    | [INFO][2021-11-22T09:15:18+0000][app/server.hs:145:3][thread#67]Server started on port 6570
+hserver_1    | [INFO][2021-11-22T09:15:18+0000][app/server.hs:146:3][thread#67]*************************
 ```
 
 ## 启动 HStreamDB 的 SQL 命令行界面

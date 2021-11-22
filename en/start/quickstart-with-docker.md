@@ -27,13 +27,6 @@ On Linux, Docker needs root privileges. You can also run Docker as a
 non-root user, see [Post-installation steps for Linux][non-root-docker].
 :::
 
-### Pull docker images
-
-```sh
-docker pull hstreamdb/hstream:v0.6.0
-docker tag hstreamdb/hstream:v0.6.0 hstreamdb/hstream
-```
-
 ## Start a local standalone HStream-Server in Docker
 
 ::: warning
@@ -52,22 +45,28 @@ root, you can also create it anywhere as you can, but you need to pass the
 absolute data path to docker volume arguments.
 :::
 
-### Start HStream Storage
+### Create a docker compose file for quick start
 
-```sh
-docker run -td --rm --name some-hstream-store -v /dbdata:/data/store --network host hstreamdb/hstream ld-dev-cluster --root /data/store --use-tcp
+## Start HStreamDB Server and Store
+
+Create a [docker-compose.yaml](https://github.com/hstreamdb/hstream/raw/main/docker/quick-start.yaml) file for docker compose:
+
+```yaml
+## docker-compose.yaml
 ```
 
-### Start ZooKeeper Server
+then run:
 
 ```sh
-docker run --rm -d --network host --name some-zookeeper-demo zookeeper
+docker-compose up
 ```
 
-### Start HStreamDB Server
+If you see some thing like this, then you have a running hstream:
 
-```sh
-docker run -it --rm --name some-hstream-server -v /dbdata:/data/store --network host hstreamdb/hstream hstream-server --port 6570 --store-config /data/store/logdevice.conf --zkuri 127.0.0.1:2181 --server-id 1
+```
+hserver_1    | [INFO][2021-11-22T09:15:18+0000][app/server.hs:137:3][thread#67]************************
+hserver_1    | [INFO][2021-11-22T09:15:18+0000][app/server.hs:145:3][thread#67]Server started on port 6570
+hserver_1    | [INFO][2021-11-22T09:15:18+0000][app/server.hs:146:3][thread#67]*************************
 ```
 
 ## Start HStreamDB's interactive SQL CLI
