@@ -33,7 +33,7 @@ non-root user, see [Post-installation steps for Linux][non-root-docker].
 Do NOT use this configuration in your production environment!
 :::
 
-### Create a directory for storing db datas
+## Create a directory for storing db datas
 
 ```sh
 mkdir /dbdata
@@ -45,11 +45,10 @@ root, you can also create it anywhere as you can, but you need to pass the
 absolute data path to docker volume arguments.
 :::
 
-### Create a docker compose file for quick start
-
 ## Start HStreamDB Server and Store
 
 Create a [docker-compose.yaml](https://github.com/hstreamdb/hstream/raw/main/docker/quick-start.yaml) file for docker compose:
+
 
 ```yaml
 ## docker-compose.yaml
