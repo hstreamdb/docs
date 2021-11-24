@@ -4,15 +4,15 @@
 
 启动 HStream 需要一个内核版本不小于 Linux 4.14 的操作系统。
 
-## 安装 Installation
+## 安装
 
-### 安装镜像Install docker
+### 安装 docker
 
 ::: tip
 如果您已经有一安装好的 Docker，可以跳过这一步
 :::
 
-浏览查阅 [Install Docker Engine](https://docs.docker.com/engine/install/)，然后安装到您的操作系统上。 安装时，请注意检查您的设备是否满足所有的前置条件。
+浏览查阅 [Install Docker Engine](https://docs.docker.com/engine/install/)，然后安装到您的操作系统上。安装时，请注意检查您的设备是否满足所有的前置条件。
 
 确认 Docker daemon 正在运行：
 
@@ -25,11 +25,16 @@ docker version
 当然，你也可以以非 root 用户的方式运行 Docker，详情可以参考 [Post-installation steps for Linux][non-root-docker]。
 :::
 
-### 更新 Docker 镜像 Pull docker images
+### 安装 docker-compose
+
+::: tip
+如果您已经有一安装好的 Docker，可以跳过这一步
+:::
+
+浏览查阅 [Install Docker Compose](https://docs.docker.com/compose/install/)，然后安装到您的操作系统上。安装时，请注意检查您的设备是否满足所有的前置条件。
 
 ```sh
-docker pull hstreamdb/hstream:v0.6.0
-docker tag hstreamdb/hstream:v0.6.0 hstreamdb/hstream
+docker compose
 ```
 
 ## 在 Docker 容器里，启动一个本地独立的 HStreamDB
@@ -41,25 +46,32 @@ docker tag hstreamdb/hstream:v0.6.0 hstreamdb/hstream
 ### 创建一个存储 db 数据的文件目录
 
 ```sh
-mkdir /dbdata
+mkdir /data/store
 ```
 
-::: tip
-如果您是非 root 用户，您将无法在根（root）路径下创建文件夹，那么您可以在任意位置创建该文件夹，只要将目录的绝对路径传给 Docker 的 volume 参数。
-:::
+如果您是非 root 用户，您将无法在根（root）路径下创建文件夹，
+那么您可以在任意位置创建该文件夹
+
+```sh
+mkdir $HOME/data/store
+
+# 确保设置了环境变量 DATA_DIR
+export DATA_DIR=$HOME/data/store
+```
 
 ## 启动 HStreamDB 服务和存储模块
 
-创建一个 [docker-compose.yaml](https://github.com/hstreamdb/hstream/raw/main/docker/quick-start.yaml):
+创建一个 quick-start.yaml,
+可以直接[下载](https://github.com/hstreamdb/hstream/raw/main/docker/quick-start.yaml)或者复制以下内容:
 
 ```yaml
-## docker-compose.yaml
+## quick-start.yaml
 ```
 
 在同一个文件夹中运行：
 
 ```sh
-docker-compose up
+docker-compose -f quick-start.yaml up
 ```
 
 如果出现如下信息，表明现在已经有了一个运行中的 HServer：
@@ -70,10 +82,24 @@ hserver_1    | [INFO][2021-11-22T09:15:18+0000][app/server.hs:145:3][thread#67]S
 hserver_1    | [INFO][2021-11-22T09:15:18+0000][app/server.hs:146:3][thread#67]*************************
 ```
 
+::: tip
+当然，你也可以选择在后台启动
+:::
+
+```sh
+docker-compose -f quick-start.yaml up -d
+```
+
+并且可以通过以下命令展示 logs ：
+
+```
+docker-compose -f quick-start.yaml logs -f hserver
+```
+
 ## 启动 HStreamDB 的 SQL 命令行界面
 
 ```sh
-docker run -it --rm --name some-hstream-cli -v /dbdata:/data/store --network host hstreamdb/hstream hstream-client --port 6570 --client-id 1
+docker run -it --rm --name some-hstream-cli --network host hstreamdb/hstream hstream-client --port 6570 --client-id 1
 ```
 
 如果所有的步骤都正确运行，您将会进入到命令行界面，并且能看见一下帮助信息：

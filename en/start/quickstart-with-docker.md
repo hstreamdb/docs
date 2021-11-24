@@ -13,7 +13,7 @@ If you have already installed docker, you can skip this step.
 :::
 
 See [Install Docker Engine](https://docs.docker.com/engine/install/), and
-install it for your operating system. Please carefully check that you meet all
+install it for your operating system. Please carefully check that you have met all
 prerequisites.
 
 Confirm that the Docker daemon is running:
@@ -27,6 +27,20 @@ On Linux, Docker needs root privileges. You can also run Docker as a
 non-root user, see [Post-installation steps for Linux][non-root-docker].
 :::
 
+### Install docker compose
+
+::: tip
+If you have already installed docker compose, you can skip this step.
+:::
+
+See [Install Docker Compose](https://docs.docker.com/compose/install/), and
+install it for your operating system. Please carefully check that you met all
+prerequisites.
+
+```sh
+docker-compose version
+```
+
 ## Start a local standalone HStream-Server in Docker
 
 ::: warning
@@ -36,19 +50,27 @@ Do NOT use this configuration in your production environment!
 ## Create a directory for storing db datas
 
 ```sh
-mkdir /dbdata
+mkdir /data/store
 ```
 
 ::: tip
 If you are a non-root user, that you can not create directory under the
-root, you can also create it anywhere as you can, but you need to pass the
-absolute data path to docker volume arguments.
+root.
+
+You can create it anywhere as you can.
 :::
+
+```sh
+mkdir $HOME/data/store
+
+# make sure that you have set the environment variable DATA_DIR
+export DATA_DIR=$HOME/data/store
+```
 
 ## Start HStreamDB Server and Store
 
-Create a [docker-compose.yaml](https://github.com/hstreamdb/hstream/raw/main/docker/quick-start.yaml) file for docker compose:
-
+Create a docker-compose.yaml file for docker compose,
+you can [download](https://github.com/hstreamdb/hstream/raw/main/docker/quick-start.yaml) or paste the following contents:
 
 ```yaml
 ## docker-compose.yaml
@@ -57,7 +79,7 @@ Create a [docker-compose.yaml](https://github.com/hstreamdb/hstream/raw/main/doc
 then run:
 
 ```sh
-docker-compose up
+docker-compose -f quick-start.yaml up
 ```
 
 If you see some thing like this, then you have a running hstream:
@@ -68,10 +90,24 @@ hserver_1    | [INFO][2021-11-22T09:15:18+0000][app/server.hs:145:3][thread#67]S
 hserver_1    | [INFO][2021-11-22T09:15:18+0000][app/server.hs:146:3][thread#67]*************************
 ```
 
+::: tip
+You can also run in background.
+:::
+
+```sh
+docker-compose -f quick-start.yaml up -d
+```
+
+And if you want to show logs of server, run:
+
+```sh
+docker-compose -f quick-start.yaml logs -f hserver
+```
+
 ## Start HStreamDB's interactive SQL CLI
 
 ```sh
-docker run -it --rm --name some-hstream-cli -v /dbdata:/data/store --network host hstreamdb/hstream hstream-client --port 6570 --client-id 1
+docker run -it --rm --name some-hstream-cli --network host hstreamdb/hstream hstream-client --port 6570 --client-id 1
 ```
 
 If everything works fine, you will enter an interactive CLI and see help
