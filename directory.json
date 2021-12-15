@@ -47,10 +47,6 @@
                     "path": "start/quickstart-with-docker"
                 },
                 {
-                    "title": "Start HServer Cluster with Docker",
-                    "path": "start/start-hserver-cluster.md"
-                },
-                {
                     "title": "CLI usage",
                     "path": "start/cli"
                 }
