@@ -17,8 +17,8 @@ import io.hstream.Stream;
 
 ## Connect to a HStreamDB Instance
 
-First, you need to connect to a HStreaDB instance and get a `HStreamClient`
-oject.
+First, you need to connect to a HStreamDB instance and get a `HStreamClient`
+object.
 
 ```java
 
