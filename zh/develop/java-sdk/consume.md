@@ -1,6 +1,6 @@
 # 数据消费 （Data Consumption）
 
-如何通过 Java SDK 消费 HStreamDB 重的数据
+如何通过 Java SDK 消费 HStreamDB 中的数据
 
 ## 前提条件
 
@@ -16,7 +16,7 @@
 由此，用户可以根据他们的需求来消费原始数据或 HRecords 。
 
 当客户端收到一条 record 时，应当使用 `responder.ack()` 来返回一个 ack。HStreamDB 当前支
-持的是`at-least-once` 消费语义，应此，若不返回 ack，经过 `ackTimeoutSecond` 后，这些
+持的是`at-least-once` 消费语义，因此，若不返回 ack，经过 `ackTimeoutSecond` 后，这些
 records 会被 server 重新发送。
 
 ## 消费 Records
@@ -51,4 +51,4 @@ consumer.startAsync().awaitRunning();
 
 ```
 
-- 示例中用了 `rawRecordReceiver()` 来消费原始数据，假如想要消费 HReacord，可以用 `hRecordReceiver()`。
+- 示例中用了 `rawRecordReceiver()` 来消费原始数据，假如想要消费 HRecord，可以用 `hRecordReceiver()`。
