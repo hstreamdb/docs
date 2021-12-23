@@ -250,8 +250,8 @@ Download [quick-start.yaml] and **copy the exact following contents under servic
         set -e
         /usr/local/script/wait-for-storage.sh hstore 6440 zookeeper 2181 600 \
         /usr/local/bin/hstream-server \
-        --host 0.0.0.0 --port 6590 \
-        --internal-port 6591 \
+        --host 0.0.0.0 --port 6580 \
+        --internal-port 6581 \
         --address $$(hostname -I | awk '{print $$1}') \
         --server-id 101 \
         --zkuri zookeeper:2181 \
