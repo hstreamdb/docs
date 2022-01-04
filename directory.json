@@ -217,6 +217,15 @@
                     "path": "contributing/build-from-source"
                 }
             ]
+        },
+        {
+            "title": "Reference",
+            "children": [
+                {
+                    "title": "HStreamDB Configuration",
+                    "path" : "reference/config"
+                }
+            ]
         }
     ],
     "zh": [
@@ -435,6 +444,15 @@
                 {
                     "title": "Building from source",
                     "path": "contributing/build-from-source"
+                }
+            ]
+        },
+        {
+            "title": "参考",
+            "children": [
+                {
+                    "title": "HStream 配置",
+                    "path" : "reference/config"
                 }
             ]
         }
