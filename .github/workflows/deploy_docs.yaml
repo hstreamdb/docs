@@ -22,7 +22,7 @@ jobs:
         run: |
           wget -O docker-compose.yaml https://raw.githubusercontent.com/hstreamdb/hstream/main/docker/quick-start.yaml
           npm install embedme
-          npx embedme --source-root $PWD docs-files/*/start/quickstart-with-docker.md
+          npx embedme --source-root $PWD docs-files/docs/*/start/quickstart-with-docker.md
 
       - name: clone frontend
         uses: actions/checkout@v2
@@ -50,9 +50,9 @@ jobs:
         run: |
           mkdir -p frontend/docs/en/${VERSION}/
           mkdir -p frontend/docs/zh/${VERSION}/
-          cp -r docs-files/en/* frontend/docs/en/${VERSION}/ || true
-          cp -r docs-files/zh/* frontend/docs/zh/${VERSION}/ || true
-          cp -r docs-files/directory.json frontend/docs/directory.json
+          cp -r docs-files/docs/en/* frontend/docs/en/${VERSION}/ || true
+          cp -r docs-files/docs/zh/* frontend/docs/zh/${VERSION}/ || true
+          cp -r docs-files/docs/directory.json frontend/docs/directory.json
           rm frontend/*.md
 
       - name: build docs
