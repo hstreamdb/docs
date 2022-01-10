@@ -24,6 +24,9 @@ jobs:
           npm install embedme
           npx embedme --source-root $PWD docs-files/docs/*/start/quickstart-with-docker.md
 
+      - name: make directory.json
+        run: cd docs-files && make config
+
       - name: clone frontend
         uses: actions/checkout@v2
         with:
