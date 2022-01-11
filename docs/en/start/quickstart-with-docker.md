@@ -107,7 +107,7 @@ docker-compose -f quick-start.yaml logs -f hserver
 ## Start HStreamDB's interactive SQL CLI
 
 ```sh
-docker run -it --rm --name some-hstream-cli --network host hstreamdb/hstream hstream-client --port 6570 --client-id 1
+docker run -it --rm --name some-hstream-cli --network host hstreamdb/hstream:v0.6.1 hstream-client --port 6570 --client-id 1
 ```
 
 If everything works fine, you will enter an interactive CLI and see help
@@ -218,11 +218,11 @@ For example, run the following commands to start a cluster with 3 nodes,
 only if you followed quick start and did not change the [config][quick-start.yaml] :
 
 ```sh
-docker run -it --rm --name some-hstream-server-1 -v $DATA_DIR:/data/store --network hstream-quickstart hstreamdb/hstream hstream-server --store-config /data/store/logdevice.conf --zkuri 127.0.0.1:2181 --port 6580 --internal-port 6581 --server-id 101
+docker run -it --rm --name some-hstream-server-1 -v $DATA_DIR:/data/store --network hstream-quickstart hstreamdb/hstream:v0.6.1 hstream-server --store-config /data/store/logdevice.conf --zkuri 127.0.0.1:2181 --port 6580 --internal-port 6581 --server-id 101
 ```
 
 ```sh
-docker run -it --rm --name some-hstream-server-2 -v $DATA_DIR:/data/store --network hstream-quickstart hstreamdb/hstream hstream-server --store-config /data/store/logdevice.conf --zkuri 127.0.0.1:2181 --port 6590 --internal-port 6591 --server-id 102
+docker run -it --rm --name some-hstream-server-2 -v $DATA_DIR:/data/store --network hstream-quickstart hstreamdb/hstream:v0.6.1 hstream-server --store-config /data/store/logdevice.conf --zkuri 127.0.0.1:2181 --port 6590 --internal-port 6591 --server-id 102
 ```
 
 ### Start with docker compose
@@ -302,7 +302,7 @@ docker-compose -f quick-start.yaml logs -f hserver hserver0 hserver1
 An HStream Server Cluster does not affect how you use CLI.
 
 ```sh
-docker run -it --rm --name some-hstream-cli --network host hstreamdb/hstream hstream-client --port 6570 --client-id 1
+docker run -it --rm --name some-hstream-cli --network host hstreamdb/hstream:v0.6.1 hstream-client --port 6570 --client-id 1
 ```
 
 [non-root-docker]: https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user
