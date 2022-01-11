@@ -10,10 +10,7 @@ RUN wget -O /tmp/frontend.zip https://github.com/hstreamdb/hstreamdb-docs-fronte
     unzip /tmp/frontend.zip -d /tmp && \
     mv /tmp/hstreamdb-docs-frontend-main /app && \
     rm -rf /tmp/frontend.zip && \
-    cd /app && \
-    yarn config set registry https://registry.npm.taobao.org/ && \
-    yarn config set registry https://registry.npmjs.org/ && \
-    yarn
+    cd /app && yarn
 
 WORKDIR /app
 CMD ["yarn", "dev"]
