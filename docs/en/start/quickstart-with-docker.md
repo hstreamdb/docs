@@ -1,4 +1,4 @@
-# Quickstart with Docker
+# Quickstart with Docker-Compose
 
 ## Requirement
 
