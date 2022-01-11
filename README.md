@@ -11,7 +11,7 @@ just the tag's name.
 
 ```sh
 docker build . -t hstreamdb/docs-dev
-
+make config
 docker run -it --rm -p 8080:8080 -v $(pwd)/docs:/app/docs hstreamdb/docs-dev
 ```
 

@@ -24,3 +24,4 @@ yarn-error.log*
 *.pdf
 
 local*
+docs/directory.json
