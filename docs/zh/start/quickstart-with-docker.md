@@ -99,7 +99,7 @@ docker-compose -f quick-start.yaml logs -f hserver
 ## 启动 HStreamDB 的 SQL 命令行界面
 
 ```sh
-docker run -it --rm --name some-hstream-cli --network host hstreamdb/hstream hstream-client --port 6570 --client-id 1
+docker run -it --rm --name some-hstream-cli --network host hstreamdb/hstream:v0.6.1 hstream-client --port 6570 --client-id 1
 ```
 
 如果所有的步骤都正确运行，您将会进入到命令行界面，并且能看见一下帮助信息：
@@ -204,11 +204,11 @@ INSERT INTO demo (temperature, humidity) VALUES (28, 86);
 也作出相应的修改。
 
 ```sh
-docker run -it --rm --name some-hstream-server-1 -v $DATA_DIR:/data/store --network hstream-quickstart hstreamdb/hstream hstream-server --store-config /data/store/logdevice.conf --zkuri 127.0.0.1:2181 --port 6580 --internal-port 6581 --server-id 101
+docker run -it --rm --name some-hstream-server-1 -v $DATA_DIR:/data/store --network hstream-quickstart hstreamdb/hstream:v0.6.1 hstream-server --store-config /data/store/logdevice.conf --zkuri 127.0.0.1:2181 --port 6580 --internal-port 6581 --server-id 101
 ```
 
 ```sh
-docker run -it --rm --name some-hstream-server-2 -v $DATA_DIR:/data/store --network hstream-quickstart hstreamdb/hstream hstream-server --store-config /data/store/logdevice.conf --zkuri 127.0.0.1:2181 --port 6590 --internal-port 6591 --server-id 102
+docker run -it --rm --name some-hstream-server-2 -v $DATA_DIR:/data/store --network hstream-quickstart hstreamdb/hstream:v0.6.1 hstream-server --store-config /data/store/logdevice.conf --zkuri 127.0.0.1:2181 --port 6590 --internal-port 6591 --server-id 102
 ```
 
 ### 用 docker-compose 拉起一个本地集群
@@ -288,7 +288,7 @@ docker-compose -f quick-start.yaml logs -f hserver hserver0 hserver1
 HStreamDB 服务是集群还是单机并不会影响 CLI 的使用方式
 
 ```sh
-docker run -it --rm --name some-hstream-cli --network host hstreamdb/hstream hstream-client --port 6570 --client-id 1
+docker run -it --rm --name some-hstream-cli --network host hstreamdb/hstream:v0.6.1 hstream-client --port 6570 --client-id 1
 ```
 
 [non-root-docker]: https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user
