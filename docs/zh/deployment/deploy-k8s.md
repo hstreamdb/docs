@@ -1,27 +1,19 @@
-# Running on Kubernetes
+# 在Kubernetes上运行
 
-This document describes how to run HStreamDB kubernetes using the specs that we
-provide. The document assumes basic previous kubernetes knowledge. By the end of
-this section, you'll have a fully running HStreamDB cluster on kubernetes that's
-ready to receive reads/writes, process datas, etc.
+本文档描述了如何使用我们提供的 specs 来运行 HStreamDB kubernetes。该文档假设读者有基本的 kubernetes 知识。在本节结束时，你将拥有一个完全运行在kubernetes上的HStreamDB集群，它已经准备就绪，可以接收读/写，处理数据，等等。
 
-## Building your Kubernetes Cluster
+## 建立你的Kubernetes集群
 
-The first step is to have a running kubernetes cluster. You can use a managed
-cluster (provided by your cloud provider), a self-hosted cluster or a local
-kubernetes cluster using a tool like minikube. Make sure that kubectl points to
-whatever cluster you're planning to use.
+第一步是要有一个正在运行的 kubernetes 集群。你可以使用一个托管的集群（由你的云提供商提供），一个自我托管的集群或一个本地的 kubernetes 集群，比如 minikube。请确保kubectl指向你计划使用的任何集群。
 
-Also, you need a storageClass named `hstream-store`, you can create by `kubectl`
-or by your cloud provider web page if it has.
+另外，你需要一个名为 "hstream-store "的存储类，你可以通过 "kubectl "创建。或者通过你的云服务提供商的网页来创建，如果它有的话。
 
-## Install Zookeeper
+## 安装 Zookeeper
 
-HStreamDB depends on Zookeeper for storing queries information and some internal
-storage configuration. So we will need to provision a zookeeper ensemble that
-HStreamDB will be able to access. For this demo, we will use
-[helm](https://helm.sh/) (A package manager for kubernetes) to install
-zookeeper. After installing helm run:
+HStreamDB 依赖于 Zookeeper 来存储查询信息和一些内部的存储配置，所以我们需要提供一个 Zookeeper 集群，以便 HStreamDB 能够访问。
+
+在这个演示中，我们将使用[helm](https://helm.sh/)（一个用于 kubernetes 的软件包管理器）来安装
+zookeeper。安装完 helm 后，运行：
 
 ```sh
 helm repo add bitnami https://charts.bitnami.com/bitnami
@@ -61,8 +53,7 @@ WARNING: Rolling tag detected (bitnami/zookeeper:3.6.3), please note that it is 
 +info https://docs.bitnami.com/containers/how-to/understand-rolling-tags-containers/
 ```
 
-This will by default install a 3 nodes zookeeper ensemble. Wait until all the
-three pods are marked as ready:
+这将默认安装一个3个节点的 zookeeper 集合。等到所有的节点标记为 Ready。
 
 ```sh
 kubectl get pods
@@ -75,25 +66,22 @@ zookeeper-1  1/1     Running   0          4d22h
 zookeeper-2  1/1     Running   0          16m
 ```
 
-## Configuring and Starting HStreamDB
+## 配置和启动HStreamDB
 
-Once all the zookeeper pods are ready, we're ready to start installing the
-HStreamDB cluster.
+一旦所有的 zookeeper pods 都准备好了，我们就可以开始安装 HStreamDB 集群。
 
-### Fetching The K8s Specs
+### 拿到 k8s spec
 
 ```sh
 git clone git@github.com:hstreamdb/hstream.git
 cd hstream/k8s
 ```
 
-### Update Configuration
+### 更新配置
 
-If you used a different way to install zookeeper, make sure to update the
-zookeeper connection string in storage config file `config.json` and server
-service file `hstream-server.yaml`.
+如果你使用了不同的方式来安装 zookeeper，请确保更新存储配置文件 `config.json` 中的 zookeeper 连接字符串和服务器配置文件`hstream-server.yaml`。
 
-It should look something like this:
+它应该看起来像这样：
 
 ```sh
 $ cat config.json | grep -A 2 zookeeper
@@ -108,24 +96,19 @@ $ cat hstream-server.yaml | grep -A 1 zkuri
 ```
 
 ::: tip
-The zookeeper connection string in stotage config file and the service file
-can be different. But for normal scenario, they are the same.
+Storage 配置文件和服务文件中的 zookeeper 连接字符串可以是不同的。但对于正常情况下，它们是一样的。
 :::
 
-By default, this spec installs a 3 nodes HStream server cluster and 4 nodes
-storage cluster. If you want a bigger cluster, modify the `hstream-server.yaml`
-and `logdevice-statefulset.yaml` file, and increase the number of replicas to
-the number of nodes you want in the cluster. Also by default, we attach a 40GB
-persistent storage to the nodes, if you want more you can change that under the
-volumeClaimTemplates section.
+在默认情况下。本规范安装了一个3个节点的HStream服务器集群和4个节点的存储集群。如果你想要一个更大的集群，修改 `hstream-server.yaml` 和 `logdevice-statefulset.yaml` 文件，并将复制的数量增加到你想要的集群中的节点数。另外，默认情况下，我们给节点附加一个40GB的持久性存储，如果你想要更多，你可以在 volumeClaimTemplates 部分进行修改。
 
-### Starting the Cluster
+### 启动集群
 
 ```sh
 kubectl apply -k .
 ```
 
-When you run `kubectl get pods`, you should see something like this:
+当你运行`kubectl get pods`时，你应该看到类似如下：
+
 
 ```
 NAME                                                 READY   STATUS    RESTARTS   AGE
@@ -142,10 +125,9 @@ zookeeper-1                                          1/1     Running   0        
 zookeeper-2                                          1/1     Running   0          6d
 ```
 
-### Bootstrapping the Storage Cluster
+### Bootstrap 存储集群
 
-Once all the logdevice pods are running and ready, you'll need to bootstrap the
-cluster to enable all the nodes. To do that, run:
+一旦所有的 logdevice pods 运行并准备就绪，你将需要 Bootstrap 集群以启用所有的节点。要做到这一点，请运行：
 
 ```sh
 kubectl run hadmin -it --rm --restart=Never --image=hstreamdb/hstream:v0.6.1 -- \
@@ -154,32 +136,32 @@ kubectl run hadmin -it --rm --restart=Never --image=hstreamdb/hstream:v0.6.1 -- 
     bootstrap --metadata-replicate-across 'node:3'
 ```
 
-This will start a hadmin pod, that connects to the admin server and invokes the
-`nodes-config bootstrap` hadmin command and sets the metadata replication
-property of the cluster to be replicated across three different nodes. On
-success, you should see something like:
+这将启动一个 hadmin pod，它连接到管理服务器并调用 `nodes-config bootstrap` hadmin 命令，并将集群的元数据复制属性设置为跨三个不同的节点进行复制。
+
+成功后，你应该看到类似如下：
 
 ```
 Successfully bootstrapped the cluster
 pod "hadmin" deleted
 ```
 
-## Managing the Storage Cluster
+## 管理存储集群
 
 ```sh
 kubectl run hadmin -it --rm --restart=Never --image=hstreamdb/hstream:v0.6.1 -- bash
 ```
 
-Now you can run `hadmin` to manage the cluster:
+现在你可以运行 `hadmin` 来管理这个集群：
 
 ```
 hadmin --help
 ```
 
-To check the state of the cluster, you can then run:
+要检查集群的状态，你可以运行：
 
 ```
 hadmin --host logdevice-admin-server-service status
+```
 
 +----+-------------+-------+---------------+
 | ID |    NAME     | STATE | HEALTH STATUS |

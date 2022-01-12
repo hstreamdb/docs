@@ -108,7 +108,7 @@ $ cat hstream-server.yaml | grep -A 1 zkuri
 ```
 
 ::: tip
-The zookeeper connection string in stotage config file and the service file
+The zookeeper connection string in storage config file and the service file
 can be different. But for normal scenario, they are the same.
 :::
 
