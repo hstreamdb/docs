@@ -20,7 +20,7 @@ en:
   - title: Getting started
     children:
       - path: start/quickstart-with-docker
-        title: Quickstart with Docker
+        title: Quickstart with Docker-Compose
       - path: start/cli
         title: CLI usage
   - children:
@@ -127,7 +127,7 @@ zh:
     title: 概览
   - children:
       - path: start/quickstart-with-docker
-        title: 使用 Docker 快速上手
+        title: 使用 Docker-Compose 快速上手
       - path: start/cli
         title: CLI usage
     title: 快速上手
