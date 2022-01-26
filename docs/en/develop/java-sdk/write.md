@@ -74,9 +74,8 @@ achieve higher thoughput, you can enable batch mode of `Producer`.
 
 ```java
 
-Producer producer = client.newProducer()
+BufferedProducer producer = client.newBufferedProducer()
         .stream("test_stream")
-        .enableBatch()
         .recordCountLimit(100)
         .build();
 
@@ -86,7 +85,7 @@ for(int i = 0; i < 1000; ++i) {
     random.nextBytes(rawRecord);
     CompletableFuture<RecordId> future = producer.write(rawRecord);
 }
-
+producer.close();
 ```
 
 ::: warning Please do not write both binary data and hrecord in one stream! :::

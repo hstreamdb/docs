@@ -71,9 +71,8 @@ CompletableFuture<RecordId> future = producer.write(hRecord);
 
 ```java
 
-Producer producer = client.newProducer()
+BufferedProducer producer = client.newBufferedProducer()
         .stream("test_stream")
-        .enableBatch()
         .recordCountLimit(100)
         .build();
 
@@ -83,7 +82,7 @@ for(int i = 0; i < 1000; ++i) {
     random.nextBytes(rawRecord);
     CompletableFuture<RecordId> future = producer.write(rawRecord);
 }
-
+producer.close();
 ```
 
 ::: warning 请不要往同一个 stream 里同时写入二进制数据 和 hrecord ！:::
