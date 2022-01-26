@@ -1,7 +1,5 @@
 # How to use HStream connectors with ClickHouse
 
-TODO
-
 ### Clickhouse Connector
 
 connector options and default value for clickhouse includes:

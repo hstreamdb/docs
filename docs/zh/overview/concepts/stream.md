@@ -1,18 +1,12 @@
 # Stream and Streaming Data
 
+## Streaming Data
+
+Streaming data are data that are generated continuously and typically sent in data records with small sizes (order of Kilobytes).
+
 ## What is a **Stream** in HStreamDB?
 
-A stream is a flow of endless data assigned with a unique name.
-
-### Streaming Data
-
-These endless data are known as **Streaming data**. Streaming data are data that are generated continuously and typically sent in data records with small sizes (order of Kilobytes).
-
-### Stream
-
-Therefore, in a stream from HStreamDB, the default form of a single data is JSON. A flow indicates that the stream in HStreamDB is append-only, which is true. It makes no sense to delete something from a stream. Implicitly, every append operation comes with an *LSN*, meaning that every data in a stream is checkable and recoverable. LSN is the abbreviate for *log sequence number*, which is the combination of the epoch and the epoch sequence number. It is guaranteed to be monotonically increasing.
-
-## Extra
+A stream is a flow of endless data assigned with a unique name. In a stream from HStreamDB, the default form of a single data is JSON. A flow indicates that the stream in HStreamDB is append-only.
 
 ### Examples of Streaming Data
 

@@ -89,4 +89,6 @@ for(int i = 0; i < 1000; ++i) {
 
 ```
 
-::: warning Please do not write both binary data and hrecord in one stream! :::
+::: warning
+Please do not write both binary data and hrecord in one stream!
+:::

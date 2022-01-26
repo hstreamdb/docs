@@ -151,10 +151,10 @@ zh:
     title: 利用 HStreamDB 开发
   - children:
       - path: deployment/deploy-k8s
-        title: Running on Kubernetes
+        title: 在 Kubernetes 上运行
       - path: deployment/deploy-docker
-        title: Manual Deployment with Docker
-    title: Deployment
+        title: 用 Docker 手动部署
+    title: 部署
   - children:
       - path: sql/sql-overview
         title: HStreamDB SQL overview
