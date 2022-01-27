@@ -144,26 +144,26 @@ zookeeper-2                                          1/1     Running   0        
 点。要做到这一点，请运行：
 
 ```sh
-kubectl run hadmin -it --rm --restart=Never --image=hstreamdb/hstream:v0.6.1 -- \
+kubectl run hstream-admin -it --rm --restart=Never --image=hstreamdb/hstream:v0.6.1 -- \
     hadmin --host logdevice-admin-server-service \
     nodes-config \
     bootstrap --metadata-replicate-across 'node:3'
 ```
 
-这将启动一个 hadmin pod，它连接到管理服务器并调用 `nodes-config bootstrap`
+这将启动一个 hstream-admin pod，它连接到管理服务器并调用 `nodes-config bootstrap`
 hadmin 命令，并将集群的元数据复制属性设置为跨三个不同的节点进行复制。
 
 成功后，你应该看到类似如下：
 
 ```
 Successfully bootstrapped the cluster
-pod "hadmin" deleted
+pod "hstream-admin" deleted
 ```
 
 ## 管理存储集群
 
 ```sh
-kubectl run hadmin -it --rm --restart=Never --image=hstreamdb/hstream:v0.6.1 -- bash
+kubectl run hstream-admin -it --rm --restart=Never --image=hstreamdb/hstream:v0.6.1 -- bash
 ```
 
 现在你可以运行 `hadmin` 来管理这个集群：
