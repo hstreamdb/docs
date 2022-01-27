@@ -72,7 +72,7 @@ CompletableFuture<RecordId> future = producer.write(record);
 ## Buffered Writes (Preferred)
 
 When writing to HStreamDB, sending many small records limits throughput. To
-achieve higher thoughput, you can enable batch mode of `Producer`.
+achieve higher thoughput, you can use `BufferedProducer`.
 
 ```java
 
