@@ -157,7 +157,7 @@ docker exec zookeeper zkCli.sh get /logdevice.conf
 
   ```shell
   docker run --rm -d --name storeAdmin --network host -v /data/logdevice:/data/logdevice \
-          hstreamdb/hstream:v0.6.1 /usr/local/bin/ld-admin-server \
+          hstreamdb/hstream:v0.7.0 /usr/local/bin/ld-admin-server \
           --config-path zk:10.100.2.11:2181/logdevice.conf \
           --enable-maintenance-manager \
           --maintenance-log-snapshotting \
@@ -177,7 +177,7 @@ docker exec zookeeper zkCli.sh get /logdevice.conf
 
   ```shell
   docker run --rm -d --name hstore --network host -v /data/logdevice:/data/logdevice \
-          hstreamdb/hstream:v0.6.1 /usr/local/bin/logdeviced \
+          hstreamdb/hstream:v0.7.0 /usr/local/bin/logdeviced \
           --config-path zk:10.100.2.11:2181/logdevice.conf \
           --name store-0 \
           --address 192.168.0.3 \
@@ -197,7 +197,7 @@ docker exec zookeeper zkCli.sh get /logdevice.conf
 在管理服务器节点上，运行。
 
 ```shell
-docker exec storeAdmin hadmin nodes-config bootstrap --metadata-replicate-across 'node:3'
+docker exec storeAdmin hadmin store nodes-config bootstrap --metadata-replicate-across 'node:3'
 ```
 
 你应该看到像这样的信息：
@@ -210,7 +210,7 @@ Took 0.019s
 你可以通过运行以下命令来检查集群的状态：
 
 ```shell
-docker exec storeAdmin hadmin status
+docker exec storeAdmin hadmin store status
 ```
 
 而结果应该是：
@@ -234,7 +234,7 @@ Took 7.745s
 
 ```shell
 docker run -d --name hstream-server --network host \
-        hstreamdb/hstream:v0.6.1 /usr/local/bin/hstream-server \
+        hstreamdb/hstream:v0.7.0 /usr/local/bin/hstream-server \
         --host $SERVER_HOST \
         --address $SERVER_HOST \
         --zkuri $ZK_ADDRESS \

@@ -150,14 +150,14 @@ Once all the logdevice pods are running and ready, you'll need to bootstrap the
 cluster to enable all the nodes. To do that, run:
 
 ```sh
-kubectl run hstream-admin -it --rm --restart=Never --image=hstreamdb/hstream:v0.6.1 -- \
-    hadmin --host logdevice-admin-server-service \
+kubectl run hstream-admin -it --rm --restart=Never --image=hstreamdb/hstream:v0.7.0 -- \
+    hadmin store --host logdevice-admin-server-service \
     nodes-config \
     bootstrap --metadata-replicate-across 'node:3'
 ```
 
 This will start a hstream-admin pod, that connects to the admin server and invokes the
-`nodes-config bootstrap` hadmin command and sets the metadata replication
+`nodes-config bootstrap` hadmin store command and sets the metadata replication
 property of the cluster to be replicated across three different nodes. On
 success, you should see something like:
 
@@ -169,19 +169,19 @@ pod "hstream-admin" deleted
 ## Managing the Storage Cluster
 
 ```sh
-kubectl run hstream-admin -it --rm --restart=Never --image=hstreamdb/hstream:v0.6.1 -- bash
+kubectl run hstream-admin -it --rm --restart=Never --image=hstreamdb/hstream:v0.7.0 -- bash
 ```
 
-Now you can run `hadmin` to manage the cluster:
+Now you can run `hadmin store` to manage the cluster:
 
 ```
-hadmin --help
+hadmin store --help
 ```
 
 To check the state of the cluster, you can then run:
 
 ```sh
-hadmin --host logdevice-admin-server-service status
+hadmin store --host logdevice-admin-server-service status
 ```
 
 ```
