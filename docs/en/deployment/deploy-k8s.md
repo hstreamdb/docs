@@ -108,8 +108,10 @@ $ cat hstream-server.yaml | grep -A 1 zkuri
 ```
 
 ::: tip
-The zookeeper connection string in storage config file and the service file
-can be different. But for normal scenario, they are the same.
+
+The zookeeper connection string in storage config file and the service file can
+be different. But for normal scenario, they are the same.
+
 :::
 
 By default, this spec installs a 3 nodes HStream server cluster and 4 nodes
@@ -178,9 +180,11 @@ hadmin --help
 
 To check the state of the cluster, you can then run:
 
-```
+```sh
 hadmin --host logdevice-admin-server-service status
+```
 
+```
 +----+-------------+-------+---------------+
 | ID |    NAME     | STATE | HEALTH STATUS |
 +----+-------------+-------+---------------+
