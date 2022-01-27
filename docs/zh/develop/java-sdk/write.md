@@ -73,11 +73,11 @@ CompletableFuture<RecordId> future = producer.write(hRecord);
 
 BufferedProducer producer = client.newBufferedProducer()
         .stream("test_stream")
-        // optional, default: 100, the value must be greater than 0
+        // 可选项，默认值：100，值必须大于零
         .recordCountLimit(100)
-        // optional, default: 100(ms), disabled if the value <= 0
+        // 可选项，默认值：100（毫秒），值小于零则关闭此策略
         .flushIntervalMs(100)
-        // optional, default: 4096(Bytes), disabled if the value <= 0
+        // 可选项，默认值：4096（字节）， 值小于零则关闭此策略
         .maxBytesSize(4096)
         .build();
 
