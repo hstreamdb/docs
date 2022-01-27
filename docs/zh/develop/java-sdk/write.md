@@ -73,7 +73,12 @@ CompletableFuture<RecordId> future = producer.write(hRecord);
 
 BufferedProducer producer = client.newBufferedProducer()
         .stream("test_stream")
+        // optional, default: 100, the value must be greater than 0
         .recordCountLimit(100)
+        // optional, default: 100(ms), disabled if the value <= 0
+        .flushIntervalMs(100)
+        // optional, default: 4096(Bytes), disabled if the value <= 0
+        .maxBytesSize(4096)
         .build();
 
 Random random = new Random();
