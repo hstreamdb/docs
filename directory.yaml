@@ -6,6 +6,8 @@ en:
       - children:
           - path: overview/concepts/stream
             title: Stream and Streaming Data
+          - path: overview/concepts/transparent-sharding
+            title: Transparent Sharding
         title: Concepts
       - children:
           - path: overview/architecture/overview
@@ -116,6 +118,8 @@ zh:
       - children:
           - path: overview/concepts/stream
             title: 流和流式数据
+          - path: overview/concepts/transparent-sharding
+            title: 透明分区
         title: 概念
       - children:
           - path: overview/architecture/overview
