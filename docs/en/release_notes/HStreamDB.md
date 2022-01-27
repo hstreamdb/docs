@@ -45,13 +45,13 @@ HStreamDB end-users.
 #### Deployment and usage
 
 - Support quick deployment via the script, see:
-  [Manual Deployment with Docker](/docs/en/deployment/deploy-docker.md)
+  [Manual Deployment with Docker](https://hstream.io/docs/en/latest/deployment/deploy-docker.html)
 - Support config HStreamDB with a configuration file, see:
-  [HStreamDB Configuration](/docs/en/reference/config.md)
+  [HStreamDB Configuration](https://hstream.io/docs/en/latest/reference/config.html)
 - Support one-step docker-compose for quick-start:
-  [Quick Start With Docker Compose](docs/en/start/quickstart-with-docker.md)
+  [Quick Start With Docker Compose](https://hstream.io/docs/en/latest/start/quickstart-with-docker.html)
 
-**To make use of HStreamDB v0.7, please use hstreamdb-java v0.7.0 and above**
+**To make use of HStreamDB v0.7, please use [hstreamdb-java v0.7.0](https://github.com/hstreamdb/hstreamdb-java) and above**
 
 ## v0.6.0 [2021-11-04]
 
