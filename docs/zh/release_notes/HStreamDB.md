@@ -36,13 +36,13 @@ HStream SQL Shell 中的 HStream Metrics，现已迁移到了新的 HAdmin 中�
 #### 部署和使用
 
 - 支持通过脚本快速部署，见：
-  [使用 Docker 手动部署](/docs/en/deployment/deploy-docker.md)
+  [使用 Docker 手动部署](https://hstream.io/docs/zh/latest/deployment/deploy-docker.html)
 - 支持用配置文件来配置 HStreamDB，见：
-  [HStreamDB Configuration](/docs/zh/reference/config.md)
+  [HStreamDB Configuration](https://hstream.io/docs/zh/latest/reference/config.html)
 - 支持一步到位的 docker-compose 的快速上手，见：
-  [使用 Docker Compose 快速上手](docs/zh/start/quickstart-with-docker.md)
+  [使用 Docker Compose 快速上手](https://hstream.io/docs/zh/latest/start/quickstart-with-docker.html)
 
-**为了使用 HStreamDB v0.7，请使用 hstreamdb-java v0.7.0 及以上版本**
+**为了使用 HStreamDB v0.7，请使用 [hstreamdb-java v0.7.0](https://github.com/hstreamdb/hstreamdb-java) 及以上版本**
 
 ## v0.6.0 [2021-11-04]
 
