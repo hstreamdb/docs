@@ -48,10 +48,13 @@ en:
         title: Manual Deployment with Docker
     title: Deployment
   - children:
+    path: admin/admin.md
+    title: HStream Admin
+  - children:
       - path: sql/sql-overview
-        title: HStreamDB SQL overview
+        title: HStream SQL overview
       - path: sql/sql-quick-reference
-        title: HStreamDB SQL quick reference
+        title: HStream SQL quick reference
       - children:
           - path: sql/statements/create-stream
             title: CREATE STREAM
@@ -80,7 +83,7 @@ en:
         title: Functions
       - path: sql/appendix
         title: Appendix
-    title: HStreamDB SQL
+    title: HStream SQL
   - children:
       - path: connector/overview
         title: Overview
@@ -151,15 +154,18 @@ zh:
     title: 利用 HStreamDB 开发
   - children:
       - path: deployment/deploy-k8s
-        title: Running on Kubernetes
+        title: 在 Kubernetes 上运行
       - path: deployment/deploy-docker
-        title: Manual Deployment with Docker
-    title: Deployment
+        title: 用 Docker 手动部署
+    title: 部署
+  - children:
+    path: admin/admin.md
+    title: HStream Admin
   - children:
       - path: sql/sql-overview
-        title: HStreamDB SQL overview
+        title: HStream SQL overview
       - path: sql/sql-quick-reference
-        title: HStreamDB SQL quick reference
+        title: HStream SQL quick reference
       - children:
           - path: sql/statements/create-stream
             title: CREATE STREAM
@@ -188,7 +194,7 @@ zh:
         title: Functions
       - path: sql/appendix
         title: Appendix
-    title: HStreamDB SQL
+    title: HStream SQL
   - children:
       - path: connector/overview
         title: Overview
