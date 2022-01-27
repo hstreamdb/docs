@@ -49,7 +49,8 @@ You can write binary data using the `Producer.write()` method:
 Random random = new Random();
 byte[] rawRecord = new byte[100];
 random.nextBytes(rawRecord);
-CompletableFuture<RecordId> future = producer.write(rawRecord);
+Record record = Record.newBuilder().rawRecord(rawRecord).build();
+CompletableFuture<RecordId> future = producer.write(record);
 
 ```
 
@@ -63,7 +64,8 @@ HRecord hRecord = HRecord.newBuilder()
         .put("key3", true)
         .build();
 
-CompletableFuture<RecordId> future = producer.write(hRecord);
+Record record = Record.newBuilder().hRecord(hRecord).build();
+CompletableFuture<RecordId> future = producer.write(record);
 
 ```
 
@@ -74,19 +76,24 @@ achieve higher thoughput, you can enable batch mode of `Producer`.
 
 ```java
 
-Producer producer = client.newProducer()
+BufferedProducer producer = client.newBufferedProducer()
         .stream("test_stream")
-        .enableBatch()
+        // optional, default: 100, the value must be greater than 0
         .recordCountLimit(100)
+        // optional, default: 100(ms), disabled if the value <= 0
+        .flushIntervalMs(100)
+        // optional, default: 4096(Bytes), disabled if the value <= 0
+        .maxBytesSize(4096)
         .build();
 
 Random random = new Random();
 for(int i = 0; i < 1000; ++i) {
     byte[] rawRecord = new byte[100];
     random.nextBytes(rawRecord);
-    CompletableFuture<RecordId> future = producer.write(rawRecord);
+    Record record = Record.newBuilder().rawRecord(rawRecord).build();
+    CompletableFuture<RecordId> future = producer.write(record);
 }
-
+producer.close();
 ```
 
 ::: warning

@@ -46,7 +46,8 @@ Producer producer = client.newProducer().stream("test_stream").build();
 Random random = new Random();
 byte[] rawRecord = new byte[100];
 random.nextBytes(rawRecord);
-CompletableFuture<RecordId> future = producer.write(rawRecord);
+Record record = Record.newBuilder().rawRecord(rawRecord).build();
+CompletableFuture<RecordId> future = producer.write(record);
 
 ```
 
@@ -60,7 +61,8 @@ HRecord hRecord = HRecord.newBuilder()
         .put("key3", true)
         .build();
 
-CompletableFuture<RecordId> future = producer.write(hRecord);
+Record record = Record.newBuilder().hRecord(hRecord).build();
+CompletableFuture<RecordId> future = producer.write(record);
 
 ```
 
@@ -71,19 +73,24 @@ CompletableFuture<RecordId> future = producer.write(hRecord);
 
 ```java
 
-Producer producer = client.newProducer()
+BufferedProducer producer = client.newBufferedProducer()
         .stream("test_stream")
-        .enableBatch()
+        // 可选项，默认值：100，值必须大于零
         .recordCountLimit(100)
+        // 可选项，默认值：100（毫秒），值小于零则关闭此策略
+        .flushIntervalMs(100)
+        // 可选项，默认值：4096（字节）， 值小于零则关闭此策略
+        .maxBytesSize(4096)
         .build();
 
 Random random = new Random();
 for(int i = 0; i < 1000; ++i) {
     byte[] rawRecord = new byte[100];
     random.nextBytes(rawRecord);
-    CompletableFuture<RecordId> future = producer.write(rawRecord);
+    Record record = Record.newBuilder().rawRecord(rawRecord).build();
+    CompletableFuture<RecordId> future = producer.write(record);
 }
-
+producer.close();
 ```
 
 ::: warning

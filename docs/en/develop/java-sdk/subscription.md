@@ -6,8 +6,8 @@ subscriptions.
 
 ## Concepts
 
-HStreamDB uses subscription to manage the progress information of consumption
-(e.g. checkpoint, offset). For consumer to consume the data, it **must join** a
+HStreamDB uses subscription to manage the progress information of consumption.
+For consumer to consume the data, it **must join** a
 subscription that **already exists**.
 
 ## Prerequisites
@@ -26,25 +26,9 @@ Subscription subscription =
         .newBuilder()
         .subscription("my_subscription")
         .stream("my_stream")
-        .offset(new SubscriptionOffset(SubscriptionOffset.SpecialOffset.LATEST))
         .ackTimeoutSeconds(600)
         .build();
 client.createSubscription(subscription);
-
-```
-
-the `SubscriptionOffset` can have three types of values:
-
-```java
-
-// consume from the start of the stream
-SubscriptionOffset.SpecialOffset offset = SubscriptionOffset.SpecialOffset.EARLIST;
-
-// consume from the tail of the stream
-SubscriptionOffset.SpecialOffset offset = SubscriptionOffset.SpecialOffset.LATEST;
-
-// consume from RecordId with specified LSN and offset
-RecordId rid = new RecordId(1, 2);
 
 ```
 

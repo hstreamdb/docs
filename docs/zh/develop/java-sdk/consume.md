@@ -29,7 +29,6 @@ Subscription subscription =
         .newBuilder()
         .subscription("my_subscription")
         .stream("my_stream")
-        .offset(new SubscriptionOffset(SubscriptionOffset.SpecialOffset.LATEST))
         .ackTimeoutSeconds(600)
         .build();
 client.createSubscription(subscription);
