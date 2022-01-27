@@ -86,4 +86,6 @@ for(int i = 0; i < 1000; ++i) {
 
 ```
 
-::: warning 请不要往同一个 stream 里同时写入二进制数据 和 hrecord ！:::
+::: warning
+请不要往同一个 stream 里同时写入二进制数据 和 hrecord ！
+:::

@@ -1,31 +1,31 @@
-# 用Docker手动部署
+# Manual Deployment with Docker
 
-本文描述了如何用docker运行HStreamDB集群。
+This document describes how to run HStreamDB cluster with docker.
 
 ::: warning
 
-本教程只展示了用 docker 启动 HStreamDB 集群的主要过程。
-docker 启动 HStreamDB 集群的主要过程，这些参数的配置没有考虑到任何安全问题，所以请
-请不要在部署时直接使用它们
+This tutorial only shows the main process of starting HStreamDB cluster with
+docker, the parameters are not configured with any security in mind, so please
+do not use them directly when deploying!
 
 :::
 
-## 设置一个 ZooKeeper 集群
+## Set up a ZooKeeper ensemble
 
-`HServer` 和 `HStore` 需要 ZooKeeper 来存储一些元数据，所以首先我们需要配置一个 ZooKeeper 集群。
+`HServer` and `HStore` require ZooKeeper in order to store some metadata. We
+need to set up a ZooKeeper ensemble first.
 
-你可以在网上找到关于如何建立一个合适的 ZooKeeper 合集的教程。
-
-这里我们只是通过 docker 快速启动一个单节点的 ZooKeeper 为例。
+You can find a tutorial online on how to build a proper ZooKeeper ensemble. As
+an example, here we just quickly start a single-node ZooKeeper via docker.
 
 ```shell
 docker run --rm -d --name zookeeper --network host zookeeper
 ```
 
-## 在存储节点上创建数据文件夹
+## Create data folders on storage nodes
 
-存储节点会把数据存储分片（Shard）中。通常情况下，每个分片映射到不同的物理磁盘。
-假设你的数据盘被挂载（mount）在`/mnt/data0` 上
+Storage nodes store data in shards. Typically each shard maps to a different
+physical disk. Assume your data disk is mounted on `/mnt/data0`
 
 ```shell
 # creates the root folder for data
@@ -49,11 +49,10 @@ sudo chown -R logdevice /mnt/data0/
   [Create data folders](https://logdevice.io/docs/FirstCluster.html#4-create-data-folders-on-storage-nodes)
   for details
 
-## 创建一个配置文件
+## Create a configuration file
 
-这里是一个配置文件的最小示例。
-
-在使用它之前，请根据你的情况进行修改。
+Here is a minimal configuration file example. Before using it, please modify it
+to suit your situation.
 
 ```json
 {
@@ -114,7 +113,8 @@ sudo chown -R logdevice /mnt/data0/
 }
 ```
 
-- 如果你有一个多节点的 ZooKeeper，修改 `zookeeper_uri`部分为 ZooKeeper 集群的节点和端口列表：
+- If you have a multi-node ZooKeeper ensemble, use the list of ZooKeeper
+  ensemble nodes and ports to modify `zookeeper_uri` in the `zookeeper` section:
 
   ```json
       "zookeeper": {
@@ -123,37 +123,42 @@ sudo chown -R logdevice /mnt/data0/
       }
   ```
 
-- 所有属性的详细解释可以在[集群配置](https://logdevice.io/docs/Config.html) 文档中找到。
+- Detailed explanations of all the attributes can be found in the
+  [Cluster configuration](https://logdevice.io/docs/Config.html) docs.
 
-## 存储配置文件
+## Store the configuration file
 
-你可以将配置文件存储在ZooKeeper中，或存储在每个存储节点上。
+You can the store configuration file in ZooKeeper, or store it on each storage
+nodes.
 
-### 在 ZooKeeper 中存储配置文件
+### Store configuration file in ZooKeeper
 
-假设你的一个 ZooKeeper 节点上有一个路径为 `~/logdevice.conf` 的配置文件。
-
-通过运行以下命令将配置文件保存到 ZooKeeper 中：
+Suppose you have a configuration file on one of your ZooKeeper nodes with the
+path `~/logdevice.conf`. Save the configuration file to the ZooKeeper by running
+the following command.
 
 ```shell
 docker exec zookeeper zkCli.sh create /logdevice.conf "`cat ~/logdevice.conf`"
 ```
 
-通过以下命令验证创建是否成功：
+You can verify the create operation by:
 
 ```shell
 docker exec zookeeper zkCli.sh get /logdevice.conf
 ```
 
-## 配置 HStore 集群
+## Set up HStore cluster
 
-对于存储在 ZooKeeper 中的配置文件，假设配置文件中 `zookeeper_uri` 字段的值是 `"ip:/10.100.2.11:2181"` ，ZooKeeper中配置文件的路径是 `/logdevice.conf` 。
+For the configuration file stored in ZooKeeper, assume that the value of the
+`zookeeper_uri` field in the configuration file is `"ip:/10.100.2.11:2181"` and
+the path to the configuration file in ZooKeeper is `/logdevice.conf`.
 
-对于存储在每个节点上的配置文件，假设你的文件路径是 `/data/logdevice/logdevice.conf'。
+For the configuration file stored on each node, assume that your file path is
+`/data/logdevice/logdevice.conf`.
 
-### 在单个节点上启动 admin 服务器
+### Start admin server on a single node
 
-- 配置文件存储在 ZooKeeper 中：
+- Configuration file stored in ZooKeeper：
 
   ```shell
   docker run --rm -d --name storeAdmin --network host -v /data/logdevice:/data/logdevice \
@@ -164,16 +169,18 @@ docker exec zookeeper zkCli.sh get /logdevice.conf
           --enable-safety-check-periodic-metadata-update
   ```
 
-  + 如果你有一个多节点的 ZooKeeper，请将`--config-path`替换为：
+  - If you have a multi-node ZooKeeper ensemble, Replace `--config-path`
+    parameter to:
     `--config-path zk:10.100.2.11:2181,10.100.2.12:2181,10.100.2.13:2181/logdevice.conf`
 
-- 存储在每个节点的配置文件：
+- Configuration file stored in each node：
 
-  更改 `--config-path` 参数为 `--config-path /data/logdevice/logdevice.conf`
+  Replace `--config-path` parameter to
+  `--config-path /data/logdevice/logdevice.conf`
 
-### 在每个节点上启动 logdeviced
+### Start logdeviced on every node
 
-- 存储在 ZooKeeper 中的配置文件：
+- Configuration file stored in ZooKeeper：
 
   ```shell
   docker run --rm -d --name hstore --network host -v /data/logdevice:/data/logdevice \
@@ -184,36 +191,39 @@ docker exec zookeeper zkCli.sh get /logdevice.conf
           --local-log-store-path /data/logdevice
   ```
 
-  + 对于每个节点，你应该将`--name`更新为一个不同的值，并将`--address`更新为该节点的 IP 地址。
+  - For each node, you should update the `--name` to a different value and
+    `--address` to the host IP address of that node.
 
-- 存储在每个节点的配置文件：
+- Configuration file stored in each node：
 
-  更改 `--config-path` 参数为 `--config-path /data/logdevice/logdevice.conf`
+  Replace `--config-path` parameter to
+  `--config-path /data/logdevice/logdevice.conf`
 
-### Bootstrap 集群
+### Bootstrap the cluster
 
-在启动管理服务器和每个存储节点的 logdeviced 之后，现在我们可以 Bootstrap 我们的集群。
+After starting the admin server and logdeviced for each storage node, now we can
+bootstrap our cluster.
 
-在管理服务器节点上，运行。
+On the admin server node, run:
 
 ```shell
 docker exec storeAdmin hadmin nodes-config bootstrap --metadata-replicate-across 'node:3'
 ```
 
-你应该看到像这样的信息：
+And you should see something like this:
 
 ```shell
 Successfully bootstrapped the cluster, new nodes configuration version: 7
 Took 0.019s
 ```
 
-你可以通过运行以下命令来检查集群的状态：
+You can check the cluster status by run:
 
 ```shell
 docker exec storeAdmin hadmin status
 ```
 
-而结果应该是：
+And the result should be:
 
 ```shell
 +----+---------+----------+-------+-----------+---------+---------------+
@@ -226,11 +236,12 @@ docker exec storeAdmin hadmin status
 Took 7.745s
 ```
 
-现在我们完成了对`HStore`集群的设置。
+Now we finish setting up the `HStore` cluster.
 
-## 配置 HServer 集群
+## Set up HServer cluster
 
-要启动一个单一的 `HServer` 实例，你可以修改启动命令以适应你的情况。
+To start a single `HServer` instance, you can modify the start command to fit
+your situation:
 
 ```shell
 docker run -d --name hstream-server --network host \
@@ -244,10 +255,13 @@ docker run -d --name hstream-server --network host \
         --server-id 1
 ```
 
-- `$SERVER_HOST`：你的服务器节点的主机 IP 地址，例如`192.168.0.1`。
-- `$ZK_ADDRESS` ：你的 ZooKeeper 集群地址列表，例如`10.100.2.11:2181,10.100.2.12:2181,10.100.2.13:2181`。
-- `--store-config`：你的 `HStore` 配置文件的路径。应该与启动 `HStore` 集群 `--config-path` 参数的值一致。
-- `--store-admin-host`：`HStore Admin Server` 节点的 IP 地址。
-- `--server-id`：你应该为每个服务器实例设置一个的**唯一标识符**
+- `$SERVER_HOST` ：The host IP address of your server node, e.g `192.168.0.1`
+- `$ZK_ADDRESS` ：Your ZooKeeper ensemble address list, e.g
+  `10.100.2.11:2181,10.100.2.12:2181,10.100.2.13:2181`
+- `--store-config` ：The path to your `HStore` configuration file. Should match
+  the value of the `--config-path` parameter when starting the `HStore` cluster
+- `--store-admin-host`： The IP address of the `HStore Admin Server` node
+- `--server-id` ：You should set a **unique identifier** for each server
+  instance
 
-你可以以同样的方式在不同的节点上启动多个服务器实例。
+You can start multiple server instances on different nodes in the same way.

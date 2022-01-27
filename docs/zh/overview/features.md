@@ -22,17 +22,9 @@ HStreamDB 支持创建和管理大量的数据流， 数据流的创建在 HStre
 
 HStreamDB 提供低延时的可靠的数据流存储，保证写入的数据消息不丢失，并且能够重复消费。HStreamDB 会将写入的数据消息复制到多个存储节点，提供高可用和容错能力，同时支持将冷数据转储到成本更低的存储服务上，比如对象存储、分布式文件存储等，存储的容量可无限扩展，能够实现数据的永久存储。
 
-## 数据流的 Schema 管理
-
-HStreamDB 强调弹性的 Schema 支持，数据流可以是无 Schema 的，也可以通过 Json、 Avro、Protobuf 等多种格式来制定 Schema， 同时也支持 Schema 的演化，自动管理多版本 Schema 之间的兼容性。
-
 ## 数据流的接入和分发
 
 HStreamDB 数据的接入和分发由 Connector 完成，它与包括 MQTT Broker、MySQL、ElasticSearch、Redis 等在内的多种数据系统相连接，方便用户和外部数据系统进行集成。
-
-## 安全机制
-
-HStreamDB 的安全性将由 TLS 加密传输、基于 OAuth 和 JWT 等的身份认证以及授权机制保证，同时预留安全插件接口，用户可根据需要对默认的安全机制进行扩展。
 
 ## 监控和运维工具
 
