@@ -46,7 +46,8 @@ Producer producer = client.newProducer().stream("test_stream").build();
 Random random = new Random();
 byte[] rawRecord = new byte[100];
 random.nextBytes(rawRecord);
-CompletableFuture<RecordId> future = producer.write(rawRecord);
+Record record = Record.newBuilder().rawRecord(rawRecord).build();
+CompletableFuture<RecordId> future = producer.write(record);
 
 ```
 
@@ -60,7 +61,8 @@ HRecord hRecord = HRecord.newBuilder()
         .put("key3", true)
         .build();
 
-CompletableFuture<RecordId> future = producer.write(hRecord);
+Record record = Record.newBuilder().hRecord(hRecord).build();
+CompletableFuture<RecordId> future = producer.write(record);
 
 ```
 
@@ -85,7 +87,8 @@ Random random = new Random();
 for(int i = 0; i < 1000; ++i) {
     byte[] rawRecord = new byte[100];
     random.nextBytes(rawRecord);
-    CompletableFuture<RecordId> future = producer.write(rawRecord);
+    Record record = Record.newBuilder().rawRecord(rawRecord).build();
+    CompletableFuture<RecordId> future = producer.write(record);
 }
 producer.close();
 ```
