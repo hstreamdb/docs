@@ -69,7 +69,7 @@ CompletableFuture<RecordId> future = producer.write(record);
 ## Buffered Writes (推荐)
 
 当写入数据是，发送很多很小的 records 会限制吞吐。为了更大的吞吐，
-你可以开启 `Producer` 的 batch mode 。
+你可以使用`BufferedProducer` 。
 
 ```java
 
