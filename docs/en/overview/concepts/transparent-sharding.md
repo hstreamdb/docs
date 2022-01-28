@@ -1,33 +1,34 @@
 # Transparent Sharding
 
-## Transparent Sharding in HStreamDB
+## Transparent sharding in HStreamDB
 
-Transparent sharding in HStreamDB means that every stream will contain multiple
-implicit partitions that spread among multiple server nodes. We believe that
-stream as itself is a concise and powerful enough abstraction. Thus partitions
-should only be the implementation details and not be exposed to users. Since
-these partitions are invisible to users, it will appear to users that every
-stream is managed as one.
+Transparent sharding in HStreamDB means that each stream will contain multiple
+implicit partitions spread across multiple server nodes. We believe that stream
+itself is a sufficiently concise and powerful abstraction. Therefore, sharding
+should only be an implementation detail and not be exposed to the user. Since these
+partitions are invisible to the user, each stream appears to be managed as a
+whole as far as the user is concerned.
 
-## Make Use of Transparent Sharding in HStreamDB
+## Making use of the transparent sharding feature in HStreamDB
 
-The transparent sharding feature does not require users to deal with any
-partition logic like the number of partitions or partition mapping. As a user,
-all they need to do is to specify the ordering key when they try to write a
-record to a stream. Every key corresponds to a virtual partition, and HServer
-will map thess virtual partitions to physical partitions in the storage.
+The transparent sharding feature does not require the user to deal with any
+sharding logic, such as the number of partitions or partition mapping. All
+they need to do as a user is provide ordering keys when writing a record to the
+stream. Each key corresponds to a virtual partition, and HServer maps these
+virtual partitions to physical partitions in the storage component.
 
-If the user does not specify the ordering key, all the records with no ordering
-key will be assigned to a default partition of the stream. So if no ordering
-keys are provided at all, the system will have the same behaviour as there is no
-sharding. However, this will not be noticeable to the user regardless because
-there is no explicit sharding logic during any user interactions.
+If the user does not specify a ordering key, all records that do not have an
+ordering key will be assigned to the default partition of the stream.
+Therefore, if no ordering key is provided for any record, the system will
+behave the same as if there were no partitions. However, the user will not
+notice this regardless, as there is no explicit sharding logic in any user
+interaction.
 
-## Benefits of Transparent Sharding
+## Why transparent sharding
 
-Sharding is an effective solution for relieving the single-node performance
-bottleneck and increasing the horizontal scalability of the system. However, if
-the partition logic were directly exposed to users, the higher-level abstraction
-such as stream would be fragmented and increase the cost of learning and use.
-Hiding the partition from the user will significantly reduce the complexity of
-using HStreamDB but still take advantage of sharding.
+Sharding is an effective solution to alleviate single-node performance
+bottlenecks and improve horizontal system scalability. However, if the
+sharding logic were exposed directly to the user, higher-level abstractions
+such as Stream would be fragmented, increasing the cost of learning and use.
+Hiding partitions from users would significantly reduce the complexity of
+using HStreamDB but still take advantage of the benefits of sharding.

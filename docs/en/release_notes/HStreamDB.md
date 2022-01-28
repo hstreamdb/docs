@@ -23,7 +23,7 @@ storing data.
 
 We have adapted our load balancing with a consistent hashing algorithm in this
 new release. Both write and read requests are currently allocated by the
-partition key of the record carried in the request.
+ordering key of the record carried in the request.
 
 In the previous release, our load balancing was based on the hardware usage of
 the nodes. The main problem with this was that it relied heavily on a leader
