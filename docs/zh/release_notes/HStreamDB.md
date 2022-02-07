@@ -6,13 +6,13 @@
 
 #### 添加透明分区支持
 
-HStreamDB 在最初就已支持大规模数据流的存储和管理。随着上个版本新增加的集群支持，
-我们决定增加透明分区来提高单个 Stream 的读写性能和可扩展性。在 HStreamDB v0.7 中
-，每个数据流都分布在多个服务器节点上，但在用户看来这些带有分区的 Stream 被作为一
-个整体来管理。因此，用户不需要事先指定分区的数量或任何分区相关逻辑。
+HStreamDB 已经支持大规模数据流的存储和管理。随着上个版本新增加的集群支持，我们决
+定用透明分区来改善单个 stream 的可扩展性和读写性能。在 HStreamDB v0.7 中，每个
+stream 都分布在多个服务器节点上，但是在用户看来，一个有分区的 stream 是作为一个
+整体来管理的。因此，用户不需要事先指定分区的数量或任何其他分区逻辑。
 
-在当前的实现中，Stream 中的每条 record 都应该包含一个排序键来指定一个逻辑分区，
-而 HStream 服务器将负责在存储数据时将这些逻辑分区映射到物理分区。
+在目前的实现中，stream 的每条 record 都应该包含一个分区键来指定一个逻辑分区，
+HStream Server 将负责在存储数据时将这些逻辑分区映射到物理分区。
 
 #### 用一致的散列算法重新设计负载平衡
 
@@ -20,15 +20,15 @@ HStreamDB 在最初就已支持大规模数据流的存储和管理。随着上�
 读请求，都是以读写请求中的所带分区键来分配的。
 
 在上一个版本中，我们的负载平衡是基于节点的硬件使用情况进行分配的。而这样做的主要
-的问题是，它在很大程度上依赖于一个 Leader 节点去收集这些信息。同时，这种策略需要
-与节点与 Leader 进行通信，以获得分配结果。总体来看过去的实现过于复杂，效率太低。
+的问题是，它在很大程度上依赖于一个 leader 节点去收集这些信息。同时，这种策略需要
+与节点与 leader 进行通信，以获得分配结果。总体来看过去的实现过于复杂，效率太低。
 因此我们重新实现了负载均衡器，不仅核心算法更加简洁，也能很好应对集群成员变更的时
 候的重分配问题。
 
 #### 添加 HStream Admin 管理工具
 
 我们提供了一个新的管理工具，以方便用户对 HStreamDB 的维护和管理。HAdmin 可以用于
-监控和管理 HStreamDB 的各种资源，包括 Stream、订阅和 Server 节点。以前嵌入在
+监控和管理 HStreamDB 的各种资源，包括 stream、订阅和 server 节点。以前嵌入在
 HStream SQL Shell 中的 HStream Metrics，现已迁移到了新的 HAdmin 中。简而言之
 ，HAdmin 是为 HStreamDB 操作人员准备的，而 SQL Shell 是为 HStreamDB 终端用户准备
 的。
@@ -36,13 +36,15 @@ HStream SQL Shell 中的 HStream Metrics，现已迁移到了新的 HAdmin 中�
 #### 部署和使用
 
 - 支持通过脚本快速部署，见：
-  [使用 Docker 手动部署](https://hstream.io/docs/zh/latest/deployment/deploy-docker.html)
+  [使用 Docker 手动部署](../deployment/deploy-docker.md)
 - 支持用配置文件来配置 HStreamDB，见：
-  [HStreamDB Configuration](https://hstream.io/docs/zh/latest/reference/config.html)
+  [HStreamDB Configuration](../reference/config.md)
 - 支持一步到位的 docker-compose 的快速上手，见：
-  [使用 Docker Compose 快速上手](https://hstream.io/docs/zh/latest/start/quickstart-with-docker.html)
+  [使用 Docker Compose 快速上手](../start/quickstart-with-docker.md)
 
-**为了使用 HStreamDB v0.7，请使用 [hstreamdb-java v0.7.0](https://github.com/hstreamdb/hstreamdb-java) 及以上版本**
+**为了使用 HStreamDB v0.7，请使用
+[hstreamdb-java v0.7.0](https://github.com/hstreamdb/hstreamdb-java) 及以上版
+本**
 
 ## v0.6.0 [2021-11-04]
 
