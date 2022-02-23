@@ -156,10 +156,10 @@ kubectl run hstream-admin -it --rm --restart=Never --image=hstreamdb/hstream:v0.
     bootstrap --metadata-replicate-across 'node:3'
 ```
 
-This will start a hstream-admin pod, that connects to the admin server and invokes the
-`nodes-config bootstrap` hadmin store command and sets the metadata replication
-property of the cluster to be replicated across three different nodes. On
-success, you should see something like:
+This will start a hstream-admin pod, that connects to the admin server and
+invokes the `nodes-config bootstrap` hadmin store command and sets the metadata
+replication property of the cluster to be replicated across three different
+nodes. On success, you should see something like:
 
 ```
 Successfully bootstrapped the cluster
