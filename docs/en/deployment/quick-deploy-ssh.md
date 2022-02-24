@@ -8,7 +8,7 @@ and SSH.
 - The local host needs to be able to connect to the remote server via SSH
 - Remote server has docker installed
 
-## Fetching The Startup Script
+## Fetching the Startup Script
 
 ```shell
 git clone git@github.com:hstreamdb/hstream.git
@@ -17,7 +17,7 @@ cd hstream/script
 
 ## Create a Configuration File
 
-Create a json-format config file to fit your situation. There is a example in
+Create a json-format config file to fit your situation. There is an example in
 `script/dev_deploy_conf_example.json`.
 
 ```shell
@@ -43,7 +43,7 @@ Create a json-format config file to fit your situation. There is a example in
 
 - `hosts`: The hosts field holds the name and ip address of the remote server in
   the form of a key-value pair. Server names are specified by the user, so that
-  the specified server can be referenced by name in subsequent configurations.
+  the specified server can be referenced by the name in subsequent configurations.
 - `local_store_config_path`: fill in the path of `hstore config file`.
   - Refer `Create a configuration file` part in
     [configuration file](deploy-docker.md) to create a hstore config file.
@@ -53,12 +53,12 @@ Create a json-format config file to fit your situation. There is a example in
   - This is optional, if the value is not filled in, the default configuration
     will be used to start.
 
-- `zookeeper-host`：Specify server nodes which used to start Zookeeper
+- `zookeeper-host`：Specify which server nodes are used to start Zookeeper
   instances.
-- `hstore-host`：Specify server nodes which used to start hstore instances.
-- `hstore-admin-host`：Specify server nodes which used to start hadmin
+- `hstore-host`：Specify which server nodes are used to start hstore instances.
+- `hstore-admin-host`：Specify whichc server nodes are used to start hadmin
   instances.
-- `hserver-host`：Specify server nodes which used to start hserver instances.
+- `hserver-host`：Specify which server nodes are used to start hserver instances.
 
 ## Cluster Management
 
