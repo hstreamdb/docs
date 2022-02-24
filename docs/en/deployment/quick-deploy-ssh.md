@@ -6,6 +6,10 @@ and SSH.
 ## Pre-Require
 
 - The local host needs to be able to connect to the remote server via SSH
+- Using SSH Config File to help remote connect
+
+  - [Reference](https://linuxize.com/post/using-the-ssh-config-file/)
+
 - Remote server has docker installed
 
 ## Fetching the Startup Script
@@ -41,24 +45,27 @@ Create a json-format config file to fit your situation. There is an example in
 }
 ```
 
-- `hosts`: The hosts field holds the name and ip address of the remote server in
-  the form of a key-value pair. Server names are specified by the user, so that
-  the specified server can be referenced by the name in subsequent configurations.
-- `local_store_config_path`: fill in the path of `hstore config file`.
+- `hosts`: The hosts field stores server information in the form of key-value
+  pairs. The key is the HostName of the server in the SSH configuration file,
+  while the value is the IP address of the server.
+- `local_store_config_path`: Fill in the path of `hstore config file`.
   - Refer `Create a configuration file` part in
     [configuration file](deploy-docker.md) to create a hstore config file.
-- `hstreamdb_config_path`: fill in the path of `hstreamdb config file`.
+- `hstreamdb_config_path`: Fill in the path of `hstreamdb config file`.
 
   - Refer [HStreamDB Configuration](../reference/config.md) for detail
   - This is optional, if the value is not filled in, the default configuration
     will be used to start.
-
 - `zookeeper-host`：Specify which server nodes are used to start Zookeeper
   instances.
+
+  - **NOTES**: Check the zk-related fields in the `hstore config file` to make
+    sure the zk node information is consistent
 - `hstore-host`：Specify which server nodes are used to start hstore instances.
-- `hstore-admin-host`：Specify whichc server nodes are used to start hadmin
+- `hstore-admin-host`：Specify which server nodes are used to start hadmin
   instances.
-- `hserver-host`：Specify which server nodes are used to start hserver instances.
+- `hserver-host`：Specify which server nodes are used to start hserver
+  instances.
 
 ## Cluster Management
 
