@@ -48,6 +48,8 @@ en:
         title: Running on Kubernetes
       - path: deployment/deploy-docker
         title: Manual Deployment with Docker
+      - path: deployment/quick-deploy-ssh
+        title: Quick Deployment with Docker and SSH
     title: Deployment
   - children:
     path: admin/admin.md
@@ -161,6 +163,8 @@ zh:
         title: 在 Kubernetes 上运行
       - path: deployment/deploy-docker
         title: 用 Docker 手动部署
+      - path: deployment/quick-deploy-ssh
+        title: 使用 Docker 和 SSH 快速部署
     title: 部署
   - children:
     path: admin/admin.md

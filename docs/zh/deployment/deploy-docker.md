@@ -4,8 +4,7 @@
 
 ::: warning
 
-本教程只展示了用 docker 启动 HStreamDB 集群的主要过程。
-docker 启动 HStreamDB 集群的主要过程，这些参数的配置没有考虑到任何安全问题，所以请
+本教程只展示了用 docker 启动 HStreamDB 集群的主要过程。参数的配置没有考虑到任何安全问题，所以请
 请不要在部署时直接使用它们
 
 :::
@@ -49,7 +48,7 @@ sudo chown -R logdevice /mnt/data0/
   [Create data folders](https://logdevice.io/docs/FirstCluster.html#4-create-data-folders-on-storage-nodes)
   for details
 
-## 创建一个配置文件
+## 创建配置文件
 
 这里是一个配置文件的最小示例。
 

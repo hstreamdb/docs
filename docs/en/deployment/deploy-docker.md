@@ -191,7 +191,7 @@ For the configuration file stored on each node, assume that your file path is
           --local-log-store-path /data/logdevice
   ```
 
-  - For each node, you should update the `--name` to a different value and
+  - For each node, you should update the `--name` to a **different value** and
     `--address` to the host IP address of that node.
 
 - Configuration file stored in each node：
@@ -251,7 +251,6 @@ docker run -d --name hstream-server --network host \
         --zkuri $ZK_ADDRESS \
         --store-config zk:$ZK_ADDRESS/logdevice.conf \
         --store-admin-host $ADMIN_HOST \
-        --replicate-factor 3 \
         --server-id 1
 ```
 
