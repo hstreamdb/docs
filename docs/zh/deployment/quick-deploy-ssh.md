@@ -54,8 +54,6 @@ cd hstream/script
 
 ## 集群管理
 
-- After creating the configuration file, you can start/stop a HStreamDB cluster with these commands
-
 - 在创建完配置文件之后，可以通过以下指令来启动/停止一个 HStreamDB 集群
 
   ```shell
