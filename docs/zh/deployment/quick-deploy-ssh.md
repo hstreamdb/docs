@@ -1,7 +1,5 @@
 # 使用 Docker 和 SSH 快速部署
 
-This document provides a way to quickly start a HStreamDB cluster using docker and SSH.
-
 本文描述了如何使用 docker 和 ssh 快速部署 HStreamDB 集群。
 
 ## 部署要求
