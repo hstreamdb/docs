@@ -2,7 +2,7 @@
 
 This document describes how to deploy HStream with Terraform on a cloud platform that
 supports [Terraform provider](https://www.terraform.io/language/providers). This process is based on
-the method provided in [Manual Deployment with Docker](./deploy-docker.md).
+the method provided in [Quick Deployment with Docker and SSH](./quick-deploy-ssh.md).
 
 ## Find The Provider
 
@@ -143,7 +143,7 @@ of Huawei Cloud)
 
 ### Set Up Network
 
-The deployment method provided in [Manual Deployment with Docker](./deploy-docker.md) needs SSH
+The deployment method provided in [Quick Deployment with Docker and SSH](./quick-deploy-ssh.md) needs SSH
 access to remote servers, which needs servers to have an accessible public IP address.
 
 The ECS instances of Huawei Cloud do not provide public IP addresses by default. Another service,
