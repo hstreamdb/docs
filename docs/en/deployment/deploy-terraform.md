@@ -71,7 +71,7 @@ There are no restrictions on the contents of variables here such as `data_disk_s
 
 ### Set Up ECS instance
 
-We use the `resource block` to declare what compute resource we would like to have. An example would
+We use the `resource` block to declare what compute resource we would like to have. An example would
 be like:
 
 ```hcl
@@ -143,8 +143,8 @@ of Huawei Cloud)
 
 ### Set Up Network
 
-The deployment method provided in [Quick Deployment with Docker and SSH](./quick-deploy-ssh.md) needs SSH
-access to remote servers, which needs servers to have an accessible public IP address.
+The deployment method provided in [Quick Deployment with Docker and SSH](./quick-deploy-ssh.md)
+needs SSH access to remote servers, which needs servers to have an accessible public IP address.
 
 The ECS instances of Huawei Cloud do not provide public IP addresses by default. Another service,
 Elastic IP is invoked to serve as a purpose for associating ECS instance to a newly created (or
@@ -175,7 +175,7 @@ resource "huaweicloud_compute_eip_associate" "hserver_associated" {
 }
 ```
 
-The `output block` is useful to observe the result that applying a Terraform plan would yield. In
+The `output` block is useful to observe the result that applying a Terraform plan would yield. In
 this case, we are going to inspect the public IP which can be used for establishing SSH connections.
 
 ```hcl
@@ -190,3 +190,30 @@ Deploy HStream with Terraform needs [Docker](https://docs.docker.com/) to be ins
 instances. Install instructions can be
 found [here](https://docs.docker.com/engine/install/centos/) ([here](https://docs.docker.com/engine/install/ubuntu/)
 for Ubuntu).
+
+## Deployment with Terraform
+
+Once the HCL script for needed server resources are properly set, you can run `terraform plan` to
+see what changes that Terraform [plans](https://www.terraform.io/cli/commands/plan) to make to your
+infrastructure. This command needs an installed Terraform executable on your PATH, adds on the
+Huawei Cloud access key and secret key can be found by the provider (i.e. via environment variables
+or configuration in the provider block).
+
+After previewing and checking whether the proposed changes match what you expected, you can turn to
+modify the configuration or apply these changes. Apply these changes using another
+[command](https://www.terraform.io/cli/commands/apply), `terraform apply`.
+
+Using the HCL `output` block makes configuring HStream cluster easier. It is necessary to obtain
+public IP addresses and access IP address, which is in the fields `public_ip` and `access_ip_v4` of
+each compute instance. Note that if you are binding EIPs to ECSs after creating each instance (like
+what we had done above), to yield the right `public_ip` you must do `terraform refresh`
+before `terraform output`. The command `terraform output -json` displays output in JSON, which is
+easily interactive with command-line tools like `jq`.
+
+After all needed `public_ip`s and `access_ip_v4`s are yielded, you can use them to configure the
+HStream cluster configuration and deploy it with created server resources. You can refer
+to [Quick Deployment with Docker and SSH](./quick-deploy-ssh.md) for more details.
+
+Terraform also provides a command for deleting the resources created according to the TCL
+file, `terraform apply -destroy` (noted that at this time, 2020/2/25, Huawei Cloud would not delete
+the disks created by creating compute instances when applying this command).
