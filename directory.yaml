@@ -50,6 +50,8 @@ en:
         title: Manual Deployment with Docker
       - path: deployment/quick-deploy-ssh
         title: Quick Deployment with Docker and SSH
+      - path: deployment/deploy-terraform
+        title: Deploy HStream with Terraform
     title: Deployment
   - children:
     path: admin/admin.md
