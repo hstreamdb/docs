@@ -23,7 +23,7 @@ You can check here for more information about the Huawei Cloud provider:
 
 ## Set Up the Server Resources
 
-We are going to introduce a few steps in order to show how to deploy HStream with Terraform.
+We are going to introduce a few steps to show how to deploy HStream with Terraform.
 
 ### Set Up basic constants
 
@@ -191,7 +191,15 @@ instances. Install instructions can be
 found [here](https://docs.docker.com/engine/install/centos/) ([here](https://docs.docker.com/engine/install/ubuntu/)
 for Ubuntu).
 
-## Deployment with Terraform
+## Deployment with Terraform CLI
+
+As we had already declared what server resources do we want to have to deploy an HStream cluster in
+the HCL file. The next step is to check whether these declarations are desirable for our purpose.
+Run this command in the Terraform HCL project root:
+
+```shell
+terraform plan
+```
 
 Once the HCL script for needed server resources are properly set, you can run `terraform plan` to
 see what changes that Terraform [plans](https://www.terraform.io/cli/commands/plan) to make to your
@@ -199,21 +207,111 @@ infrastructure. This command needs an installed Terraform executable on your PAT
 Huawei Cloud access key and secret key can be found by the provider (i.e. via environment variables
 or configuration in the provider block).
 
+Then it would print something like (if running successfully):
+
+```
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # huaweicloud_compute_eip_associate.hadmin_associated[0] will be created
+  + resource "huaweicloud_compute_eip_associate" "hadmin_associated" {
+      + fixed_ip    = (known after apply)
+      + id          = (known after apply)
+      + instance_id = (known after apply)
+      + port_id     = (known after apply)
+      + public_ip   = (known after apply)
+      + region      = (known after apply)
+    }
+
+...... ......
+
+Plan: 12 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + hadmin_access_ip    = [
+      + (known after apply),
+    ]
+  + hadmin_public_ip    = [
+      + (known after apply),
+    ]
+
+...... ......
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.
+```
+
 After previewing and checking whether the proposed changes match what you expected, you can turn to
 modify the configuration or apply these changes. Apply these changes using another
-[command](https://www.terraform.io/cli/commands/apply), `terraform apply`.
+[command](https://www.terraform.io/cli/commands/apply), `terraform apply`. The output would be
+similar to the above one, plus:
+
+```
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value:
+```
+
+After applying the plan, Terraform would produce some output. To inspect them, run:
+
+```shell
+terraform output
+```
+
+which yields:
+
+```
+Outputs:
+
+hadmin_access_ip = [
+  "192.168.0.64",
+]
+hadmin_public_ip = [
+  tostring(null),
+]
+```
 
 Using the HCL `output` block makes configuring HStream cluster easier. It is necessary to obtain
 public IP addresses and access IP address, which is in the fields `public_ip` and `access_ip_v4` of
 each compute instance. Note that if you are binding EIPs to ECSs after creating each instance (like
 what we had done above), to yield the right `public_ip` you must do `terraform refresh`
-before `terraform output`. The command `terraform output -json` displays output in JSON, which is
-easily interactive with command-line tools like `jq`.
+before `terraform output`.
+
+```
+Outputs:
+
+hadmin_access_ip = [
+  "192.168.0.64",
+]
+hadmin_public_ip = [
+  "1**.6*.1**.1**",
+]
+```
+
+The [command](https://www.terraform.io/cli/commands/output) `terraform output -json` displays output
+in JSON, which is easily interactive with command-line tools like `jq`.
+
+```shell
+terraform output -json | jq .'zookeeper_access_ip.value'
+[
+  "192.168.0.149"
+]
+```
 
 After all needed `public_ip`s and `access_ip_v4`s are yielded, you can use them to configure the
 HStream cluster configuration and deploy it with created server resources. You can refer
 to [Quick Deployment with Docker and SSH](./quick-deploy-ssh.md) for more details.
 
-Terraform also provides a command for deleting the resources created according to the TCL
-file, `terraform apply -destroy` (noted that at this time, 2020/2/25, Huawei Cloud would not delete
-the disks created by creating compute instances when applying this command).
+Terraform also provides a command for deleting the resources created according to the TCL file, run:
+
+```shell
+terraform apply -destroy
+```
+
+(noted that at this time, 2020/2/25, Huawei Cloud would not delete the disks created by creating
+compute instances when applying this command).
