@@ -144,7 +144,8 @@ of Huawei Cloud)
 ### Set Up Network
 
 The deployment method provided in [Quick Deployment with Docker and SSH](./quick-deploy-ssh.md)
-needs SSH access to remote servers, which needs servers to have an accessible public IP address.
+needs SSH access to remote servers, which needs each server to have accessible (public) IP
+addresses.
 
 The ECS instances of Huawei Cloud do not provide public IP addresses by default. Another service,
 Elastic IP is invoked to serve as a purpose for associating ECS instance to a newly created (or
