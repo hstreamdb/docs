@@ -17,9 +17,9 @@ example.
 
 You can check here for more information about the Huawei Cloud provider:
 
-- the GitHub repository: https://github.com/huaweicloud/terraform-provider-huaweicloud
-- the Terraform Register
-  documentation: https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs
+- the [GitHub repository](https://github.com/huaweicloud/terraform-provider-huaweicloud)
+- the [Terraform Register
+  documentation](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs)
 
 ## Set Up the Server Resources
 
