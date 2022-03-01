@@ -1,6 +1,6 @@
 # Quick Deployment with Docker and SSH
 
-This document provides a way to quickly start a HStreamDB cluster using docker
+This document provides a way to start an HStreamDB cluster using docker quickly
 and SSH.
 
 ## Pre-Require
@@ -8,15 +8,16 @@ and SSH.
 - The local host needs to be able to connect to the remote server via SSH
 - Using SSH Config File to help remote connect
 
-  - [Reference](https://linuxize.com/post/using-the-ssh-config-file/)
+  + [Reference](https://linuxize.com/post/using-the-ssh-config-file/)
 
 - Remote server has docker installed
 
 ## Fetching the Startup Script
 
 ```shell
-git clone git@github.com:hstreamdb/hstream.git
-cd hstream/script
+mkdir script
+wget -O script/dev-deploy https://raw.githubusercontent.com/hstreamdb/hstream/main/script/dev-deploy
+wget -O script/dev_deploy_conf_example.json https://raw.githubusercontent.com/hstreamdb/hstream/main/script/dev_deploy_conf_example.json
 ```
 
 ## Create a Configuration File
@@ -45,22 +46,24 @@ Create a json-format config file to fit your situation. There is an example in
 }
 ```
 
-- `hosts`: The hosts field stores server information in the form of key-value
-  pairs. The key is the HostName of the server in the SSH configuration file,
-  while the value is the IP address of the server.
+- `hosts`: The hosts' field stores server information in the form of key-value
+  pairs. The key is the server's HostName in the SSH configuration file,
+  while the value is the server's IP address.
 - `local_store_config_path`: Fill in the path of `hstore config file`.
-  - Refer `Create a configuration file` part in
+  + Refer `Create a configuration file` part in
     [configuration file](deploy-docker.md) to create a hstore config file.
 - `hstreamdb_config_path`: Fill in the path of `hstreamdb config file`.
 
-  - Refer [HStreamDB Configuration](../reference/config.md) for detail
-  - This is optional, if the value is not filled in, the default configuration
+  + Refer [HStreamDB Configuration](../reference/config.md) for detail
+  + This is optional, if the value is not filled in, the default configuration
     will be used to start.
+
 - `zookeeper-host`：Specify which server nodes are used to start Zookeeper
   instances.
 
-  - **NOTES**: Check the zk-related fields in the `hstore config file` to make
+  + **NOTES**: Check the zk-related fields in the `hstore config file` to make
     sure the zk node information is consistent
+
 - `hstore-host`：Specify which server nodes are used to start hstore instances.
 - `hstore-admin-host`：Specify which server nodes are used to start hadmin
   instances.

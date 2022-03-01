@@ -6,15 +6,16 @@
 
 - 要求本地主机能通过 SSH 与远端服务器建立连接
 - 使用 SSH config file 来辅助建立连接
-  - [Reference](https://linuxize.com/post/using-the-ssh-config-file/) 
+  + [Reference](https://linuxize.com/post/using-the-ssh-config-file/)
 
 - 远端服务器需要安装好 Docker
 
 ## 获取启动脚本
 
 ```shell
-git clone git@github.com:hstreamdb/hstream.git
-cd hstream/script
+mkdir script
+wget -O script/dev-deploy https://raw.githubusercontent.com/hstreamdb/hstream/main/script/dev-deploy
+wget -O script/dev_deploy_conf_example.json https://raw.githubusercontent.com/hstreamdb/hstream/main/script/dev_deploy_conf_example.json
 ```
 
 ## 创建启动配置文件
@@ -44,12 +45,12 @@ cd hstream/script
 
 - `hosts`：hosts 字段以键-值对的形式存储服务器信息。键是SSH配置文件中服务器的HostName，值是服务器的IP地址。
 - `local_store_config_path`：该字段中需要填入 `hstore` 配置文件的路径
-  - 具体可以参考 [configuration file](deploy-docker.md) 中`创建配置文件`部分
+  + 具体可以参考 [configuration file](deploy-docker.md) 中`创建配置文件`部分
 - `hstreamdb_config_path`：该字段中需要填入 `hstreamdb` 配置文件的路径
-  - 具体可以参考 [HStreamDB Configuration](../reference/config.md) 
-  - 注意：该字段是一个选填字段，如果不填入任何值，则会使用默认配置项进行启动
+  + 具体可以参考 [HStreamDB Configuration](../reference/config.md)
+  + 注意：该字段是一个选填字段，如果不填入任何值，则会使用默认配置项进行启动
 - `zookeeper-host`：指定创建 Zookeeper 实例的远端服务器节点。
-  - **注意**：检查 `hstore` 配置文件中 zk 相关的字段，确保填写的服务器信息一致
+  + **注意**：检查 `hstore` 配置文件中 zk 相关的字段，确保填写的服务器信息一致
 
 - `hstore-host`：指定创建 hstore 实例的远端服务器节点。
 - `hstore-admin-host`：指定创建 hadmin 实例的远端服务器节点。
@@ -67,5 +68,3 @@ cd hstream/script
   # 移除集群：停止启动的容器，同时移除持久化的所有数据
   dev-deploy --remote "" simple --config config_path remove
   ```
-
-  
