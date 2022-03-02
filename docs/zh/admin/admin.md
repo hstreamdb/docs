@@ -1,6 +1,6 @@
 # HStream Admin
 
-We can run the following to use hstream admin:
+我们可以运行以下命令来使用 hstream admin：
 
 ```sh
 docker run -it --rm --name some-hstream-admin --network host hstreamdb/hstream:v0.7.1 hadmin --help
@@ -16,9 +16,9 @@ Available commands:
   store                    Internal store admin command
 ```
 
-For the ease of illustration, we execute an interactive bash shell in the hstream container to use hstream admin,
+为了便于演示说明，我们将在 hstream 容器中执行一个交互式 bash shell 来使用 hstream admin，
 
-The following example usage is used on the cluster you started in quick start, please adjust correspondingly.
+下面的示例用法是在你在[快速启动](../start/quickstart-with-docker.md)中启动的集群上演示的，请相应调整。
 
 ```sh
 docker exec -it docker_hserver0_1 bash
@@ -35,7 +35,7 @@ Available commands:
   store                    Internal store admin command
 ```
 
-## Server Command
+## 服务端相关的命令
 
 ```sh
 > hadmin server --help
@@ -52,7 +52,7 @@ Available options:
   -h,--help                Show this help text
 
 Available commands:
-  hserver-sql              Start an interactive SQL shell
+  sql                      Start an interactive SQL shell
   stats                    Get the stats of an operation on a stream
   stream                   Stream command
   sub                      Subscription command
@@ -60,7 +60,7 @@ Available commands:
   status                   Get the status of the HServer cluster
 ```
 
-### Check Cluster status
+### 检查集群状态
 
 ```sh
 > hadmin server status
@@ -72,7 +72,7 @@ Available commands:
 +---------+---------+-------------------+
 ```
 
-### Resource Management
+### 资源管理
 
 #### Streams
 
@@ -100,7 +100,7 @@ OK
 +------+-------------+---------+
 ```
 
-### HSteam Metrics
+### 数据统计 (HSteam Metrics)
 
 ```sh
 > hadmin server stats --sql "select * from append_throughput"
@@ -111,17 +111,21 @@ OK
 +-------------+-----------------+-----------------+------------------+
 ```
 
-## Admin interactive SQL shell
+## 交互式 SQL shell
 
-HAdmin has an interactive SQL shell, in which you can get statistics of streams.
+HAdmin 有一个交互式的 SQL shell，你可以在其中获得流的统计数据。
+
+```sh
+hadmin server sql
+sql>
+```
 
 ### SQL Shell
 
-Use `show tables;` to get all the value tables collected from server.
-It explains all the available data.
+使用 `show tables;` 来获得从服务器上收集的所有 value tables 。它解释了所有存在的数据。
 
 ```sh
-ADMIN> show tables;
+sql> show tables;
 +-------------------+------------------------------------------+
 |       Table       |               Description                |
 +-------------------+------------------------------------------+
@@ -152,10 +156,10 @@ describe streams;
 +----------------------+--------+------------------------------------------+
 ```
 
-You can use `select` intuitively to get and calculate the data you want.
+你可以直观地使用 `select` 来获取和计算你想要的数据。
 
 ```sh
-ADMIN> select * from streams;
+sql> select * from streams;
 +---------+------+----------------------+
 | node_id | name | replication_property |
 +---------+------+----------------------+
@@ -163,9 +167,9 @@ ADMIN> select * from streams;
 +---------+------+----------------------+
 ```
 
-#### example
+#### 示例
 
-Find the top 5 streams that have had the highest throughput in the last 10 minutes.
+找到过去10分钟内吞吐量最高的前 5 个 stream。
 
 ```sql
 SELECT streams.name, sum(append_throughput.throughput_10min) AS total_throughput
