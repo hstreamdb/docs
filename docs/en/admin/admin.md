@@ -19,7 +19,7 @@ Available commands:
 For the ease of illustration, we execute an interactive bash shell in the
 hstream container to use hstream admin,
 
-The following example usage is used on the cluster you started in quick start,
+The following example usage is based on the cluster started in [quick start](../start/quickstart-with-docker.md),
 please adjust correspondingly.
 
 ```sh
@@ -54,7 +54,7 @@ Available options:
   -h,--help                Show this help text
 
 Available commands:
-  hserver-sql              Start an interactive SQL shell
+  sql                      Start an interactive SQL shell
   stats                    Get the stats of an operation on a stream
   stream                   Stream command
   sub                      Subscription command
@@ -115,15 +115,20 @@ OK
 
 ## Admin interactive SQL shell
 
-HAdmin has an interactive SQL shell, in which you can get statistics of streams.
+HAdmin has an interactive SQL shell, in which the users can get statistics of streams.
+
+```sh
+hadmin server sql
+sql>
+```
 
 ### SQL Shell
 
-Use `show tables;` to get all the value tables collected from server. It
+Use `show tables;` to get all the value tables collected from the server. It
 explains all the available data.
 
 ```sh
-ADMIN> show tables;
+sql> show tables;
 +-------------------+------------------------------------------+
 |       Table       |               Description                |
 +-------------------+------------------------------------------+
@@ -141,7 +146,7 @@ ADMIN> show tables;
 ```
 
 ```sh
-describe streams;
+sql> describe streams;
 +----------------------+--------+------------------------------------------+
 |        Column        |  Type  |               Description                |
 +----------------------+--------+------------------------------------------+
@@ -157,7 +162,7 @@ describe streams;
 You can use `select` intuitively to get and calculate the data you want.
 
 ```sh
-ADMIN> select * from streams;
+sql> select * from streams;
 +---------+------+----------------------+
 | node_id | name | replication_property |
 +---------+------+----------------------+
