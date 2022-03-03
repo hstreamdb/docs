@@ -20,7 +20,7 @@ jobs:
 
       - name: update embedded file
         run: |
-          wget -O docker-compose.yaml https://raw.githubusercontent.com/hstreamdb/hstream/main/docker/quick-start.yaml
+          wget -O quick-start.yaml https://raw.githubusercontent.com/hstreamdb/hstream/main/docker/quick-start.yaml
           npm install embedme
           npx embedme --source-root $PWD docs-files/docs/*/start/quickstart-with-docker.md
 
