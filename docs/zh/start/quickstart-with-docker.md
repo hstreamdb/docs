@@ -28,13 +28,13 @@ docker version
 ### 安装 docker-compose
 
 ::: tip
-如果您已经有一安装好的 Docker，可以跳过这一步
+如果您已经有一安装好的 Docker Compose，可以跳过这一步
 :::
 
 浏览查阅 [Install Docker Compose](https://docs.docker.com/compose/install/)，然后安装到您的操作系统上。安装时，请注意检查您的设备是否满足所有的前置条件。
 
 ```sh
-docker compose
+docker-compose -v
 ```
 
 ## 启动 HStreamDB 服务
