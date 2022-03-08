@@ -50,7 +50,6 @@ Appendix
 | `DROP`            | drop a stream                                                                            |
 | `EXP`             | exponent                                                                                 |
 | `FLOOR`           | rounds a number DOWNWARDS to the nearest integer                                         |
-| `FORMAT`          | specify the format of a stream                                                           |
 | `FROM`            | specify where to select data from                                                        |
 | `GROUP`           | group values by certain conditions, used with `BY`                                       |
 | `HAVING`          | filter select values by a condition                                                      |

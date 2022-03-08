@@ -20,7 +20,5 @@ CREATE STREAM stream_name [ AS select_query ] WITH (REPLICATE = INT);
 ```sql
 CREATE STREAM foo;
 
-CREATE STREAM weather WITH (FORMAT = "JSON");
-
 CREATE STREAM abnormal_weather AS SELECT * FROM weather WHERE temperature > 30 AND humidity > 80 EMIT CHANGES;
 ```
