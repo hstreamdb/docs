@@ -1,10 +1,10 @@
-# 用Docker手动部署
+# 用 Docker 手动部署
 
-本文描述了如何用docker运行HStreamDB集群。
+本文描述了如何用 Docker 运行 HStreamDB 集群。
 
 ::: warning
 
-本教程只展示了用 docker 启动 HStreamDB 集群的主要过程。参数的配置没有考虑到任何安全问题，所以请
+本教程只展示了用 Docker 启动 HStreamDB 集群的主要过程。参数的配置没有考虑到任何安全问题，所以请
 请不要在部署时直接使用它们
 
 :::
@@ -13,7 +13,7 @@
 
 `HServer` 和 `HStore` 需要 ZooKeeper 来存储一些元数据，所以首先我们需要配置一个 ZooKeeper 集群。
 
-你可以在网上找到关于如何建立一个合适的 ZooKeeper 合集的教程。
+你可以在网上找到关于如何建立一个合适的 ZooKeeper 集群的教程。
 
 这里我们只是通过 docker 快速启动一个单节点的 ZooKeeper 为例。
 
@@ -126,7 +126,7 @@ sudo chown -R logdevice /mnt/data0/
 
 ## 存储配置文件
 
-你可以将配置文件存储在ZooKeeper中，或存储在每个存储节点上。
+你可以将配置文件存储在 ZooKeeper 中，或存储在每个存储节点上。
 
 ### 在 ZooKeeper 中存储配置文件
 
@@ -191,7 +191,7 @@ docker exec zookeeper zkCli.sh get /logdevice.conf
 
 ### Bootstrap 集群
 
-在启动管理服务器和每个存储节点的 logdeviced 之后，现在我们可以 Bootstrap 我们的集群。
+在启动管理服务器和每个存储节点的 logdeviced 之后，现在我们可以 bootstrap 我们的集群。
 
 在管理服务器节点上，运行。
 
@@ -225,7 +225,7 @@ docker exec storeAdmin hadmin store status
 Took 7.745s
 ```
 
-现在我们完成了对`HStore`集群的设置。
+现在我们完成了对 `HStore` 集群的设置。
 
 ## 配置 HServer 集群
 
@@ -243,8 +243,8 @@ docker run -d --name hstream-server --network host \
         --server-id 1
 ```
 
-- `$SERVER_HOST`：你的服务器节点的主机 IP 地址，例如`192.168.0.1`。
-- `$ZK_ADDRESS` ：你的 ZooKeeper 集群地址列表，例如`10.100.2.11:2181,10.100.2.12:2181,10.100.2.13:2181`。
+- `$SERVER_HOST`：你的服务器节点的主机 IP 地址，例如 `192.168.0.1`。
+- `$ZK_ADDRESS` ：你的 ZooKeeper 集群地址列表，例如 `10.100.2.11:2181,10.100.2.12:2181,10.100.2.13:2181`。
 - `--store-config`：你的 `HStore` 配置文件的路径。应该与启动 `HStore` 集群 `--config-path` 参数的值一致。
 - `--store-admin-host`：`HStore Admin Server` 节点的 IP 地址。
 - `--server-id`：你应该为每个服务器实例设置一个的**唯一标识符**
