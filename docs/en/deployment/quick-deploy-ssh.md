@@ -109,10 +109,14 @@ the value is not filled in, the default configuration will be used to start.
 Each JSON object for configuring a kind of service has a field named `hosts` which indicates which
 server nodes are used to start corresponding service instances.
 
-::: tip
-Check the ZooKeeper related fields in the HStore config file to make sure that the ZooKeeper
+::: tip Check the ZooKeeper related fields in the HStore config file to make sure that the ZooKeeper
 nodes information is consistent.
 :::
+
+Each JSON object for configuring a kind of service also had some extra optional fields for
+configuring the resource constraints of containers used by this kind of service, such as
+`memory` and `cpus`. The usages of the above two are analogous the ones in the
+[Docker options](https://docs.docker.com/config/containers/resource_constraints/).
 
 ## Cluster Management
 
