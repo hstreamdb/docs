@@ -1,14 +1,13 @@
 # Quick Deployment with Docker and SSH
 
-This document provides a way to start an HStreamDB cluster using docker quickly
-and SSH.
+This document provides a way to start an HStreamDB cluster quickly using Docker and SSH.
 
 ## Pre-Require
 
 - The local host needs to be able to connect to the remote server via SSH
 - Using SSH Config File to help remote connect
 
-  + [Reference](https://linuxize.com/post/using-the-ssh-config-file/)
+    + [Reference](https://linuxize.com/post/using-the-ssh-config-file/)
 
 - Remote server has docker installed
 
@@ -22,58 +21,102 @@ wget -O script/dev_deploy_conf_example.json https://raw.githubusercontent.com/hs
 
 ## Create a Configuration File
 
-Create a json-format config file to fit your situation. There is an example in
+Create a JSON-format config file to fit your situation. There is an example in
 `script/dev_deploy_conf_example.json`.
 
 ```shell
 {
-  "hosts": {
-    "remote_ssh_host1": "192.168.10.1",
-    "remote_ssh_host2": "192.168.10.2",
-    "remote_ssh_host3": "192.168.10.3",
-    "remote_ssh_host4": "192.168.10.4"
-  },
-  "local_store_config_path": "$PWD/logdevice.conf",
-  "hstreamdb_config_path": "",
-  "zookeeper-host": [
-    "remote_ssh_host2",
-    "remote_ssh_host3",
-    "remote_ssh_host4"
-  ],
-  "hstore-host": ["remote_ssh_host2", "remote_ssh_host3", "remote_ssh_host4"],
-  "hstore-admin-host": ["remote_ssh_host1"],
-  "hserver-host": ["remote_ssh_host2", "remote_ssh_host3", "remote_ssh_host4"]
+    "hosts": {
+        "remote_ssh_host1": "192.168.10.1",
+        "remote_ssh_host2": "192.168.10.2",
+        "remote_ssh_host3": "192.168.10.3",
+        "remote_ssh_host4": "192.168.10.4"
+    },
+    "zookeeper": {
+        "persistent-dir": "/data/zookeeper",
+        "hosts": [
+            "remote_ssh_host2",
+            "remote_ssh_host3",
+            "remote_ssh_host4"
+        ],
+        "enable-metrics-provider": true
+    },
+    "hstore": {
+        "image": "hstreamdb/hstream:v0.7.1",
+        "persistent-dir": "/data/store",
+        "hosts": [
+            "remote_ssh_host2",
+            "remote_ssh_host3",
+            "remote_ssh_host4"
+        ],
+        "local_config_path": "$PWD/logdevice.conf",
+        "remote_config_path": "/root/.config/dev-deploy/logdevice.conf"
+    },
+    "hstore-admin": {
+        "image": "hstreamdb/hstream:v0.7.1",
+        "memory": "1024m",
+        "cpus": "0.5",
+        "hosts": [
+            "remote_ssh_host1"
+        ]
+    },
+    "hserver": {
+        "image": "hstreamdb/hstream:v0.7.1",
+        "memory": "2048m",
+        "cpus": "1.5",
+        "hosts": [
+            "remote_ssh_host2",
+            "remote_ssh_host3",
+            "remote_ssh_host4"
+        ]
+    },
+    "prometheus": {
+        "hosts": [
+            "remote_ssh_host1"
+        ],
+        "local_config_path": "$PWD/config.yml",
+        "remote_config_path": "/root/.config/dev-deploy/config.yml"
+    },
+    "node-exporter": {
+        "hosts": [
+            "remote_ssh_host2",
+            "remote_ssh_host3",
+            "remote_ssh_host4"
+        ]
+    }
 }
 ```
 
-- `hosts`: The hosts' field stores server information in the form of key-value
-  pairs. The key is the server's HostName in the SSH configuration file,
-  while the value is the server's IP address.
-- `local_store_config_path`: Fill in the path of `hstore config file`.
-  + Refer `Create a configuration file` part in
-    [configuration file](deploy-docker.md) to create a hstore config file.
-- `hstreamdb_config_path`: Fill in the path of `hstreamdb config file`.
+The `hosts` field stores remote server information in the form of key-value pairs. The key is the
+hostname of the server in the SSH configuration file and the value is the IP address of the server.
 
-  + Refer [HStreamDB Configuration](../reference/config.md) for detail
-  + This is optional, if the value is not filled in, the default configuration
-    will be used to start.
+The field `hosts`, among other top-level configuration field objects which each is about a service
+kind, is required in the configuration file. Other fields are: `zookeeper`, `hstore`, `hstore-admin`
+, `hserver`, `prometheus` and `node-exporter`.
 
-- `zookeeper-host`：Specify which server nodes are used to start Zookeeper
-  instances.
+The HStore configuration must be set before deployment. The path of config is stored in the field
+`hstore.local_config_path` and `hstore.remote_config_path`, respectively. The former is the path to
+the HStore config file on the local machine which is to run the deployment script, while the latter
+is the destination that the HStore config file would be uploaded to during deployment. You can refer
+to the `Create a configuration file` section in the
+documentation [Manual Deployment with Docker](deploy-docker.md) to create an HStore config file.
 
-  + **NOTES**: Check the zk-related fields in the `hstore config file` to make
-    sure the zk node information is consistent
+The configuration of HServers is configured with the field `hstore.local_config_path`
+and `hstore.remote_config_path`. You can refer to the
+documentation [HStreamDB Configuration](../reference/config.md) for details. This is optional and if
+the value is not filled in, the default configuration will be used to start.
 
-- `hstore-host`：Specify which server nodes are used to start hstore instances.
-- `hstore-admin-host`：Specify which server nodes are used to start hadmin
-  instances.
-- `hserver-host`：Specify which server nodes are used to start hserver
-  instances.
+Each JSON object for configuring a kind of service has a field named `hosts` which indicates which
+server nodes are used to start corresponding service instances.
+
+::: tip
+Check the ZooKeeper related fields in the HStore config file to make sure that the ZooKeeper
+nodes information is consistent.
+:::
 
 ## Cluster Management
 
-- After creating the configuration file, you can start/stop a hstreamdb cluster
-  with these commands
+- After creating the configuration file, you can start/stop a hstreamdb cluster with these commands
 
   ```shell
   # start cluster
