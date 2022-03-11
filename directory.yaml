@@ -101,6 +101,14 @@ en:
         title: Tutorial
     title: Connector
   - children:
+      - path: security/overview
+        title: Overview
+      - path: security/encryption
+        title: Encryption
+      - path: security/authentication
+        title: Authentication
+    title: Security
+  - children:
       - path: release_notes/HStreamDB
         title: HStreamDB release notes
     title: Release notes
@@ -215,6 +223,14 @@ zh:
             title: ClickHouse
         title: Tutorial
     title: Connector
+  - children:
+      - path: security/overview
+        title: 概览
+      - path: security/encryption
+        title: 加密
+      - path: security/authentication
+        title: 认证
+    title: 安全功能
   - children:
       - path: release_notes/HStreamDB
         title: HStreamDB release notes
