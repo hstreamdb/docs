@@ -53,6 +53,14 @@ en:
         title: Deploy HStream with Terraform
   - path: admin/admin.md
     title: HStream Admin
+  - title: Security
+    children:
+    - path: security/overview
+      title: Overview
+    - path: security/encryption
+      title: Encryption
+    - path: security/authentication
+      title: Authentication
   - title: Release notes
     path: release_notes/HStreamDB
   - title: Reference
@@ -157,6 +165,14 @@ zh:
         title: 使用 Docker 和 SSH 快速部署
   - path: admin/admin.md
     title: HStream Admin
+  - title: 安全功能
+    children:
+      - path: security/overview
+        title: 概览
+      - path: security/encryption
+        title: 加密
+      - path: security/authentication
+        title: 认证
   - title: Release notes
     children:
       - path: release_notes/HStreamDB
@@ -209,3 +225,4 @@ zh:
     #           title: ClickHouse
     #       title: Tutorial
     #   title: Connector
+
