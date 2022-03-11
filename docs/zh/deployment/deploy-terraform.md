@@ -239,7 +239,7 @@ Do you want to perform these actions?
   Enter a value:
 ```
 
-After applying the plan, Terraform would produce some output. To inspect them, run:
+预定的计划完成后，Terraform 将生成一些输出。使用下面的命令可以查看运行的结果：
 
 ```shell
 terraform output
@@ -257,12 +257,6 @@ hadmin_public_ip = [
   tostring(null),
 ]
 ```
-
-Using the HCL `output` block makes configuring HStream cluster easier. It is necessary to obtain
-public IP addresses and access IP address, which is in the fields `public_ip` and `access_ip_v4` of
-each compute instance. Note that if you are binding EIPs to ECSs after creating each instance (like
-what we had done above), to yield the right `public_ip` you must do `terraform refresh`
-before `terraform output`.
 
 可以通过使用 `output` 语句块来简化部署 HStream 集群的流程。在这里演示了如何
 获取部署所必须的公网和内网 IP 信息，可以从每一台实例的
