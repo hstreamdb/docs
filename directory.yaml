@@ -163,6 +163,8 @@ zh:
         title: 用 Docker 手动部署
       - path: deployment/quick-deploy-ssh
         title: 使用 Docker 和 SSH 快速部署
+      - path: deployment/deploy-terraform
+        title: 使用 Terraform 部署 HStream
   - path: admin/admin.md
     title: HStream Admin
   - title: 安全功能
