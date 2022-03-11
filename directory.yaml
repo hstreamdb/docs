@@ -2,48 +2,47 @@ en:
   - title: Overview
     children:
       - path: overview/overview
-        title: HStream Streaming Database Overview
-      - children:
-          - path: overview/concepts/stream
-            title: Stream and Streaming Data
-          - path: overview/concepts/transparent-sharding
-            title: Transparent Sharding
-        title: Concepts
-      - children:
+        title: HStreamDB (HStream Streaming Database) Overview
+      - title: HStreamDB Architecture
+        children:
           - path: overview/architecture/overview
-            title: Overview
+            title: Architecture Overview
           - path: overview/architecture/hstream-store
             title: HStream Store (HStore)
           - path: overview/architecture/hstream-server
             title: HStream Server (HSQL)
-        title: Architecture
-      - path: overview/features
-        title: Features
   - title: Getting started
     children:
       - path: start/quickstart-with-docker
         title: Quickstart with Docker-Compose
       - path: start/cli
-        title: CLI usage
-  - children:
-      - children:
-          - path: develop/java-sdk/installation
+        title: HStream SQL Shell Usage
+  - title: Concepts
+    children:
+      - path: concepts/stream
+        title: Stream and Streaming Data
+      - path: concepts/transparent-sharding
+        title: Transparent Sharding
+  - title: Client API
+    children:
+      - title: Java SDK
+        children:
+          - path: client_api/java-sdk/installation
             title: Installation
-          - path: develop/java-sdk/connect
+          - path: client_api/java-sdk/connect
             title: Connect
-          - path: develop/java-sdk/stream
+          - path: client_api/java-sdk/stream
             title: Streams
-          - path: develop/java-sdk/subscription
+          - path: client_api/java-sdk/subscription
             title: Subscriptions
-          - path: develop/java-sdk/write
+          - path: client_api/java-sdk/write
             title: Write Data
-          - path: develop/java-sdk/consume
+          - path: client_api/java-sdk/consume
             title: Consume Data
-          - path: develop/java-sdk/query
+          - path: client_api/java-sdk/query
             title: Stream Processing with SQL
-        title: Java SDK
-    title: Develop
-  - children:
+  - title: Deployment
+    children:
       - path: deployment/deploy-k8s
         title: Running on Kubernetes
       - path: deployment/deploy-docker
@@ -52,180 +51,161 @@ en:
         title: Quick Deployment with Docker and SSH
       - path: deployment/deploy-terraform
         title: Deploy HStream with Terraform
-    title: Deployment
-  - children:
-    path: admin/admin.md
+  - path: admin/admin.md
     title: HStream Admin
-  - children:
-      - path: sql/sql-overview
-        title: HStream SQL overview
-      - path: sql/sql-quick-reference
-        title: HStream SQL quick reference
-      - children:
-          - path: sql/statements/create-stream
-            title: CREATE STREAM
-          - path: sql/statements/create-view
-            title: CREATE VIEW
-          - path: sql/statements/create-connector
-            title: CREATE CONNECTOR
-          - path: sql/statements/drop-stream
-            title: DROP STREAM
-          - path: sql/statements/drop-view
-            title: DROP VIEW
-          - path: sql/statements/drop-connector
-            title: DROP CONNECTOR
-          - path: sql/statements/select-stream
-            title: SELECT (Stream)
-          - path: sql/statements/select-view
-            title: SELECT (View)
-          - path: sql/statements/insert
-            title: INSERT
-        title: Statements
-      - children:
-          - path: sql/functions/aggregation
-            title: Aggregation Functions
-          - path: sql/functions/scalar
-            title: Scalar Functions
-        title: Functions
-      - path: sql/appendix
-        title: Appendix
-    title: HStream SQL
-  - children:
-      - path: connector/overview
-        title: Overview
-      - children:
-          - path: connector/tutorial/MySQL
-            title: MySQL
-          - path: connector/tutorial/ClickHouse
-            title: ClickHouse
-        title: Tutorial
-    title: Connector
-  - children:
-      - path: release_notes/HStreamDB
-        title: HStreamDB release notes
-    title: Release notes
-  - children:
-      - path: contributing/haskell-style
-        title: Haskell style
-      - path: contributing/build-from-source
-        title: Building from source
-    title: Contributing
-  - children:
+  - title: Release notes
+    path: release_notes/HStreamDB
+  - title: Reference
+    children:
       - path: reference/config
         title: HStreamDB Configuration
-    title: Reference
+      - title: HStream SQL
+        children:
+          - path: reference/sql/sql-overview
+            title: HStream SQL overview
+          - path: reference/sql/sql-quick-reference
+            title: HStream SQL quick reference
+          - title: Statements
+            children:
+              - path: reference/sql/statements/create-stream
+                title: CREATE STREAM
+              - path: reference/sql/statements/create-view
+                title: CREATE VIEW
+              - path: reference/sql/statements/create-connector
+                title: CREATE CONNECTOR
+              - path: reference/sql/statements/drop-stream
+                title: DROP STREAM
+              - path: reference/sql/statements/drop-view
+                title: DROP VIEW
+              - path: reference/sql/statements/drop-connector
+                title: DROP CONNECTOR
+              - path: reference/sql/statements/select-stream
+                title: SELECT (Stream)
+              - path: reference/sql/statements/select-view
+                title: SELECT (View)
+              - path: reference/sql/statements/insert
+                title: INSERT
+          - title: Functions
+            children:
+              - path: reference/sql/functions/aggregation
+                title: Aggregation Functions
+              - path: reference/sql/functions/scalar
+                title: Scalar Functions
+          - path: reference/sql/appendix
+            title: Appendix
+      # - title: Connector
+      #   children:
+      #     - path: connector/overview
+      #       title: Overview
+      #     - title: Tutorial
+      #       children:
+      #         - path: connector/tutorial/MySQL
+      #           title: MySQL
+      #         - path: connector/tutorial/ClickHouse
+      #           title: ClickHouse
 
 zh:
-  - children:
+  - title: 概览
+    children:
       - path: overview/overview
         title: 流数据库 HStream 概览
-      - children:
-          - path: overview/concepts/stream
-            title: 流和流式数据
-          - path: overview/concepts/transparent-sharding
-            title: 透明分区
-        title: 概念
-      - children:
+      - title: 架构
+        children:
           - path: overview/architecture/overview
             title: 概览
           - path: overview/architecture/hstream-store
             title: HStream Store (HStore)
           - path: overview/architecture/hstream-server
             title: HStream Server (HSQL)
-        title: 架构
-      - path: overview/features
-        title: 功能特性
-    title: 概览
-  - children:
+  - title: 概念
+    children:
+      - path: concepts/stream
+        title: Stream and Streaming Data
+      - path: concepts/transparent-sharding
+        title: 透明分区
+  - title: 快速上手
+    children:
       - path: start/quickstart-with-docker
         title: 使用 Docker-Compose 快速上手
       - path: start/cli
-        title: CLI usage
-    title: 快速上手
-  - children:
-      - children:
-          - path: develop/java-sdk/installation
+        title: 使用命令行界面（HStream SQL Shell）
+  - title: Client API
+    children:
+      - title: Java SDK
+        children:
+          - path: client_api/java-sdk/installation
             title: 安装
-          - path: develop/java-sdk/connect
+          - path: client_api/java-sdk/connect
             title: 连接
-          - path: develop/java-sdk/stream
+          - path: client_api/java-sdk/stream
             title: 流（Streams）
-          - path: develop/java-sdk/subscription
+          - path: client_api/java-sdk/subscription
             title: 订阅
-          - path: develop/java-sdk/write
+          - path: client_api/java-sdk/write
             title: 写入数据
-          - path: develop/java-sdk/consume
+          - path: client_api/java-sdk/consume
             title: 消费数据
-          - path: develop/java-sdk/query
+          - path: client_api/java-sdk/query
             title: 基于 SQL 的流处理
-        title: Java SDK
-    title: 利用 HStreamDB 开发
-  - children:
+  - title: 部署
+    children:
       - path: deployment/deploy-k8s
         title: 在 Kubernetes 上运行
       - path: deployment/deploy-docker
         title: 用 Docker 手动部署
       - path: deployment/quick-deploy-ssh
         title: 使用 Docker 和 SSH 快速部署
-    title: 部署
-  - children:
-    path: admin/admin.md
+  - path: admin/admin.md
     title: HStream Admin
-  - children:
-      - path: sql/sql-overview
-        title: HStream SQL overview
-      - path: sql/sql-quick-reference
-        title: HStream SQL quick reference
-      - children:
-          - path: sql/statements/create-stream
-            title: CREATE STREAM
-          - path: sql/statements/create-view
-            title: CREATE VIEW
-          - path: sql/statements/create-connector
-            title: CREATE CONNECTOR
-          - path: sql/statements/drop-stream
-            title: DROP STREAM
-          - path: sql/statements/drop-view
-            title: DROP VIEW
-          - path: sql/statements/drop-connector
-            title: DROP CONNECTOR
-          - path: sql/statements/select-stream
-            title: SELECT (Stream)
-          - path: sql/statements/select-view
-            title: SELECT (View)
-          - path: sql/statements/insert
-            title: INSERT
-        title: Statements
-      - children:
-          - path: sql/functions/aggregation
-            title: Aggregation Functions
-          - path: sql/functions/scalar
-            title: Scalar Functions
-        title: Functions
-      - path: sql/appendix
-        title: Appendix
-    title: HStream SQL
-  - children:
-      - path: connector/overview
-        title: Overview
-      - children:
-          - path: connector/tutorial/MySQL
-            title: MySQL
-          - path: connector/tutorial/ClickHouse
-            title: ClickHouse
-        title: Tutorial
-    title: Connector
-  - children:
+  - title: Release notes
+    children:
       - path: release_notes/HStreamDB
         title: HStreamDB release notes
-    title: Release notes
-  - children:
-      - path: contributing/haskell-style
-        title: Haskell style
-      - path: contributing/build-from-source
-        title: Building from source
-    title: Contributing
-  - children:
+  - title: 参考
+    children:
       - path: reference/config
         title: HStream 配置
-    title: 参考
+      - title: HStream SQL
+        children:
+          - path: reference/sql/sql-overview
+            title: HStream SQL overview
+          - path: reference/sql/sql-quick-reference
+            title: HStream SQL quick reference
+          - children:
+              - path: reference/sql/statements/create-stream
+                title: CREATE STREAM
+              - path: reference/sql/statements/create-view
+                title: CREATE VIEW
+              - path: reference/sql/statements/create-connector
+                title: CREATE CONNECTOR
+              - path: reference/sql/statements/drop-stream
+                title: DROP STREAM
+              - path: reference/sql/statements/drop-view
+                title: DROP VIEW
+              - path: reference/sql/statements/drop-connector
+                title: DROP CONNECTOR
+              - path: reference/sql/statements/select-stream
+                title: SELECT (Stream)
+              - path: reference/sql/statements/select-view
+                title: SELECT (View)
+              - path: reference/sql/statements/insert
+                title: INSERT
+            title: Statements
+          - children:
+              - path: reference/sql/functions/aggregation
+                title: Aggregation Functions
+              - path: reference/sql/functions/scalar
+                title: Scalar Functions
+            title: Functions
+          - path: reference/sql/appendix
+            title: Appendix
+    # - children:
+    #     - path: connector/overview
+    #       title: Overview
+    #     - children:
+    #         - path: connector/tutorial/MySQL
+    #           title: MySQL
+    #         - path: connector/tutorial/ClickHouse
+    #           title: ClickHouse
+    #       title: Tutorial
+    #   title: Connector
