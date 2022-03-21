@@ -28,7 +28,7 @@ echo 1000 > serial
 Get template openssl.cnf file(**the template file is intended for testing and developing,
 do not use it in production environment directly**):
 ```shell
-wget https://github.com/hstreamdb/hstream/blob/main/conf/openssl.cnf
+wget https://raw.githubusercontent.com/hstreamdb/hstream/main/conf/openssl.cnf
 ```
 
 Generate CA key file:
