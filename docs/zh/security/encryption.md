@@ -27,7 +27,7 @@ echo 1000 > serial
 
 获取openssl.cnf模板文件（注意：**这个模板文件主要是用来测试和开发，请不要直接在生产环境使用**）
 ```shell
-wget https://github.com/hstreamdb/hstream/blob/main/conf/openssl.cnf
+wget https://raw.githubusercontent.com/hstreamdb/hstream/main/conf/openssl.cnf
 ```
 
 生成CA密钥文件：
