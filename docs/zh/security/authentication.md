@@ -48,8 +48,9 @@ tls-key-path: /path/to/the/server.key.pem
 # the signed certificate by CA for the key(tls-key-path)
 tls-cert-path: /path/to/the/signed.server.cert.pem
 #
-# optional for tls, if tls-ca-path is not empty, then enable mTLS(mutual tls),
-# in handshake phase, server will request and verifiy client's certificate.
+# optional for tls, if tls-ca-path is not empty, then enable TLS authentication,
+# in the handshake phase,
+# the server will request and verify the client's certificate.
 tls-ca-path: /path/to/the/ca.cert.pem
 ```
 
