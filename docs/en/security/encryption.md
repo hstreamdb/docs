@@ -1,74 +1,75 @@
 # Encryption
-hstream supported encryption between serevrs and clients using TLS,
+hstream supported encryption between servers and clients using TLS,
 in this chapter, we will not introduce more details about TLS, 
 instead, we will only show steps and configurations to enable it.
 
 ## Steps
 If you don't have any existed CA(Certificate Authority),
 you can create one locally,
-and TLS require that server has key and signed certificate,
+and TLS requires that each server have a key
+and the corresponding signed certificate,
 openssl is a good tool to generate them,
-after that, you need configure the files paths in the servers
-and clients sides to enable it.
+after that, you need to configure the files paths
+in the servers and clients sides to enable it.
 
-### create CA
+### create a local CA
 
-Craete or choose directory for storing keys and certificates:
+Create or choose a directory for storing keys and certificates:
 ```shell
 mkdir tls
 cd tls
 ```
 
-Create database file and serial number file:
+Create a database file and serial number file:
 ```shell
 touch index.txt
 echo 1000 > serial
 ```
 
-Get template openssl.cnf file(**the template file is intended for testing and developing,
-do not use it in production environment directly**):
+Get the template openssl.cnf file(**the template file is intended for testing and development,
+do not use it in the production environment directly**):
 ```shell
 wget https://raw.githubusercontent.com/hstreamdb/hstream/main/conf/openssl.cnf
 ```
 
-Generate CA key file:
+Generate the CA key file:
 ```shell
 openssl genrsa -aes256 -out ca.key.pem 4096
 ```
 
-Generate CA certificate file:
+Generate the CA certificate file:
 ```shell
 openssl req -config openssl.cnf -key ca.key.pem \
     -new -x509 -days 7300 -sha256 -extensions v3_ca \
     -out ca.cert.pem
 ```
 
-### create key pair and sign certificate for server
-Here we only generate key and certificate for one server,
-you should create them for all hstream servers that have different hostname,
-or create a certificate included all hostnames(IP or DNS) in SANs.
+### create key pair and sign certificate for a server
+Here we only generate a key and certificate for one server,
+you should create them for all hstream servers that have a different hostname,
+or create a certificate including all hostnames(IP or DNS) in SANs.
 
-Generate server key file:
+Generate the server key file:
 ```shell
 openssl genrsa -out server01.key.pem 2048
 ```
 
-Generate server certificate request,
+Generate the server certificate request,
 when you input Common Name,
-you should write correct hostname(e.g., localhost):
+you should write the correct hostname(e.g., localhost):
 ```shell
 openssl req -config openssl.cnf \
     -key server01.key.pem -new -sha256 -out server01.csr.pem
 ```
 
-generate server certificate with generated CA:
+generate the server certificate with the generated CA:
 ```shell
 openssl ca -config openssl.cnf -extensions server_cert \
     -days 1000 -notext -md sha256 \
     -in server01.csr.pem -out signed.server01.cert.pem
 ```
 
-### configure server and client
+### configure the server and clients
 The options for servers:
 ```yaml
 # TLS options

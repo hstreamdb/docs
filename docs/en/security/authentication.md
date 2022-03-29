@@ -1,19 +1,19 @@
 # Authentication
-After enabling tls, clients can verify connecting servers and keep message encrypted,
+After enabling TLS, clients can verify connecting servers and keep messages encrypted,
 but servers can not verify clients,
-so authentication is designed to provides a mechanism that servers can authenticate trusted clients.
+so authentication is designed to provide a mechanism that servers can authenticate trusted clients.
 
-Authentication provides another feature that gives client a role name,
+Authentication provides another feature that gives a client a role name,
 then hstream will be based on the role to implement authorization.
 
 hstream only support TLS authentication, which is an extension of default TLS,
 to enable TLS authentication,
-you need to create corresponding key and certificate for a role,
+you need to create the corresponding key and certificate for a role,
 then give them to trusted clients,
 clients use the key and certificate(binding to a role) to connect to servers.
 
 ## create a trusted role
-Generate key:
+Generate a key:
 ```shell
 openssl genrsa -out role01.key.pem 2048
 ```
@@ -24,13 +24,13 @@ openssl pkcs8 -topk8 -inform PEM -outform PEM \
       -in role01.key.pem -out role01.key-pk8.pem -nocrypt
 ```
 
-Genrate certificate request(Common Name is the role name):
+Generate the certificate request(Common Name is the role name):
 ```shell
 openssl req -config openssl.cnf \
       -key role01.key.pem -new -sha256 -out role01.csr.pem
 ```
 
-Generate signed certificate:
+Generate the signed certificate:
 ```shell
 openssl ca -config openssl.cnf -extensions usr_cert \
       -days 1000 -notext -md sha256 \
@@ -51,8 +51,9 @@ tls-key-path: /path/to/the/server.key.pem
 # the signed certificate by CA for the key(tls-key-path)
 tls-cert-path: /path/to/the/signed.server.cert.pem
 #
-# optional for tls, if tls-ca-path is not empty, then enable mTLS(mutual tls),
-# in handshake phase, server will request and verifiy client's certificate.
+# optional for tls, if tls-ca-path is not empty, then enable TLS authentication,
+# in the handshake phase,
+# the server will request and verify the client's certificate.
 tls-ca-path: /path/to/the/ca.cert.pem
 ```
 
