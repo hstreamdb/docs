@@ -1,3 +1,5 @@
+# HStream Metrics
+
 <table>
 <thead>
   <tr>
