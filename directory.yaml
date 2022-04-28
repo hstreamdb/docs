@@ -23,24 +23,28 @@ en:
         title: Stream and Streaming Data
       - path: concepts/transparent-sharding
         title: Transparent Sharding
-  - title: Client API
+          ## - title: Client API
+          ##   children:
+          ##     - title: Java SDK
+          ##       children:
+          ##         - path: client_api/java-sdk/installation
+          ##           title: Installation
+          ##         - path: client_api/java-sdk/connect
+          ##           title: Connect
+          ##         - path: client_api/java-sdk/stream
+          ##           title: Streams
+          ##         - path: client_api/java-sdk/subscription
+          ##           title: Subscriptions
+          ##         - path: client_api/java-sdk/write
+          ##           title: Write Data
+          ##         - path: client_api/java-sdk/consume
+          ##           title: Consume Data
+          ##         - path: client_api/java-sdk/query
+          ##           title: Stream Processing with SQL
+  - title: Guides 
     children:
-      - title: Java SDK
-        children:
-          - path: client_api/java-sdk/installation
-            title: Installation
-          - path: client_api/java-sdk/connect
-            title: Connect
-          - path: client_api/java-sdk/stream
-            title: Streams
-          - path: client_api/java-sdk/subscription
-            title: Subscriptions
-          - path: client_api/java-sdk/write
-            title: Write Data
-          - path: client_api/java-sdk/consume
-            title: Consume Data
-          - path: client_api/java-sdk/query
-            title: Stream Processing with SQL
+      - path: guides/write
+        title: Writing records to streams 
   - title: Deployment
     children:
       - path: deployment/deploy-k8s
