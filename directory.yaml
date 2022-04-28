@@ -44,7 +44,7 @@ en:
   - title: Guides 
     children:
       - path: guides/write
-        title: Writing records to streams 
+        title: Write records to streams 
   - title: Deployment
     children:
       - path: deployment/deploy-k8s
