@@ -23,24 +23,34 @@ en:
         title: Stream and Streaming Data
       - path: concepts/transparent-sharding
         title: Transparent Sharding
-  - title: Client API
+  - title: User Guides
     children:
-      - title: Java SDK
-        children:
-          - path: client_api/java-sdk/installation
-            title: Installation
-          - path: client_api/java-sdk/connect
-            title: Connect
-          - path: client_api/java-sdk/stream
-            title: Streams
-          - path: client_api/java-sdk/subscription
-            title: Subscriptions
-          - path: client_api/java-sdk/write
-            title: Write Data
-          - path: client_api/java-sdk/consume
-            title: Consume Data
-          - path: client_api/java-sdk/query
-            title: Stream Processing with SQL
+      - path: user_guide/write
+        title: Write Records to Streams
+      - path: user_guide/read
+        title: Consume Records with Subscriptions
+      - path: user_guide/stream
+        title: Create and Manage Streams
+      - path: user_guide/subscription
+        title: Create and Manage Subscriptions
+  # - title: Client API
+  #   children:
+  #     - title: Java SDK
+  #       children:
+  #         - path: client_api/java-sdk/installation
+  #           title: Installation
+  #         - path: client_api/java-sdk/connect
+  #           title: Connect
+  #         - path: client_api/java-sdk/stream
+  #           title: Streams
+  #         - path: client_api/java-sdk/subscription
+  #           title: Subscriptions
+  #         - path: client_api/java-sdk/write
+  #           title: Write Data
+  #         - path: client_api/java-sdk/consume
+  #           title: Consume Data
+  #         - path: client_api/java-sdk/query
+  #           title: Stream Processing with SQL
   - title: Deployment
     children:
       - path: deployment/deploy-k8s
@@ -227,4 +237,3 @@ zh:
     #           title: ClickHouse
     #       title: Tutorial
     #   title: Connector
-
