@@ -1,0 +1,80 @@
+name: deploy demo docs
+
+on:
+  push:
+    branches:
+      - latest
+
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: clone docs
+        uses: actions/checkout@v2
+        with:
+          path: docs-files
+
+      - name: update embedded file
+        run: |
+          wget -O quick-start.yaml https://raw.githubusercontent.com/hstreamdb/hstream/main/docker/quick-start.yaml
+          npm install embedme
+          npx embedme --source-root $PWD docs-files/docs/*/start/quickstart-with-docker.md
+
+      - name: make directory.json
+        run: cd docs-files && make config
+
+      - name: clone frontend
+        uses: actions/checkout@v2
+        with:
+          repository: "emqx/emqx-io-docs-frontend"
+          token: ${{ secrets.CI_GIT_TOKEN }}
+          path: frontend
+
+      - name: use node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.15
+
+      - name: set env
+        run: |
+          echo "DOCS_BRANCH=latest" >> $GITHUB_ENV
+          echo "DOCS_TYPE=hstreamdb" >> $GITHUB_ENV
+          echo "VERSION=latest" >> $GITHUB_ENV
+
+      - name: move files
+        run: |
+          rm frontend/docs/en/README.md || true
+          rm frontend/docs/zh/README.md || true
+          rm frontend/docs/*.md || true
+          rm frontend/README.md
+          mkdir -p frontend/docs/en/${VERSION}/
+          mkdir -p frontend/docs/zh/${VERSION}/
+          mkdir -p frontend/docs/.vuepress/public/api/
+          cp -r docs-files/docs/en/* frontend/docs/en/${VERSION}/
+          cp -r docs-files/docs/zh/* frontend/docs/zh/${VERSION}/
+          cp docs-files/docs/directory.json frontend/docs/.vuepress/config/directory.json
+          echo "[\"latest\"]" > frontend/docs/.vuepress/public/api/${DOCS_TYPE}_versions.json
+
+      - name: build docs
+        run: |
+          cd frontend
+          yarn && yarn build
+
+      - name: push to gh-pages
+        if: github.event_name == 'push'
+        run: |
+          cd docs-files
+
+          git config user.name "GithubAction"
+
+          git fetch --all
+          SRC_HEAD=$(git rev-parse --short HEAD)
+          git restore .
+          git checkout -b gh-pages origin/gh-pages
+          rm -rf ./*
+
+          cp -a ../frontend/docs/.vuepress/dist/. ./
+          git add -A
+          git commit -m "Published $SRC_HEAD"
+          git push origin gh-pages -f
