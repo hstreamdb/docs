@@ -41,16 +41,16 @@
 - Fix several memory leaks caused by grpc-haskell
 - Fix several zookeeper client issues
 - Fix the problem that the checkpoint store already exists during server
-  startup.
+  startup
 - Fix the inconsistent handling of the default key during the lookupStream
-  process.
+  process
 - Fix the problem of stream writing error when the initialisation of hstore
-  loggroup is incompleted.
-- Fix the problem that hstore client writes incorrect data.
-- Fix an error in allocating to idle consumers on subscriptions.
-- Fix the memory allocation problem of hstore client's appendBatchBS function.
+  loggroup is incompleted
+- Fix the problem that hstore client writes incorrect data
+- Fix an error in allocating to idle consumers on subscriptions
+- Fix the memory allocation problem of hstore client's ``appendBatchBS`` function
 - Fix the problem of losing retransmitted data due to the unavailability of the
-  original consumer.
+  original consumer
 - Fix the problem of data distribution caused by wrong workload sorting
 
 ### Java Client
@@ -66,34 +66,31 @@
 
 #### Enhancements
 
-- [Breaking change] improve `RecordId` as opaque `String`
-- improve the performance of `BufferedProducer`
-- improve `Responder` with batched acknowledges for better performance
-- improve `BufferedProducerBuilder` to use `BatchSetting` with unified
+- [Breaking change] Improve `RecordId` as opaque `String`
+- Improve the performance of `BufferedProducer`
+- Improve `Responder` with batched acknowledges for better performance
+- Improve `BufferedProducerBuilder` to use `BatchSetting` with unified
   `recordCountLimit`, `bytesCountLimit`, `ageLimit` settings
-- improve the description of API in javadoc
+- Improve the description of API in javadoc
 
 #### Bug fixes
 
-- fix `streamingFetch` is not canceled when `Consumer` is closed
-- fix missing handling for grpc exceptions in `Consumer`
-- fix the incorrect computation of accumulated record size in `BufferedProducer`
+- Fix `streamingFetch` is not canceled when `Consumer` is closed
+- Fix missing handling for grpc exceptions in `Consumer`
+- Fix the incorrect computation of accumulated record size in `BufferedProducer`
 
 ### Go Client
 
-hstream-go v0.1.0 has been released. For a more detailed introduction and usage,
+- hstream-go v0.1.0 has been released. For a more detailed introduction and usage,
 please check the [Github repository](https://github.com/hstreamdb/hstreamdb-go).
 
 ### Admin Server
 
-Admin Server has been released, which provides services and public REST API for
-CLI tools. You can check the
-[Github repository](https://github.com/hstreamdb/http-services) and deploy it
-for yourself
+- a new admin server has been released, see [Github repository](https://github.com/hstreamdb/http-services)
 
 ### Tools
 
-- add [bench tools](https://github.com/hstreamdb/bench)
+- Add [bench tools](https://github.com/hstreamdb/bench)
 - [dev-deploy] Support limiting resources of containers
 - [dev-deploy] Add configuration to restart containers
 - [dev-deploy] Support uploading all configuration files in deploying
