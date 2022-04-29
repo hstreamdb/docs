@@ -160,7 +160,10 @@ public class WriteDataBufferedExample {
             .bytesLimit(40960)
             .build();
     BufferedProducer producer =
-        client.newBufferedProducer().stream(streamName).batchSetting(batchSetting).build();
+        client.newBufferedProducer().stream(streamName)
+            .batchSetting(batchSetting)
+            .flowControlSetting(flowControlSetting)
+            .build();
 
     List<CompletableFuture<String>> recordIds = new ArrayList<>();
     Random random = new Random();
