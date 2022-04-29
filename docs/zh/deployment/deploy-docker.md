@@ -156,7 +156,7 @@ docker exec zookeeper zkCli.sh get /logdevice.conf
 
   ```shell
   docker run --rm -d --name storeAdmin --network host -v /data/logdevice:/data/logdevice \
-          hstreamdb/hstream:v0.7.1 /usr/local/bin/ld-admin-server \
+          hstreamdb/hstream:v0.8.0 /usr/local/bin/ld-admin-server \
           --config-path zk:10.100.2.11:2181/logdevice.conf \
           --enable-maintenance-manager \
           --maintenance-log-snapshotting \
@@ -176,7 +176,7 @@ docker exec zookeeper zkCli.sh get /logdevice.conf
 
   ```shell
   docker run --rm -d --name hstore --network host -v /data/logdevice:/data/logdevice \
-          hstreamdb/hstream:v0.7.1 /usr/local/bin/logdeviced \
+          hstreamdb/hstream:v0.8.0 /usr/local/bin/logdeviced \
           --config-path zk:10.100.2.11:2181/logdevice.conf \
           --name store-0 \
           --address 192.168.0.3 \
@@ -233,7 +233,7 @@ Took 7.745s
 
 ```shell
 docker run -d --name hstream-server --network host \
-        hstreamdb/hstream:v0.7.1 /usr/local/bin/hstream-server \
+        hstreamdb/hstream:v0.8.0 /usr/local/bin/hstream-server \
         --host $SERVER_HOST \
         --address $SERVER_HOST \
         --zkuri $ZK_ADDRESS \
