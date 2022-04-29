@@ -85,7 +85,7 @@ tls-key-path: /path/to/the/server01.key.pem
 tls-cert-path: /path/to/the/signed.server01.cert.pem
 ```
 
-Java clinet:
+Java client:
 ```java
 HStreamClient.builder()
   .serviceUrl(serviceUrl)
