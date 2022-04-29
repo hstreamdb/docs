@@ -22,11 +22,6 @@
 
   + Maximum value = 21 days
 
-- Maximum record size
-
-  The largest size of a record batch allowed by HStreamDB, the default value is
-  1MB.
-
 ## Create a stream
 
 Create a stream before you write records or create a subscription.

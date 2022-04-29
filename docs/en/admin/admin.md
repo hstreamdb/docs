@@ -19,28 +19,16 @@ Available commands:
 For the ease of illustration, we execute an interactive bash shell in the
 hstream container to use hstream admin,
 
-The following example usage is based on the cluster started in [quick start](../start/quickstart-with-docker.md),
-please adjust correspondingly.
+The following example usage is based on the cluster started in
+[quick start](../start/quickstart-with-docker.md), please adjust
+correspondingly.
 
 ```sh
 docker exec -it docker_hserver0_1 bash
-> hadmin --help
-======= HStream Admin CLI =======
-
-Usage: hadmin COMMAND
-
-Available options:
-  -h,--help                Show this help text
-
-Available commands:
-  server                   Admin command
-  store                    Internal store admin command
+$ hadmin server --help
 ```
 
-## Server Command
-
-```sh
-> hadmin server --help
+```
 Usage: hadmin server [--host SERVER-HOST] [--port INT]
                      [--log-level [critical|fatal|warning|info|debug]]
                      (COMMAND | COMMAND)
@@ -62,7 +50,7 @@ Available commands:
   status                   Get the status of the HServer cluster
 ```
 
-### Check Cluster status
+## Check Cluster status
 
 ```sh
 > hadmin server status
@@ -74,9 +62,9 @@ Available commands:
 +---------+---------+-------------------+
 ```
 
-### Resource Management
+## Resource Management
 
-#### Streams
+### Streams
 
 ```sh
 > hadmin server stream create --name s1
@@ -89,7 +77,7 @@ OK
 +------+----------------------+
 ```
 
-#### Subscriptions
+### Subscriptions
 
 ```sh
 > hadmin server sub create --name sub1 --stream s1
@@ -102,50 +90,92 @@ OK
 +------+-------------+---------+
 ```
 
-### HSteam Metrics
+## HSteam Stats
 
-```sh
-> hadmin server stats --sql "select * from append_throughput"
-+-------------+-----------------+-----------------+------------------+
-| stream_name | throughput_1min | throughput_5min | throughput_10min |
-+-------------+-----------------+-----------------+------------------+
-| s1          | 38              | 11              | 6                |
-+-------------+-----------------+-----------------+------------------+
+```
+hadmin server stats <stats_category> <stats_name>
 ```
 
-## Admin interactive SQL shell
+- stream_counter
+  + `append_total`
+  + `append_failed`
+- stream
+  + `appends` or `append_in_bytes`
+  + `append_in_record`
+  + `append_in_requests`
+  + `append_failed_requests`
+- subscription_counter
+  + `resend_records`
+- subscription
+  + `sends` or `send_out_bytes`
+  + `send_out_records`
+  + `acks` or `acknowledgements`
+  + `request_messages`
+  + `response_messages`
 
-HAdmin has an interactive SQL shell, in which the users can get statistics of streams.
+For the full list of stats and explanations, please read [hstream metrics](../reference/metrics.md)
+
+### Examples
+
+```sh
+hadmin server stats stream appends
+```
+
+```
++-------------+--------------+--------------+---------------+
+| stream_name | appends_1min | appends_5min | appends_10min |
++-------------+--------------+--------------+---------------+
+| s1          | 3570393      | 3570572      | 3570604       |
++-------------+--------------+--------------+---------------+
+```
+
+## Interactive SQL shell
+
+HAdmin has an interactive SQL shell, in which the users can get statistics of
+server collects.
 
 ```sh
 hadmin server sql
-sql>
 ```
-
-### SQL Shell
 
 Use `show tables;` to get all the value tables collected from the server. It
 explains all the available data.
 
-```sh
+```
 sql> show tables;
-+-------------------+------------------------------------------+
-|       Table       |               Description                |
-+-------------------+------------------------------------------+
-| streams           | A  table that  lists the streams created |
-|                   | in the cluster.                          |
-+-------------------+------------------------------------------+
-|                   | For   each  server   node,  reports  the |
-| read_throughput   | estimated   per-stream  read  throughput |
-|                   | over various time periods.               |
-+-------------------+------------------------------------------+
-|                   | For   each  server   node,  reports  the |
-| append_throughput | estimated  per-stream append  throughput |
-|                   | over various time periods.               |
-+-------------------+------------------------------------------+
++-------------------------------+------------------------------------------+
+|             Table             |               Description                |
++-------------------------------+------------------------------------------+
+| streams                       | A  table that  lists the streams created |
+|                               | in the cluster.                          |
++-------------------------------+------------------------------------------+
+|                               | For   each  server   node,  reports  the |
+| server_append_request_latency | estimated  percentiles latency of server |
+|                               | append request                           |
++-------------------------------+------------------------------------------+
+|                               | For   each  server   node,  reports  the |
+| server_append_latency         | estimated  percentiles latency of server |
+|                               | appends                                  |
++-------------------------------+------------------------------------------+
+| append_total_counter          | Total append requests server received.   |
++-------------------------------+------------------------------------------+
+|                               | For   each  server   node,  reports  the |
+| append_throughput             | estimated  per-stream append  throughput |
+|                               | over various time periods.               |
++-------------------------------+------------------------------------------+
+|                               | For   each  server   node,  reports  the |
+| subscription_throughput       | estimated  per-stream append  throughput |
+|                               | over various time periods.               |
++-------------------------------+------------------------------------------+
+|                               | For   each  server   node,  reports  the |
+| read_throughput               | estimated   per-stream  read  throughput |
+|                               | over various time periods.               |
++-------------------------------+------------------------------------------+
+| append_failed_counter         | Failed append requests.                  |
++-------------------------------+------------------------------------------+
 ```
 
-```sh
+```
 sql> describe streams;
 +----------------------+--------+------------------------------------------+
 |        Column        |  Type  |               Description                |
@@ -161,7 +191,7 @@ sql> describe streams;
 
 You can use `select` intuitively to get and calculate the data you want.
 
-```sh
+```
 sql> select * from streams;
 +---------+------+----------------------+
 | node_id | name | replication_property |
@@ -170,7 +200,7 @@ sql> select * from streams;
 +---------+------+----------------------+
 ```
 
-#### example
+### Example
 
 Find the top 5 streams that have had the highest throughput in the last 10
 minutes.

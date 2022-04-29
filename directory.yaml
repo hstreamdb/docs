@@ -77,6 +77,8 @@ en:
     children:
       - path: reference/config
         title: HStreamDB Configuration
+      - path: reference/metrics
+        title: HStream Metrics
       - title: HStream SQL
         children:
           - path: reference/sql/sql-overview
@@ -147,24 +149,24 @@ zh:
         title: 使用 Docker-Compose 快速上手
       - path: start/cli
         title: 使用命令行界面（HStream SQL Shell）
-  - title: Client API
-    children:
-      - title: Java SDK
-        children:
-          - path: client_api/java-sdk/installation
-            title: 安装
-          - path: client_api/java-sdk/connect
-            title: 连接
-          - path: client_api/java-sdk/stream
-            title: 流（Streams）
-          - path: client_api/java-sdk/subscription
-            title: 订阅
-          - path: client_api/java-sdk/write
-            title: 写入数据
-          - path: client_api/java-sdk/consume
-            title: 消费数据
-          - path: client_api/java-sdk/query
-            title: 基于 SQL 的流处理
+  # - title: Client API
+  #   children:
+  #     - title: Java SDK
+  #       children:
+  #         - path: client_api/java-sdk/installation
+  #           title: 安装
+  #         - path: client_api/java-sdk/connect
+  #           title: 连接
+  #         - path: client_api/java-sdk/stream
+  #           title: 流（Streams）
+  #         - path: client_api/java-sdk/subscription
+  #           title: 订阅
+  #         - path: client_api/java-sdk/write
+  #           title: 写入数据
+  #         - path: client_api/java-sdk/consume
+  #           title: 消费数据
+  #         - path: client_api/java-sdk/query
+  #           title: 基于 SQL 的流处理
   - title: 部署
     children:
       - path: deployment/deploy-k8s
