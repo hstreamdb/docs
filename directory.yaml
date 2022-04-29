@@ -23,7 +23,7 @@ en:
         title: Stream and Streaming Data
       - path: concepts/transparent-sharding
         title: Transparent Sharding
-  - title: User Guides
+  - title: Guides
     children:
       - path: user_guide/write
         title: Write Records to Streams
