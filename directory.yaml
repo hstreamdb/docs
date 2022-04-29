@@ -23,15 +23,15 @@ en:
         title: Stream and Streaming Data
       - path: concepts/transparent-sharding
         title: Transparent Sharding
-  - title: User Guides
+  - title: Guides
     children:
-      - path: user_guide/write
+      - path: guides/write
         title: Write Records to Streams
-      - path: user_guide/read
+      - path: guides/read
         title: Consume Records with Subscriptions
-      - path: user_guide/stream
+      - path: guides/stream
         title: Create and Manage Streams
-      - path: user_guide/subscription
+      - path: guides/subscription
         title: Create and Manage Subscriptions
   # - title: Client API
   #   children:
