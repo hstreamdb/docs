@@ -40,6 +40,20 @@ Store admin section specifies the client config when connecting to the storage a
 | send-timeout | 5000 | optional |
 | recv-timeout | 5000 | optional |
 
+### stream
+
+| Name | Default Value | Description |
+| ---- | ------------- | ----------- |
+| replication-factor | 1 | optional |
+| backlog-retention | 7\*24\*3600 | the retention time in seconds|
+
+### subscription
+
+| Name | Default Value | Description |
+| ---- | ------------- | ----------- |
+| ackTimeoutSeconds | 600 | Maximum time in the server will wait for an acknowledgement |
+| maxUnackedRecords | 10000 | The maximum amount of unacknowledged records allowed |
+
 ## Command-Line Options
 
 For the ease of use, we allow user to pass some options to override the configuration in the configuration file when start server with `hstream-server` :

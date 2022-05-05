@@ -90,7 +90,7 @@ OK
 +------+-------------+---------+
 ```
 
-## HSteam Stats
+## HStream Stats
 
 ```
 hadmin server stats <stats_category> <stats_name>
