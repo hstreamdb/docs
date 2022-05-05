@@ -149,6 +149,16 @@ zh:
         title: 使用 Docker-Compose 快速上手
       - path: start/cli
         title: 使用命令行界面（HStream SQL Shell）
+  - title: 用户指南
+    children:
+      - path: guides/write
+        title: 向 Stream 写入 Records
+      - path: guides/read
+        title: 通过订阅（Subscription）消费数据
+      - path: guides/stream
+        title: 创建和管理 Stream
+      - path: guides/subscription
+        title: 创建和管理 Subscriptions
   # - title: Client API
   #   children:
   #     - title: Java SDK

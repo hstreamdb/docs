@@ -1,5 +1,95 @@
 # HStreamDB release notes
 
+## v0.8.0 [2022-04-29]
+
+### Server
+
+#### New features
+
+- 新增 [mutual TLS 支持](../security/overview.md)
+- 新增 Subscription 的配置项 `maxUnackedRecords`：该配置项用于控制每个订阅上已派
+  发但尚未 acked 的最大的 record 的数量，当某个订阅上的未 acked 的数据达到这个配
+  置的最大值后，便会停止该订阅上的数据交付，防止极端情况下造成大量 unacked
+  records 堆积，影响 HServer 和对应 Consumers 的性能表现。建议用户根据自身实际应
+  用场景下的数据消费能力对这一参数进行合理配置。
+- 新增 Stream 的配置项 `backlogDuration`：这个配置决定了当前 Stream 的数据可以在
+  HStreamDB 中驻留多久，超过这个期限的数据将不可访问并被清理。
+- 新增 Stream 的配置项 `maxRecordSize`：在创建 stream 时，用户可以通过该配置来控
+  制当前 stream 支持的最大的数据大小，超过这一阈值的数据会返回写入失败。
+- 新增[多项监控指标](../admin/admin.md#数据统计-hstream-stats)
+- 新增 server 端的[压缩配置](../reference/config.md)
+
+#### Enhancements
+
+- [breaking change] 简化了订阅的协议，重构并优化了订阅的性能
+- 优化了数据消费超时后的重传的实现，提升了数据重传的效率
+- 优化了 hstore client 读数据的性能
+- 改进了对订阅上重复的 ack 消息的处理
+- 改进了订阅删除的实现
+- 改进了 stream 删除的实现
+- 改进了集群使用的一致性哈希算法
+- 优化了 server 内部的异常处理
+- 优化了 server 启动流程
+- 改进了 stats 模块的实现
+
+#### Bug fixes
+
+- 修复了若干由于 grpc-haskell 引起的内存泄漏问题
+- 修复了若干 zk-client 的问题
+- 修复了 server 启动过程中 checkpoint store 已经存在报错的问题
+- 修复了 `lookupStream` 过程对 `defaultKey` 的处理不一致的问题
+- 修复了 hstore 的 loggroup 初始化完成之前 stream 写入错误的问题
+- 修复了 hstore client 写入数据不正确的问题
+- 修复了在订阅上向空闲 consumer 分配出错的问题
+- 修复了 hstore client 的 `appendBatchBS` 函数的内存分配问题
+- 修复了订阅数据重传过程中由于原 consumer 不可用造成的重传数据丢失的问题
+- 修复了订阅数据派发过程中因为 `Workload` 排序错误引起数据分发的问题
+
+### Java Client
+
+#### New features
+
+- 新增 TLS 支持
+- 新增 `BufferedProducer` 配置项 `FlowControlSetting`
+- 新增 `Subscription` 配置项 `maxUnackedRecords`
+- 新增 `createStream` 配置项 `backlogDuration`
+- 新增 `Subscription` 的强制删除支持
+- 新增 `Stream` 的强制删除支持
+
+#### Enhancements
+
+- [Breaking change] 改进了 RecordId，新的 RecordID 是一个 opaque string
+- 提高了 `BufferedProducer` 的性能
+- 改进了 `Responder，用分批的` ACKs 提升效率
+- 改进了 record id，用于保证多个 ordering keys 场景下的唯一性
+- 改进了 `BufferedProducerBuilder`，用 `BatchSetting` 统一了 `recordCountLimit`,
+  `recordCountLimit`, `ageLimit` 等配置项
+- 改进了 javadoc 中相关接口的介绍和说明
+
+#### Bug fixes
+
+- 修复了 Consumer 关闭时，没有取消 `streamingFetch` 的问题
+- 修复了 Consumer 对 gRPC 异常处理的问题
+- 修复了 `BufferedProducer` 对累积的 record size 的错误的计算方法
+
+### Go Client
+
+hstreamdb-go v0.1.0 现已正式发布，更多详细介绍以及如何使用请参考
+[Github 仓库](https://github.com/hstreamdb/hstreamdb-go)
+
+### Admin Server
+
+负责为多种 CLI 工具提供服务并开放 REST API 的 Admin Server 现已发布，可以通过
+[Github 仓库](https://github.com/hstreamdb/hstreamdb-go) 查看并部署体验。
+
+### Deployment and Benchmark
+
+- 新增了 benchmark 工具
+- [dev-deploy] 新增了限制指定容器资源的支持
+- [dev-deploy] 新增了重启容器的配置
+- [dev-deploy] 新增了在部署时上传所有配置文件的支持
+- [dev-deploy] 新增了与 Prometheus 集成的部署支持
+
 ## v0.7.0 [2022-01-28]
 
 ### 特性
