@@ -1,6 +1,6 @@
 # Consume Records with Subscriptions
 
-## What is a subscription?
+## What is a Subscription?
 
 To consume data from a stream, you must create a subscription to the stream.
 When initiated, every subscription will retrieve the data from the beginning.

@@ -1,4 +1,4 @@
-# Create and manage streams
+# Create and Manage Streams
 
 ## Attributes of a Stream
 
@@ -22,7 +22,7 @@
 
   + Maximum value = 21 days
 
-## Create a stream
+## Create a Stream
 
 Create a stream before you write records or create a subscription.
 
@@ -83,7 +83,7 @@ public class DeleteStreamExample {
 }
 ```
 
-## List streams
+## List Streams
 
 To get all streams in HStream:
 
