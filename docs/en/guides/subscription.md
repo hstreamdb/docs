@@ -20,35 +20,8 @@ have to make sure the stream to be subscribed has already been created.
 When creating a subscription, you can provide the attributes mentioned like
 this:
 
-```Java
-import io.hstream.HStreamClient;
-import io.hstream.Subscription;
-
-public class CreateSubscriptionExample {
-  public static void main(String[] args) throws Exception {
-    // TODO(developer): Replace these variables before running the sample.
-    String serviceUrl = "127.0.0.1:6570";
-    if (System.getenv("serviceUrl") != null) {
-      serviceUrl = System.getenv("serviceUrl");
-    }
-    String streamName = "your-stream-name";
-
-    HStreamClient client = HStreamClient.builder().serviceUrl(serviceUrl).build();
-    createSubscriptionExample(client, streamName);
-    client.close();
-  }
-
-  public static void createSubscriptionExample(HStreamClient client, String streamName) {
-    // TODO: Specify the options while creating the subscription
-    String subscriptionId = "your-subscription-id";
-    Subscription subscription =
-        Subscription.newBuilder().subscription(subscriptionId).stream(streamName)
-            .ackTimeoutSeconds(600)   // The default setting is 600 seconds
-            .maxUnackedRecords(10000) // The default setting is 10000 records
-            .build();
-    client.createSubscription(subscription);
-  }
-}
+```java
+// CreateSubscriptionExample.java
 ```
 
 ## Delete a subscription
@@ -67,56 +40,14 @@ subscription will be a brand new subscription. Even if they subscribe to the
 same stream, this new subscription will not share the consumption progress with
 the deleted subscription.
 
-```Java
-import io.hstream.HStreamClient;
-
-public class DeleteSubscriptionExample {
-  public static void main(String[] args) throws Exception {
-    // TODO(developer): Replace these variables before running the sample.
-    String serviceUrl = "127.0.0.1:6570";
-    if (System.getenv("serviceUrl") != null) {
-      serviceUrl = System.getenv("serviceUrl");
-    }
-    String subscriptionId = "your-subscription-id";
-    HStreamClient client = HStreamClient.builder().serviceUrl(serviceUrl).build();
-    deleteSubscriptionForceExample(client, subscriptionId);
-    client.close();
-  }
-
-  public static void deleteSubscriptionForceExample(HStreamClient client, String streamName) {
-    client.deleteStream(streamName, true);
-  }
-}
+```java
+// DeleteSubscriptionExample.java
 ```
 
 ## List subscriptions
 
 To list all subscriptions in HStream
 
-```Java
-import io.hstream.HStreamClient;
-import io.hstream.Subscription;
-import java.util.List;
-
-public class ListSubscriptionExample {
-
-  public static void main(String[] args) throws Exception {
-    // TODO(developer): Replace these variables before running the sample.
-    String serviceUrl = "127.0.0.1:6570";
-    if (System.getenv("serviceUrl") != null) {
-      serviceUrl = System.getenv("serviceUrl");
-    }
-
-    HStreamClient client = HStreamClient.builder().serviceUrl(serviceUrl).build();
-    listSubscriptionExample(client);
-    client.close();
-  }
-
-  public static void listSubscriptionExample(HStreamClient client) {
-    List<Subscription> subscriptions = client.listSubscriptions();
-    for (Subscription subscription : subscriptions) {
-      System.out.println(subscription.getSubscriptionId());
-    }
-  }
-}
+```java
+// ListSubscriptionsExample.java
 ```

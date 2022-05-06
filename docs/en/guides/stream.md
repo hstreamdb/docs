@@ -24,23 +24,8 @@
 
 Create a stream before you write records or create a subscription.
 
-```Java
-import io.hstream.HStreamClient;
-
-public class CreateStreamExample {
-  public static void main(String[] args) throws Exception {
-    // TODO(developer): Replace these variables before running the sample.
-    String serviceUrl = "your_service_url_address";
-    String streamName = "your_stream_name";
-
-    HStreamClient client = HStreamClient.builder().serviceUrl(serviceUrl).build();
-    createStreamExample(client, streamName);
-  }
-
-  public static void createStreamExample(HStreamClient client, String streamName) {
-    client.createStream(streamName);
-  }
-}
+```java
+// CreateStreamExample.java
 ```
 
 ## Delete a Stream
@@ -57,53 +42,14 @@ stream name `__deleted_stream__`, no new subscription creation on the deleted
 stream would be allowed, nor new records would be allowed to be written to the
 stream.
 
-```Java
-import io.hstream.HStreamClient;
-
-public class DeleteStreamExample {
-  public static void main(String[] args) throws Exception {
-    // TODO(developer): Replace these variables before running the sample.
-    String serviceUrl = "your_service_url_address";
-    String streamName = "your_stream_name";
-
-    HStreamClient client = HStreamClient.builder().serviceUrl(serviceUrl).build();
-    deleteStreamExample(client, streamName);
-    deleteStreamForceExample(client, streamName);
-  }
-
-  public static void deleteStreamExample(HStreamClient client, String streamName) {
-    client.deleteStream(streamName);
-  }
-
-  public static void deleteStreamForceExample(HStreamClient client, String streamName) {
-    client.deleteStream(streamName, true);
-  }
-}
+```java
+// DeleteStreamExample.java
 ```
 
 ## List Streams
 
 To get all streams in HStream:
 
-```Java
-import io.hstream.HStreamClient;
-import io.hstream.Stream;
-import java.util.List;
-
-public class ListStreamsExample {
-  public static void main(String[] args) throws Exception {
-    // TODO(developer): Replace these variables before running the sample.
-    String serviceUrl = "your-service-url-address";
-
-    HStreamClient client = HStreamClient.builder().serviceUrl(serviceUrl).build();
-    listStreamExample(client);
-  }
-
-  public static void listStreamExample(HStreamClient client) {
-    List<Stream> streams = client.listStreams();
-    for (Stream stream : streams) {
-      System.out.println(stream.getStreamName());
-    }
-  }
-}
+```java
+// ListStreamsExample.java
 ```
