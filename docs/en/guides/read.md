@@ -36,74 +36,15 @@ that does not require your application to block for new messages. Messages can
 be received in your application using a long-running message receiver and
 acknowledged one at a time, as shown in the example below.
 
-```Java
-import static java.util.concurrent.TimeUnit.SECONDS;
-
-import io.hstream.Consumer;
-import io.hstream.HRecordReceiver;
-import io.hstream.HStreamClient;
-import io.hstream.Subscription;
-import java.util.concurrent.TimeoutException;
-
-public class ConsumeDataSimpleExample {
-  public static void main(String[] args) throws Exception {
-    String serviceUrl = "127.0.0.1:6570";
-    if (System.getenv("serviceUrl") != null) {
-      serviceUrl = System.getenv("serviceUrl");
-    }
-
-    String streamName = "stream_h_records";
-    String subscriptionId = "your-subscription-id";
-    HStreamClient client = HStreamClient.builder().serviceUrl(serviceUrl).build();
-    makeSubscriptionExample(client, streamName, subscriptionId);
-    consumeDataFromSubscriptionExample(client, subscriptionId);
-    client.deleteSubscription(subscriptionId);
-    client.close();
-  }
-
-  public static void makeSubscriptionExample(
-      HStreamClient client, String streamName, String subId) {
-    Subscription sub1 =
-        Subscription.newBuilder().subscription(subId).stream(streamName)
-            .ackTimeoutSeconds(600)
-            .build();
-    client.createSubscription(sub1);
-  }
-
-  public static void consumeDataFromSubscriptionExample(
-      HStreamClient client, String subscriptionId) {
-    HRecordReceiver receiver =
-        ((hRecord, responder) -> {
-          System.out.println("Received a record :" + hRecord.getHRecord());
-          responder.ack();
-        });
-    // Consumer is a Service(ref: https://guava.dev/releases/19.0/api/docs/com/google/common/util/concurrent/Service.html)
-    Consumer consumer =
-        client
-            .newConsumer()
-            .subscription(subscriptionId)
-            // optional, if it is not set, client will generate a unique id.
-            .name("consumer_1")
-            .hRecordReceiver(receiver)
-            .build();
-    // start Consumer as a background service and return
-    consumer.startAsync().awaitRunning();
-    try {
-      // sleep 5s for consuming records
-      consumer.awaitTerminated(5, SECONDS);
-    } catch (TimeoutException e) {
-      // stop consumer
-      consumer.stopAsync().awaitTerminated();
-    }
-  }
-}
+```java
+// ConsumeDataSimpleExample.java
 ```
 
 For better performance, Batched Ack is enabled by default with setting
 `ackBufferSize` = 100 and `ackAgeLimit` = 100, which you can change when
 initiating your consumers.
 
-```Java
+```java
 Consumer consumer =
     client
         .newConsumer()
@@ -127,79 +68,8 @@ have a new consumer join the existing subscription. The code is for
 demonstration of how consumers can join the consumer group. Usually, the case is
 that users would have consumers from different clients.
 
-```Java
-import static java.util.concurrent.TimeUnit.SECONDS;
-
-import io.hstream.Consumer;
-import io.hstream.HRecordReceiver;
-import io.hstream.HStreamClient;
-import io.hstream.Subscription;
-import java.util.concurrent.TimeoutException;
-
-public class ConsumeDataSharedExample {
-  public static void main(String[] args) throws Exception {
-    String serviceUrl = "127.0.0.1:6570";
-    if (System.getenv("serviceUrl") != null) {
-      serviceUrl = System.getenv("serviceUrl");
-    }
-
-    String stream = "stream_h_records";
-    String subscription = "your-subscription-id";
-    String consumer1 = "your-consumer1-name";
-    String consumer2 = "your-consumer2-name";
-    HStreamClient client = HStreamClient.builder().serviceUrl(serviceUrl).build();
-    // create a subscription
-    makeSubscriptionExample(client, stream, subscription);
-
-    // create two consumers to consume records including two ordering keys.
-    Thread t1 =
-        new Thread(() -> consumeDataFromSubscriptionSharedExample(client, subscription, consumer1));
-    Thread t2 =
-        new Thread(() -> consumeDataFromSubscriptionSharedExample(client, subscription, consumer2));
-    t1.start();
-    t2.start();
-    t1.join();
-    t2.join();
-
-    // delete subscription
-    client.deleteSubscription(subscription);
-    // close client
-    client.close();
-  }
-
-  public static void makeSubscriptionExample(
-      HStreamClient client, String streamName, String subId) {
-    Subscription sub1 =
-        Subscription.newBuilder().subscription(subId).stream(streamName)
-            .ackTimeoutSeconds(600)
-            .build();
-    client.createSubscription(sub1);
-  }
-
-  public static void consumeDataFromSubscriptionSharedExample(
-      HStreamClient client, String subscription, String consumerName) {
-    HRecordReceiver receiver =
-        ((hRecord, responder) -> {
-          System.out.println("Received a record :" + hRecord.getHRecord());
-          responder.ack();
-        });
-    Consumer consumer =
-        client
-            .newConsumer()
-            .subscription(subscription)
-            .name(consumerName)
-            .hRecordReceiver(receiver)
-            .build();
-    try {
-      // sleep 5s for consuming records
-      consumer.startAsync().awaitRunning();
-      consumer.awaitTerminated(5, SECONDS);
-    } catch (TimeoutException e) {
-      // stop consumer
-      consumer.stopAsync().awaitTerminated();
-    }
-  }
-}
+```java
+// ConsumeDataSharedExample.java
 ```
 
 ## Flow Control with `maxUnackedRecords`
@@ -241,7 +111,7 @@ Consumers could fail in other scenarios, such as network, deleted subscriptions,
 etc. However, as a service, you may want the consumer to keep running, so you
 can register a listener to handle a failed consumer:
 
-```Java
+```java
 // add Listener for handling failed consumer
 var threadPool = new ScheduledThreadPoolExecutor(1);
 consumer.addListener(

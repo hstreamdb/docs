@@ -18,35 +18,8 @@ Subscription 的属性
 
 当创建一个 subscription 时，你可以像这样提供提到的属性：
 
-```Java
-import io.hstream.HStreamClient;
-import io.hstream.Subscription;
-
-public class CreateSubscriptionExample {
-  public static void main(String[] args) throws Exception {
-    // TODO(developer): Replace these variables before running the sample.
-    String serviceUrl = "127.0.0.1:6570";
-    if (System.getenv("serviceUrl") != null) {
-      serviceUrl = System.getenv("serviceUrl");
-    }
-    String streamName = "your-stream-name";
-
-    HStreamClient client = HStreamClient.builder().serviceUrl(serviceUrl).build();
-    createSubscriptionExample(client, streamName);
-    client.close();
-  }
-
-  public static void createSubscriptionExample(HStreamClient client, String streamName) {
-    // TODO: Specify the options while creating the subscription
-    String subscriptionId = "your-subscription-id";
-    Subscription subscription =
-        Subscription.newBuilder().subscription(subscriptionId).stream(streamName)
-            .ackTimeoutSeconds(600)   // The default setting is 600 seconds
-            .maxUnackedRecords(10000) // The default setting is 10000 records
-            .build();
-    client.createSubscription(subscription);
-  }
-}
+```java
+// CreateSubscriptionExample.java
 ```
 
 ## 删除一个订阅
@@ -61,54 +34,12 @@ public class CreateSubscriptionExample {
 的名字创建一个订阅，这个订阅将是一个全新的订阅。即使他们订阅的是同一个流，这个新
 的订阅也不会与被删除的订阅共享消费进度。
 
-```Java
-import io.hstream.HStreamClient;
-
-public class DeleteSubscriptionExample {
-  public static void main(String[] args) throws Exception {
-    // TODO(developer): Replace these variables before running the sample.
-    String serviceUrl = "127.0.0.1:6570";
-    if (System.getenv("serviceUrl") != null) {
-      serviceUrl = System.getenv("serviceUrl");
-    }
-    String subscriptionId = "your-subscription-id";
-    HStreamClient client = HStreamClient.builder().serviceUrl(serviceUrl).build();
-    deleteSubscriptionForceExample(client, subscriptionId);
-    client.close();
-  }
-
-  public static void deleteSubscriptionForceExample(HStreamClient client, String streamName) {
-    client.deleteStream(streamName, true);
-  }
-}
+```java
+// DeleteSubscriptionExample.java
 ```
 
 ## 列出 HStream 中的 subscription 信息
 
-```Java
-import io.hstream.HStreamClient;
-import io.hstream.Subscription;
-import java.util.List;
-
-public class ListSubscriptionExample {
-
-  public static void main(String[] args) throws Exception {
-    // TODO(developer): Replace these variables before running the sample.
-    String serviceUrl = "127.0.0.1:6570";
-    if (System.getenv("serviceUrl") != null) {
-      serviceUrl = System.getenv("serviceUrl");
-    }
-
-    HStreamClient client = HStreamClient.builder().serviceUrl(serviceUrl).build();
-    listSubscriptionExample(client);
-    client.close();
-  }
-
-  public static void listSubscriptionExample(HStreamClient client) {
-    List<Subscription> subscriptions = client.listSubscriptions();
-    for (Subscription subscription : subscriptions) {
-      System.out.println(subscription.getSubscriptionId());
-    }
-  }
-}
+```java
+// ListSubscriptionsExample.java
 ```
