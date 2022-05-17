@@ -53,6 +53,8 @@ en:
   #           title: Stream Processing with SQL
   - title: Deployment
     children:
+      - path: deployment/deploy-helm
+        title: Running on Kubernetes by helm
       - path: deployment/deploy-k8s
         title: Running on Kubernetes
       - path: deployment/deploy-docker
@@ -179,8 +181,10 @@ zh:
   #           title: 基于 SQL 的流处理
   - title: 部署
     children:
+      - path: deployment/deploy-helm
+        title: 在 Kubernetes 上通过 helm 部署
       - path: deployment/deploy-k8s
-        title: 在 Kubernetes 上运行
+        title: 在 Kubernetes 上部署
       - path: deployment/deploy-docker
         title: 用 Docker 手动部署
       - path: deployment/quick-deploy-ssh

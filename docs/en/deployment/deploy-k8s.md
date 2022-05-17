@@ -84,7 +84,7 @@ HStreamDB cluster.
 
 ```sh
 git clone git@github.com:hstreamdb/hstream.git
-cd hstream/k8s
+cd hstream/deploy/k8s
 ```
 
 ### Update Configuration
