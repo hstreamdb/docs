@@ -64,9 +64,9 @@ kubectl exec -it hstream-1 -- bash -c "hadmin server status"
 +---------+---------+------------------+
 ```
 
-## 管理存储集群
+## Manage HStore Cluster  
 
-Now you can run `hadmin store` to manage the cluster:
+Now you can run `hadmin store` to manage the hstore cluster:
 
 ```
 kubectl exec -it my-hstream-0 -- bash -c "hadmin store --help"
