@@ -297,4 +297,4 @@ Terraform 还提供了命令来根据创建资源所使用的 TCL 文件来删�
 terraform apply -destroy
 ```
 
-（注意：截至 2020 年2 月 25 日，华为云在应用该命令时不会删除创建计算实例创建的磁盘）。
+如果要让华为云在应用该命令时一同删除创建计算实例创建的磁盘，需要在资源 `huaweicloud_compute_instance` 块中加上 `delete_disks_on_termination = true`。
