@@ -144,7 +144,7 @@ docker exec -it some-hstream-cli hstream-client --port 6570 --client-id 2
 
 ## 向 stream 中写入数据
 
-输入并运行以下所有 `INSERT` 语句，然后关注我们之创建的 CLI 窗口。
+输入并运行以下所有 `INSERT` 语句，然后关注我们之前创建的 CLI 窗口。
 
 ```sql
 INSERT INTO demo (temperature, humidity) VALUES (22, 80);
