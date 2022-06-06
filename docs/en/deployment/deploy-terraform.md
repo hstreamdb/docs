@@ -3,7 +3,7 @@
 This document describes how to deploy HStream on AWS with Terraform.
 
 You can download related resources from
-[hstreamdb/terraform](git@github.com:hstreamdb/terraform.git):
+[hstreamdb/terraform](https://github.com/hstreamdb/terraform):
 
 ```shell
 git clone git@github.com:hstreamdb/terraform.git
