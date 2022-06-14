@@ -54,7 +54,7 @@ en:
   - title: Deployment
     children:
       - path: deployment/deploy-helm
-        title: Running on Kubernetes by helm
+        title: Running on Kubernetes by Helm
       - path: deployment/deploy-k8s
         title: Running on Kubernetes
       - path: deployment/deploy-docker
@@ -63,8 +63,15 @@ en:
         title: Quick Deployment with Docker and SSH
       - path: deployment/deploy-terraform
         title: Deploy HStream with Terraform
+
+  - title: Monitoring
+    children:
+      - path: admin/grafana.md
+        title: Monitoring HStreamDB Using Grafana
+
   - path: admin/admin.md
-    title: HStream Admin
+    title: HStream Admin CLI
+
   - title: Security
     children:
       - path: security/overview

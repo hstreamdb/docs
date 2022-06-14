@@ -1,6 +1,6 @@
-# HStream Admin
+# HStream Admin CLI
 
-We can run the following to use hstream admin:
+We can run the following to use HStream Admin CLI:
 
 ```sh
 docker run -it --rm --name some-hstream-admin --network host hstreamdb/hstream:v0.8.0 hadmin --help
