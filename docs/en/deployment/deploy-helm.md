@@ -1,4 +1,4 @@
-# Running on Kubernetes by helm
+# Running on Kubernetes by Helm
 
 This document describes how to run HStreamDB kubernetes using the helm chart that we
 provide. The document assumes basic previous kubernetes knowledge. By the end of
@@ -24,7 +24,7 @@ cd hstream/deploy/chart/hstream/
 helm dependency build .
 ```
 
-### Deploy HStreamDB by helm
+### Deploy HStreamDB by Helm
 
 ```sh
 helm install my-hstream .
@@ -64,7 +64,7 @@ kubectl exec -it hstream-1 -- bash -c "hadmin server status"
 +---------+---------+------------------+
 ```
 
-## Manage HStore Cluster  
+## Manage HStore Cluster
 
 Now you can run `hadmin store` to manage the hstore cluster:
 
