@@ -6,7 +6,7 @@ deploy the Grafana and its corresponding tools along with HStreamDB instances.
 
 ## Architecture Overview and Development Instructions
 
-![Architecture Overview](./grafana/ao.png)
+<!-- ![Architecture Overview](./grafana/ao.png) -->
 
 A binary of HStream HTTP Server can be downloaded from
 the [release page](https://github.com/hstreamdb/http-services/releases). Start the HTTP Server
