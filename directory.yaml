@@ -61,8 +61,6 @@ en:
         title: Manual Deployment with Docker
       - path: deployment/quick-deploy-ssh
         title: Quick Deployment with Docker and SSH
-      # - path: deployment/deploy-terraform
-      #   title: Deploy HStream with Terraform
 
   - title: Monitoring
     children:
@@ -196,10 +194,7 @@ zh:
         title: 用 Docker 手动部署
       - path: deployment/quick-deploy-ssh
         title: 使用 Docker 和 SSH 快速部署
-      # - path: deployment/deploy-terraform-huaweicloud
-      #   title: 使用 Terraform 在华为云部署 HStream
-      # - path: deployment/deploy-terraform-aliyun
-      #   title: 使用 Terraform 在阿里云部署 HStream
+
   - path: admin/admin.md
     title: HStream Admin
   - title: 安全功能
