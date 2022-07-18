@@ -3,7 +3,7 @@
 我们可以运行以下命令来使用 hstream admin：
 
 ```sh
-docker run -it --rm --name some-hstream-admin --network host hstreamdb/hstream:v0.7.1 hadmin --help
+docker run -it --rm --name some-hstream-admin --network host hstreamdb/hstream:v0.8.0 hadmin --help
 ======= HStream Admin CLI =======
 
 Usage: hadmin COMMAND
@@ -22,23 +22,10 @@ Available commands:
 
 ```sh
 docker exec -it docker_hserver0_1 bash
-> hadmin --help
-======= HStream Admin CLI =======
-
-Usage: hadmin COMMAND
-
-Available options:
-  -h,--help                Show this help text
-
-Available commands:
-  server                   Admin command
-  store                    Internal store admin command
+$ hadmin server --help
 ```
 
-## 服务端相关的命令
-
-```sh
-> hadmin server --help
+```
 Usage: hadmin server [--host SERVER-HOST] [--port INT]
                      [--log-level [critical|fatal|warning|info|debug]]
                      (COMMAND | COMMAND)
@@ -60,7 +47,7 @@ Available commands:
   status                   Get the status of the HServer cluster
 ```
 
-### 检查集群状态
+## 检查集群状态
 
 ```sh
 > hadmin server status
@@ -72,9 +59,9 @@ Available commands:
 +---------+---------+-------------------+
 ```
 
-### 资源管理
+## 资源管理
 
-#### Streams
+### Streams
 
 ```sh
 > hadmin server stream create --name s1
@@ -87,7 +74,7 @@ OK
 +------+----------------------+
 ```
 
-#### Subscriptions
+### Subscriptions
 
 ```sh
 > hadmin server sub create --name sub1 --stream s1
@@ -100,15 +87,43 @@ OK
 +------+-------------+---------+
 ```
 
-### 数据统计 (HSteam Metrics)
+## 数据统计 (HStream Stats)
+
+```
+hadmin server stats <stats_category> <stats_name>
+```
+
+- stream_counter
+  + `append_total`
+  + `append_failed`
+- stream
+  + `appends` or `append_in_bytes`
+  + `append_in_record`
+  + `append_in_requests`
+  + `append_failed_requests`
+- subscription_counter
+  + `resend_records`
+- subscription
+  + `sends` or `send_out_bytes`
+  + `send_out_records`
+  + `acks` or `acknowledgements`
+  + `request_messages`
+  + `response_messages`
+
+更详细的解释请阅读 [hstream metrics](../reference/metrics.md)。
+
+### 示例
 
 ```sh
-> hadmin server stats --sql "select * from append_throughput"
-+-------------+-----------------+-----------------+------------------+
-| stream_name | throughput_1min | throughput_5min | throughput_10min |
-+-------------+-----------------+-----------------+------------------+
-| s1          | 38              | 11              | 6                |
-+-------------+-----------------+-----------------+------------------+
+hadmin server stats stream appends
+```
+
+```
++-------------+--------------+--------------+---------------+
+| stream_name | appends_1min | appends_5min | appends_10min |
++-------------+--------------+--------------+---------------+
+| s1          | 3570393      | 3570572      | 3570604       |
++-------------+--------------+--------------+---------------+
 ```
 
 ## 交互式 SQL shell
@@ -124,22 +139,38 @@ sql>
 
 使用 `show tables;` 来获得从服务器上收集的所有 value tables 。它解释了所有存在的数据。
 
-```sh
+```
 sql> show tables;
-+-------------------+------------------------------------------+
-|       Table       |               Description                |
-+-------------------+------------------------------------------+
-| streams           | A  table that  lists the streams created |
-|                   | in the cluster.                          |
-+-------------------+------------------------------------------+
-|                   | For   each  server   node,  reports  the |
-| read_throughput   | estimated   per-stream  read  throughput |
-|                   | over various time periods.               |
-+-------------------+------------------------------------------+
-|                   | For   each  server   node,  reports  the |
-| append_throughput | estimated  per-stream append  throughput |
-|                   | over various time periods.               |
-+-------------------+------------------------------------------+
++-------------------------------+------------------------------------------+
+|             Table             |               Description                |
++-------------------------------+------------------------------------------+
+| streams                       | A  table that  lists the streams created |
+|                               | in the cluster.                          |
++-------------------------------+------------------------------------------+
+|                               | For   each  server   node,  reports  the |
+| server_append_request_latency | estimated  percentiles latency of server |
+|                               | append request                           |
++-------------------------------+------------------------------------------+
+|                               | For   each  server   node,  reports  the |
+| server_append_latency         | estimated  percentiles latency of server |
+|                               | appends                                  |
++-------------------------------+------------------------------------------+
+| append_total_counter          | Total append requests server received.   |
++-------------------------------+------------------------------------------+
+|                               | For   each  server   node,  reports  the |
+| append_throughput             | estimated  per-stream append  throughput |
+|                               | over various time periods.               |
++-------------------------------+------------------------------------------+
+|                               | For   each  server   node,  reports  the |
+| subscription_throughput       | estimated  per-stream append  throughput |
+|                               | over various time periods.               |
++-------------------------------+------------------------------------------+
+|                               | For   each  server   node,  reports  the |
+| read_throughput               | estimated   per-stream  read  throughput |
+|                               | over various time periods.               |
++-------------------------------+------------------------------------------+
+| append_failed_counter         | Failed append requests.                  |
++-------------------------------+------------------------------------------+
 ```
 
 ```sh

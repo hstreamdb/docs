@@ -1,9 +1,9 @@
-# HStream Admin
+# HStream Admin CLI
 
-We can run the following to use hstream admin:
+We can run the following to use HStream Admin CLI:
 
 ```sh
-docker run -it --rm --name some-hstream-admin --network host hstreamdb/hstream:v0.7.1 hadmin --help
+docker run -it --rm --name some-hstream-admin --network host hstreamdb/hstream:v0.8.0 hadmin --help
 ======= HStream Admin CLI =======
 
 Usage: hadmin COMMAND
@@ -90,40 +90,34 @@ OK
 +------+-------------+---------+
 ```
 
-## HSteam Stats
+## HStream Stats
 
 ```
 hadmin server stats <stats_category> <stats_name>
 ```
 
-### stream_counter
+- stream_counter
+  + `append_total`
+  + `append_failed`
+- stream
+  + `appends` or `append_in_bytes`
+  + `append_in_record`
+  + `append_in_requests`
+  + `append_failed_requests`
+- subscription_counter
+  + `resend_records`
+- subscription
+  + `sends` or `send_out_bytes`
+  + `send_out_records`
+  + `acks` or `acknowledgements`
+  + `request_messages`
+  + `response_messages`
 
-- `append_total`
-- `append_failed`
-
-### stream
-
-- `appends` or `append_in_bytes`
-- `append_in_record`
-- `append_in_requests`
-- `append_failed_requests`
-
-### subscription_counter
-
-- `resend_records`: Total number of all resend records
-
-### subscription
-
-- `sends` or `send_out_bytes`
-- `send_out_records`
-- `acks` or `acknowledgements`
-- `request_messages`
-- `response_messages`
+For the full list of stats and explanations, please read [hstream metrics](../reference/metrics.md)
 
 ### Examples
 
 ```sh
-
 hadmin server stats stream appends
 ```
 

@@ -23,56 +23,69 @@ en:
         title: Stream and Streaming Data
       - path: concepts/transparent-sharding
         title: Transparent Sharding
-          ## - title: Client API
-          ##   children:
-          ##     - title: Java SDK
-          ##       children:
-          ##         - path: client_api/java-sdk/installation
-          ##           title: Installation
-          ##         - path: client_api/java-sdk/connect
-          ##           title: Connect
-          ##         - path: client_api/java-sdk/stream
-          ##           title: Streams
-          ##         - path: client_api/java-sdk/subscription
-          ##           title: Subscriptions
-          ##         - path: client_api/java-sdk/write
-          ##           title: Write Data
-          ##         - path: client_api/java-sdk/consume
-          ##           title: Consume Data
-          ##         - path: client_api/java-sdk/query
-          ##           title: Stream Processing with SQL
   - title: Guides
     children:
       - path: guides/write
-        title: Write records to streams
+        title: Write Records to Streams
+      - path: guides/read
+        title: Consume Records with Subscriptions
+      - path: guides/stream
+        title: Create and Manage Streams
+      - path: guides/subscription
+        title: Create and Manage Subscriptions
+  # - title: Client API
+  #   children:
+  #     - title: Java SDK
+  #       children:
+  #         - path: client_api/java-sdk/installation
+  #           title: Installation
+  #         - path: client_api/java-sdk/connect
+  #           title: Connect
+  #         - path: client_api/java-sdk/stream
+  #           title: Streams
+  #         - path: client_api/java-sdk/subscription
+  #           title: Subscriptions
+  #         - path: client_api/java-sdk/write
+  #           title: Write Data
+  #         - path: client_api/java-sdk/consume
+  #           title: Consume Data
+  #         - path: client_api/java-sdk/query
+  #           title: Stream Processing with SQL
   - title: Deployment
     children:
+      - path: deployment/deploy-helm
+        title: Running on Kubernetes by Helm
       - path: deployment/deploy-k8s
         title: Running on Kubernetes
       - path: deployment/deploy-docker
         title: Manual Deployment with Docker
       - path: deployment/quick-deploy-ssh
         title: Quick Deployment with Docker and SSH
-      - path: deployment/deploy-terraform
-        title: Deploy HStream with Terraform
+
+  - title: Monitoring
+    children:
+      - path: monitoring/grafana.md
+        title: Monitoring HStreamDB Using Grafana
+
   - path: admin/admin.md
-    title: HStream Admin
+    title: HStream Admin CLI
+
   - title: Security
     children:
-    - path: security/overview
-      title: Overview
-    - path: security/encryption
-      title: Encryption
-    - path: security/authentication
-      title: Authentication
-  - title: HStream Metrics
-    path: metrics/hstream-metrics
+      - path: security/overview
+        title: Overview
+      - path: security/encryption
+        title: Encryption
+      - path: security/authentication
+        title: Authentication
   - title: Release notes
     path: release_notes/HStreamDB
   - title: Reference
     children:
       - path: reference/config
         title: HStreamDB Configuration
+      - path: reference/metrics
+        title: HStream Metrics
       - title: HStream SQL
         children:
           - path: reference/sql/sql-overview
@@ -143,34 +156,45 @@ zh:
         title: 使用 Docker-Compose 快速上手
       - path: start/cli
         title: 使用命令行界面（HStream SQL Shell）
-  - title: Client API
+  - title: 用户指南
     children:
-      - title: Java SDK
-        children:
-          - path: client_api/java-sdk/installation
-            title: 安装
-          - path: client_api/java-sdk/connect
-            title: 连接
-          - path: client_api/java-sdk/stream
-            title: 流（Streams）
-          - path: client_api/java-sdk/subscription
-            title: 订阅
-          - path: client_api/java-sdk/write
-            title: 写入数据
-          - path: client_api/java-sdk/consume
-            title: 消费数据
-          - path: client_api/java-sdk/query
-            title: 基于 SQL 的流处理
+      - path: guides/write
+        title: 向 Stream 写入 Records
+      - path: guides/read
+        title: 通过订阅（Subscription）消费数据
+      - path: guides/stream
+        title: 创建和管理 Stream
+      - path: guides/subscription
+        title: 创建和管理 Subscriptions
+  # - title: Client API
+  #   children:
+  #     - title: Java SDK
+  #       children:
+  #         - path: client_api/java-sdk/installation
+  #           title: 安装
+  #         - path: client_api/java-sdk/connect
+  #           title: 连接
+  #         - path: client_api/java-sdk/stream
+  #           title: 流（Streams）
+  #         - path: client_api/java-sdk/subscription
+  #           title: 订阅
+  #         - path: client_api/java-sdk/write
+  #           title: 写入数据
+  #         - path: client_api/java-sdk/consume
+  #           title: 消费数据
+  #         - path: client_api/java-sdk/query
+  #           title: 基于 SQL 的流处理
   - title: 部署
     children:
+      - path: deployment/deploy-helm
+        title: 在 Kubernetes 上通过 helm 部署
       - path: deployment/deploy-k8s
-        title: 在 Kubernetes 上运行
+        title: 在 Kubernetes 上部署
       - path: deployment/deploy-docker
         title: 用 Docker 手动部署
       - path: deployment/quick-deploy-ssh
         title: 使用 Docker 和 SSH 快速部署
-      - path: deployment/deploy-terraform
-        title: 使用 Terraform 部署 HStream
+
   - path: admin/admin.md
     title: HStream Admin
   - title: 安全功能

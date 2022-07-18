@@ -1,5 +1,101 @@
 # HStreamDB release notes
 
+## v0.8.0 [2022-04-29]
+
+### HServer
+
+#### New Features
+
+- Add [mutual TLS support](../security/overview.md)
+- Add `maxUnackedRecords` option in Subscription: The option controls the
+  maximum number of unacknowledged records allowed. When the amount of unacked
+  records reaches the maximum setting, the server will stop sending records to
+  consumers, which can avoid the accumulation of unacked records impacting the
+  performance of the server and consumers. We suggest users adjust the option
+  based on the consumption performance of their application.
+- Add `backlogDuration` option in Streams: the option determines how long
+  HStreamDB will store the data in the stream. The data will be deleted and
+  become inaccessible when it exceeds the time set.
+- Add `maxRecordSize` option in Streams: Users can use the option to control the
+  maximum size of a record batch in the stream when creating a stream. If the
+  record size exceeds the value, the server will return an error.
+- Add more metrics for HStream Server.
+- Add compression configuration for HStream Server.
+
+#### Enhancements
+
+- [breaking changes] Simplify protocol, refactored codes and improve the
+  performance of the subscription
+- Optimise the implementation and improve the performance of resending
+- Improve the reading performance for the HStrore client.
+- Improve how duplicated acknowledges are handled in the subscription
+- Improve subscription deletion
+- Improve stream deletion
+- Improve the consistent hashing algorithm of the cluster
+- Improve the handling of internal exceptions for the HStream Server
+- Optimise the setup steps of the server
+- Improve the implementation of the stats module
+
+#### Bug fixes
+
+- Fix several memory leaks caused by grpc-haskell
+- Fix several zookeeper client issues
+- Fix the problem that the checkpoint store already exists during server
+  startup
+- Fix the inconsistent handling of the default key during the lookupStream
+  process
+- Fix the problem of stream writing error when the initialisation of hstore
+  loggroup is incompleted
+- Fix the problem that hstore client writes incorrect data
+- Fix an error in allocating to idle consumers on subscriptions
+- Fix the memory allocation problem of hstore client's ``appendBatchBS`` function
+- Fix the problem of losing retransmitted data due to the unavailability of the
+  original consumer
+- Fix the problem of data distribution caused by wrong workload sorting
+
+### Java Client
+
+#### New Features
+
+- Add TLS support
+- Add `FlowControlSetting` setting for `BufferedProducer`
+- Add `maxUnackedRecords` setting for subscription
+- Add `backlogDurantion` setting for stream
+- Add force delete support for subscription
+- Add force delete support for stream
+
+#### Enhancements
+
+- [Breaking change] Improve `RecordId` as opaque `String`
+- Improve the performance of `BufferedProducer`
+- Improve `Responder` with batched acknowledges for better performance
+- Improve `BufferedProducerBuilder` to use `BatchSetting` with unified
+  `recordCountLimit`, `bytesCountLimit`, `ageLimit` settings
+- Improve the description of API in javadoc
+
+#### Bug fixes
+
+- Fix `streamingFetch` is not canceled when `Consumer` is closed
+- Fix missing handling for grpc exceptions in `Consumer`
+- Fix the incorrect computation of accumulated record size in `BufferedProducer`
+
+### Go Client
+
+- hstream-go v0.1.0 has been released. For a more detailed introduction and usage,
+please check the [Github repository](https://github.com/hstreamdb/hstreamdb-go).
+
+### Admin Server
+
+- a new admin server has been released, see [Github repository](https://github.com/hstreamdb/http-services)
+
+### Tools
+
+- Add [bench tools](https://github.com/hstreamdb/bench)
+- [dev-deploy] Support limiting resources of containers
+- [dev-deploy] Add configuration to restart containers
+- [dev-deploy] Support uploading all configuration files in deploying
+- [dev-deploy] Support deployments with Prometheus Integration
+
 ## v0.7.0 [2022-01-28]
 
 ### Features
@@ -10,8 +106,8 @@ HStreamDB has already supported the storage and management of large-scale data
 streams. With the newly added cluster support in the last release, we decided to
 improve a single stream's scalability and reading/writing performance with a
 transparent sharding strategy. In HStreamDB v0.7, every stream is spread across
-multiple server nodes, but it it appears to user that a stream with partitions
-is managed as an entity. Therefore, users do not need to specify the number of
+multiple server nodes, but it appears to users that a stream with partitions is
+managed as an entity. Therefore, users do not need to specify the number of
 shards or any sharding logic in advance.
 
 In the current implementation, each record in a stream should contain an
@@ -51,7 +147,8 @@ HStreamDB end-users.
 - Support one-step docker-compose for quick-start:
   [Quick Start With Docker Compose](../start/quickstart-with-docker.md)
 
-**To make use of HStreamDB v0.7, please use [hstreamdb-java v0.7.0](https://github.com/hstreamdb/hstreamdb-java) and above**
+**To make use of HStreamDB v0.7, please use
+[hstreamdb-java v0.7.0](https://github.com/hstreamdb/hstreamdb-java) and above**
 
 ## v0.6.0 [2021-11-04]
 

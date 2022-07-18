@@ -81,7 +81,7 @@ docker-compose -f quick-start.yaml logs -f hserver
 ## 启动 HStreamDB 的 SQL 命令行界面
 
 ```sh
-docker run -it --rm --name some-hstream-cli --network host hstreamdb/hstream:v0.7.1 hstream-client --port 6570 --client-id 1
+docker run -it --rm --name some-hstream-cli --network host hstreamdb/hstream:v0.8.0 hstream-client --port 6570 --client-id 1
 ```
 
 如果所有的步骤都正确运行，您将会进入到命令行界面，并且能看见一下帮助信息：
@@ -144,7 +144,7 @@ docker exec -it some-hstream-cli hstream-client --port 6570 --client-id 2
 
 ## 向 stream 中写入数据
 
-输入并运行以下所有 `INSERT` 语句，然后关注我们之创建的 CLI 窗口。
+输入并运行以下所有 `INSERT` 语句，然后关注我们之前创建的 CLI 窗口。
 
 ```sql
 INSERT INTO demo (temperature, humidity) VALUES (22, 80);
