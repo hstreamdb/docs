@@ -64,10 +64,7 @@ See [SELECT (Stream)](statements/select-stream.md).
 
 ```sql
 SELECT <* | expression [ AS field_alias ] [, ...]>
-  FROM stream_name_1
-       [ join_type JOIN stream_name_2
-         WITHIN (some_interval)
-         ON stream_name_1.field_1 = stream_name_2.field_2 ]
+  FROM stream_name [, ...]
   [ WHERE search_condition ]
   [ GROUP BY field_name [, window_type] ]
   EMIT CHANGES;
