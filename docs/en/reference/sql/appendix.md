@@ -55,7 +55,6 @@ Appendix
 | `HAVING`          | filter select values by a condition                                                      |
 | `HOPPING`         | hopping window                                                                           |
 | `IFNULL`          | if the first argument is `NULL` returns the second, else the first                       |
-| `INNER`           | joining type, used with `JOIN`                                                           |
 | `INSERT`          | insert data into a stream, used with `INTO`                                              |
 | `INTERVAL`        | prefix of interval constant                                                              |
 | `INTO`            | insert data into a stream, used with `INSERT`                                            |
@@ -80,7 +79,6 @@ Appendix
 | `MONTH`           | interval unit                                                                            |
 | `NOT`             | logical not operator                                                                     |
 | `NULLIF`          | returns `NULL` if the first argument is equal to the second, otherwise the first         |
-| `ON`              | specify conditions, used with `JOIN`                                                     |
 | `OR`              | logical or operator                                                                      |
 | `ORDER`           | sort values by certain conditions, used with `BY`                                        |
 | `OUTER`           | joining type, used with `JOIN`                                                           |
@@ -89,11 +87,11 @@ Appendix
 | `ROUND`           | rounds a number to the nearest integer                                                   |
 | `SECOND`          | interval unit                                                                            |
 | `SELECT`          | query a stream                                                                           |
-| `SESSION`         | session window                                                                           |
 | `SHOW`            | show something to stdout                                                                 |
 | `SIGN`            | return the sign of a numeric value as an INTEGER                                         |
 | `SIN`             | sine                                                                                     |
 | `SINH`            | hyperbolic sine                                                                          |
+| `SLIDING`         | sliding window                                                                           |
 | `SQRT`            | square root                                                                              |
 | `STREAM`          | specify a stream, used with `CREATE`                                                     |
 | `STRLEN`          | get the length of a string                                                               |
