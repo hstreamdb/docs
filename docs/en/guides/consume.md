@@ -36,9 +36,21 @@ that does not require your application to block for new messages. Messages can
 be received in your application using a long-running message receiver and
 acknowledged one at a time, as shown in the example below.
 
+:::: tabs
+
+::: tab java
 ```java
 // ConsumeDataSimpleExample.java
 ```
+:::
+
+::: tab go
+```go
+//go
+```
+:::
+
+::::
 
 For better performance, Batched Ack is enabled by default with setting
 `ackBufferSize` = 100 and `ackAgeLimit` = 100, which you can change when
