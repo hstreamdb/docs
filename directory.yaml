@@ -1,22 +1,14 @@
 en:
   - title: Overview
     children:
-      - path: overview/overview
-        title: HStreamDB (HStream Streaming Database) Overview
       - title: HStreamDB Architecture
         children:
-          - path: overview/architecture/overview
-            title: Architecture Overview
           - path: overview/architecture/hstream-store
             title: HStream Store (HStore)
           - path: overview/architecture/hstream-server
             title: HStream Server (HSQL)
   - title: Getting started
-    children:
-      - path: start/quickstart-with-docker
-        title: Quickstart with Docker-Compose
-      - path: start/cli
-        title: HStream SQL Shell Usage
+    path: start/readme
   - title: Concepts
     children:
       - path: concepts/stream
@@ -33,24 +25,6 @@ en:
         title: Create and Manage Streams
       - path: guides/subscription
         title: Create and Manage Subscriptions
-  # - title: Client API
-  #   children:
-  #     - title: Java SDK
-  #       children:
-  #         - path: client_api/java-sdk/installation
-  #           title: Installation
-  #         - path: client_api/java-sdk/connect
-  #           title: Connect
-  #         - path: client_api/java-sdk/stream
-  #           title: Streams
-  #         - path: client_api/java-sdk/subscription
-  #           title: Subscriptions
-  #         - path: client_api/java-sdk/write
-  #           title: Write Data
-  #         - path: client_api/java-sdk/consume
-  #           title: Consume Data
-  #         - path: client_api/java-sdk/query
-  #           title: Stream Processing with SQL
   - title: Deployment
     children:
       - path: deployment/deploy-helm
@@ -61,15 +35,12 @@ en:
         title: Manual Deployment with Docker
       - path: deployment/quick-deploy-ssh
         title: Quick Deployment with Docker and SSH
-
   - title: Monitoring
     children:
-      - path: monitoring/grafana.md
+      - path: monitoring/grafana
         title: Monitoring HStreamDB Using Grafana
-
-  - path: admin/admin.md
-    title: HStream Admin CLI
-
+  - title: HStream CLI
+    path: cli/readme
   - title: Security
     children:
       - path: security/overview
@@ -120,16 +91,6 @@ en:
                 title: Scalar Functions
           - path: reference/sql/appendix
             title: Appendix
-      # - title: Connector
-      #   children:
-      #     - path: connector/overview
-      #       title: Overview
-      #     - title: Tutorial
-      #       children:
-      #         - path: connector/tutorial/MySQL
-      #           title: MySQL
-      #         - path: connector/tutorial/ClickHouse
-      #           title: ClickHouse
 
 zh:
   - title: 概览
@@ -166,24 +127,7 @@ zh:
         title: 创建和管理 Stream
       - path: guides/subscription
         title: 创建和管理 Subscriptions
-  # - title: Client API
-  #   children:
-  #     - title: Java SDK
-  #       children:
-  #         - path: client_api/java-sdk/installation
-  #           title: 安装
-  #         - path: client_api/java-sdk/connect
-  #           title: 连接
-  #         - path: client_api/java-sdk/stream
-  #           title: 流（Streams）
-  #         - path: client_api/java-sdk/subscription
-  #           title: 订阅
-  #         - path: client_api/java-sdk/write
-  #           title: 写入数据
-  #         - path: client_api/java-sdk/consume
-  #           title: 消费数据
-  #         - path: client_api/java-sdk/query
-  #           title: 基于 SQL 的流处理
+
   - title: 部署
     children:
       - path: deployment/deploy-helm
@@ -247,13 +191,3 @@ zh:
             title: Functions
           - path: reference/sql/appendix
             title: Appendix
-    # - children:
-    #     - path: connector/overview
-    #       title: Overview
-    #     - children:
-    #         - path: connector/tutorial/MySQL
-    #           title: MySQL
-    #         - path: connector/tutorial/ClickHouse
-    #           title: ClickHouse
-    #       title: Tutorial
-    #   title: Connector
