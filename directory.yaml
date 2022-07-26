@@ -27,7 +27,7 @@ en:
     children:
       - path: guides/write
         title: Write Records to Streams
-      - path: guides/read
+      - path: guides/consume
         title: Consume Records with Subscriptions
       - path: guides/stream
         title: Create and Manage Streams
@@ -160,7 +160,7 @@ zh:
     children:
       - path: guides/write
         title: 向 Stream 写入 Records
-      - path: guides/read
+      - path: guides/consume
         title: 通过订阅（Subscription）消费数据
       - path: guides/stream
         title: 创建和管理 Stream
