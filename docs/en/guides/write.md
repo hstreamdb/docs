@@ -35,9 +35,25 @@ to the client. The record id is unique in the stream.
 
 ## Write Records Using Producer
 
+:::: tabs
+
+::: tab Java
+
 ```java
 // WriteDataSimpleExample.java
 ```
+
+:::
+
+::: tab Go
+
+```go
+// ExampleWriteDataSimple.go
+```
+
+:::
+
+::::
 
 ## Write Records Using Buffered Producer
 
@@ -53,9 +69,25 @@ example shows how you can use `BatchSetting` to set responding triggers to
 notify when the producer should flush and `FlowControlSetting` to limit maximum
 bytes in a BufferedProducer.
 
+:::: tabs
+
+::: tab Java
+
 ```java
 // WriteDataBufferedExample.java
 ```
+
+:::
+
+::: tab Go
+
+```go
+// ExampleWriteDataBuffered.go
+```
+
+:::
+
+::::
 
 ## Write Records with Ordering Keys
 
@@ -71,6 +103,22 @@ explanation.
 
 You can easily write records with keys using the following example:
 
+:::: tabs
+
+::: tab Java
+
 ```java
 // WriteDataWithKeyExample.java
 ```
+
+:::
+
+::: tab Go
+
+```go
+// ExampleWriteDataWithKey.go
+```
+
+:::
+
+::::
