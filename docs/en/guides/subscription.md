@@ -20,9 +20,25 @@ have to make sure the stream to be subscribed has already been created.
 When creating a subscription, you can provide the attributes mentioned like
 this:
 
+:::: tabs
+
+::: tab Java
+
 ```java
 // CreateSubscriptionExample.java
 ```
+
+:::
+
+::: tab Go
+
+```go
+// ExampleCreateSubscription.go
+```
+
+:::
+
+::::
 
 ## Delete a subscription
 
@@ -40,14 +56,46 @@ subscription will be a brand new subscription. Even if they subscribe to the
 same stream, this new subscription will not share the consumption progress with
 the deleted subscription.
 
+:::: tabs
+
+::: tab Java
+
 ```java
 // DeleteSubscriptionExample.java
 ```
+
+:::
+
+::: tab Go
+
+```go
+// ExampleDeleteSubscription.go
+```
+
+:::
+
+::::
 
 ## List subscriptions
 
 To list all subscriptions in HStream
 
+:::: tabs
+
+::: tab Java
+
 ```java
 // ListSubscriptionsExample.java
 ```
+
+:::
+
+::: tab Go
+
+```go
+// ExampleListSubscriptions.go
+```
+
+:::
+
+::::

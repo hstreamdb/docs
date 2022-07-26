@@ -36,9 +36,25 @@ that does not require your application to block for new messages. Messages can
 be received in your application using a long-running message receiver and
 acknowledged one at a time, as shown in the example below.
 
+:::: tabs
+
+::: tab Java
+
 ```java
 // ConsumeDataSimpleExample.java
 ```
+
+:::
+
+::: tab Go
+
+```go
+// ExampleConsumeDataSimple.go
+```
+
+:::
+
+::::
 
 For better performance, Batched Ack is enabled by default with setting
 `ackBufferSize` = 100 and `ackAgeLimit` = 100, which you can change when
@@ -68,9 +84,25 @@ have a new consumer join the existing subscription. The code is for
 demonstration of how consumers can join the consumer group. Usually, the case is
 that users would have consumers from different clients.
 
+:::: tabs
+
+::: tab Java
+
 ```java
 // ConsumeDataSharedExample.java
 ```
+
+:::
+
+::: tab Go
+
+```go
+// ExampleConsumeDataShared.java
+```
+
+:::
+
+::::
 
 ## Flow Control with `maxUnackedRecords`
 

@@ -24,9 +24,25 @@
 
 Create a stream before you write records or create a subscription.
 
+:::: tabs
+
+::: tab Java
+
 ```java
 // CreateStreamExample.java
 ```
+
+:::
+
+::: tab Go
+
+```go
+// ExampleCreateStream.go
+```
+
+:::
+
+::::
 
 ## Delete a Stream
 
@@ -42,14 +58,46 @@ stream name `__deleted_stream__`, no new subscription creation on the deleted
 stream would be allowed, nor new records would be allowed to be written to the
 stream.
 
+:::: tabs
+
+::: tab Java
+
 ```java
 // DeleteStreamExample.java
 ```
+
+:::
+
+::: tab Go
+
+```go
+// ExampleDeleteStream.go
+```
+
+:::
+
+::::
 
 ## List Streams
 
 To get all streams in HStream:
 
+:::: tabs
+
+::: tab Java
+
 ```java
 // ListStreamsExample.java
 ```
+
+:::
+
+::: tab Go
+
+```go
+// ExampleListStreams.go
+```
+
+:::
+
+::::
