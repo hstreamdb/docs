@@ -120,16 +120,12 @@ en:
                 title: Scalar Functions
           - path: reference/sql/appendix
             title: Appendix
-      # - title: Connector
-      #   children:
-      #     - path: connector/overview
-      #       title: Overview
-      #     - title: Tutorial
-      #       children:
-      #         - path: connector/tutorial/MySQL
-      #           title: MySQL
-      #         - path: connector/tutorial/ClickHouse
-      #           title: ClickHouse
+      - title: HStream IO
+        children:
+          - path: reference/io/overview
+            title: Overview
+          - path: reference/io/user_guides
+            title: User Guides
 
 zh:
   - title: 概览
@@ -247,13 +243,3 @@ zh:
             title: Functions
           - path: reference/sql/appendix
             title: Appendix
-    # - children:
-    #     - path: connector/overview
-    #       title: Overview
-    #     - children:
-    #         - path: connector/tutorial/MySQL
-    #           title: MySQL
-    #         - path: connector/tutorial/ClickHouse
-    #           title: ClickHouse
-    #       title: Tutorial
-    #   title: Connector
