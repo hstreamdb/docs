@@ -1,3 +1,6 @@
+Scalar Functions
+================
+
 Scalar functions operate on one or more values and then return a single value. They can be used wherever a value expression is valid.
 
 Scalar functions are divided into serval kinds.
