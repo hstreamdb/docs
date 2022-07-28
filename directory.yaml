@@ -15,8 +15,6 @@ en:
     children:
       - path: start/quickstart-with-docker
         title: Quickstart with Docker-Compose
-      - path: start/cli
-        title: HStream SQL Shell Usage
   - title: Concepts
     children:
       - path: concepts/stream
@@ -33,24 +31,6 @@ en:
         title: Create and Manage Streams
       - path: guides/subscription
         title: Create and Manage Subscriptions
-  # - title: Client API
-  #   children:
-  #     - title: Java SDK
-  #       children:
-  #         - path: client_api/java-sdk/installation
-  #           title: Installation
-  #         - path: client_api/java-sdk/connect
-  #           title: Connect
-  #         - path: client_api/java-sdk/stream
-  #           title: Streams
-  #         - path: client_api/java-sdk/subscription
-  #           title: Subscriptions
-  #         - path: client_api/java-sdk/write
-  #           title: Write Data
-  #         - path: client_api/java-sdk/consume
-  #           title: Consume Data
-  #         - path: client_api/java-sdk/query
-  #           title: Stream Processing with SQL
   - title: Deployment
     children:
       - path: deployment/deploy-helm
@@ -61,15 +41,12 @@ en:
         title: Manual Deployment with Docker
       - path: deployment/quick-deploy-ssh
         title: Quick Deployment with Docker and SSH
-
   - title: Monitoring
     children:
       - path: monitoring/grafana.md
         title: Monitoring HStreamDB Using Grafana
-
-  - path: admin/admin.md
-    title: HStream Admin CLI
-
+  - title: HStream CLI
+    path: cli/cli
   - title: Security
     children:
       - path: security/overview
@@ -162,24 +139,6 @@ zh:
         title: 创建和管理 Stream
       - path: guides/subscription
         title: 创建和管理 Subscriptions
-  # - title: Client API
-  #   children:
-  #     - title: Java SDK
-  #       children:
-  #         - path: client_api/java-sdk/installation
-  #           title: 安装
-  #         - path: client_api/java-sdk/connect
-  #           title: 连接
-  #         - path: client_api/java-sdk/stream
-  #           title: 流（Streams）
-  #         - path: client_api/java-sdk/subscription
-  #           title: 订阅
-  #         - path: client_api/java-sdk/write
-  #           title: 写入数据
-  #         - path: client_api/java-sdk/consume
-  #           title: 消费数据
-  #         - path: client_api/java-sdk/query
-  #           title: 基于 SQL 的流处理
   - title: 部署
     children:
       - path: deployment/deploy-helm
@@ -190,9 +149,6 @@ zh:
         title: 用 Docker 手动部署
       - path: deployment/quick-deploy-ssh
         title: 使用 Docker 和 SSH 快速部署
-
-  - path: admin/admin.md
-    title: HStream Admin
   - title: 安全功能
     children:
       - path: security/overview

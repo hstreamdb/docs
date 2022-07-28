@@ -13,7 +13,7 @@ You can check [quick-start](https://hstream.io/docs/en/latest/start/quickstart-w
 
 ## Setup a Mysql
 
-Setup a mysql instance by docker(If you want to use your existed mysql instance, please check [link source-mysql]):
+Setup a mysql instance by docker(If you want to use your existed mysql instance, please check [source-mysql](https://github.com/hstreamdb/hstream-connectors/blob/main/docs/connectors/sink-mysql.md)):
 
 ```shell
 docker run --network=hstream-quickstart --name mysql-s1 -e MYSQL_ROOT_PASSWORD=password -d mysql
@@ -40,7 +40,7 @@ the table ``person`` must include a primary key, or ``DELETE`` statement may not
 
 ## Setup a Postgresql
 
-Setup a postgresql instance by docker(If you want to use your existed postgresql instance, please check [link sink-postgresql]):
+Setup a postgresql instance by docker(If you want to use your existed postgresql instance, please check [sink-postgresql](https://github.com/hstreamdb/hstream-connectors/blob/main/docs/connectors/sink-postgresql.md)):
 
 ```shell
 docker run --network=hstream-quickstart --name pg-s1 -e POSTGRES_PASSWORD=postgres -d postgres
@@ -81,8 +81,8 @@ create source connector source01 from mysql with ("host" = "mysql-s1", "port" = 
 
 The source connector will run as a HStream IO task,
 the task will continually synchronize data from mysql table ``d1.person`` to stream ``stream01`` as a synchronization service,
-you can ``insert/update/delete`` records at any time and the change events will be recorded in stream ``stream01``,
-you can use show connectors to check connectors and their status, you can pause and resume the task:
+whenever you update records in mysql and the change events will be recorded in stream ``stream01`` if the connector is running,
+you can use ``show connectors`` to check connectors and their status and use ``pause`` and ``resume`` to start/stop connector:
 
 ```sql
 pause connector source01;

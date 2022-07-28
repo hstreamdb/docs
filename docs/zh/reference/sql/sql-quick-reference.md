@@ -72,14 +72,14 @@ SELECT <* | expression [ AS field_alias ] [, ...]>
 
 ## SELECT (from views)
 
-Get a record from the specified view. The fields to get have to be already in the view.
-It produces one or zero static records and costs little time.
+Get record(s) from the specified view. The fields to get have to be already in the view.
+It produces static record(s) and costs little time.
 See [Select (View)](statements/select-view.md).
 
 ```sql
 SELECT <* | expression [ AS field_alias ] [, ...]>
   FROM view_name
-  WHERE field_name = value_expression;
+  [ WHERE search_condition ];
 ```
 ## INSERT
 
