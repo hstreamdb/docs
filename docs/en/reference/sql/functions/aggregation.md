@@ -1,3 +1,5 @@
+Aggregate Functions
+===================
 Aggregate functions perform a calculation on a set of values and return a single value.
 
 ```sql

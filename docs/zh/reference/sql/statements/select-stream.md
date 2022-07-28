@@ -15,7 +15,7 @@ SELECT <* | expression [ AS field_alias ] [, ...]>
 
 ## Notes
 
-- `expression` can be a field name, a constant, or their association, such as `temperature`, `weather.humidity`, `114514`, `1 + 2` and `SUM(productions)`.
+- `expression` can be a field name, a constant, or their association, such as `temperature`, `weather.humidity`, `114514`, `1 + 2`, `SUM(productions)` and `` `COUNT(*)` ``. Note that the last one is a raw column name which is used when a column name contains function names. See [Special Characters](../sql-overview.md#special-characters).
 - `some_interval` represents a period of time. See [Intervals](../sql-overview.md#intervals).
 - `window_type` specifies the type of time window:
   ```

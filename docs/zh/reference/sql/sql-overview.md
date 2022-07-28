@@ -79,7 +79,7 @@ Functions are special keywords that mean some computation, such as `SUM` and `MI
 
 For a complete list of functions and operators, see the [appendix](appendix.md).
 
-## Special characters
+## Special Characters
 
 There are some special characters in the SQL syntax with particular meanings:
 
@@ -87,8 +87,9 @@ There are some special characters in the SQL syntax with particular meanings:
 - Brackets (`[]`) are used with maps and arrays for accessing their substructures, such as `some_map[temp]` and `some_array[1]`. **Note that it is not supported yet**.
 - Commas (`,`) are used for delineating a list of objects.
 - The semicolons (`;`) represent the end of a SQL statement.
-- The asterisk (`*`) represents "all fields", such as `SELECT * FROM  my_stream;`.
+- The asterisk (`*`) represents "all fields", such as `SELECT * FROM my_stream;`.
 - The period (`.`) is used for accessing a field in a stream, such as `my_stream.humidity`.
+- The back quote (`` ` ``) represents an "raw column name" in the `SELECT` clause to distinguish a column name with functions from actual function applications. For example, `SELECT SUM(a) FROM s EMIT CHANGES;` means applying `SSUM` function on the column `a` from stream `s`. However if the stream `s` actually contains a column called `SUM(a)` and you want to take it out, you can use back quotes like ``SELECT `SUM(a)` FROM s EMIT CHANGES;``.
 
 ## Comments
 
