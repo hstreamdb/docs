@@ -97,6 +97,12 @@ en:
                 title: Scalar Functions
           - path: reference/sql/appendix
             title: Appendix
+      - title: HStream IO
+        children:
+          - path: reference/io/overview
+            title: Overview
+          - path: reference/io/user_guides
+            title: User Guides
 
 zh:
   - title: 概览
