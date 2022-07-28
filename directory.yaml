@@ -31,6 +31,8 @@ en:
         title: Create and Manage Streams
       - path: guides/subscription
         title: Create and Manage Subscriptions
+      - path: guides/sql
+        title: Perform Stream Processing by SQL
   - title: Deployment
     children:
       - path: deployment/deploy-helm
@@ -139,6 +141,8 @@ zh:
         title: 创建和管理 Stream
       - path: guides/subscription
         title: 创建和管理 Subscriptions
+      - path: guides/sql
+        title: 通过 SQL 进行流处理
   - title: 部署
     children:
       - path: deployment/deploy-helm
