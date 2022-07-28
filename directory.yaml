@@ -15,12 +15,12 @@ en:
     children:
       - path: start/quickstart-with-docker
         title: Quickstart with Docker-Compose
-  - title: Concepts
-    children:
-      - path: concepts/stream
-        title: Stream and Streaming Data
-      - path: concepts/transparent-sharding
-        title: Transparent Sharding
+  # - title: Concepts
+  #   children:
+  #     - path: concepts/stream
+  #       title: Stream and Streaming Data
+  #     - path: concepts/transparent-sharding
+  #       title: Transparent Sharding
   - title: Guides
     children:
       - path: guides/write
@@ -117,12 +117,12 @@ zh:
             title: HStream Store (HStore)
           - path: overview/architecture/hstream-server
             title: HStream Server (HSQL)
-  - title: 概念
-    children:
-      - path: concepts/stream
-        title: Stream and Streaming Data
-      - path: concepts/transparent-sharding
-        title: 透明分区
+  # - title: 概念
+  #   children:
+  #     - path: concepts/stream
+  #       title: Stream and Streaming Data
+  #     - path: concepts/transparent-sharding
+  #       title: 透明分区
   - title: 快速上手
     children:
       - path: start/quickstart-with-docker
