@@ -21,40 +21,6 @@ See [CREATE VIEW](statements/create-view.md).
 CREATE VIEW view_name AS select_query;
 ```
 
-## CREATE CONNECTOR
-
-Create a new connector for fetching data from or writing data to an external system with the connector name given. A connector can be either a source or a sink one. **Note that source connector is not supported yet**.
-When creating a connector, its type and its bound stream must be specified in the `WITH` clause. There can be other options such as database name, user name and password.
-There can be an optional `IF NOT EXIST` config to only create the given connector if it does not exist.
-See [CREATE CONNECTOR](statements/create-connector.md).
-
-```sql
-CREATE <SOURCE|SINK> CONNECTOR connector_name [IF NOT EXIST] WITH (connector_option [, ...]);
-```
-
-Keep an eye on the status of the connectors by using
-
-```sql
-SHOW CONNECTORS;
-```
-
-One of the following states is assigned to the connectors:
-
-| state          | description                                                                    |
-|----------------|--------------------------------------------------------------------------------|
-| Creating       | The server has started to process the request                                  |
-| Created        | The connection has been established but it has not started to process the data |
-| CreationAbort  | The process of creating the connection failed and it is frozon                 |
-| Running        | The connector is ready to process requests                                     |
-| ExecutionAbort | The connector failed to execute a SQL statement and it is frozen               |
-| Terminate      | The connector is frozen by a user request                                      |
-
-Please wait for it to finish setting up if the state of the connector is `Creating` or `Created`. You can restart an aborted or terminated connector (in the future). You may also abandon connectors by using
-
-```sql
-DROP connector_name;
-```
-
 ## SELECT (from streams)
 
 Continuously get records from the stream(s) specified as streaming data flows in.
@@ -94,10 +60,9 @@ INSERT INTO stream_name VALUES "binary_value";
 
 ## DROP
 
-Delete a given connector, stream or view. There can be an optional `IF EXISTS` config to only delete the given category if it exists.
+Delete a given stream or view. There can be an optional `IF EXISTS` config to only delete the given category if it exists.
 
 ```sql
-DROP CONNECTOR connector_name [IF EXISTS];
 DROP STREAM    stream_name    [IF EXISTS];
 DROP VIEW      view_name      [IF EXISTS];
 ```
