@@ -2,26 +2,31 @@
 
 import os
 
+FILE_TYPES = {".py": "python", "cpp": "cpp"}
+
 
 def run_snippet_cmd(snippets_root, snippet_file, *labels):
     lines = [[] for _ in labels]
-    with open(os.path.jon(snippets_root, snippet_file), "r") as f:
+    with open(os.path.join(snippets_root, snippet_file), "r") as f:
         idx = None
         for line in f:
             for i, label in enumerate(labels):
                 # first match
-                if idx is None and label in line.strip().strip():
+                if idx is None and f"[{label}]" in line.split():
                     idx = i
                     break
                 # secod match
-                elif idx is not None and label in line.strip().strip():
+                elif idx is not None and f"[{label}]" in line.split():
                     idx = None
                     break
             else:
                 if idx is not None:
                     lines[idx].append(line)
     # TODO: strip indent
-    return "\n\n".join("".join(xs).strip() for xs in lines) + "\n"
+    extension = os.path.splitext(snippet_file)[1]
+    ft = FILE_TYPES[extension]
+    blocks = "\n\n".join("".join(xs).strip() for xs in lines) + "\n"
+    return f"```{ft}\n{blocks}\n```\n"
 
 
 support_commands = [("@snippet", run_snippet_cmd)]
@@ -39,11 +44,11 @@ def run_commands(snippets_root, filepath):
         # for small doc files, this is OK
         lines = f.readlines()
         commands = parse_commands(lines)
-        for linenum, cmds in commands:
+        for cmd_linenum, cmds in commands:
             for support_cmd, fun in support_commands:
                 if cmds[0] == support_cmd:
                     new_lines = fun(snippets_root, *cmds[1:])
-                    lines[linenum] = new_lines
+                    lines[cmd_linenum] = new_lines
 
     with open(filepath, "w") as f:
         f.write("".join(lines))
