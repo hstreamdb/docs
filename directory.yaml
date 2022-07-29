@@ -1,15 +1,15 @@
 en:
-  - title: Overview
+  - title: Introduction 
     children:
-      - path: overview/overview
-        title: HStreamDB (HStream Streaming Database) Overview
-      - title: HStreamDB Architecture
+      - path: introduction/overview
+        title: Overview
+      - title: Architecture
         children:
-          - path: overview/architecture/overview
+          - path: introduction/architecture/overview
             title: Architecture Overview
-          - path: overview/architecture/hstream-store
+          - path: introduction/architecture/hstore
             title: HStream Store (HStore)
-          - path: overview/architecture/hstream-server
+          - path: introduction/architecture/hserver
             title: HStream Server (HSQL)
   - title: Getting started
     children:
@@ -109,17 +109,17 @@ en:
             title: Appendix
 
 zh:
-  - title: 概览
+  - title: 介绍 
     children:
-      - path: overview/overview
-        title: 流数据库 HStream 概览
+      - path: introduction/overview
+        title: 概览
       - title: 架构
         children:
-          - path: overview/architecture/overview
+          - path: introduction/architecture/overview
             title: 概览
-          - path: overview/architecture/hstream-store
+          - path: introduction/architecture/hstore
             title: HStream Store (HStore)
-          - path: overview/architecture/hstream-server
+          - path: introduction/architecture/hserver
             title: HStream Server (HSQL)
   # - title: 概念
   #   children:
