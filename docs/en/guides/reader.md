@@ -1,4 +1,4 @@
-# Get Records from Shards of Streams with Reader
+# Get Records from Shards of the Stream with Reader
 
 ## What is a Reader
 

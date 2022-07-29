@@ -1,5 +1,5 @@
 en:
-  - title: Introduction 
+  - title: Introduction
     children:
       - path: introduction/overview
         title: Overview
@@ -31,6 +31,10 @@ en:
         title: Create and Manage Streams
       - path: guides/subscription
         title: Create and Manage Subscriptions
+      - path: guides/shards
+        title: Manage Shards of the Stream
+      - path: guides/reader
+        title: Get Records from Shards of the Stream with Reader
       - path: guides/sql
         title: Perform Stream Processing by SQL
   - title: Deployment
@@ -115,7 +119,7 @@ en:
             title: Appendix
 
 zh:
-  - title: 介绍 
+  - title: 介绍
     children:
       - path: introduction/overview
         title: 概览
@@ -149,6 +153,10 @@ zh:
         title: 创建和管理 Stream
       - path: guides/subscription
         title: 创建和管理 Subscriptions
+      - path: guides/shards
+        title: 管理 Stream 的分区 （Shard）
+      - path: guides/reader
+        title: 通过 Reader 从 Stream 的分区读取数据
       - path: guides/sql
         title: 通过 SQL 进行流处理
   - title: 部署
