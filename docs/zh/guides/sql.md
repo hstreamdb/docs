@@ -49,7 +49,7 @@ Both two queries output no result now because we have not inserted any data into
 
 ## Step 3: Insert data into streams
 
-To insert data into streams, we can use many methods such as interactive CLI, client libraries and connectors. You can refer to [guides](../write.md) for client usage and [connectors](../reference/sql/statements/create-connector.md) for connectors. Here we use CLI to insert data to streams.
+To insert data into streams, we can use many methods such as interactive CLI, client libraries and HStream IO. You can refer to [guides](../write.md) for client usage and [overview](../io/overview.md) for HStream IO. Here we use CLI to insert data to streams.
 
 Open a new CLI session and run
 
