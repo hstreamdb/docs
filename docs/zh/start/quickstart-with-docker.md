@@ -47,7 +47,7 @@ docker-compose -v
 可以直接[下载][quick-start.yaml]或者复制以下内容:
 
 ```yaml
-## quick-start.yaml
+# quick-start.yaml
 ```
 
 在同一个文件夹中运行：
