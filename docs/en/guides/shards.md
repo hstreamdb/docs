@@ -1,4 +1,4 @@
-# Manage Shards of a Stream
+# Manage Shards of the Stream
 
 ## Sharding in HStreamDB
 
