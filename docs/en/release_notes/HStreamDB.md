@@ -38,11 +38,11 @@ In particular, this release contains the below connectors:
   - [sink-mysql](https://github.com/hstreamdb/hstream-connectors/blob/main/docs/specs/sink_mysql_spec.md)
   - [sink-postgresql](https://github.com/hstreamdb/hstream-connectors/blob/main/docs/specs/sink_postgresql_spec.md)
 
-You can refer to [the documentation](https://hstream.io/docs/en/latest/io/overview.html) for learning more about HStream IO.
+You can refer to [the documentation](../io/overview.md) for learning more about HStream IO.
 
 #### New Stream Processing Engine 
 
-We have rewritten the stream processing engine thoroughly in the interactive and differential style, which improves the throughput by up to 3 orders of magnitude and reduces the latency. It also supports **multi-way joining**, **subqueries** and **more general materialized views**. It is still experimental and you can refer to [this guide](https://hstream.io/docs/en/latest/guides/sql.html) for a quick start.
+We have rewritten the stream processing engine thoroughly in the interactive and differential style, which improves the throughput by up to 3 orders of magnitude and reduces the latency. It also supports **multi-way joining**, **subqueries** and **more general materialized views**. It is still experimental and you can refer to [this guide](../guides/sql.md) for a quick start.
 
 #### Gossip-based HServer Clusters
 
@@ -54,15 +54,15 @@ The deployment and usage in production could involve a complex network setting. 
 
 #### Improved HStream CLI
 
-To make CLI more unified and more straightforward, we have migrated the old HStream SQL Shell and some other node management functionality to the new HStream CLI. HStream CLI currently supports operations such as starting an interacting SQL shell, sending bootstrap initiation and checking server node status. You can refer to [the CLI documentation](https://hstream.io/docs/en/latest/cli/cli.html) for details.
+To make CLI more unified and more straightforward, we have migrated the old HStream SQL Shell and some other node management functionality to the new HStream CLI. HStream CLI currently supports operations such as starting an interacting SQL shell, sending bootstrap initiation and checking server node status. You can refer to [the CLI documentation](../cli/cli.md) for details.
 
 #### Monitoring with Grafana
 
-We provide a basic monitoring solution based on Prometheus and Grafana. Metrics collected by HStreamDB will be stored in Prometheus by the exporter and shown on the Grafana board. For details, refer to [the documentation](https://hstream.io/docs/en/latest/monitoring/grafana.html).
+We provide a basic monitoring solution based on Prometheus and Grafana. Metrics collected by HStreamDB will be stored in Prometheus by the exporter and shown on the Grafana board. For details, refer to [the documentation](../monitoring/grafana.md).
 
 #### Deployment on K8s with Helm
 
-We provide a helm chart supporting deploying HStreamDB on k8s using Helm. You can refer to [the documentation](https://hstream.io/docs/en/latest/deployment/deploy-helm.html#building-your-kubernetes-cluster) for details.
+We provide a helm chart supporting deploying HStreamDB on k8s using Helm. You can refer to [the documentation](../deployment/deploy-helm.md) for details.
 
 
 ### Java Client 
