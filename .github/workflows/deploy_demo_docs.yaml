@@ -17,11 +17,10 @@ jobs:
 
       - name: update embedded file
         run: |
-          wget -O quick-start.yaml https://raw.githubusercontent.com/hstreamdb/hstream/main/docker/quick-start.yaml
           git clone https://github.com/hstreamdb/hstreamdb-java-examples.git
           git clone https://github.com/hstreamdb/hstreamdb-go-examples.git
           npm install embedme
-          npx embedme --source-root $PWD docs-files/docs/*/start/quickstart-with-docker.md
+          npx embedme --source-root $PWD/assets docs-files/docs/*/start/quickstart-with-docker.md
           npx embedme --source-root $PWD/hstreamdb-java-examples/app/src/main/java/docs/code/examples/ docs-files/docs/*/guides/*
           npx embedme --source-root $PWD/hstreamdb-go-examples/examples/ docs-files/docs/*/guides/*
 
