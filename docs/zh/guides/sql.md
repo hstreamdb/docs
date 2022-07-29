@@ -1,7 +1,7 @@
 Perform Stream Processing by SQL
 ===================================
 
-This part provides a demo on performing real-time stream processing by SQL. You can get first understand on basic concepts such as **streams**, **queries** and **vaterialized views**. It also shows some powerful features of our system, such as easy-to-use and low-lantency.
+This part provides a demo on performing real-time stream processing by SQL. You can get first understand on basic concepts such as **streams**, **queries** and **materialized views**. It also shows some powerful features of our system, such as easy-to-use and low-lantency.
 
 ## Overview
 
