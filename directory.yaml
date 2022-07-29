@@ -99,6 +99,12 @@ en:
                 title: SELECT (View)
               - path: reference/sql/statements/insert
                 title: INSERT
+              - path: reference/sql/statements/show
+                title: SHOW
+              - path: reference/sql/statements/pause
+                title: PAUSE
+              - path: reference/sql/statements/resume
+                title: RESUME
           - title: Functions
             children:
               - path: reference/sql/functions/aggregation
@@ -155,6 +161,14 @@ zh:
         title: 用 Docker 手动部署
       - path: deployment/quick-deploy-ssh
         title: 使用 Docker 和 SSH 快速部署
+  - title: HStream IO
+    children:
+      - path: io/overview
+        title: 概览
+      - path: io/user_guides
+        title: 使用指南
+      - path: io/connectors
+        title: Connectors
   - title: 安全功能
     children:
       - path: security/overview
