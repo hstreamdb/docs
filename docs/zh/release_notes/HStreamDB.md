@@ -1,200 +1,293 @@
 # HStreamDB release notes
 
+## v0.9.0 [2022-07-29]
+
+### HStreamDB
+
+#### Highlights
+
+- [Shards in Streams](#shards-in-streams)
+- [HStream IO](#hstream-io)
+- [New Stream Processing Engine](#new-stream-processing-engine) 
+- [Gossip-based HServer Clusters](#gossip-based-hserver-clusters)
+- [Advertised Listeners](#advertised-listeners)
+- [Improved HStream CLI](#improved-hstream-cli)
+- [Monitoring with Grafana](#monitoring-with-grafana)
+- [Deployment on K8s with Helm](#deployment-on-k8s-with-helm)
+
+#### Shards in Streams
+
+We have exposed shards in streams，which gives you the fine-grained control on data distribution in a stream and the ability of accessing data in a shard directly. you can assign each shard  a range of hashes in a stream, and for every ``partitionKey`` of a record whose hash falls within a shard’s range will be stored in that shard. In particular, for now you can:
+
+- determine the initial number of shards while creating a stream
+- distribute records written to a stream among shards by partitionKey
+- access records from any shard directly from the specified position 
+
+And in later releases, you can scale the stream by splitting and merging shards dynamically.
+
+#### HStream IO
+
+HStream IO is a builtin data integration framework for HStreamDB, composed of source connectors, sink connectors and the IO runtime. It allows interconnection with various external systems, facilitating the efficient flow of data across the whole enterprise data stack around HStreamDB and thereby unleashing the value of data more quickly.
+
+In particular, this release contains the below connectors:
+- source connectors: 
+  - [source-mysql](https://github.com/hstreamdb/hstream-connectors/blob/main/docs/specs/sink_mysql_spec.md) 
+  - [souce-postgresql](https://github.com/hstreamdb/hstream-connectors/blob/main/docs/specs/source_postgresql_spec.md) 
+  - [source-sqlserver](https://github.com/hstreamdb/hstream-connectors/blob/main/docs/specs/source_sqlserver_spec.md) 
+- sink connectors: 
+  - [sink-mysql](https://github.com/hstreamdb/hstream-connectors/blob/main/docs/specs/sink_mysql_spec.md)
+  - [sink-postgresql](https://github.com/hstreamdb/hstream-connectors/blob/main/docs/specs/sink_postgresql_spec.md)
+
+You can refer to [the documentation](../io/overview.md) for learning more about HStream IO.
+
+#### New Stream Processing Engine 
+
+We have rewritten the stream processing engine thoroughly in the interactive and differential style, which improves the throughput by up to 3 orders of magnitude and reduces the latency. It also supports **multi-way joining**, **subqueries** and **more general materialized views**. It is still experimental and you can refer to [this guide](../guides/sql.md) for a quick start.
+
+#### Gossip-based HServer Clusters
+
+We refactor the hserver cluster with gossip-based membership and failure detection mainly based on [SWIM](https://ieeexplore.ieee.org/document/1028914) paper, replacing the ZooKeeper-based implementation in the previous version. It will improve the scalability of the cluster and reduce dependencies on external systems.
+
+#### Advertised Listeners
+
+The deployment and usage in production could involve a complex network setting. For example, if the server cluster is hosted internally, it would require an external IP address for clients to connect to the cluster. The use of docker and cloud-hosting can make the situation even more complicated. To ensure that clients from different networks can interact with the cluster, HStreamDB v0.9 provides configurations for advertised listeners. With advertised listeners configured, servers can return the corresponding address for different clients, according to the port to which the client sent the request.
+
+#### Improved HStream CLI
+
+To make CLI more unified and more straightforward, we have migrated the old HStream SQL Shell and some other node management functionality to the new HStream CLI. HStream CLI currently supports operations such as starting an interacting SQL shell, sending bootstrap initiation and checking server node status. You can refer to [the CLI documentation](../cli/cli.md) for details.
+
+#### Monitoring with Grafana
+
+We provide a basic monitoring solution based on Prometheus and Grafana. Metrics collected by HStreamDB will be stored in Prometheus by the exporter and shown on the Grafana board. For details, refer to [the documentation](../monitoring/grafana.md).
+
+#### Deployment on K8s with Helm
+
+We provide a helm chart supporting deploying HStreamDB on k8s using Helm. You can refer to [the documentation](../deployment/deploy-helm.md) for details.
+
+
+### Java Client 
+
+The [Java Client v0.9.0](https://github.com/hstreamdb/hstreamdb-java/releases/tag/v0.9.0) has been released, which adds support for HStreamDB v0.9. 
+
+### Golang Client 
+
+The [Go Client v0.2.0](https://github.com/hstreamdb/hstreamdb-go/releases/tag/v0.2.0) has been released, which adds support for HStreamDB v0.9. 
+
+### Python Client 
+
+The [Python Client v0.2.0](https://github.com/hstreamdb/hstreamdb-py/releases/tag/v0.2.0) has been released, which adds support for HStreamDB v0.9. 
+
 ## v0.8.0 [2022-04-29]
 
-### Server
+### HServer
 
-#### New features
+#### New Features
 
-- 新增 [mutual TLS 支持](../security/overview.md)
-- 新增 Subscription 的配置项 `maxUnackedRecords`：该配置项用于控制每个订阅上已派
-  发但尚未 acked 的最大的 record 的数量，当某个订阅上的未 acked 的数据达到这个配
-  置的最大值后，便会停止该订阅上的数据交付，防止极端情况下造成大量 unacked
-  records 堆积，影响 HServer 和对应 Consumers 的性能表现。建议用户根据自身实际应
-  用场景下的数据消费能力对这一参数进行合理配置。
-- 新增 Stream 的配置项 `backlogDuration`：这个配置决定了当前 Stream 的数据可以在
-  HStreamDB 中驻留多久，超过这个期限的数据将不可访问并被清理。
-- 新增 Stream 的配置项 `maxRecordSize`：在创建 stream 时，用户可以通过该配置来控
-  制当前 stream 支持的最大的数据大小，超过这一阈值的数据会返回写入失败。
-- 新增[多项监控指标](../admin/admin.md#数据统计-hstream-stats)
-- 新增 server 端的[压缩配置](../reference/config.md)
+- Add [mutual TLS support](../security/overview.md)
+- Add `maxUnackedRecords` option in Subscription: The option controls the
+  maximum number of unacknowledged records allowed. When the amount of unacked
+  records reaches the maximum setting, the server will stop sending records to
+  consumers, which can avoid the accumulation of unacked records impacting the
+  performance of the server and consumers. We suggest users adjust the option
+  based on the consumption performance of their application.
+- Add `backlogDuration` option in Streams: the option determines how long
+  HStreamDB will store the data in the stream. The data will be deleted and
+  become inaccessible when it exceeds the time set.
+- Add `maxRecordSize` option in Streams: Users can use the option to control the
+  maximum size of a record batch in the stream when creating a stream. If the
+  record size exceeds the value, the server will return an error.
+- Add more metrics for HStream Server.
+- Add compression configuration for HStream Server.
 
 #### Enhancements
 
-- [breaking change] 简化了订阅的协议，重构并优化了订阅的性能
-- 优化了数据消费超时后的重传的实现，提升了数据重传的效率
-- 优化了 hstore client 读数据的性能
-- 改进了对订阅上重复的 ack 消息的处理
-- 改进了订阅删除的实现
-- 改进了 stream 删除的实现
-- 改进了集群使用的一致性哈希算法
-- 优化了 server 内部的异常处理
-- 优化了 server 启动流程
-- 改进了 stats 模块的实现
+- [breaking changes] Simplify protocol, refactored codes and improve the
+  performance of the subscription
+- Optimise the implementation and improve the performance of resending
+- Improve the reading performance for the HStrore client.
+- Improve how duplicated acknowledges are handled in the subscription
+- Improve subscription deletion
+- Improve stream deletion
+- Improve the consistent hashing algorithm of the cluster
+- Improve the handling of internal exceptions for the HStream Server
+- Optimise the setup steps of the server
+- Improve the implementation of the stats module
 
 #### Bug fixes
 
-- 修复了若干由于 grpc-haskell 引起的内存泄漏问题
-- 修复了若干 zk-client 的问题
-- 修复了 server 启动过程中 checkpoint store 已经存在报错的问题
-- 修复了 `lookupStream` 过程对 `defaultKey` 的处理不一致的问题
-- 修复了 hstore 的 loggroup 初始化完成之前 stream 写入错误的问题
-- 修复了 hstore client 写入数据不正确的问题
-- 修复了在订阅上向空闲 consumer 分配出错的问题
-- 修复了 hstore client 的 `appendBatchBS` 函数的内存分配问题
-- 修复了订阅数据重传过程中由于原 consumer 不可用造成的重传数据丢失的问题
-- 修复了订阅数据派发过程中因为 `Workload` 排序错误引起数据分发的问题
+- Fix several memory leaks caused by grpc-haskell
+- Fix several zookeeper client issues
+- Fix the problem that the checkpoint store already exists during server
+  startup
+- Fix the inconsistent handling of the default key during the lookupStream
+  process
+- Fix the problem of stream writing error when the initialisation of hstore
+  loggroup is incompleted
+- Fix the problem that hstore client writes incorrect data
+- Fix an error in allocating to idle consumers on subscriptions
+- Fix the memory allocation problem of hstore client's ``appendBatchBS`` function
+- Fix the problem of losing retransmitted data due to the unavailability of the
+  original consumer
+- Fix the problem of data distribution caused by wrong workload sorting
 
 ### Java Client
 
-#### New features
+#### New Features
 
-- 新增 TLS 支持
-- 新增 `BufferedProducer` 配置项 `FlowControlSetting`
-- 新增 `Subscription` 配置项 `maxUnackedRecords`
-- 新增 `createStream` 配置项 `backlogDuration`
-- 新增 `Subscription` 的强制删除支持
-- 新增 `Stream` 的强制删除支持
+- Add TLS support
+- Add `FlowControlSetting` setting for `BufferedProducer`
+- Add `maxUnackedRecords` setting for subscription
+- Add `backlogDurantion` setting for stream
+- Add force delete support for subscription
+- Add force delete support for stream
 
 #### Enhancements
 
-- [Breaking change] 改进了 RecordId，新的 RecordID 是一个 opaque string
-- 提高了 `BufferedProducer` 的性能
-- 改进了 `Responder，用分批的` ACKs 提升效率
-- 改进了 record id，用于保证多个 ordering keys 场景下的唯一性
-- 改进了 `BufferedProducerBuilder`，用 `BatchSetting` 统一了 `recordCountLimit`,
-  `recordCountLimit`, `ageLimit` 等配置项
-- 改进了 javadoc 中相关接口的介绍和说明
+- [Breaking change] Improve `RecordId` as opaque `String`
+- Improve the performance of `BufferedProducer`
+- Improve `Responder` with batched acknowledges for better performance
+- Improve `BufferedProducerBuilder` to use `BatchSetting` with unified
+  `recordCountLimit`, `bytesCountLimit`, `ageLimit` settings
+- Improve the description of API in javadoc
 
 #### Bug fixes
 
-- 修复了 Consumer 关闭时，没有取消 `streamingFetch` 的问题
-- 修复了 Consumer 对 gRPC 异常处理的问题
-- 修复了 `BufferedProducer` 对累积的 record size 的错误的计算方法
+- Fix `streamingFetch` is not canceled when `Consumer` is closed
+- Fix missing handling for grpc exceptions in `Consumer`
+- Fix the incorrect computation of accumulated record size in `BufferedProducer`
 
 ### Go Client
 
-hstreamdb-go v0.1.0 现已正式发布，更多详细介绍以及如何使用请参考
-[Github 仓库](https://github.com/hstreamdb/hstreamdb-go)
+- hstream-go v0.1.0 has been released. For a more detailed introduction and usage,
+please check the [Github repository](https://github.com/hstreamdb/hstreamdb-go).
 
 ### Admin Server
 
-负责为多种 CLI 工具提供服务并开放 REST API 的 Admin Server 现已发布，可以通过
-[Github 仓库](https://github.com/hstreamdb/hstreamdb-go) 查看并部署体验。
+- a new admin server has been released, see [Github repository](https://github.com/hstreamdb/http-services)
 
-### Deployment and Benchmark
+### Tools
 
-- 新增了 benchmark 工具
-- [dev-deploy] 新增了限制指定容器资源的支持
-- [dev-deploy] 新增了重启容器的配置
-- [dev-deploy] 新增了在部署时上传所有配置文件的支持
-- [dev-deploy] 新增了与 Prometheus 集成的部署支持
+- Add [bench tools](https://github.com/hstreamdb/bench)
+- [dev-deploy] Support limiting resources of containers
+- [dev-deploy] Add configuration to restart containers
+- [dev-deploy] Support uploading all configuration files in deploying
+- [dev-deploy] Support deployments with Prometheus Integration
 
 ## v0.7.0 [2022-01-28]
 
-### 特性
+### Features
 
-#### 添加透明分区支持
+#### Add transparent sharding support
 
-HStreamDB 已经支持大规模数据流的存储和管理。随着上个版本新增加的集群支持，我们决
-定用透明分区来改善单个 stream 的可扩展性和读写性能。在 HStreamDB v0.7 中，每个
-stream 都分布在多个服务器节点上，但是在用户看来，一个有分区的 stream 是作为一个
-整体来管理的。因此，用户不需要事先指定分区的数量或任何其他分区逻辑。
+HStreamDB has already supported the storage and management of large-scale data
+streams. With the newly added cluster support in the last release, we decided to
+improve a single stream's scalability and reading/writing performance with a
+transparent sharding strategy. In HStreamDB v0.7, every stream is spread across
+multiple server nodes, but it appears to users that a stream with partitions is
+managed as an entity. Therefore, users do not need to specify the number of
+shards or any sharding logic in advance.
 
-在目前的实现中，stream 的每条 record 都应该包含一个分区键来指定一个逻辑分区，
-HStream Server 将负责在存储数据时将这些逻辑分区映射到物理分区。
+In the current implementation, each record in a stream should contain an
+ordering key to specify a logical partition, and the HStream server will be
+responsible for mapping these logical partitions to physical partitions when
+storing data.
 
-#### 用一致的散列算法重新设计负载平衡
+#### Redesign load balancing with the consistent hashing algorithm
 
-我们在这个版本中用一致性哈希算法调整了我们的负载均衡策略。当前，不管是写请求还是
-读请求，都是以读写请求中的所带分区键来分配的。
+We have adapted our load balancing with a consistent hashing algorithm in this
+new release. Both write and read requests are currently allocated by the
+ordering key of the record carried in the request.
 
-在上一个版本中，我们的负载平衡是基于节点的硬件使用情况进行分配的。而这样做的主要
-的问题是，它在很大程度上依赖于一个 leader 节点去收集这些信息。同时，这种策略需要
-与节点与 leader 进行通信，以获得分配结果。总体来看过去的实现过于复杂，效率太低。
-因此我们重新实现了负载均衡器，不仅核心算法更加简洁，也能很好应对集群成员变更的时
-候的重分配问题。
+In the previous release, our load balancing was based on the hardware usage of
+the nodes. The main problem with this was that it relied heavily on a leader
+node to collect it. At the same time, this policy requires the node to
+communicate with the leader to obtain the allocation results. Overall the past
+implementation was too complex and inefficient. Therefore, we have
+re-implemented the load balancer, which simplifies the core algorithm and copes
+well with redistribution when cluster members change.
 
-#### 添加 HStream Admin 管理工具
+#### Add HStream admin tool
 
-我们提供了一个新的管理工具，以方便用户对 HStreamDB 的维护和管理。HAdmin 可以用于
-监控和管理 HStreamDB 的各种资源，包括 stream、订阅和 server 节点。以前嵌入在
-HStream SQL Shell 中的 HStream Metrics，现已迁移到了新的 HAdmin 中。简而言之
-，HAdmin 是为 HStreamDB 操作人员准备的，而 SQL Shell 是为 HStreamDB 终端用户准备
-的。
+We have provided a new admin tool to facilitate the maintenance and management
+of HStreamDB. HAdmin can be used to monitor and manage the various resources of
+HStreamDB, including Stream, Subscription and Server nodes. The HStream Metrics,
+previously embedded in the HStream SQL Shell, have been migrated to the new
+HAdmin. In short, HAdmin is for HStreamDB operators, and SQL Shell is for
+HStreamDB end-users.
 
-#### 部署和使用
+#### Deployment and usage
 
-- 支持通过脚本快速部署，见：
-  [使用 Docker 手动部署](../deployment/deploy-docker.md)
-- 支持用配置文件来配置 HStreamDB，见：
+- Support quick deployment via the script, see:
+  [Manual Deployment with Docker](../deployment/deploy-docker.md)
+- Support config HStreamDB with a configuration file, see:
   [HStreamDB Configuration](../reference/config.md)
-- 支持一步到位的 docker-compose 的快速上手，见：
-  [使用 Docker Compose 快速上手](../start/quickstart-with-docker.md)
+- Support one-step docker-compose for quick-start:
+  [Quick Start With Docker Compose](../start/quickstart-with-docker.md)
 
-**为了使用 HStreamDB v0.7，请使用
-[hstreamdb-java v0.7.0](https://github.com/hstreamdb/hstreamdb-java) 及以上版
-本**
+**To make use of HStreamDB v0.7, please use
+[hstreamdb-java v0.7.0](https://github.com/hstreamdb/hstreamdb-java) and above**
 
 ## v0.6.0 [2021-11-04]
 
-### 特性
+### Features
 
-#### 新增 HServer 集群支持
+#### Add HServer cluster support
 
-作为一款[云原生分布式流数据库](https://hstream.io/zh)，HStreamDB 从设计之初就采
-用了计算和存储分离的架构，目标是支持计算层和存储层的独立水平扩展。在 HStreamDB
-之前的版本中，存储层 HStore 已经具备了水平扩展的能力。在即将发布的 v0.6 版本中，
-计算层 HServer 也将支持集群模式，从而可以实现随客户端请求和计算任务的规模对计算
-层的 HServer 节点进行扩展。
+As a cloud-native distributed streaming database, HStreamDB has adopted a
+separate architecture for computing and storage from the beginning of design, to
+support the independent horizontal expansion of the computing layer and storage
+layer. In the previous version of HStreamDB, the storage layer HStore already
+has the ability to scale horizontally. In this release, the computing layer
+HServer will also support the cluster mode so that the HServer node of the
+computing layer can be expanded according to the client request and the scale of
+the computing task.
 
-HStreamDB 的计算节点 HServer 整体上被设计成无状态的，因此非常适合进行快速的水平
-扩展。v0.6 的 HServer 集群模式主要包含以下特性：
+HStreamDB's computing node HServer is designed to be stateless as a whole, so it
+is very suitable for rapid horizontal expansion. The HServer cluster mode of
+v0.6 mainly includes the following features:
 
-- 自动节点健康检测和失败恢复
-- 按照节点负载情况对客户端请求或者计算任务进行调度和均衡
-- 支持节点的动态加入和退出
+- Automatic node health detection and failure recovery
+- Scheduling and balancing client requests or computing tasks according to the
+  node load conditions
+- Support dynamic joining and exiting of nodes
 
-#### 新增共享订阅功能
+#### Add shared-subscription mode
 
-在之前的版本中，一个 Subscription 同时只允许一个客户端进行消费，这在较大数据量的
-场景下限制了客户端的消费能力。因此，为了支持扩展客户端的消费能力，v0.6 版本新增
-了共享订阅功能，它允许多个客户端在一个订阅上并行消费。
+In the previous version, one subscription only allowed one client to consume
+simultaneously, which limited the client's consumption capacity in the scenarios
+with a large amount of data. Therefore, in order to support the expansion of the
+client's consumption capacity, HStreamDB v0.6 adds a shared-subscription mode,
+which allows multiple clients to consume in parallel on one subscription.
 
-同一个订阅里包含的所有的消费者组成一个消费者组(Consumer Group)，HServer 会通过
-round-robin 的方式向消费者组中的多个消费者派发数据。消费者组中的成员支持随时动态
-变更，客户端可以在任何时候加入或退出当前的消费者组。
+All consumers included in the same subscription form a Consumer Group, and
+HServer will distribute data to multiple consumers in the consumer group through
+a round-robin manner. The consumer group members can be dynamically changed at
+any time, and the client can join or exit the current consumer group at any
+time.
 
-HStreamDB 目前支持 at least once 的消费语义，每条数据在客户端消费完之后需要回复
-Ack，如果超时未接收到某条数据的 Ack，HServer 会自动重新向可用的消费者投递该条数
-据。
+HStreamDB currently supports the "at least once" consumption semantics. After
+the client consumes each data, it needs to reply to the ACK. If the Ack of a
+certain piece of data is not received within the timeout, HServer will
+automatically re-deliver the data to the available consumers.
 
-同一个消费者组中的成员共享消费进度，HStream 会根据客户端 Ack 的情况维护消费进度
-，客户端任何时候都可以从上一次的位置恢复消费。
+Members in the same consumer group share the consumption progress. HStream will
+maintain the consumption progress according to the condition of the client's
+Ack. The client can resume consumption from the previous location at any time.
 
-需要注意的是，v0.6 的共享订阅模式下不保持数据的顺序，后续共享订阅将支持按 key 派
-发的模式，可以支持相同 key 的数据有序交付。
+It should be noted that the order of data is not maintained in the shared
+subscription mode of v0.6. Subsequent shared subscriptions will support a
+key-based distribution mode, which can support the orderly delivery of data with
+the same key.
 
-#### 新增统计功能
+#### Add statistical function
 
-v0.6 还增加了基本的数据统计功能，支持对诸如 stream 的写入速率，消费速率等关键指
-标进行统计。用户可以通过 HStream CLI 来查看相应的统计指标，如下图所示。
+HStreamDB v0.6 also adds a basic data statistics function to support the
+statistics of key indicators such as stream write rate and consumption rate.
+Users can view the corresponding statistical indicators through HStream CLI, as
+shown in the figure below.
 
 ![](./statistics.png)
 
-#### 新增数据写入 Rest API
+#### Add REST API for data writing
 
-v0.6 版本增加了向 HStreamDB 写入数据的 Rest API，通过此 API 并结合 EMQ X 开源版
-的 web hook 功能，可以实现 EMQ X 和 HStreamDB 的快速集成。
-
-#### HStreamDB Java SDK 更新
-
-HStreamDB-Java 是目前主要支持的 HStreamDB 客户端（后续将会有更多语言的客户端支持
-），用户主要通过该客户端来使用 HStreamDB 的大多数功能。
-
-即将发布的 HStreamDB Java SDK v0.6 主要包含以下特性：
-
-- 新增对 HStreamDB 集群的支持
-- 新增对共享订阅的支持
-- 重构部分 API
-- 修复了一些已知的问题
+HStreamDB v0.6 adds a REST API for writing data to HStreamDB.
