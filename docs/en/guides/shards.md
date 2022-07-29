@@ -28,10 +28,14 @@ shardCount is provided when creating a
 
 To list all the shards of one stream.
 
-:::: tabs ::: tab Java
+:::: tabs 
+
+::: tab Java
 
 ```java
 // ListShardsExample.java
 ```
 
-::: ::::
+::: 
+
+::::
