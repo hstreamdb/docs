@@ -51,15 +51,13 @@ batch 发送到服务器。每一条 record 被写入 stream 时，HServer 将�
 // WriteDataBufferedExample.java
 ```
 
-## 使用排序键（Ordering Key）
+## 使用分区键（Partition Key）
 
-是否附加一个排序键是可选的，如果没有给出，HServer 会自动分配一个默认的 key。
+具有相同分区键的 records 可以在 BufferedProducer 中被保证能有序地写入。HStreamDB
+的另一个重要功能，分区，也使用这些分区键来决定 records 将被分配到哪个分区，
+以此提高写/读性能。更详细的解释请看[管理 Stream 的分区](./shards.md)。
 
-具有相同排序键的 records 可以在 BufferedProducer 中被保证能有序地写入。HStreamDB
-的另一个重要功能，透明分区，也使用这些排序键来决定 records 将被分配到哪个分区，
-以此提高写/读性能。更详细的解释请看[透明分区](../concepts/transparent-sharding.md)。
-
-参考下面的例子，你可以很容易地写入带有排序键的 records。
+参考下面的例子，你可以很容易地写入带有分区键的 records。
 
 ```java
 //WriteDataWithKeyExample.java
