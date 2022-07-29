@@ -1,5 +1,70 @@
 # HStreamDB release notes
 
+## v0.9.0 [2022-07-29]
+
+### HStreamDB
+
+#### Highlights
+
+- [Shards in Streams](#shards-in-streams)
+- [HStream IO](#hstream-io)
+- [New Stream Processing Engine](#new-stream-processing-engine) 
+- [Gossip-based HServer Clusters](#gossip-based-hserver-clusters)
+- [Advertised Listeners](#advertised-listeners)
+- [Improved HStream CLI](#improved-hstream-cli)
+- [Monitoring with Grafana](#monitoring-with-grafana)
+- [Deployment on K8s with Helm](#deployment-on-k8s-with-helm)
+
+#### Shards in Streams
+
+We have exposed shards in streams，which gives you the fine-grained control on data distribution in a stream and the ability of accessing data in a shard directly. you can assign each shard  a range of hashes in a stream, and for every ``partitionKey`` of a record whose hash falls within a shard’s range will be stored in that shard. In particular, for now you can:
+
+- determine the initial number of shards while creating a stream
+- distribute records written to a stream among shards by partitionKey
+- access records from any shard directly from the specified position 
+
+And in later releases, you can scale the stream by splitting and merging shards dynamically.
+
+#### HStream IO
+
+HStream IO is a builtin data integration framework for HStreamDB, composed of source connectors, sink connectors and the IO runtime. It allows interconnection with various external systems, facilitating the efficient flow of data across the whole enterprise data stack around HStreamDB and thereby unleashing the value of data more quickly.
+
+In particular, this release contains the below connectors:
+- source connectors: 
+  - [source-mysql](https://github.com/hstreamdb/hstream-connectors/blob/main/docs/specs/sink_mysql_spec.md) 
+  - [souce-postgresql](https://github.com/hstreamdb/hstream-connectors/blob/main/docs/specs/source_postgresql_spec.md) 
+  - [source-sqlserver](https://github.com/hstreamdb/hstream-connectors/blob/main/docs/specs/source_sqlserver_spec.md) 
+- sink connectors: 
+  - [sink-mysql](https://github.com/hstreamdb/hstream-connectors/blob/main/docs/specs/sink_mysql_spec.md)
+  - [sink-postgresql](https://github.com/hstreamdb/hstream-connectors/blob/main/docs/specs/sink_postgresql_spec.md)
+
+You can refer to [the documentation](https://hstream.io/docs/en/latest/io/overview.html) for learning more about HStream IO.
+
+#### New Stream Processing Engine 
+
+We have rewritten the stream processing engine thoroughly in the interactive and differential style, which improves the throughput by up to 3 orders of magnitude and reduces the latency. It also supports **multi-way joining**, **subqueries** and **more general materialized views**. It is still experimental and you can refer to [this guide](https://hstream.io/docs/en/latest/guides/sql.html) for a quick start.
+
+#### Gossip-based HServer Clusters
+
+We refactor the hserver cluster with gossip-based membership and failure detection mainly based on [SWIM](https://ieeexplore.ieee.org/document/1028914) paper, replacing the ZooKeeper-based implementation in the previous version. It will improve the scalability of the cluster and reduce dependencies on external systems.
+
+#### Advertised Listeners
+
+The deployment and usage in production could involve a complex network setting. For example, if the server cluster is hosted internally, it would require an external IP address for clients to connect to the cluster. The use of docker and cloud-hosting can make the situation even more complicated. To ensure that clients from different networks can interact with the cluster, HStreamDB v0.9 provides configurations for advertised listeners. With advertised listeners configured, servers can return the corresponding address for different clients, according to the port to which the client sent the request.
+
+#### Improved HStream CLI
+
+To make CLI more unified and more straightforward, we have migrated the old HStream SQL Shell and some other node management functionality to the new HStream CLI. HStream CLI currently supports operations such as starting an interacting SQL shell, sending bootstrap initiation and checking server node status. You can refer to [the CLI documentation](https://hstream.io/docs/en/latest/cli/cli.html) for details.
+
+#### Monitoring with Grafana
+
+We provide a basic monitoring solution based on Prometheus and Grafana. Metrics collected by HStreamDB will be stored in Prometheus by the exporter and shown on the Grafana board. For details, refer to [the documentation](https://hstream.io/docs/en/latest/monitoring/grafana.html).
+
+#### Deployment on K8s with Helm
+
+We provide a helm chart supporting deploying HStreamDB on k8s using Helm. You can refer to [the documentation](https://hstream.io/docs/en/latest/deployment/deploy-helm.html#building-your-kubernetes-cluster) for details.
+
+
 ## v0.8.0 [2022-04-29]
 
 ### HServer
