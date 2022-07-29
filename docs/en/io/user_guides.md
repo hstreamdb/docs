@@ -83,7 +83,7 @@ After connecting a HStream Server, you can use create source/sink connector SQLs
 Connect to the HStream server:
 
 ```shell
-docker run -it --rm --network host hstreamdb/hstream hstream sql --port 6570
+docker run -it --rm --network host hstreamdb/hstream:v0.9.0 hstream sql --port 6570
 ```
 
 Create a source connector:

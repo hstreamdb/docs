@@ -3,7 +3,7 @@
 We can run the following to use HStream CLI:
 
 ```sh
-docker run -it --rm --name some-hstream-admin --network host hstreamdb/hstream:v0.8.0 hstream --help
+docker run -it --rm --name some-hstream-admin --network host hstreamdb/hstream:v0.9.0 hstream --help
 ```
 
 For the ease of illustration, we execute an interactive bash shell in the

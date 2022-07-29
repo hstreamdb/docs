@@ -144,7 +144,7 @@ zookeeper-2                                          1/1     Running   0        
 点。要做到这一点，请运行：
 
 ```sh
-kubectl run hstream-admin -it --rm --restart=Never --image=hstreamdb/hstream:v0.8.0 -- \
+kubectl run hstream-admin -it --rm --restart=Never --image=hstreamdb/hstream:v0.9.0 -- \
     hadmin store --host logdevice-admin-server-service \
     nodes-config \
     bootstrap --metadata-replicate-across 'node:3'
@@ -163,7 +163,7 @@ pod "hstream-admin" deleted
 ## 管理存储集群
 
 ```sh
-kubectl run hstream-admin -it --rm --restart=Never --image=hstreamdb/hstream:v0.8.0 -- bash
+kubectl run hstream-admin -it --rm --restart=Never --image=hstreamdb/hstream:v0.9.0 -- bash
 ```
 
 现在你可以运行 `hadmin store` 来管理这个集群：
