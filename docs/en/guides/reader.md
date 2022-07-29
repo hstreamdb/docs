@@ -25,6 +25,7 @@ To read from the shards, users are required to get the desired shard id with
 [`listShards`](./shards.md#listshards).
 
 :::: tabs
+
 ::: tab Java
 
 ```java
@@ -32,4 +33,9 @@ To read from the shards, users are required to get the desired shard id with
 ```
 
 :::
+
+::: tab Python3
+@snippet hstreamdb-py/examples/snippets/guides.py common read-reader
+:::
+
 ::::

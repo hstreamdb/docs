@@ -38,6 +38,10 @@ this:
 
 :::
 
+::: tab Python3
+@snippet hstreamdb-py/examples/snippets/guides.py common create-subscription
+:::
+
 ::::
 
 ## Delete a subscription
@@ -74,6 +78,10 @@ the deleted subscription.
 
 :::
 
+::: tab Python3
+@snippet hstreamdb-py/examples/snippets/guides.py common delete-subscription
+:::
+
 ::::
 
 ## List subscriptions
@@ -96,6 +104,10 @@ To list all subscriptions in HStream
 // ExampleListSubscriptions.go
 ```
 
+:::
+
+::: tab Python3
+@snippet hstreamdb-py/examples/snippets/guides.py common list-subscription
 :::
 
 ::::
