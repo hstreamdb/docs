@@ -82,7 +82,7 @@ consumer group 中，可能会有多个消费者，并且他们共享订阅的�
 中仍然可以保证顺序，但如果我们把 consumer group 看成一个整体，那么顺序性就不再保
 证了。
 
-消费者将按照 HStream 服务器收到信息的顺序接收具有相同排序键的 record。由于
+消费者将按照 HStream 服务器收到信息的顺序接收具有相同分区键的 record。由于
 HStream 以至少一次的语义发送 hstream record，在某些情况下，当 HServer 可能没有收
 到中间某些 record 的 ack 时，它将可能多次发送这条 record。而在这些情况下，我们也
 不能保证顺序。

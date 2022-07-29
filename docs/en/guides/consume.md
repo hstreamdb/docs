@@ -127,7 +127,7 @@ Note: the order described below is just for a single consumer. If a subscription
 has multiple consumers, the order can still be guaranteed in each, but the order
 is no longer preserved if we see the consumer group as an entity.
 
-Consumers will receive messages with the same ordering key in the order that the
+Consumers will receive messages with the same partition key in the order that the
 HStream server receives them. Since HStream delivers hstream records with
 at-least-once semantics, in some cases, when HServer does not receive the ack
 for some record in the middle, it might deliver the record more than once. In

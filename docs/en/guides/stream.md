@@ -20,6 +20,10 @@
   + Minimum value = 1 seconds
   + Maximum value = 21 days
 
+- Shard Count
+
+  The number of shards that a stream will have.
+
 ## Create a Stream
 
 Create a stream before you write records or create a subscription.

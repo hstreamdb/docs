@@ -89,16 +89,15 @@ bytes in a BufferedProducer.
 
 ::::
 
-## Write Records with Ordering Keys
+## Write Records with Partition Keys
 
-Ordering keys are optional, and if not given, the server will automatically
-assign a default key.Records with the same ordering key can be guaranteed to be
-written orderly in BufferedProducer.
+Partition keys are optional, and if not given, the server will automatically
+assign a default key. Records with the same partition key can be guaranteed to
+be written orderly in BufferedProducer.
 
-Another important feature of HStreamDB, transparent sharding, uses these
-ordering keys to decide which shards the record will be allocated and improve
-write/read performance. See
-[transparent sharding](../concepts/transparent-sharding.md) for a more detailed
+Another important feature of HStreamDB, sharding, uses these partition keys to
+decide which shards the record will be allocated and improve write/read
+performance. See [Manage Shards of a Stream](./shards.md) for a more detailed
 explanation.
 
 You can easily write records with keys using the following example:
