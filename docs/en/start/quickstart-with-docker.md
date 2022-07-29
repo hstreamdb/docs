@@ -85,7 +85,7 @@ docker-compose -f quick-start.yaml logs -f hserver
 ## Start HStreamDB's interactive SQL CLI
 
 ```sh
-docker run -it --rm --name some-hstream-cli --network host hstreamdb/hstream:v0.8.0 hstream --port 6570 sql
+docker run -it --rm --name some-hstream-cli --network host hstreamdb/hstream:v0.9.0 hstream --port 6570 sql
 ```
 
 If everything works fine, you will enter an interactive CLI and see help
