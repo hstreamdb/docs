@@ -65,6 +65,14 @@ We provide a basic monitoring solution based on Prometheus and Grafana. Metrics 
 We provide a helm chart supporting deploying HStreamDB on k8s using Helm. You can refer to [the documentation](https://hstream.io/docs/en/latest/deployment/deploy-helm.html#building-your-kubernetes-cluster) for details.
 
 
+### Java Client 
+
+The [Java Client v0.9.0](https://github.com/hstreamdb/hstreamdb-java/releases/tag/v0.9.0) has been released, which adds support for HStreamDB v0.9. 
+
+### Python Client 
+
+The [Python Client v0.2.0](https://github.com/hstreamdb/hstreamdb-py/releases/tag/v0.2.0) has been released, which adds support for HStreamDB v0.9. 
+
 ## v0.8.0 [2022-04-29]
 
 ### HServer
