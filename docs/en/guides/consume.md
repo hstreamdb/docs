@@ -103,7 +103,7 @@ that users would have consumers from different clients.
 ::: tab Go
 
 ```go
-// ExampleConsumeDataShared.java
+// ExampleConsumeDataShared.go
 ```
 
 :::
@@ -150,7 +150,7 @@ etc. However, as a service, you may want the consumer to keep running, so you
 can register a listener to handle a failed consumer:
 
 :::: tabs
-::: Java
+::: tab Java
 
 ```java
 // add Listener for handling failed consumer
