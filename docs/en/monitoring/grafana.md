@@ -1,73 +1,76 @@
-# Monitoring HStreamDB Using Grafana
+# Monitoring HStreamDB with Grafana
 
-Having a comprehensive visualisation of the metrics of the deployed HStreamDB cluster makes it
-easier for analysing the status and diagnosing problems. This document aimed at describing how to
-deploy the Grafana and its corresponding tools along with HStreamDB instances.
+A comprehensive metrics visualisation of the deployed HStreamDB cluster makes it
+easier to analyse the status and diagnose problems. This document describes the
+deployment of Grafana and related tools with a running HStreamDB instance.
 
-## Architecture Overview and Development Instructions
+## Installations and Set-up
 
-<!-- ![Architecture Overview](./grafana/ao.png) -->
+### Setup Data Source for Grafana (Setup HStream Http Server and Prometheus)
 
-A binary of HStream HTTP Server can be downloaded from
-the [release page](https://github.com/hstreamdb/http-services/releases). Start the HTTP Server
-by `<path-to-decompressed-release>/bin/http-server -services-url <hstreamdb-server address>` as a
-dependency of HStream Metrics Exporter. The HTTP Server will collect metrics and execute admin
-requests.
+Download the HStream HTTP Server binary from the
+[release page](https://github.com/hstreamdb/http-services/releases).
 
-The HStream Metrics Exporter can be started similarly, which exports the metrics to Prometheus as a
-Prometheus target. Usages and releases can be found on
-its [homepage](https://github.com/hstreamdb/hstream-metrics-exporter).
+Start the HTTP Server with
 
-The Node Exporter is also a Prometheus target, which serves as an exporter for monitoring the
-machine metrics. It should be deployed one per HStream node. Information about the installation and
-usage can be found on its [homepage](https://github.com/prometheus/node_exporter).
-
-The above two steps are used for setting the Prometheus target, which would export some time-series
-data for the incoming queries.
-
-Prometheus can be started by Docker with custom configuration files.
-
-```shell
-docker run                                                    \
-    -p 9090:9090                                              \
-    -v /path/to/prometheus.yml:/etc/prometheus/prometheus.yml \
-        prom/prometheus
+```
+http-server -services-url "127.0.0.1:6570" -address "127.0.0.1:9290"
 ```
 
-The configuration files must
-include the configurations for using HStream Metrics Exporter as target and scrape intervals. Check
-the [Prometheus guide](https://prometheus.io/docs/prometheus/latest/getting_started/) for details.
-The server URL option (which have a default value) of the HStream Metrics Exporter set during the
-previous step would be used in the Prometheus configuration.
+as a dependency of HStream Metrics Exporter. The HTTP Server will be responsible
+for collecting metrics and executing admin requests.
 
-The above steps are used for setting data sources for Grafana, which would be used in making data
-visualizations such as Grafana dashboards.
+Setting up HStream Metrics Exporter is similar. Usages and releases are
+available on its
+[homepage](https://github.com/hstreamdb/hstream-metrics-exporter).
 
-To install and run Grafana using Docker, take the open-source version as an example.
-
-```shell
-docker run                              \
-    -p 3000:3000                        \
-    -e GF_AUTH_ANONYMOUS_ORG_ROLE=Admin \
-    -e GF_AUTH_ANONYMOUS_ENABLED=true   \
-    -e GF_AUTH_DISABLE_LOGIN_FORM=true  \
-        grafana/grafana-oss
+```
+hstream-metrics-exporter -host 127.0.0.1 -port 9270 -http-server-host 127.0.0.1 -http-server-port 9290
 ```
 
-Here are a few options making **just having a preview** of monitoring HStreamDB easier.
+This exports the metrics to Prometheus as a Prometheus target.
 
-- `GF_AUTH_ANONYMOUS_ORG_ROLE=Admin`: enable anonymous organization as Grafana admin, which is able
-  to add data sources
-- `GF_AUTH_ANONYMOUS_ENABLED=true`: enable and use an anonymous organization as default organization
-- `GF_AUTH_DISABLE_LOGIN_FORM=true`: make the above two options work, in addition, skip log in
-  screen
+Another Prometheus target we need is the Node Exporter, an exporter for hardware
+and OS metrics. It should be deployed on every HStream node. Information about
+the installation and usage is available on its
+[homepage](https://github.com/prometheus/node_exporter).
 
-### Provisioning Grafana
+After setting up the targets, users can start Prometheus via Docker with
+configuration files.
 
-The provisioning settings consist of two steps:
+```
+docker run -p 9090:9090 -v /path/to/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
+```
 
-- First, set the Grafana data sources
-- Second, set the Grafana dashboards
+The configuration files must set scrape intervals and configure HStream Metrics
+Exporter as the target. We would also need the HStream Metrics Exporter's
+address in the Prometheus configuration. Check the
+[Prometheus guide](https://prometheus.io/docs/prometheus/latest/getting_started/)
+for details.
+
+### Install and Start Grafana
+
+We can install and run Grafana with Docker
+
+```
+docker run -p 3000:3000               \
+  -e GF_AUTH_ANONYMOUS_ORG_ROLE=Admin \
+  -e GF_AUTH_ANONYMOUS_ENABLED=true   \
+  -e GF_AUTH_DISABLE_LOGIN_FORM=true  \
+      grafana/grafana-oss
+```
+
+Here are a few options making **just having a preview** of monitoring HStreamDB
+easier.
+
+- `GF_AUTH_ANONYMOUS_ORG_ROLE=Admin`: enable anonymous organisation as Grafana
+  admin, which is able to add data sources
+- `GF_AUTH_ANONYMOUS_ENABLED=true`: enable and use an anonymous organisation as
+  the default
+- `GF_AUTH_DISABLE_LOGIN_FORM=true`: make the above two options work and skip
+  the log-in screen
+
+## Provision Grafana
 
 To start with, create a folder with the following hierarchy:
 
@@ -77,11 +80,13 @@ provisioning/
 └── datasources/
 ```
 
-To use with Docker, add the option `<path-to>/provisioning:/etc/grafana/provisioning` to Docker
-options.
+When run with Docker, use `-v <path-to>/provisioning:/etc/grafana/provisioning`
+to mount the file into the container.
 
-In the `dashboards` folder, a file named `dashboards.yml` must be used for set up provisioning
-data sources. An example would be like:
+Create `datasources.yml` under the `datasources` folder to provision data
+sources.
+
+An example would be:
 
 ```yml
 apiVersion: 1
@@ -106,8 +111,9 @@ datasources:
     readOnly: false
 ```
 
-In the `dashboards` folder, a file named `dashboards.yml` must be used for set up provisioning
-dashboards. An example would be like:
+Create `dashboards.yml` under the `dashboards` folder to provision dashboards.
+
+An example would be:
 
 ```yml
 apiVersion: 1
@@ -125,14 +131,14 @@ providers:
       foldersFromFilesStructure: true
 ```
 
-The `path` field here is corresponding to the path in Docker options which had been bind to,
-namely `/etc/grafana/provisioning`. Grafana will treat all JSON files in the `path` folder as
-dashboards which would be imported on start up. The JSON format dashboards can be export from
-created dashboards.
+The `path` field here is the path Docker options bound to, for example,
+`/etc/grafana/provisioning`. Grafana will treat all JSON files in the `path`
+folder as dashboards, which will be imported on start-up. Dashboards created
+later can also be exported to JSON files.
 
-### Query Metrics and Create Dashboards with Grafana
+## Query Metrics and Create Dashboards with Grafana
 
-With the above required services started, one can do metrics queries and visualise data with
+With services all set up, we can now run metrics queries and visualise data with
 Grafana.
 
 The following creates a new metrics panel on the Dashboards tab:
@@ -145,12 +151,13 @@ Click on "Add a new panel":
 
 ![](./grafana/add-a-panel.png)
 
-Under the "Query" tab, use the metrics explorer under the "Metrics" tab to select the HStream
-metrics. Use the query builder to construct the query, and edit the title and more attributes. Then
-save the new panel.
+Under the "Query" tab, use the metrics explorer under the "Metrics" tab to
+select the HStream metrics. Use the query builder to construct the query and
+provide attributes. Then save the new panel.
 
 ![](./grafana/create-dashboard.png)
 
-Click on "Save dashboard", then export as JSON for provisioning and import usages.
+Click on "Save dashboard", then export as JSON for provisioning and import
+usages.
 
 ![](./grafana/save.png)
