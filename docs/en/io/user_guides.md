@@ -13,7 +13,7 @@ You can check [quick-start](https://hstream.io/docs/en/latest/start/quickstart-w
 
 ## Setup a Mysql
 
-Setup a mysql instance by docker(If you want to use your existed mysql instance, please check [source-mysql](https://github.com/hstreamdb/hstream-connectors/blob/main/docs/connectors/sink-mysql.md)):
+Setup a mysql instance by docker:
 
 ```shell
 docker run --network=hstream-quickstart --name mysql-s1 -e MYSQL_ROOT_PASSWORD=password -d mysql
@@ -40,7 +40,7 @@ the table ``person`` must include a primary key, or ``DELETE`` statement may not
 
 ## Setup a Postgresql
 
-Setup a postgresql instance by docker(If you want to use your existed postgresql instance, please check [sink-postgresql](https://github.com/hstreamdb/hstream-connectors/blob/main/docs/connectors/sink-postgresql.md)):
+Setup a postgresql instance by docker:
 
 ```shell
 docker run --network=hstream-quickstart --name pg-s1 -e POSTGRES_PASSWORD=postgres -d postgres
@@ -62,6 +62,19 @@ create table person (id int primary key, name varchar(256), age int);
 ```
 
 The table ``person`` must include an primary key.
+
+## Download Connector Plugins
+
+A connector plugin is a docker image,
+so before you use the connectors,
+you should download and update their plugins by ``docker pull``:
+
+```shell
+docker pull hstreamdb/connector:source-mysql
+docker pull hstreamdb/connector:sink-postgresql
+```
+
+If your want to find more connectors, please check [Connectors](https://hstream.io/docs/en/latest/io/connectors.html) .
 
 ## Create Connectors
 
@@ -105,5 +118,3 @@ You can use drop connector statement to delete the connectors:
 drop connector source01;
 drop connector sink01;
 ```
-
-If your want to find more connectors, please check [hstream-connectors](https://github.com/hstreamdb/hstream-connectors) .

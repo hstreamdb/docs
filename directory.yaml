@@ -49,6 +49,14 @@ en:
         title: Monitoring HStreamDB Using Grafana
   - title: HStream CLI
     path: cli/cli
+  - title: HStream IO
+    children:
+      - path: io/overview
+        title: Overview
+      - path: io/user_guides
+        title: User Guides
+      - path: io/connectors
+        title: Connectors
   - title: Security
     children:
       - path: security/overview
@@ -99,12 +107,6 @@ en:
                 title: Scalar Functions
           - path: reference/sql/appendix
             title: Appendix
-      - title: HStream IO
-        children:
-          - path: reference/io/overview
-            title: Overview
-          - path: reference/io/user_guides
-            title: User Guides
 
 zh:
   - title: 概览
