@@ -1,4 +1,4 @@
-# HStream Streaming Database Overview
+# HStreamDB Overview
 
 **HStreamDB is a streaming database designed for streaming data, with complete
 lifecycle management for accessing, storing, processing, and distributing
