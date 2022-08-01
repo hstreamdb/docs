@@ -20,4 +20,4 @@ docker run --rm -p 8080:8080 -it --name hstream-doc-preview \
     ghcr.io/emqx/emqx-io-docs-frontend:latest
 ```
 
-Now, open <http://localhost:8080/docs/en>
+Now, open <http://localhost:8080/docs/en/latest/start/quickstart-with-docker.html>
