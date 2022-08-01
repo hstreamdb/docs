@@ -48,7 +48,7 @@ to the client. The record id is unique in the stream.
 ::: tab Go
 
 ```go
-// ExampleWriteDataSimple.go
+// ExampleWriteProducer.go
 ```
 
 :::
@@ -86,7 +86,7 @@ bytes in a BufferedProducer.
 ::: tab Go
 
 ```go
-// ExampleWriteDataBuffered.go
+// ExampleWriteBatchProducer.go
 ```
 
 :::
@@ -123,7 +123,7 @@ You can easily write records with keys using the following example:
 ::: tab Go
 
 ```go
-// ExampleWriteDataWithKey.go
+// ExampleWriteBatchProducerMultiKey.go
 ```
 
 :::
