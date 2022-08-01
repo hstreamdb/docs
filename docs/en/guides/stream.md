@@ -92,7 +92,7 @@ stream.
 
 ## List Streams
 
-To get all streams in HStream:
+To get all streams in HStreamDB:
 
 :::: tabs
 

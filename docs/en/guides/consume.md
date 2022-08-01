@@ -10,8 +10,8 @@ belongs to a single stream. Similarly, a subscription corresponds to one
 consumer group with multiple consumers. However, every consumer belongs to only
 a single subscription.
 
-Please refer to [this page](./subscription.md) for detailed information about creating and
-managing your subscriptions.
+Please refer to [this page](./subscription.md) for detailed information about
+creating and managing your subscriptions.
 
 ## How to consume data with a subscription
 
@@ -21,13 +21,14 @@ group of the subscription specified.
 
 ### Two HStream Record types and corresponding receivers
 
-As we [explained](./write.md#hstream-record), there are two types of records in HStreamDB, HRecord
-and RawRecord. When initiating a consumer, corresponding receivers are required.
-In the case where only HRecord Receiver is set, when the consumer received a raw
-record, the consumer will ignore it and consume the next record. Therefore, in
-principle, we do not recommend writing both HRecord and RawRecord in the same
-stream. However, this is not strictly forbidden in implementation, and you can
-provide both receivers to process both types of records.
+As we [explained](./write.md#hstream-record), there are two types of records in
+HStreamDB, HRecord and RawRecord. When initiating a consumer, corresponding
+receivers are required. In the case where only HRecord Receiver is set, when the
+consumer received a raw record, the consumer will ignore it and consume the next
+record. Therefore, in principle, we do not recommend writing both HRecord and
+RawRecord in the same stream. However, this is not strictly forbidden in
+implementation, and you can provide both receivers to process both types of
+records.
 
 ## Simple Consumer Example
 
@@ -49,7 +50,7 @@ acknowledged one at a time, as shown in the example below.
 ::: tab Go
 
 ```go
-// ExampleConsumeDataSimple.go
+// ExampleConsumer.go
 ```
 
 :::
@@ -64,8 +65,7 @@ For better performance, Batched Ack is enabled by default with setting
 `ackBufferSize` = 100 and `ackAgeLimit` = 100, which you can change when
 initiating your consumers.
 
-:::: tabs
-::: tab Java
+:::: tabs ::: tab Java
 
 ```java
 Consumer consumer =
@@ -82,8 +82,7 @@ Consumer consumer =
         .build();
 ```
 
-:::
-::::
+::: ::::
 
 ## Multiple consumers and shared consumption progress
 
@@ -107,7 +106,7 @@ that users would have consumers from different clients.
 ::: tab Go
 
 ```go
-// ExampleConsumeDataShared.go
+// ExampleConsumerGroup.go
 ```
 
 :::
@@ -137,8 +136,8 @@ Note: the order described below is just for a single consumer. If a subscription
 has multiple consumers, the order can still be guaranteed in each, but the order
 is no longer preserved if we see the consumer group as an entity.
 
-Consumers will receive messages with the same partition key in the order that the
-HStream server receives them. Since HStream delivers hstream records with
+Consumers will receive messages with the same partition key in the order that
+the HStream server receives them. Since HStream delivers hstream records with
 at-least-once semantics, in some cases, when HServer does not receive the ack
 for some record in the middle, it might deliver the record more than once. In
 these cases, we can not guarantee the order either.
@@ -153,8 +152,7 @@ Consumers could fail in other scenarios, such as network, deleted subscriptions,
 etc. However, as a service, you may want the consumer to keep running, so you
 can register a listener to handle a failed consumer:
 
-:::: tabs
-::: tab Java
+:::: tabs ::: tab Java
 
 ```java
 // add Listener for handling failed consumer
@@ -168,5 +166,4 @@ consumer.addListener(
     threadPool);
 ```
 
-:::
-::::
+::: ::::
