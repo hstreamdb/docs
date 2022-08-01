@@ -34,6 +34,14 @@ To read from the shards, users are required to get the desired shard id with
 
 :::
 
+::: tab Go
+
+```java
+// ExampleReadDataWithReader.java
+```
+
+:::
+
 ::: tab Python3
 @snippet hstreamdb-py/examples/snippets/guides.py common read-reader
 :::
