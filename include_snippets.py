@@ -25,7 +25,7 @@ def run_snippet_cmd(snippets_root, snippet_file, *labels):
     # TODO: strip indent
     extension = os.path.splitext(snippet_file)[1]
     ft = FILE_TYPES[extension]
-    blocks = "\n\n".join("".join(xs).strip() for xs in lines) + "\n"
+    blocks = "\n\n\n".join("".join(xs).strip() for xs in lines)
     return f"```{ft}\n{blocks}\n```\n"
 
 
