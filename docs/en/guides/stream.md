@@ -46,6 +46,10 @@ Create a stream before you write records or create a subscription.
 
 :::
 
+::: tab Python3
+@snippet hstreamdb-py/examples/snippets/guides.py common create-stream
+:::
+
 ::::
 
 ## Delete a Stream
@@ -80,6 +84,10 @@ stream.
 
 :::
 
+::: tab Python3
+@snippet hstreamdb-py/examples/snippets/guides.py common delete-stream
+:::
+
 ::::
 
 ## List Streams
@@ -102,6 +110,10 @@ To get all streams in HStream:
 // ExampleListStreams.go
 ```
 
+:::
+
+::: tab Python3
+@snippet hstreamdb-py/examples/snippets/guides.py common list-streams
 :::
 
 ::::

@@ -21,10 +21,12 @@ jobs:
         run: |
           git clone https://github.com/hstreamdb/hstreamdb-java-examples.git
           git clone https://github.com/hstreamdb/hstreamdb-go-examples.git
+          git clone https://github.com/hstreamdb/hstreamdb-py.git
           npm install embedme
           npx embedme --source-root $PWD/docs-files/assets docs-files/docs/*/start/quickstart-with-docker.md
           npx embedme --source-root $PWD/hstreamdb-java-examples/app/src/main/java/docs/code/examples/ docs-files/docs/*/guides/*
           npx embedme --source-root $PWD/hstreamdb-go-examples/examples/ docs-files/docs/*/guides/*
+          cd docs-files && ./include_snippets.py --snippets-root .. --file-pattern "docs/*/guides/*"
 
       - name: make directory.json
         run: cd docs-files && make config

@@ -54,6 +54,10 @@ acknowledged one at a time, as shown in the example below.
 
 :::
 
+::: tab Python3
+@snippet hstreamdb-py/examples/snippets/guides.py common subscribe-records
+:::
+
 ::::
 
 For better performance, Batched Ack is enabled by default with setting
