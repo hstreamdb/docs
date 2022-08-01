@@ -8,7 +8,7 @@
 
 - [Shards in Streams](#shards-in-streams)
 - [HStream IO](#hstream-io)
-- [New Stream Processing Engine](#new-stream-processing-engine) 
+- [New Stream Processing Engine](#new-stream-processing-engine)
 - [Gossip-based HServer Clusters](#gossip-based-hserver-clusters)
 - [Advertised Listeners](#advertised-listeners)
 - [Improved HStream CLI](#improved-hstream-cli)
@@ -17,65 +17,107 @@
 
 #### Shards in Streams
 
-We have exposed shards in streams，which gives you the fine-grained control on data distribution in a stream and the ability of accessing data in a shard directly. you can assign each shard  a range of hashes in a stream, and for every ``partitionKey`` of a record whose hash falls within a shard’s range will be stored in that shard. In particular, for now you can:
+We have exposed shards under streams, which provides a finer-grained control of
+data distribution in a stream and direct access to data in a shard. Each shard
+will be assigned a range of hashes in the stream, and every record whose hash of
+`partitionKey` falls in the range will be stored in that shard.
 
-- determine the initial number of shards while creating a stream
-- distribute records written to a stream among shards by partitionKey
-- access records from any shard directly from the specified position 
+Currently, HStreamDB supports:
 
-And in later releases, you can scale the stream by splitting and merging shards dynamically.
+- set the initial number of shards when creating a stream
+- distribute written records among shards of the stream with `partitionKey`s
+- direct access to records from any shard of the specified position
+
+In future releases, HStreamDB will support dynamic scaling of streams through
+shard splitting and merging
 
 #### HStream IO
 
-HStream IO is a builtin data integration framework for HStreamDB, composed of source connectors, sink connectors and the IO runtime. It allows interconnection with various external systems, facilitating the efficient flow of data across the whole enterprise data stack around HStreamDB and thereby unleashing the value of data more quickly.
+HStream IO is the built-in data integration framework for HStreamDB, composed of
+source connectors, sink connectors and the IO runtime. It allows interconnection
+with various external systems and empowers more instantaneous unleashing of the
+value of data with the facilitation of efficient data flow throughout the data
+stack.
 
-In particular, this release contains the below connectors:
-- source connectors: 
-  - [source-mysql](https://github.com/hstreamdb/hstream-connectors/blob/main/docs/specs/sink_mysql_spec.md) 
-  - [souce-postgresql](https://github.com/hstreamdb/hstream-connectors/blob/main/docs/specs/source_postgresql_spec.md) 
-  - [source-sqlserver](https://github.com/hstreamdb/hstream-connectors/blob/main/docs/specs/source_sqlserver_spec.md) 
-- sink connectors: 
+In particular, this release provides connectors listed below:
+
+- Source connectors:
+  - [source-mysql](https://github.com/hstreamdb/hstream-connectors/blob/main/docs/specs/sink_mysql_spec.md)
+  - [source-postgresql](https://github.com/hstreamdb/hstream-connectors/blob/main/docs/specs/source_postgresql_spec.md)
+  - [source-sqlserver](https://github.com/hstreamdb/hstream-connectors/blob/main/docs/specs/source_sqlserver_spec.md)
+- Sink connectors:
   - [sink-mysql](https://github.com/hstreamdb/hstream-connectors/blob/main/docs/specs/sink_mysql_spec.md)
   - [sink-postgresql](https://github.com/hstreamdb/hstream-connectors/blob/main/docs/specs/sink_postgresql_spec.md)
 
-You can refer to [the documentation](../io/overview.md) for learning more about HStream IO.
+You can refer to [the documentation](../io/overview.md) to learn more about
+HStream IO.
 
-#### New Stream Processing Engine 
+#### New Stream Processing Engine
 
-We have rewritten the stream processing engine thoroughly in the interactive and differential style, which improves the throughput by up to 3 orders of magnitude and reduces the latency. It also supports **multi-way joining**, **subqueries** and **more general materialized views**. It is still experimental and you can refer to [this guide](../guides/sql.md) for a quick start.
+We have re-implemented the stream processing engine in an interactive and
+differential style, which reduces the latency and improves the throughput by up
+to 3 orders of magnitude. The new engine also supports **multi-way join**,
+**subqueries** , and **more general materialized views**.
+
+The feature is still experimental. For try-outs, please refer to
+[the SQL guides](../guides/sql.md).
 
 #### Gossip-based HServer Clusters
 
-We refactor the hserver cluster with gossip-based membership and failure detection mainly based on [SWIM](https://ieeexplore.ieee.org/document/1028914) paper, replacing the ZooKeeper-based implementation in the previous version. It will improve the scalability of the cluster and reduce dependencies on external systems.
+We refactor the hserver cluster with gossip-based membership and failure
+detection based on [SWIM](https://ieeexplore.ieee.org/document/1028914),
+replacing the ZooKeeper-based implementation in the previous version. The new
+mechanism will improve the scalability of the cluster and as well as reduce
+dependencies on external systems.
 
 #### Advertised Listeners
 
-The deployment and usage in production could involve a complex network setting. For example, if the server cluster is hosted internally, it would require an external IP address for clients to connect to the cluster. The use of docker and cloud-hosting can make the situation even more complicated. To ensure that clients from different networks can interact with the cluster, HStreamDB v0.9 provides configurations for advertised listeners. With advertised listeners configured, servers can return the corresponding address for different clients, according to the port to which the client sent the request.
+The deployment and usage in production could involve a complex network setting.
+For example, if the server cluster is hosted internally, it would require an
+external IP address for clients to connect to the cluster. The use of docker and
+cloud-hosting can make the situation even more complicated. To ensure that
+clients from different networks can interact with the cluster, HStreamDB v0.9
+provides configurations for advertised listeners. With advertised listeners
+configured, servers can return the corresponding address for different clients,
+according to the port to which the client sent the request.
 
 #### Improved HStream CLI
 
-To make CLI more unified and more straightforward, we have migrated the old HStream SQL Shell and some other node management functionality to the new HStream CLI. HStream CLI currently supports operations such as starting an interacting SQL shell, sending bootstrap initiation and checking server node status. You can refer to [the CLI documentation](../cli/cli.md) for details.
+To make CLI more unified and more straightforward, we have migrated the old
+HStream SQL Shell and some other node management functionalities to the new
+HStream CLI. HStream CLI currently supports operations such as starting an
+interacting SQL shell, sending bootstrap initiation and checking server node
+status. You can refer to [the CLI documentation](../cli/cli.md) for details.
 
 #### Monitoring with Grafana
 
-We provide a basic monitoring solution based on Prometheus and Grafana. Metrics collected by HStreamDB will be stored in Prometheus by the exporter and shown on the Grafana board. For details, refer to [the documentation](../monitoring/grafana.md).
+We provide a basic monitoring solution based on Prometheus and Grafana. Metrics
+collected by HStreamDB will be stored in Prometheus by the exporter and
+displayed on the Grafana board. For details, refer to
+[the documentation](../monitoring/grafana.md).
 
 #### Deployment on K8s with Helm
 
-We provide a helm chart supporting deploying HStreamDB on k8s using Helm. You can refer to [the documentation](../deployment/deploy-helm.md) for details.
+We provide a helm chart to support deploying HStreamDB on k8s using Helm. You
+can refer to [the documentation](../deployment/deploy-helm.md) for details.
 
+### Java Client
 
-### Java Client 
+The
+[Java Client v0.9.0](https://github.com/hstreamdb/hstreamdb-java/releases/tag/v0.9.0)
+has been released, with support for HStreamDB v0.9.
 
-The [Java Client v0.9.0](https://github.com/hstreamdb/hstreamdb-java/releases/tag/v0.9.0) has been released, which adds support for HStreamDB v0.9. 
+### Golang Client
 
-### Golang Client 
+The
+[Go Client v0.2.0](https://github.com/hstreamdb/hstreamdb-go/releases/tag/v0.2.0)
+has been released, with support for HStreamDB v0.9.
 
-The [Go Client v0.2.0](https://github.com/hstreamdb/hstreamdb-go/releases/tag/v0.2.0) has been released, which adds support for HStreamDB v0.9. 
+### Python Client
 
-### Python Client 
-
-The [Python Client v0.2.0](https://github.com/hstreamdb/hstreamdb-py/releases/tag/v0.2.0) has been released, which adds support for HStreamDB v0.9. 
+The
+[Python Client v0.2.0](https://github.com/hstreamdb/hstreamdb-py/releases/tag/v0.2.0)
+has been released, with support for HStreamDB v0.9.
 
 ## v0.8.0 [2022-04-29]
 
@@ -88,8 +130,8 @@ The [Python Client v0.2.0](https://github.com/hstreamdb/hstreamdb-py/releases/ta
   maximum number of unacknowledged records allowed. When the amount of unacked
   records reaches the maximum setting, the server will stop sending records to
   consumers, which can avoid the accumulation of unacked records impacting the
-  performance of the server and consumers. We suggest users adjust the option
-  based on the consumption performance of their application.
+  server's and consumers' performance. We suggest users adjust the option based
+  on the consumption performance of their application.
 - Add `backlogDuration` option in Streams: the option determines how long
   HStreamDB will store the data in the stream. The data will be deleted and
   become inaccessible when it exceeds the time set.
@@ -117,15 +159,14 @@ The [Python Client v0.2.0](https://github.com/hstreamdb/hstreamdb-py/releases/ta
 
 - Fix several memory leaks caused by grpc-haskell
 - Fix several zookeeper client issues
-- Fix the problem that the checkpoint store already exists during server
-  startup
+- Fix the problem that the checkpoint store already exists during server startup
 - Fix the inconsistent handling of the default key during the lookupStream
   process
 - Fix the problem of stream writing error when the initialisation of hstore
   loggroup is incompleted
 - Fix the problem that hstore client writes incorrect data
 - Fix an error in allocating to idle consumers on subscriptions
-- Fix the memory allocation problem of hstore client's ``appendBatchBS`` function
+- Fix the memory allocation problem of hstore client's `appendBatchBS` function
 - Fix the problem of losing retransmitted data due to the unavailability of the
   original consumer
 - Fix the problem of data distribution caused by wrong workload sorting
@@ -158,12 +199,14 @@ The [Python Client v0.2.0](https://github.com/hstreamdb/hstreamdb-py/releases/ta
 
 ### Go Client
 
-- hstream-go v0.1.0 has been released. For a more detailed introduction and usage,
-please check the [Github repository](https://github.com/hstreamdb/hstreamdb-go).
+- hstream-go v0.1.0 has been released. For a more detailed introduction and
+  usage, please check the
+  [Github repository](https://github.com/hstreamdb/hstreamdb-go).
 
 ### Admin Server
 
-- a new admin server has been released, see [Github repository](https://github.com/hstreamdb/http-services)
+- a new admin server has been released, see
+  [Github repository](https://github.com/hstreamdb/http-services)
 
 ### Tools
 
