@@ -8,11 +8,10 @@
 
 ### 安装 docker
 
-::: tip
-如果您已经有一安装好的 Docker，可以跳过这一步
-:::
+::: tip 如果您已经有一安装好的 Docker，可以跳过这一步 :::
 
-浏览查阅 [Install Docker Engine](https://docs.docker.com/engine/install/)，然后安装到您的操作系统上。安装时，请注意检查您的设备是否满足所有的前置条件。
+浏览查阅 [Install Docker Engine](https://docs.docker.com/engine/install/)，然后
+安装到您的操作系统上。安装时，请注意检查您的设备是否满足所有的前置条件。
 
 确认 Docker daemon 正在运行：
 
@@ -20,18 +19,15 @@
 docker version
 ```
 
-::: tip
-在 Linux，Docker 需要 root 权限。
-当然，你也可以以非 root 用户的方式运行 Docker，详情可以参考 [Post-installation steps for Linux][non-root-docker]。
-:::
+::: tip 在 Linux，Docker 需要 root 权限。当然，你也可以以非 root 用户的方式运行
+Docker，详情可以参考 [Post-installation steps for Linux][non-root-docker]。 :::
 
 ### 安装 docker-compose
 
-::: tip
-如果您已经有一安装好的 Docker Compose，可以跳过这一步
-:::
+::: tip 如果您已经有一安装好的 Docker Compose，可以跳过这一步 :::
 
-浏览查阅 [Install Docker Compose](https://docs.docker.com/compose/install/)，然后安装到您的操作系统上。安装时，请注意检查您的设备是否满足所有的前置条件。
+浏览查阅 [Install Docker Compose](https://docs.docker.com/compose/install/)，然
+后安装到您的操作系统上。安装时，请注意检查您的设备是否满足所有的前置条件。
 
 ```sh
 docker-compose -v
@@ -39,12 +35,9 @@ docker-compose -v
 
 ## 启动 HStreamDB 服务
 
-::: warning
-请不要在生产环境中使用以下配置
-:::
+::: warning 请不要在生产环境中使用以下配置 :::
 
-创建一个 quick-start.yaml,
-可以直接[下载][quick-start.yaml]或者复制以下内容:
+创建一个 quick-start.yaml, 可以直接[下载][quick-start.yaml]或者复制以下内容:
 
 ```yaml
 # quick-start.yaml
@@ -64,9 +57,7 @@ hserver_1    | [INFO][2021-11-22T09:15:18+0000][app/server.hs:145:3][thread#67]S
 hserver_1    | [INFO][2021-11-22T09:15:18+0000][app/server.hs:146:3][thread#67]*************************
 ```
 
-::: tip
-当然，你也可以选择在后台启动
-:::
+::: tip 当然，你也可以选择在后台启动 :::
 
 ```sh
 docker-compose -f quick-start.yaml up -d
@@ -81,7 +72,7 @@ docker-compose -f quick-start.yaml logs -f hserver
 ## 启动 HStreamDB 的 SQL 命令行界面
 
 ```sh
-docker run -it --rm --name some-hstream-cli --network host hstreamdb/hstream:v0.9.0 hstream-client --port 6570 --client-id 1
+docker run -it --rm --name some-hstream-cli --network host hstreamdb/hstream:v0.9.0 hstream --port 6570 sql
 ```
 
 如果所有的步骤都正确运行，您将会进入到命令行界面，并且能看见一下帮助信息：
@@ -139,7 +130,7 @@ SELECT * FROM demo WHERE humidity > 70 EMIT CHANGES;
 我们可以利用这个新的 CLI 来插入数据：
 
 ```sh
-docker exec -it some-hstream-cli hstream-client --port 6570 --client-id 2
+docker exec -it some-hstream-cli hstream --port 6570 sql
 ```
 
 ## 向 stream 中写入数据
@@ -164,5 +155,7 @@ INSERT INTO demo (temperature, humidity) VALUES (28, 86);
 {"temperature":28,"humidity":86}
 ```
 
-[non-root-docker]: https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user
-[quick-start.yaml]: https://github.com/hstreamdb/hstream/raw/main/docker/quick-start.yaml
+[non-root-docker]:
+  https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user
+[quick-start.yaml]:
+  https://github.com/hstreamdb/hstream/raw/main/docker/quick-start.yaml
