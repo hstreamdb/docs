@@ -1,229 +1,220 @@
-en:
-  - title: Introduction
-    children:
-      - path: introduction/overview
-        title: Overview
-      - title: Architecture
-        children:
-          - path: introduction/architecture/overview
-            title: Architecture Overview
-          - path: introduction/architecture/hstore
-            title: HStream Store (HStore)
-          - path: introduction/architecture/hserver
-            title: HStream Server (HSQL)
-  - title: Getting started
-    children:
-      - path: start/quickstart-with-docker
-        title: Quickstart with Docker-Compose
-  # - title: Concepts
-  #   children:
-  #     - path: concepts/stream
-  #       title: Stream and Streaming Data
-  #     - path: concepts/transparent-sharding
-  #       title: Transparent Sharding
-  - title: Guides
-    children:
-      - path: guides/write
-        title: Write Records to Streams
-      - path: guides/consume
-        title: Consume Records with Subscriptions
-      - path: guides/stream
-        title: Create and Manage Streams
-      - path: guides/subscription
-        title: Create and Manage Subscriptions
-      - path: guides/shards
-        title: Manage Shards of the Stream
-      - path: guides/reader
-        title: Get Records from Shards of the Stream with Reader
-      - path: guides/sql
-        title: Perform Stream Processing by SQL
-  - title: Deployment
-    children:
-      - path: deployment/deploy-helm
-        title: Running on Kubernetes by Helm
-      - path: deployment/deploy-k8s
-        title: Running on Kubernetes
-      - path: deployment/deploy-docker
-        title: Manual Deployment with Docker
-      - path: deployment/quick-deploy-ssh
-        title: Quick Deployment with Docker and SSH
-  - title: Monitoring
-    children:
-      - path: monitoring/grafana.md
-        title: Monitoring HStreamDB Using Grafana
-  - title: HStream CLI
-    path: cli/cli
-  - title: HStream IO
-    children:
-      - path: io/overview
-        title: Overview
-      - path: io/user_guides
-        title: User Guides
-      - path: io/connectors
-        title: Connectors
-  - title: Security
-    children:
-      - path: security/overview
-        title: Overview
-      - path: security/encryption
-        title: Encryption
-      - path: security/authentication
-        title: Authentication
-  - title: Release notes
-    path: release_notes/HStreamDB
-  - title: Reference
-    children:
-      - path: reference/config
-        title: HStreamDB Configuration
-      - path: reference/metrics
-        title: HStream Metrics
-      - title: HStream SQL
-        children:
-          - path: reference/sql/sql-overview
-            title: HStream SQL overview
-          - path: reference/sql/sql-quick-reference
-            title: HStream SQL quick reference
-          - title: Statements
-            children:
-              - path: reference/sql/statements/create-stream
-                title: CREATE STREAM
-              - path: reference/sql/statements/create-view
-                title: CREATE VIEW
-              - path: reference/sql/statements/create-connector
-                title: CREATE CONNECTOR
-              - path: reference/sql/statements/drop-stream
-                title: DROP STREAM
-              - path: reference/sql/statements/drop-view
-                title: DROP VIEW
-              - path: reference/sql/statements/drop-connector
-                title: DROP CONNECTOR
-              - path: reference/sql/statements/select-stream
-                title: SELECT (Stream)
-              - path: reference/sql/statements/select-view
-                title: SELECT (View)
-              - path: reference/sql/statements/insert
-                title: INSERT
-              - path: reference/sql/statements/show
-                title: SHOW
-              - path: reference/sql/statements/pause
-                title: PAUSE
-              - path: reference/sql/statements/resume
-                title: RESUME
-          - title: Functions
-            children:
-              - path: reference/sql/functions/aggregation
-                title: Aggregation Functions
-              - path: reference/sql/functions/scalar
-                title: Scalar Functions
-          - path: reference/sql/appendix
-            title: Appendix
-
-zh:
-  - title: 介绍
-    children:
-      - path: introduction/overview
-        title: 概览
-      - title: 架构
-        children:
-          - path: introduction/architecture/overview
-            title: 概览
-          - path: introduction/architecture/hstore
-            title: HStream Store (HStore)
-          - path: introduction/architecture/hserver
-            title: HStream Server (HSQL)
-  # - title: 概念
-  #   children:
-  #     - path: concepts/stream
-  #       title: Stream and Streaming Data
-  #     - path: concepts/transparent-sharding
-  #       title: 透明分区
-  - title: 快速上手
-    children:
-      - path: start/quickstart-with-docker
-        title: 使用 Docker-Compose 快速上手
-      - path: start/cli
-        title: 使用命令行界面（HStream SQL Shell）
-  - title: 用户指南
-    children:
-      - path: guides/write
-        title: 向 Stream 写入 Records
-      - path: guides/consume
-        title: 通过订阅（Subscription）消费数据
-      - path: guides/stream
-        title: 创建和管理 Stream
-      - path: guides/subscription
-        title: 创建和管理 Subscriptions
-      - path: guides/shards
-        title: 管理 Stream 的分区 （Shard）
-      - path: guides/reader
-        title: 通过 Reader 从 Stream 的分区读取数据
-      - path: guides/sql
-        title: 通过 SQL 进行流处理
-  - title: 部署
-    children:
-      - path: deployment/deploy-helm
-        title: 在 Kubernetes 上通过 helm 部署
-      - path: deployment/deploy-k8s
-        title: 在 Kubernetes 上部署
-      - path: deployment/deploy-docker
-        title: 用 Docker 手动部署
-      - path: deployment/quick-deploy-ssh
-        title: 使用 Docker 和 SSH 快速部署
-  - title: HStream IO
-    children:
-      - path: io/overview
-        title: 概览
-      - path: io/user_guides
-        title: 使用指南
-      - path: io/connectors
-        title: Connectors
-  - title: 安全功能
-    children:
-      - path: security/overview
-        title: 概览
-      - path: security/encryption
-        title: 加密
-      - path: security/authentication
-        title: 认证
-  - title: Release notes
-    children:
-      - path: release_notes/HStreamDB
-        title: HStreamDB release notes
-  - title: 参考
-    children:
-      - path: reference/config
-        title: HStream 配置
-      - title: HStream SQL
-        children:
-          - path: reference/sql/sql-overview
-            title: HStream SQL overview
-          - path: reference/sql/sql-quick-reference
-            title: HStream SQL quick reference
-          - children:
-              - path: reference/sql/statements/create-stream
-                title: CREATE STREAM
-              - path: reference/sql/statements/create-view
-                title: CREATE VIEW
-              - path: reference/sql/statements/create-connector
-                title: CREATE CONNECTOR
-              - path: reference/sql/statements/drop-stream
-                title: DROP STREAM
-              - path: reference/sql/statements/drop-view
-                title: DROP VIEW
-              - path: reference/sql/statements/drop-connector
-                title: DROP CONNECTOR
-              - path: reference/sql/statements/select-stream
-                title: SELECT (Stream)
-              - path: reference/sql/statements/select-view
-                title: SELECT (View)
-              - path: reference/sql/statements/insert
-                title: INSERT
-            title: Statements
-          - children:
-              - path: reference/sql/functions/aggregation
-                title: Aggregation Functions
-              - path: reference/sql/functions/scalar
-                title: Scalar Functions
-            title: Functions
-          - path: reference/sql/appendix
-            title: Appendix
+- title:
+    en: Introduction
+    zh: 介绍
+  children:
+    - path: introduction/overview
+      title:
+        en: Overview
+        zh: 概览
+    - title:
+        en: Architecture
+        zh: 架构
+      children:
+        - path: introduction/architecture/overview
+          title:
+            en: Architecture Overview
+            zh: 架构概览
+        - path: introduction/architecture/hstore
+          title:
+            en: HStream Store (HStore)
+            zh: HStream Store (HStore)
+        - path: introduction/architecture/hserver
+          title:
+            en: HStream Server (HSQL)
+            zh: HStream Server (HSQL)
+- title:
+    en: Getting started
+    zh: 快速上手
+  children:
+    - path: start/quickstart-with-docker
+      title:
+        en: Quickstart with Docker-Compose
+        zh: 使用 Docker-Compose 快速上手
+- title:
+    en: Guides
+    zh: 使用指南
+  children:
+    - path: guides/write
+      title:
+        en: Write Records to Streams
+        zh: 向 Stream 写入 Records
+    - path: guides/consume
+      title:
+        en: Consume Records with Subscriptions
+        zh: 通过 Subscriptions 消费 Records
+    - path: guides/stream
+      title:
+        en: Create and Manage Streams
+        zh: 创建和管理 Streams
+    - path: guides/subscription
+      title:
+        en: Create and Manage Subscriptions
+        zh: 创建和管理 Subscriptions
+    - path: guides/shards
+      title:
+        en: Manage Shards of the Stream
+        zh: 管理 Stream 中的 Shards
+    - path: guides/reader
+      title:
+        en: Read Records
+        zh: 读取 Records
+    - path: guides/sql
+      title:
+        en: Perform Stream Processing by SQL
+        zh: 通过 SQL 创建流处理任务
+- title:
+    en: HStream CLI
+    zh: HStream CLI
+  path: cli/cli
+- title:
+    en: HStream IO
+    zh: HStream IO
+  children:
+    - path: io/overview
+      title:
+        en: Overview
+        zh: 概览
+    - path: io/user_guides
+      title:
+        en: User Guides
+        zh: 使用指南
+    - path: io/connectors
+      title:
+        en: Connectors
+        zh: Connectors
+- title:
+    en: HStream SQL
+    zh: HStream SQL
+  children:
+    - path: reference/sql/sql-overview
+      title:
+        en: HStream SQL overview
+        zh: HStream SQL 概览
+    - path: reference/sql/sql-quick-reference
+      title:
+        en: HStream SQL quick reference
+        zh: HStream SQL quick reference
+    - title:
+        en: Statements
+        zh: Statements
+      children:
+        - path: reference/sql/statements/create-stream
+          title:
+            en: CREATE STREAM
+            zh: CREATE STREAM
+        - path: reference/sql/statements/create-view
+          title:
+            en: CREATE VIEW
+            zh: CREATE VIEW
+        - path: reference/sql/statements/create-connector
+          title:
+            en: CREATE CONNECTOR
+            zh: CREATE CONNECTOR
+        - path: reference/sql/statements/drop-stream
+          title:
+            en: DROP STREAM
+            zh: DROP STREAM
+        - path: reference/sql/statements/drop-view
+          title:
+            en: DROP VIEW
+            zh: DROP VIEW
+        - path: reference/sql/statements/drop-connector
+          title:
+            en: DROP CONNECTOR
+            zh: DROP CONNECTOR
+        - path: reference/sql/statements/select-stream
+          title:
+            en: SELECT (Stream)
+            zh: SELECT (Stream)
+        - path: reference/sql/statements/select-view
+          title:
+            en: SELECT (View)
+            zh: SELECT (View)
+        - path: reference/sql/statements/insert
+          title:
+            en: INSERT
+            zh: INSERT
+        - path: reference/sql/statements/show
+          title:
+            en: SHOW
+            zh: SHOW
+        - path: reference/sql/statements/pause
+          title:
+            en: PAUSE
+            zh: PAUSE
+        - path: reference/sql/statements/resume
+          title:
+            en: RESUME
+            zh: RESUME
+    - title:
+        en: Functions
+        zh: Functions
+      children:
+        - path: reference/sql/functions/aggregation
+          title:
+            en: Aggregation Functions
+            zh: Aggregation Functions
+        - path: reference/sql/functions/scalar
+          title:
+            en: Scalar Functions
+            zh: Scalar Functions
+    - path: reference/sql/appendix
+      title:
+        en: Appendix
+        zh: 附录
+- title:
+    en: Deployment
+    zh: 部署
+  children:
+    - path: deployment/deploy-helm
+      title:
+        en: Running on Kubernetes by Helm
+        zh: 通过 Helm 在 Kubernetes 上运行
+    - path: deployment/deploy-k8s
+      title:
+        en: Running on Kubernetes
+        zh: 在 Kubernetes 上运行
+    - path: deployment/deploy-docker
+      title:
+        en: Manual Deployment with Docker
+        zh: 使用 Docker 手动部署
+    - path: deployment/quick-deploy-ssh
+      title:
+        en: Quick Deployment with Docker and SSH
+        zh: Quick Deployment with Docker and SSH
+- title:
+    en: Security
+    zh: 安全特性
+  children:
+    - path: security/overview
+      title:
+        en: Overview
+        zh: 概览
+    - path: security/encryption
+      title:
+        en: Encryption
+        zh: 加密
+    - path: security/authentication
+      title:
+        en: Authentication
+        zh: 认证
+- title:
+    en: Monitoring
+    zh: 监控
+  path: monitoring/grafana.md
+- title:
+    en: Release notes
+    zh: Release notes
+  path: release_notes/HStreamDB
+- title:
+    en: Reference
+    zh: 参考
+  children:
+    - path: reference/config
+      title:
+        en: HStreamDB Configuration
+        zh: HStreamDB 配置
+    - path: reference/metrics
+      title:
+        en: HStream Metrics
+        zh: HStream Metrics

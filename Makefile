@@ -1,7 +1,7 @@
 tag ?= v0.9.0
 
 config:
-	python3 -c 'import json; import yaml; json.dump(yaml.safe_load(open("directory.yaml")), open("docs/directory.json", "w"), ensure_ascii=False)'
+	script/make-config
 
 upgrade-docker-image:
 	find docs/ -type f -exec sed -i -E \
