@@ -8,7 +8,9 @@
 
 ### 安装 docker
 
-::: tip 如果您已经有一安装好的 Docker，可以跳过这一步 :::
+::: tip
+如果您已经有一安装好的 Docker，可以跳过这一步
+:::
 
 浏览查阅 [Install Docker Engine](https://docs.docker.com/engine/install/)，然后
 安装到您的操作系统上。安装时，请注意检查您的设备是否满足所有的前置条件。
@@ -19,12 +21,16 @@
 docker version
 ```
 
-::: tip 在 Linux，Docker 需要 root 权限。当然，你也可以以非 root 用户的方式运行
-Docker，详情可以参考 [Post-installation steps for Linux][non-root-docker]。 :::
+::: tip
+在 Linux，Docker 需要 root 权限。当然，你也可以以非 root 用户的方式运行
+Docker，详情可以参考 [Post-installation steps for Linux][non-root-docker]。
+:::
 
 ### 安装 docker-compose
 
-::: tip 如果您已经有一安装好的 Docker Compose，可以跳过这一步 :::
+::: tip
+如果您已经有一安装好的 Docker Compose，可以跳过这一步
+:::
 
 浏览查阅 [Install Docker Compose](https://docs.docker.com/compose/install/)，然
 后安装到您的操作系统上。安装时，请注意检查您的设备是否满足所有的前置条件。
@@ -35,7 +41,9 @@ docker-compose -v
 
 ## 启动 HStreamDB 服务
 
-::: warning 请不要在生产环境中使用以下配置 :::
+::: warning
+请不要在生产环境中使用以下配置
+:::
 
 创建一个 quick-start.yaml, 可以直接[下载][quick-start.yaml]或者复制以下内容:
 
@@ -57,7 +65,9 @@ hserver_1    | [INFO][2021-11-22T09:15:18+0000][app/server.hs:145:3][thread#67]S
 hserver_1    | [INFO][2021-11-22T09:15:18+0000][app/server.hs:146:3][thread#67]*************************
 ```
 
-::: tip 当然，你也可以选择在后台启动 :::
+::: tip
+当然，你也可以选择在后台启动
+:::
 
 ```sh
 docker-compose -f quick-start.yaml up -d
