@@ -146,7 +146,7 @@ Start another CLI session, this CLI will be used for inserting data into the
 stream.
 
 ```sh
-docker exec -it some-hstream-cli hstream-client --port 6570 --client-id 2
+docker exec -it some-hstream-cli hstream --port 6570 sql
 ```
 
 ## Insert data into the stream
