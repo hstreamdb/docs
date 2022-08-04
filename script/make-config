@@ -5,15 +5,27 @@ import yaml
 import copy
 
 
+def read_title_from_md(lang, path):
+    path = 'docs/'+ lang + '/' + path + '.md'
+    with open(path) as f:
+        h1 = f.readline()
+        return h1.strip('\n').strip('#')
+
+
 def update_item(item, language):
     new_item = copy.deepcopy(item)
-    new_item["title"] = new_item["title"][language]
+    if "title" in new_item:
+        new_item["title"] = new_item["title"][language]
+    else:
+        new_item["title"] = read_title_from_md(language, new_item["path"])
+
     if "children" in new_item:
         new_item["children"] = update_titles(new_item["children"], language)
+
     return new_item
 
 def update_titles(contents, language):
-    return [update_item(x, language) for x in contents if language in x["title"]]
+    return [update_item(x, language) for x in contents if "title" not in x or language in x["title"]]
 
 contents = yaml.safe_load(open("directory.yaml"))
 
