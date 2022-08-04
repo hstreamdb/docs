@@ -1,13 +1,14 @@
 # Quick Deployment with Docker and SSH
 
-This document provides a way to start an HStreamDB cluster quickly using Docker and SSH.
+This document provides a way to start an HStreamDB cluster quickly using Docker
+and SSH.
 
 ## Pre-Require
 
 - The local host needs to be able to connect to the remote server via SSH
 - Using SSH Config File to help remote connect
 
-    + [Reference](https://linuxize.com/post/using-the-ssh-config-file/)
+  - [Reference](https://linuxize.com/post/using-the-ssh-config-file/)
 
 - Remote server has docker installed
 
@@ -73,40 +74,50 @@ Create a JSON-format config file to fit your situation. There is an example in
 }
 ```
 
-The `hosts` field stores remote server information in the form of key-value pairs. The key is the
-hostname of the server in the SSH configuration file and the value is the IP address of the server.
+The `hosts` field stores remote server information in the form of key-value
+pairs. The key is the hostname of the server in the SSH configuration file and
+the value is the IP address of the server.
 
-The field `hosts`, among other top-level configuration field objects which each is about a service
-kind, is required in the configuration file. Other fields are: `zookeeper`, `hstore`, `hstore-admin`
-and `hserver`. The configuration file also supports filling in configuration items related to monitoring components (such as prometheus, grafana, etc.), which are not core components and are not described here.
+The field `hosts`, among other top-level configuration field objects which each
+is about a service kind, is required in the configuration file. Other fields
+are: `zookeeper`, `hstore`, `hstore-admin` and `hserver`. The configuration file
+also supports filling in configuration items related to monitoring components
+(such as prometheus, grafana, etc.), which are not core components and are not
+described here.
 
-The HStore configuration must be set before deployment. The path of config is stored in the field
-`hstore.local_config_path` and `hstore.remote_config_path`, respectively. The former is the path to
-the HStore config file on the local machine which is to run the deployment script, while the latter
-is the destination that the HStore config file would be uploaded to during deployment. You can refer
-to the `Create a configuration file` section in the
-documentation [Manual Deployment with Docker](deploy-docker.md) to create an HStore config file.
+The HStore configuration must be set before deployment. The path of config is
+stored in the field `hstore.local_config_path` and `hstore.remote_config_path`,
+respectively. The former is the path to the HStore config file on the local
+machine which is to run the deployment script, while the latter is the
+destination that the HStore config file would be uploaded to during deployment.
+You can refer to the `Create a configuration file` section in the documentation
+[Manual Deployment with Docker](deploy-docker.md) to create an HStore config
+file.
 
-The configuration of HServers is configured with the field `hstore.local_config_path`
-and `hstore.remote_config_path`. You can refer to the
-documentation [HStreamDB Configuration](../reference/config.md) for details. This is optional and if
-the value is not filled in, the default configuration will be used to start.
+The configuration of HServers is configured with the field
+`hstore.local_config_path` and `hstore.remote_config_path`. You can refer to the
+documentation [HStreamDB Configuration](../reference/config.md) for details.
+This is optional and if the value is not filled in, the default configuration
+will be used to start.
 
-Each JSON object for configuring a kind of service has a field named `hosts` which indicates which
-server nodes are used to start corresponding service instances.
+Each JSON object for configuring a kind of service has a field named `hosts`
+which indicates which server nodes are used to start corresponding service
+instances.
 
-::: tip Check the ZooKeeper related fields in the HStore config file to make sure that the ZooKeeper
-nodes information is consistent.
+::: tip Check the ZooKeeper related fields in the HStore config file to make
+sure that the ZooKeeper nodes information is consistent. 
 :::
 
-Each JSON object for configuring a kind of service also had some extra optional fields for
-configuring the resource constraints of containers used by this kind of service, such as
-`memory` and `cpus`. The usages of the above two are analogous the ones in the
+Each JSON object for configuring a kind of service also had some extra optional
+fields for configuring the resource constraints of containers used by this kind
+of service, such as `memory` and `cpus`. The usages of the above two are
+analogous the ones in the
 [Docker options](https://docs.docker.com/config/containers/resource_constraints/).
 
 ## Cluster Management
 
-- After creating the configuration file, you can start/stop a hstreamdb cluster with these commands
+- After creating the configuration file, you can start/stop a hstreamdb cluster
+  with these commands
 
   ```shell
   # start cluster

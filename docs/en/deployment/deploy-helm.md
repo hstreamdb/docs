@@ -1,9 +1,9 @@
 # Running on Kubernetes by Helm
 
-This document describes how to run HStreamDB kubernetes using the helm chart that we
-provide. The document assumes basic previous kubernetes knowledge. By the end of
-this section, you'll have a fully running HStreamDB cluster on kubernetes that's
-ready to receive reads/writes, process datas, etc.
+This document describes how to run HStreamDB kubernetes using the helm chart
+that we provide. The document assumes basic previous kubernetes knowledge. By
+the end of this section, you'll have a fully running HStreamDB cluster on
+kubernetes that's ready to receive reads/writes, process datas, etc.
 
 ## Building your Kubernetes Cluster
 
@@ -12,7 +12,9 @@ cluster (provided by your cloud provider), a self-hosted cluster or a local
 kubernetes cluster using a tool like minikube. Make sure that kubectl points to
 whatever cluster you're planning to use.
 
-Also, you need a storageClass, you can create by `kubectl`or by your cloud provider web page if it has. minikube provides a storage class called `standard` by default, which is used by the helm chart by default.
+Also, you need a storageClass, you can create by `kubectl`or by your cloud
+provider web page if it has. minikube provides a storage class called `standard`
+by default, which is used by the helm chart by default.
 
 ## Starting HStreamDB
 
@@ -30,11 +32,19 @@ helm dependency build .
 helm install my-hstream .
 ```
 
-Helm chart also provides the `value.yaml` file where you can modify your configuration, for example when you want to use other storage classes to deploy the cluster, you can modify `logdevice.persistence.storageClass` and ` zookeeper.persistence.storageClass` in `value.yaml`, and use `helm install my-hstream -f values.yaml . ` to deploy.
+Helm chart also provides the `value.yaml` file where you can modify your
+configuration, for example when you want to use other storage classes to deploy
+the cluster, you can modify `logdevice.persistence.storageClass` and
+`zookeeper.persistence.storageClass` in `value.yaml`, and use
+`helm install my-hstream -f values.yaml .` to deploy.
 
 ### Check Cluster status
 
-The `helm install` command will deploy the zookeeper cluster, logdevice cluster and hstream cluster, this can take some time, you can check the status of the cluster with `kubectl get pods`, there will be some `Error` and `CrashLoopBackOff` status during the cluster deployment, these will disappear after some time, eventually you will see something like the following.
+The `helm install` command will deploy the zookeeper cluster, logdevice cluster
+and hstream cluster, this can take some time, you can check the status of the
+cluster with `kubectl get pods`, there will be some `Error` and
+`CrashLoopBackOff` status during the cluster deployment, these will disappear
+after some time, eventually you will see something like the following.
 
 ```
 NAME                                                 READY   STATUS    RESTARTS      AGE
@@ -51,7 +61,8 @@ my-hstream-zookeeper-1                               1/1     Running   0        
 my-hstream-zookeeper-2                               1/1     Running   0             16h
 ```
 
-You can check the status of the HStreamDB cluster with the `hadmin server` command.
+You can check the status of the HStreamDB cluster with the `hadmin server`
+command.
 
 ```
 kubectl exec -it hstream-1 -- bash -c "hadmin server status"
