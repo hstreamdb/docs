@@ -42,7 +42,7 @@ Create a JSON-format config file to fit your situation. There is an example in
         "enable-metrics-provider": true
     },
     "hstore": {
-        "image": "hstreamdb/hstream:v0.7.1",
+        "image": "hstreamdb/hstream:v0.9.0",
         "persistent-dir": "/data/store",
         "hosts": [
             "remote_ssh_host2",
@@ -53,7 +53,7 @@ Create a JSON-format config file to fit your situation. There is an example in
         "remote_config_path": "/root/.config/dev-deploy/logdevice.conf"
     },
     "hstore-admin": {
-        "image": "hstreamdb/hstream:v0.7.1",
+        "image": "hstreamdb/hstream:v0.9.0",
         "memory": "1024m",
         "cpus": "0.5",
         "hosts": [
@@ -61,23 +61,9 @@ Create a JSON-format config file to fit your situation. There is an example in
         ]
     },
     "hserver": {
-        "image": "hstreamdb/hstream:v0.7.1",
+        "image": "hstreamdb/hstream:v0.9.0",
         "memory": "2048m",
         "cpus": "1.5",
-        "hosts": [
-            "remote_ssh_host2",
-            "remote_ssh_host3",
-            "remote_ssh_host4"
-        ]
-    },
-    "prometheus": {
-        "hosts": [
-            "remote_ssh_host1"
-        ],
-        "local_config_path": "$PWD/config.yml",
-        "remote_config_path": "/root/.config/dev-deploy/config.yml"
-    },
-    "node-exporter": {
         "hosts": [
             "remote_ssh_host2",
             "remote_ssh_host3",
@@ -92,7 +78,7 @@ hostname of the server in the SSH configuration file and the value is the IP add
 
 The field `hosts`, among other top-level configuration field objects which each is about a service
 kind, is required in the configuration file. Other fields are: `zookeeper`, `hstore`, `hstore-admin`
-, `hserver`, `prometheus` and `node-exporter`.
+and `hserver`. The configuration file also supports filling in configuration items related to monitoring components (such as prometheus, grafana, etc.), which are not core components and are not described here.
 
 The HStore configuration must be set before deployment. The path of config is stored in the field
 `hstore.local_config_path` and `hstore.remote_config_path`, respectively. The former is the path to
