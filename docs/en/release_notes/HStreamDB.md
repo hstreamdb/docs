@@ -17,16 +17,18 @@
 
 #### Shards in Streams
 
-We have exposed shards under streams, which provides a finer-grained control of
-data distribution in a stream and direct access to data in a shard. Each shard
-will be assigned a range of hashes in the stream, and every record whose hash of
-`partitionKey` falls in the range will be stored in that shard.
+We have extended the sharding model in v0.8, which provides direct access and
+management of the underlying shards of a stream, allowing a finer-grained
+control of data distribution and stream scaling. Each shard will be assigned a
+range of hashes in the stream, and every record whose hash of `partitionKey`
+falls in the range will be stored in that shard.
 
 Currently, HStreamDB supports:
 
 - set the initial number of shards when creating a stream
 - distribute written records among shards of the stream with `partitionKey`s
 - direct access to records from any shard of the specified position
+- check the shards and their key range in a stream
 
 In future releases, HStreamDB will support dynamic scaling of streams through
 shard splitting and merging
@@ -55,9 +57,9 @@ HStream IO.
 #### New Stream Processing Engine
 
 We have re-implemented the stream processing engine in an interactive and
-differential style, which reduces the latency and improves the throughput by up
-to 3 orders of magnitude. The new engine also supports **multi-way join**,
-**subqueries** , and **more general materialized views**.
+differential style, which reduces the latency and improves the throughput
+magnificently. The new engine also supports **multi-way join**, **sub-queries**,
+and **more** general materialized views.
 
 The feature is still experimental. For try-outs, please refer to
 [the SQL guides](../guides/sql.md).

@@ -1,16 +1,18 @@
-# 使用 Docker 和 SSH 快速部署
+# Quick Deployment with Docker and SSH
 
-本文描述了如何使用 docker 和 ssh 快速部署 HStreamDB 集群。
+This document provides a way to start an HStreamDB cluster quickly using Docker
+and SSH.
 
-## 部署要求
+## Pre-Require
 
-- 要求本地主机能通过 SSH 与远端服务器建立连接
-- 使用 SSH config file 来辅助建立连接
-  + [Reference](https://linuxize.com/post/using-the-ssh-config-file/)
+- The local host needs to be able to connect to the remote server via SSH
+- Using SSH Config File to help remote connect
 
-- 远端服务器需要安装好 Docker
+  - [Reference](https://linuxize.com/post/using-the-ssh-config-file/)
 
-## 获取启动脚本
+- Remote server has docker installed
+
+## Fetching the Startup Script
 
 ```shell
 mkdir script
@@ -18,53 +20,110 @@ wget -O script/dev-deploy https://raw.githubusercontent.com/hstreamdb/hstream/ma
 wget -O script/dev_deploy_conf_example.json https://raw.githubusercontent.com/hstreamdb/hstream/main/script/dev_deploy_conf_example.json
 ```
 
-## 创建启动配置文件
+## Create a Configuration File
 
-需要创建一个 json 格式的配置文件。配置文件的内容清参考模板：`script/dev_deploy_conf_example.json`
+Create a JSON-format config file to fit your situation. There is an example in
+`script/dev_deploy_conf_example.json`.
 
 ```shell
 {
-  "hosts": {
-    "remote_ssh_host1": "192.168.10.1",
-    "remote_ssh_host2": "192.168.10.2",
-    "remote_ssh_host3": "192.168.10.3",
-    "remote_ssh_host4": "192.168.10.4"
-  },
-  "local_store_config_path": "$PWD/logdevice.conf",
-  "hstreamdb_config_path": "",
-  "zookeeper-host": [
-    "remote_ssh_host2",
-    "remote_ssh_host3",
-    "remote_ssh_host4"
-  ],
-  "hstore-host": ["remote_ssh_host2", "remote_ssh_host3", "remote_ssh_host4"],
-  "hstore-admin-host": ["remote_ssh_host1"],
-  "hserver-host": ["remote_ssh_host2", "remote_ssh_host3", "remote_ssh_host4"]
+    "hosts": {
+        "remote_ssh_host1": "192.168.10.1",
+        "remote_ssh_host2": "192.168.10.2",
+        "remote_ssh_host3": "192.168.10.3",
+        "remote_ssh_host4": "192.168.10.4"
+    },
+    "zookeeper": {
+        "persistent-dir": "/data/zookeeper",
+        "hosts": [
+            "remote_ssh_host2",
+            "remote_ssh_host3",
+            "remote_ssh_host4"
+        ],
+        "enable-metrics-provider": true
+    },
+    "hstore": {
+        "image": "hstreamdb/hstream:v0.9.0",
+        "persistent-dir": "/data/store",
+        "hosts": [
+            "remote_ssh_host2",
+            "remote_ssh_host3",
+            "remote_ssh_host4"
+        ],
+        "local_config_path": "$PWD/logdevice.conf",
+        "remote_config_path": "/root/.config/dev-deploy/logdevice.conf"
+    },
+    "hstore-admin": {
+        "image": "hstreamdb/hstream:v0.9.0",
+        "memory": "1024m",
+        "cpus": "0.5",
+        "hosts": [
+            "remote_ssh_host1"
+        ]
+    },
+    "hserver": {
+        "image": "hstreamdb/hstream:v0.9.0",
+        "memory": "2048m",
+        "cpus": "1.5",
+        "hosts": [
+            "remote_ssh_host2",
+            "remote_ssh_host3",
+            "remote_ssh_host4"
+        ]
+    }
 }
 ```
 
-- `hosts`：hosts 字段以键-值对的形式存储服务器信息。键是SSH配置文件中服务器的HostName，值是服务器的IP地址。
-- `local_store_config_path`：该字段中需要填入 `hstore` 配置文件的路径
-  + 具体可以参考 [configuration file](deploy-docker.md) 中`创建配置文件`部分
-- `hstreamdb_config_path`：该字段中需要填入 `hstreamdb` 配置文件的路径
-  + 具体可以参考 [HStreamDB Configuration](../reference/config.md)
-  + 注意：该字段是一个选填字段，如果不填入任何值，则会使用默认配置项进行启动
-- `zookeeper-host`：指定创建 Zookeeper 实例的远端服务器节点。
-  + **注意**：检查 `hstore` 配置文件中 zk 相关的字段，确保填写的服务器信息一致
+The `hosts` field stores remote server information in the form of key-value
+pairs. The key is the hostname of the server in the SSH configuration file and
+the value is the IP address of the server.
 
-- `hstore-host`：指定创建 hstore 实例的远端服务器节点。
-- `hstore-admin-host`：指定创建 hadmin 实例的远端服务器节点。
-- `hserver-host`：指定创建 hserver 实例的远端服务器节点。
+The field `hosts`, among other top-level configuration field objects which each
+is about a service kind, is required in the configuration file. Other fields
+are: `zookeeper`, `hstore`, `hstore-admin` and `hserver`. The configuration file
+also supports filling in configuration items related to monitoring components
+(such as prometheus, grafana, etc.), which are not core components and are not
+described here.
 
-## 集群管理
+The HStore configuration must be set before deployment. The path of config is
+stored in the field `hstore.local_config_path` and `hstore.remote_config_path`,
+respectively. The former is the path to the HStore config file on the local
+machine which is to run the deployment script, while the latter is the
+destination that the HStore config file would be uploaded to during deployment.
+You can refer to the `Create a configuration file` section in the documentation
+[Manual Deployment with Docker](deploy-docker.md) to create an HStore config
+file.
 
-- 在创建完配置文件之后，可以通过以下指令来启动/停止一个 HStreamDB 集群
+The configuration of HServers is configured with the field
+`hstore.local_config_path` and `hstore.remote_config_path`. You can refer to the
+documentation [HStreamDB Configuration](../reference/config.md) for details.
+This is optional and if the value is not filled in, the default configuration
+will be used to start.
+
+Each JSON object for configuring a kind of service has a field named `hosts`
+which indicates which server nodes are used to start corresponding service
+instances.
+
+::: tip Check the ZooKeeper related fields in the HStore config file to make
+sure that the ZooKeeper nodes information is consistent.
+:::
+
+Each JSON object for configuring a kind of service also had some extra optional
+fields for configuring the resource constraints of containers used by this kind
+of service, such as `memory` and `cpus`. The usages of the above two are
+analogous the ones in the
+[Docker options](https://docs.docker.com/config/containers/resource_constraints/).
+
+## Cluster Management
+
+- After creating the configuration file, you can start/stop a hstreamdb cluster
+  with these commands
 
   ```shell
-  # 启动集群
+  # start cluster
   dev-deploy --remote "" simple --config config_path start
-  # 停止集群：只停止启动的容器
+  # stop cluster: just stop containers
   dev-deploy --remote "" simple --config config_path stop
-  # 移除集群：停止启动的容器，同时移除持久化的所有数据
+  # remove cluster: stop containers and delete persistent data
   dev-deploy --remote "" simple --config config_path remove
   ```

@@ -1,4 +1,4 @@
-# Get Records from Shards of Streams with Reader
+# Get Records from Shards of the Stream with Reader
 
 ## What is a Reader
 
@@ -25,6 +25,7 @@ To read from the shards, users are required to get the desired shard id with
 [`listShards`](./shards.md#listshards).
 
 :::: tabs
+
 ::: tab Java
 
 ```java
@@ -32,4 +33,17 @@ To read from the shards, users are required to get the desired shard id with
 ```
 
 :::
+
+::: tab Go
+
+```go
+// ExampleReadDataWithReader.go
+```
+
+:::
+
+::: tab Python3
+@snippet hstreamdb-py/examples/snippets/guides.py common read-reader
+:::
+
 ::::
