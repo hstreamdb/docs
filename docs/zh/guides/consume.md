@@ -30,12 +30,36 @@ stream 相关联。
 程序获得更高的吞吐量。Records 可以在你的应用程序中使用一个长期运行的 records
 receiver 来接收，并逐条 ack，如下面的例子中所示。
 
+:::: tabs
+
+::: tab Java
+
 ```java
 // ConsumeDataSimpleExample.java
 ```
 
-为了获得更好的性能，默认情况下启用了 Batched Ack，和 ackBufferSize = 100 和
-ackAgeLimit = 100 的设置，你可以在启动你的消费者时更新它。
+:::
+
+::: tab Go
+
+```go
+// ExampleConsumer.go
+```
+
+:::
+
+::: tab Python3
+@snippet hstreamdb-py/examples/snippets/guides.py common subscribe-records
+:::
+
+::::
+
+For better performance, Batched Ack is enabled by default with setting
+`ackBufferSize` = 100 and `ackAgeLimit` = 100, which you can change when
+initiating your consumers.
+
+:::: tabs
+::: tab Java
 
 ```java
 Consumer consumer =
@@ -52,6 +76,33 @@ Consumer consumer =
         .build();
 ```
 
+:::
+::::
+
+为了获得更好的性能，默认情况下启用了 Batched Ack，和 ackBufferSize = 100 和
+ackAgeLimit = 100 的设置，你可以在启动你的消费者时更新它。
+
+:::: tabs
+::: tab Java
+
+```java
+Consumer consumer =
+    client
+        .newConsumer()
+        .subscription("you_subscription_id")
+        .name("your_consumer_name")
+        .hRecordReceiver(your_receiver)
+        // When ack() is called, the consumer will not send it to servers immediately,
+        // the ack request will be buffered until the ack count reaches ackBufferSize
+        // or the consumer is stopping or reached ackAgelimit
+        .ackBufferSize(100)
+        .ackAgeLimit(100)
+        .build();
+```
+
+:::
+::::
+
 ## 多个消费者和共享订阅
 
 如先前提到的，在 HStream 中，一个订阅是对应了一个 consumer group 消费的。在这个
@@ -60,9 +111,25 @@ consumer group 中，可能会有多个消费者，并且他们共享订阅的�
 的消费者是如何加入 consumer group 的。更常见的情况是，用户使用来自不同客户端的消
 费者去共同消费一个订阅。
 
+:::: tabs
+
+::: tab Java
+
 ```java
 // ConsumeDataSharedExample.java
 ```
+
+:::
+
+::: tab Go
+
+```go
+// ExampleConsumerGroup.go
+```
+
+:::
+
+::::
 
 ## 使用 `maxUnackedRecords` 的来实现流控
 
@@ -95,6 +162,9 @@ HStream 以至少一次的语义发送 hstream record，在某些情况下，当
 在其他情况下可能会导致消费者的失败，例如网络、订阅被删除等。然而，作为一个服务，
 你可能希望消费者继续运行，所以你可以设置一个监听器来处理一个消费者失败的情况。
 
+:::: tabs
+::: tab Java
+
 ```java
 // add Listener for handling failed consumer
 var threadPool = new ScheduledThreadPoolExecutor(1);
@@ -106,3 +176,6 @@ consumer.addListener(
     },
     threadPool);
 ```
+
+:::
+::::
