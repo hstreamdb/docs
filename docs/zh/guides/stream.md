@@ -22,9 +22,29 @@
 
 在你写入 records 或者 创建一个订阅之前先创建一个 stream。
 
+:::: tabs
+
+::: tab Java
+
 ```java
 // CreateStreamExample.java
 ```
+
+:::
+
+::: tab Go
+
+```go
+// ExampleCreateStream.go
+```
+
+:::
+
+::: tab Python3
+@snippet hstreamdb-py/examples/snippets/guides.py common create-stream
+:::
+
+::::
 
 ## 删除一个 Stream
 
@@ -37,14 +57,54 @@
 `__deleted_stream__`。同时，我们并不允许在被删除的 stream 上创建新的订阅，也不允
 许向该 stream 写入新的 record。
 
+:::: tabs
+
+::: tab Java
+
 ```java
 // DeleteStreamExample.java
 ```
+
+:::
+
+::: tab Go
+
+```go
+// ExampleDeleteStream.go
+```
+
+:::
+
+::: tab Python3
+@snippet hstreamdb-py/examples/snippets/guides.py common delete-stream
+:::
+
+::::
 
 ## 列出所有 stream 信息
 
 可以如下拿到所有 HStream 中的 stream:
 
+:::: tabs
+
+::: tab Java
+
 ```java
 // ListStreamsExample.java
 ```
+
+:::
+
+::: tab Go
+
+```go
+// ExampleListStreams.go
+```
+
+:::
+
+::: tab Python3
+@snippet hstreamdb-py/examples/snippets/guides.py common list-streams
+:::
+
+::::

@@ -1,7 +1,7 @@
 # Write Records to Streams
 
 This document provides information about how to write data to streams in
-HStreamDB using hstreamdb-java.
+HStreamDB using hstreamdb-java or clients implemented in other language.
 
 You can also read following pages to get a more thorough understanding:
 

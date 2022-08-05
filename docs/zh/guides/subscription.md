@@ -18,9 +18,29 @@ Subscription 的属性
 
 当创建一个 subscription 时，你可以像这样提供提到的属性：
 
+:::: tabs
+
+::: tab Java
+
 ```java
 // CreateSubscriptionExample.java
 ```
+
+:::
+
+::: tab Go
+
+```go
+// ExampleCreateSubscription.go
+```
+
+:::
+
+::: tab Python3
+@snippet hstreamdb-py/examples/snippets/guides.py common create-subscription
+:::
+
+::::
 
 ## 删除一个订阅
 
@@ -34,12 +54,52 @@ Subscription 的属性
 的名字创建一个订阅，这个订阅将是一个全新的订阅。即使他们订阅的是同一个流，这个新
 的订阅也不会与被删除的订阅共享消费进度。
 
+:::: tabs
+
+::: tab Java
+
 ```java
 // DeleteSubscriptionExample.java
 ```
 
+:::
+
+::: tab Go
+
+```go
+// ExampleDeleteSubscription.go
+```
+
+:::
+
+::: tab Python3
+@snippet hstreamdb-py/examples/snippets/guides.py common delete-subscription
+:::
+
+::::
+
 ## 列出 HStream 中的 subscription 信息
+
+:::: tabs
+
+::: tab Java
 
 ```java
 // ListSubscriptionsExample.java
 ```
+
+:::
+
+::: tab Go
+
+```go
+// ExampleListSubscriptions.go
+```
+
+:::
+
+::: tab Python3
+@snippet hstreamdb-py/examples/snippets/guides.py common list-subscription
+:::
+
+::::

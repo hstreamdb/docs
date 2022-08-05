@@ -65,7 +65,8 @@ For better performance, Batched Ack is enabled by default with setting
 `ackBufferSize` = 100 and `ackAgeLimit` = 100, which you can change when
 initiating your consumers.
 
-:::: tabs ::: tab Java
+:::: tabs
+::: tab Java
 
 ```java
 Consumer consumer =
@@ -82,7 +83,8 @@ Consumer consumer =
         .build();
 ```
 
-::: ::::
+:::
+::::
 
 ## Multiple consumers and shared consumption progress
 
@@ -152,7 +154,8 @@ Consumers could fail in other scenarios, such as network, deleted subscriptions,
 etc. However, as a service, you may want the consumer to keep running, so you
 can register a listener to handle a failed consumer:
 
-:::: tabs ::: tab Java
+:::: tabs
+::: tab Java
 
 ```java
 // add Listener for handling failed consumer
@@ -166,4 +169,5 @@ consumer.addListener(
     threadPool);
 ```
 
-::: ::::
+:::
+::::
