@@ -15,6 +15,12 @@ whatever cluster you're planning to use.
 Also, you need a storageClass named `hstream-store`, you can create by `kubectl`
 or by your cloud provider web page if it has.
 
+::: tip
+
+For minikube user, you can use the default storage class called `standard`.
+
+:::
+
 ## Install Zookeeper
 
 HStreamDB depends on Zookeeper for storing queries information and some internal
@@ -28,7 +34,7 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 
 helm install zookeeper bitnami/zookeeper \
-  --set image.tag=3.6.3 \
+  --set image.tag=3.6 \
   --set replicaCount=3 \
   --set persistence.storageClass=hstream-store \
   --set persistence.size=20Gi
@@ -57,7 +63,7 @@ To connect to your ZooKeeper server from outside the cluster execute the followi
 
     kubectl port-forward svc/zookeeper 2181:2181 &
     zkCli.sh 127.0.0.1:2181
-WARNING: Rolling tag detected (bitnami/zookeeper:3.6.3), please note that it is strongly recommended to avoid using rolling tags in a production environment.
+WARNING: Rolling tag detected (bitnami/zookeeper:3.6), please note that it is strongly recommended to avoid using rolling tags in a production environment.
 +info https://docs.bitnami.com/containers/how-to/understand-rolling-tags-containers/
 ```
 
@@ -131,9 +137,9 @@ When you run `kubectl get pods`, you should see something like this:
 
 ```
 NAME                                                 READY   STATUS    RESTARTS   AGE
-hstream-server-deployment-765c84c489-94nqd           1/1     Running   0          6d18h
-hstream-server-deployment-765c84c489-jrm5p           1/1     Running   0          6d18h
-hstream-server-deployment-765c84c489-jxsjd           1/1     Running   0          6d18h
+hstream-server-0                                     1/1     Running   0          6d18h
+hstream-server-1                                     1/1     Running   0          6d18h
+hstream-server-2                                     1/1     Running   0          6d18h
 logdevice-0                                          1/1     Running   0          6d18h
 logdevice-1                                          1/1     Running   0          6d18h
 logdevice-2                                          1/1     Running   0          6d18h
@@ -144,19 +150,18 @@ zookeeper-1                                          1/1     Running   0        
 zookeeper-2                                          1/1     Running   0          6d
 ```
 
-### Bootstrapping the Storage Cluster
+### Bootstrapping cluster
 
 Once all the logdevice pods are running and ready, you'll need to bootstrap the
 cluster to enable all the nodes. To do that, run:
 
 ```sh
 kubectl run hstream-admin -it --rm --restart=Never --image=hstreamdb/hstream:v0.9.0 -- \
-    hadmin store --host logdevice-admin-server-service \
-    nodes-config \
-    bootstrap --metadata-replicate-across 'node:3'
+  hadmin store --host logdevice-admin-server-service \
+    nodes-config bootstrap --metadata-replicate-across 'node:3'
 ```
 
-This will start a hstream-admin pod, that connects to the admin server and
+This will start a hstream-admin pod, that connects to the store admin server and
 invokes the `nodes-config bootstrap` hadmin store command and sets the metadata
 replication property of the cluster to be replicated across three different
 nodes. On success, you should see something like:
@@ -165,6 +170,23 @@ nodes. On success, you should see something like:
 Successfully bootstrapped the cluster
 pod "hstream-admin" deleted
 ```
+
+Now, you can boostrap hstream server, by running the following command:
+
+```sh
+kubectl run hstream-admin -it --rm --restart=Never --image=hstreamdb/hstream:v0.9.0 -- \
+    hadmin server --host hstream-server-0.hstream-server init
+```
+
+On success, you should see something like:
+
+```
+Cluster is ready!
+pod "hstream-admin" deleted
+```
+
+Note that depending on how fast the storage cluster completes bootstrap, running
+`hadmin init` may fail. So you may need to run the command more than once.
 
 ## Managing the Storage Cluster
 
