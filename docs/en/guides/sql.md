@@ -1,16 +1,17 @@
 # Perform Stream Processing by SQL
 
-This part provides a demo on performing real-time stream processing by SQL. You
-can get first understand on basic concepts such as **streams**, **queries** and
-**materialized views**. It also shows some powerful features of our system, such
-as easy-to-use and low-lantency.
+This part provides a demo of performing real-time stream processing by SQL. You
+will be introduced to some basic concepts such as **streams**, **queries** and
+**materialized views** with some examples to demonstrate the power of our
+processing engine, such as the ease to use and dealing with complex queries.
 
 ## Overview
 
 One of the most important applications of stream processing is real-time
-bussiness information analisis. Imagine that we manage a supermarket and we want
-to analyze the selling information of products to adjust management strategies.
-To be brief, suppose we have two **streams**:
+business information analysis. Imagine that we are managing a supermarket and
+would like to analyze the sales information to adjust our marketing strategies.
+
+Suppose we have two **streams** of data:
 
 ```
 info(product, category)      // represents the category a product belongs to
@@ -18,20 +19,20 @@ visit(product, user, length) // represents the length of time when a customer lo
 ```
 
 Unlike tables in traditional relational databases, a stream is an endless series
-of data which comes with time. Now we want to do some analisis on the two
+of data which comes with time. Next, we will run some analysis on the two
 streams to get some useful information.
 
-## Prerequirements
+## Requirements
 
-Ensure you have deployed the HStream system successfully. The most easiest way
-is at [quickstart](../start/quickstart-with-docker.md). Of course you can also
-try other methods mentioned in the Deployment part.
+Ensure you have deployed HStreamDB successfully. The easiest way is to follow
+[quickstart](../start/quickstart-with-docker.md) to start a local cluster. Of
+course, you can also try other methods mentioned in the Deployment part.
 
 ## Step 1: Create related streams
 
-In the overview part we have mentioned that we have two streams `info` and
-`visit`. Now let's create them. Just open a CLI session and run the following
-statements:
+We have mentioned that we have two streams, `info` and `visit` in the
+[overview](#overview). Now let's create them. Start an HStream SQL shell and run
+the following statements:
 
 ```
 > CREATE STREAM info;
@@ -44,34 +45,37 @@ We have successfully created two streams.
 
 ## Step 2: Create streaming queries
 
-Now we can create streaming **queries** on the streams. A query is a running
-task which fetch data from stream(s) and produce results continuously. Let's
-create a trivial query which fetches data from stream `info` and outputs them
-identically:
+We can now create streaming **queries** on the streams. A query is a running
+task which fetches data from the stream(s) and produces results continuously.
+Let's create a trivial query which fetches data from stream `info` and outputs
+them:
 
 ```
 > SELECT * FROM info EMIT CHANGES;
 ```
 
-The query will start running until you interrupt it. Now just let it there and
-create another query. It fetches data from stream `visit` and outputs the
-maximum length of time of each product. Open a new CLI session and run
+The query will keep running until you interrupt it. Next, we can just leave it
+there and start another query. It fetches data from the stream `visit` and
+outputs the maximum length of time of each product. Start a new SQL shell and
+run
 
 ```
 > SELECT product, MAX(length) AS max_len FROM visit GROUP BY product EMIT CHANGES;
 ```
 
-Both two queries output no result now because we have not inserted any data into
-the two streams. We will do it then.
+Neither of the queries will print any results since we have not inserted any
+data yet. So let's do that.
 
 ## Step 3: Insert data into streams
 
-To insert data into streams, we can use many methods such as interactive CLI,
-client libraries and HStream IO. You can refer to [guides](../write.md) for
-client usage and [overview](../io/overview.md) for HStream IO. Here we use CLI
-to insert data to streams.
+There are multiple ways to insert data into the streams, such as client
+libraries and HStream IO, and the data inserted will all be cheated the same
+while processing. You can refer to [guides](../write.md) for client usage or the
+[overview](../io/overview.md) of HStream IO.
 
-Open a new CLI session and run
+For consistency and ease of demonstration, we would use SQL statements.
+
+Start a new SQL shell and run:
 
 ```
 > INSERT INTO info (product, category) VALUES ("Apple", "Fruit");
@@ -80,9 +84,12 @@ Done.
 Done.
 > INSERT INTO visit (product, user, length) VALUES ("Apple", "Bob", 20);
 Done.
+> INSERT INTO visit (product, user, length) VALUES ("Apple", "Caleb", 10);
+Done.
 ```
 
-Now switch to CLI sessions of the queries, we can get outputs as expected:
+Switch to the shells with running queries You should be able to see the expected
+outputs as follows:
 
 ```
 > SELECT * FROM info EMIT CHANGES;
@@ -93,18 +100,20 @@ Now switch to CLI sessions of the queries, we can get outputs as expected:
 > SELECT product, MAX(length) AS max_len FROM visit GROUP BY product EMIT CHANGES;
 {"product":"Apple","max_len":10.0}
 {"product":"Apple","max_len":20.0}
+{"product":"Apple","max_len":20.0}
 ```
 
 Note that `max_len` changes from `10` to `20`, which is expected.
 
 ## Step 3: Create materialized views
 
-Now let's do some more complex analisis. We want to know the maximum length of
-visit time of each category **at any time we need it**. The best way to solve
-the problem is by **materialized views**.
+Now let's do some more complex analysis. If we want to know the longest visit
+time of each category **any time we need it**, the best way is to create
+**materialized views**.
 
-A materialized view is a physical object which is continuously maintained in the
-memory. We can get the results directly from the view once we need it without
+A materialized view is an object which contains the result of a query. In
+HStreamDB, the view is maintained and continuously updated in memory, which
+means we can read the results directly from the view right when needed without
 any extra computation. Thus getting results from a view is very fast.
 
 Here we can create a view like
@@ -114,15 +123,16 @@ Here we can create a view like
 Done. Query ID: 1362152824401458
 ```
 
-Note the query ID may be different. Now let's get something from the view:
+Note the query ID will be different to the one shown above. Now let's try to get
+something from the view:
 
 ```
 > SELECT * FROM result;
 Done.
 ```
 
-We have got nothing! It is because we have not inserted any data into the
-streams **after** the view is created. Let's insert some data:
+It outputs no data because we have not inserted any data into the streams since
+**after** the view is created. Let's do it now:
 
 ```
 > INSERT INTO info (product, category) VALUES ("Apple", "Fruit");
@@ -143,7 +153,7 @@ Done.
 
 ## Step 4: Get results from views
 
-Now let's find out what is in our view again:
+Now let's find out what is in our view:
 
 ```
 > SELECT * FROM result;
@@ -151,7 +161,7 @@ Now let's find out what is in our view again:
 {"max_length":50.0,"info.category":"Vegetable"}
 ```
 
-It is correct! Now insert more data and repeat the inspection:
+It works. Now insert more data and repeat the inspection:
 
 ```
 > INSERT INTO visit (product, user, length) VALUES ("Banana", "Alice", 40);
@@ -163,9 +173,9 @@ Done.
 {"max_length":60.0,"info.category":"Vegetable"}
 ```
 
-The result is updated at once.
+The result is updated right away.
 
 ## Related Pages
 
-For detailed introduction of the SQL, see
-[the reference](../reference/sql/sql-overview.md).
+For a detailed introduction of the SQL, see
+[HStream SQL](../reference/sql/sql-overview.md).
