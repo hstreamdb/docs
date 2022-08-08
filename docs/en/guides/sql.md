@@ -1,26 +1,37 @@
-Perform Stream Processing by SQL
-===================================
+# Perform Stream Processing by SQL
 
-This part provides a demo on performing real-time stream processing by SQL. You can get first understand on basic concepts such as **streams**, **queries** and **materialized views**. It also shows some powerful features of our system, such as easy-to-use and low-lantency.
+This part provides a demo on performing real-time stream processing by SQL. You
+can get first understand on basic concepts such as **streams**, **queries** and
+**materialized views**. It also shows some powerful features of our system, such
+as easy-to-use and low-lantency.
 
 ## Overview
 
-One of the most important applications of stream processing is real-time bussiness information analisis. Imagine that we manage a supermarket and we want to analyze the selling information of products to adjust management strategies. To be brief, suppose we have two **streams**:
+One of the most important applications of stream processing is real-time
+bussiness information analisis. Imagine that we manage a supermarket and we want
+to analyze the selling information of products to adjust management strategies.
+To be brief, suppose we have two **streams**:
 
 ```
 info(product, category)      // represents the category a product belongs to
 visit(product, user, length) // represents the length of time when a customer looks at a product
 ```
 
-Unlike tables in traditional relational databases, a stream is an endless series of data which comes with time. Now we want to do some analisis on the two streams to get some useful information.
+Unlike tables in traditional relational databases, a stream is an endless series
+of data which comes with time. Now we want to do some analisis on the two
+streams to get some useful information.
 
 ## Prerequirements
 
-Ensure you have deployed the HStream system successfully. The most easiest way is at [quickstart](../start/quickstart-with-docker.md). Of course you can also try other methods mentioned in the Deployment part.
+Ensure you have deployed the HStream system successfully. The most easiest way
+is at [quickstart](../start/quickstart-with-docker.md). Of course you can also
+try other methods mentioned in the Deployment part.
 
 ## Step 1: Create related streams
 
-In the overview part we have mentioned that we have two streams `info` and `visit`. Now let's create them. Just open a CLI session and run the following statements:
+In the overview part we have mentioned that we have two streams `info` and
+`visit`. Now let's create them. Just open a CLI session and run the following
+statements:
 
 ```
 > CREATE STREAM info;
@@ -33,23 +44,32 @@ We have successfully created two streams.
 
 ## Step 2: Create streaming queries
 
-Now we can create streaming **queries** on the streams. A query is a running task which fetch data from stream(s) and produce results continuously. Let's create a trivial query which fetches data from stream `info` and outputs them identically:
+Now we can create streaming **queries** on the streams. A query is a running
+task which fetch data from stream(s) and produce results continuously. Let's
+create a trivial query which fetches data from stream `info` and outputs them
+identically:
 
 ```
 > SELECT * FROM info EMIT CHANGES;
 ```
 
-The query will start running until you interrupt it. Now just let it there and create another query. It fetches data from stream `visit` and outputs the maximum length of time of each product. Open a new CLI session and run
+The query will start running until you interrupt it. Now just let it there and
+create another query. It fetches data from stream `visit` and outputs the
+maximum length of time of each product. Open a new CLI session and run
 
 ```
 > SELECT product, MAX(length) AS max_len FROM visit GROUP BY product EMIT CHANGES;
 ```
 
-Both two queries output no result now because we have not inserted any data into the two streams. We will do it then.
+Both two queries output no result now because we have not inserted any data into
+the two streams. We will do it then.
 
 ## Step 3: Insert data into streams
 
-To insert data into streams, we can use many methods such as interactive CLI, client libraries and HStream IO. You can refer to [guides](../write.md) for client usage and [overview](../io/overview.md) for HStream IO. Here we use CLI to insert data to streams.
+To insert data into streams, we can use many methods such as interactive CLI,
+client libraries and HStream IO. You can refer to [guides](../write.md) for
+client usage and [overview](../io/overview.md) for HStream IO. Here we use CLI
+to insert data to streams.
 
 Open a new CLI session and run
 
@@ -79,9 +99,13 @@ Note that `max_len` changes from `10` to `20`, which is expected.
 
 ## Step 3: Create materialized views
 
-Now let's do some more complex analisis. We want to know the maximum length of visit time of each category **at any time we need it**. The best way to solve the problem is by **materialized views**.
+Now let's do some more complex analisis. We want to know the maximum length of
+visit time of each category **at any time we need it**. The best way to solve
+the problem is by **materialized views**.
 
-A materialized view is a physical object which is continuously maintained in the memory. We can get the results directly from the view once we need it without any extra computation. Thus getting results from a view is very fast.
+A materialized view is a physical object which is continuously maintained in the
+memory. We can get the results directly from the view once we need it without
+any extra computation. Thus getting results from a view is very fast.
 
 Here we can create a view like
 
@@ -97,7 +121,8 @@ Note the query ID may be different. Now let's get something from the view:
 Done.
 ```
 
-We have got nothing! It is because we have not inserted any data into the streams **after** the view is created. Let's insert some data:
+We have got nothing! It is because we have not inserted any data into the
+streams **after** the view is created. Let's insert some data:
 
 ```
 > INSERT INTO info (product, category) VALUES ("Apple", "Fruit");
@@ -142,4 +167,5 @@ The result is updated at once.
 
 ## Related Pages
 
-For detailed introduction of the SQL, see [the reference](../reference/sql/sql-overview.md).
+For detailed introduction of the SQL, see
+[the reference](../reference/sql/sql-overview.md).
