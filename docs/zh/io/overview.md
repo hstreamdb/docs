@@ -1,21 +1,29 @@
 # HStream IO Overview
 
-**HStream IO** is a platform based on HStreamDB to provide a real-time synchronization service between HStreamDB and external systems,
-enable you to easily feed data from external systems into HStreamDB or feed data from HStreamDB into external systems.
+**HStream IO** is a built-in framework of HStreamDB, which provides a real-time
+synchronization service between HStreamDB and external systems and enables you
+to an easy migration of data from/to external systems.
 
 ## Concept
 
-**HStream IO** includes two components:
+**HStream IO** consists of two components:
 
-- **IO Runtime**: IO Runtime is a part of HStreamDB to provide scalability, fault-tolerence, load-balancing for connectors.
-- [**Connectors**](https://github.com/hstreamdb/hstream-connectors): Connectors are used to synchronize data between HStreamDB and external systems.
+- **IO Runtime**: IO Runtime is a part of HStreamDB managing and empowering
+  scalability, fault-tolerance and load-balancing for connectors.
+- [**Connectors**](https://github.com/hstreamdb/hstream-connectors): Connectors
+  are used to synchronize data between HStreamDB and external systems.
 
-**HStream IO** includes two types of connectors: source and sink.
+**HStream IO** provides two types of connectors: source and sink.
 
-- **Source Connector** - A source connector subscribes data from other systems like mysql or postgresql, making the data availlable for hstream data processing.
-- **Sink Connector** - A sink connector write data to other systems like mysql or postgresql from HStreamDB streams.
+- **Source Connector** - A source connector subscribes to data from other
+  systems such as MySQL, and PostgreSQL, making the data available for data
+  processing in HStreamDB.
+- **Sink Connector** - A sink connector writes data to other systems from
+  HStreamDB streams.
 
-For understanding clearly, we call a **connector** as a task and a **connector plugin** as a docker image for the connector.
+For a clear understanding, we would name a running **connector** process to be a task
+and the docker image for the connector is a **connector plugin**.
 
-**HStream IO Protocol** is the lightweight protocol between HStream IO Runtime and connectors,
-based on the protocol, you can use any languege implement your connector plugins that we have not implemented yet.
+**HStream IO Protocol** is the lightweight protocol between HStream IO Runtime
+and connectors. Following the protocol, users can use any language to implement
+their own connector plugins that HStream IO has not provided.
