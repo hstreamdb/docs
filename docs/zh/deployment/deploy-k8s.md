@@ -13,6 +13,12 @@ HStreamDB 集群，它已经准备就绪，可以接收读/写，处理数据，
 另外，你需要一个名为 "hstream-store "的存储类，你可以通过 "kubectl "创建。或者通
 过你的云服务提供商的网页来创建，如果它有的话。
 
+::: tip
+
+对于使用 minikube 的用户, 你可以用默认的存储类 `standard`.
+
+:::
+
 ## 安装 Zookeeper
 
 HStreamDB 依赖于 Zookeeper 来存储查询信息和一些内部的存储配置，所以我们需要提供
@@ -26,7 +32,7 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 
 helm install zookeeper bitnami/zookeeper \
-  --set image.tag=3.6.3 \
+  --set image.tag=3.6 \
   --set replicaCount=3 \
   --set persistence.storageClass=hstream-store \
   --set persistence.size=20Gi
@@ -55,7 +61,7 @@ To connect to your ZooKeeper server from outside the cluster execute the followi
 
     kubectl port-forward svc/zookeeper 2181:2181 &
     zkCli.sh 127.0.0.1:2181
-WARNING: Rolling tag detected (bitnami/zookeeper:3.6.3), please note that it is strongly recommended to avoid using rolling tags in a production environment.
+WARNING: Rolling tag detected (bitnami/zookeeper:3.6), please note that it is strongly recommended to avoid using rolling tags in a production environment.
 +info https://docs.bitnami.com/containers/how-to/understand-rolling-tags-containers/
 ```
 
@@ -125,9 +131,9 @@ kubectl apply -k .
 
 ```
 NAME                                                 READY   STATUS    RESTARTS   AGE
-hstream-server-deployment-765c84c489-94nqd           1/1     Running   0          6d18h
-hstream-server-deployment-765c84c489-jrm5p           1/1     Running   0          6d18h
-hstream-server-deployment-765c84c489-jxsjd           1/1     Running   0          6d18h
+hstream-server-0                                     1/1     Running   0          6d18h
+hstream-server-1                                     1/1     Running   0          6d18h
+hstream-server-2                                     1/1     Running   0          6d18h
 logdevice-0                                          1/1     Running   0          6d18h
 logdevice-1                                          1/1     Running   0          6d18h
 logdevice-2                                          1/1     Running   0          6d18h
@@ -138,10 +144,10 @@ zookeeper-1                                          1/1     Running   0        
 zookeeper-2                                          1/1     Running   0          6d
 ```
 
-### Bootstrap 存储集群
+### Bootstrap 集群
 
-一旦所有的 logdevice pods 运行并准备就绪，你将需要 Bootstrap 集群以启用所有的节
-点。要做到这一点，请运行：
+一旦所有的 logdevice pods 运行并准备就绪，你将需要 Bootstrap 集群以启用所有的存
+储节点。要做到这一点，请运行：
 
 ```sh
 kubectl run hstream-admin -it --rm --restart=Never --image=hstreamdb/hstream:v0.9.0 -- \
@@ -150,8 +156,9 @@ kubectl run hstream-admin -it --rm --restart=Never --image=hstreamdb/hstream:v0.
     bootstrap --metadata-replicate-across 'node:3'
 ```
 
-这将启动一个 hstream-admin pod，它连接到管理服务器并调用 `nodes-config bootstrap`
-hadmin store 命令，并将集群的元数据复制属性设置为跨三个不同的节点进行复制。
+这将启动一个 hstream-admin pod，它连接到管理服务器并调用
+`nodes-config bootstrap` hadmin store 命令，并将集群的元数据复制属性设置为跨三个
+不同的节点进行复制。
 
 成功后，你应该看到类似如下：
 
@@ -159,6 +166,23 @@ hadmin store 命令，并将集群的元数据复制属性设置为跨三个不�
 Successfully bootstrapped the cluster
 pod "hstream-admin" deleted
 ```
+
+现在，你可以 bootstrap server 节点：
+
+```sh
+kubectl run hstream-admin -it --rm --restart=Never --image=hstreamdb/hstream:v0.9.0 -- \
+    hadmin server --host hstream-server-0.hstream-server init
+```
+
+成功后，你应该看到类似如下：
+
+```
+Cluster is ready!
+pod "hstream-admin" deleted
+```
+
+注意：取决于硬件条件，存储节点可能没有及时准备就绪，所以运行 `hadmin init` 可能
+会返回失败。这时需要等待几秒，再次运行即可。
 
 ## 管理存储集群
 
