@@ -152,7 +152,8 @@ Click on "Add a new panel":
 ![](./grafana/add-a-panel.png)
 
 Under the "Query" tab, use the metrics explorer under the "Metrics" tab to
-select the HStream metrics. Use the query builder to construct the query and
+select the [HStream Metrics](../reference/metrics.md), for example, we have
+chosen `append_in_bytes`. Use the query builder to construct the query and
 provide attributes. Then save the new panel.
 
 ![](./grafana/create-dashboard.png)
