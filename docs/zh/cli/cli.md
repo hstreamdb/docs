@@ -6,8 +6,8 @@ We can run the following to use HStream CLI:
 docker run -it --rm --name some-hstream-admin --network host hstreamdb/hstream:v0.9.2 hstream --help
 ```
 
-For the ease of illustration, we execute an interactive bash shell in the
-hstream container to use hstream admin,
+For ease of illustration, we execute an interactive bash shell in the
+HStream container to use HStream admin,
 
 The following example usage is based on the cluster started in
 [quick start](../start/quickstart-with-docker.md), please adjust
@@ -24,14 +24,39 @@ docker exec -it docker_hserver0_1 bash
 Usage: hstream [--host SERVER-HOST] [--port INT] COMMAND
 
 Available options:
-  --host SERVER-HOST       server host admin value (default: "127.0.0.1")
-  --port INT               server admin port value (default: 6570)
+  --host SERVER-HOST       Server host value (default: "127.0.0.1")
+  --port INT               Server port value (default: 6570)
+  --tls-ca STRING          path name of the file that contains list of trusted
+                           TLS Certificate Authorities
+  --tls-key STRING         path name of the client TLS private key file
+  --tls-cert STRING        path name of the client TLS public key certificate
+                           file
   -h,--help                Show this help text
 
 Available commands:
   sql                      Start HStream SQL Shell
   nodes                    Manage HStream Server Cluster
   init                     Init HStream Server Cluster
+```
+
+### Security Settings (optional)
+
+If [security options](../security/overview.md) is enabled, here are some options that should also be configured for CLI correspondingly.
+
+#### Encryption
+
+If [server encryption](../security/encryption.md) is enabled, the `--tls-ca` option should be add to CLI connection options:
+
+```sh
+hstream --tls-ca "<path to the CA certificate file>"
+```
+
+### Authentication
+
+If [server authentication](../security/authentication.md) is enabled, the `--tls-key` and `--tls-cert` options should be add to CLI connection options:
+
+```sh
+hstream --tls-key "<path to the trusted role key file>" --tls-cert "<path to the signed certificate file>"
 ```
 
 ## Check Cluster status
@@ -80,6 +105,9 @@ Available options:
                            (default: 30)
   --retry-timeout INT      timeout to retry connecting to a server in seconds
                            (default: 60)
+  -e,--execute STRING      execute the statement and quit
+  --history-file STRING    history file path to write interactively executed
+                           statements
   -h,--help                Show this help text
 ```
 
