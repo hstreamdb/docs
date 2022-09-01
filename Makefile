@@ -1,4 +1,4 @@
-tag ?= v0.9.2
+tag ?= v0.9.3
 
 config:
 	script/make-config

@@ -43,7 +43,7 @@ Create a JSON-format config file to fit your situation. There is an example in
         "enable-metrics-provider": true
     },
     "hstore": {
-        "image": "hstreamdb/hstream:v0.9.2",
+        "image": "hstreamdb/hstream:v0.9.3",
         "persistent-dir": "/data/store",
         "hosts": [
             "remote_ssh_host2",
@@ -54,7 +54,7 @@ Create a JSON-format config file to fit your situation. There is an example in
         "remote_config_path": "/root/.config/dev-deploy/logdevice.conf"
     },
     "hstore-admin": {
-        "image": "hstreamdb/hstream:v0.9.2",
+        "image": "hstreamdb/hstream:v0.9.3",
         "memory": "1024m",
         "cpus": "0.5",
         "hosts": [
@@ -62,7 +62,7 @@ Create a JSON-format config file to fit your situation. There is an example in
         ]
     },
     "hserver": {
-        "image": "hstreamdb/hstream:v0.9.2",
+        "image": "hstreamdb/hstream:v0.9.3",
         "memory": "2048m",
         "cpus": "1.5",
         "hosts": [
