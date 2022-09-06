@@ -72,25 +72,30 @@
     - path: reference/sql/appendix
 
 - title:
-    en: Deployment
-    zh: 部署
+    en: Operation and Maintenance
+    zh: 运维
   children:
-    - path: deployment/deploy-helm
-    - path: deployment/deploy-k8s
-    - path: deployment/deploy-docker
-    - path: deployment/quick-deploy-ssh
-- title:
-    en: Security
-    zh: 安全特性
-  children:
-    - path: security/overview
-    - path: security/encryption
-    - path: security/authentication
-
-- title:
-    en: Monitoring
-    zh: 监控
-  path: monitoring/grafana.md
+    - path: operation/cluster
+    - path: operation/advertised_listeners
+    - title:
+        en: Deployment
+        zh: 部署
+      children:
+        - path: operation/deployment/deploy-helm
+        - path: operation/deployment/deploy-k8s
+        - path: operation/deployment/deploy-docker
+        - path: operation/deployment/quick-deploy-ssh
+    - title:
+        en: Security
+        zh: 安全特性
+      children:
+        - path: operation/security/overview
+        - path: operation/security/encryption
+        - path: operation/security/authentication
+    - title:
+        en: Monitoring
+        zh: 监控
+      path: operation/monitoring/grafana.md
 
 - title:
     en: Release notes
