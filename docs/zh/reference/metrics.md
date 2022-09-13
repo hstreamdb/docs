@@ -31,7 +31,7 @@ subscription, users can specify intervals (default intervals [1min, 5min,
     <tr>
       <td rowspan="4">stream</td>
       <td>append_in_bytes</td>
-      <td>KB/s<br /></td>
+      <td>B/s<br /></td>
       <td>
         Rate of bytes received and successfully written to the stream.<br />
       </td>
@@ -60,7 +60,7 @@ subscription, users can specify intervals (default intervals [1min, 5min,
     <tr>
       <td rowspan="4">subscription</td>
       <td>send_out_bytes</td>
-      <td>KB/s</td>
+      <td>B/s</td>
       <td>Rate of bytes sent by the server per subscription</td>
     </tr>
     <tr>
