@@ -4,8 +4,8 @@
   children:
     - path: introduction/overview
     - title:
-        en: Overview
-        zh: 概述
+        en: Architecture
+        zh: 架构
       children:
         - path: introduction/architecture/overview
         - path: introduction/architecture/hstore

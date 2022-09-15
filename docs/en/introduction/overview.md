@@ -7,6 +7,25 @@ extensions) as the primary interface language, with real-time as the main
 feature, and aims to simplify the operation and management of data streams and
 the development of real-time applications.
 
+## Why HStreamDB?
+
+Nowadays, data is continuously being generated from various sources, e.g. sensor
+data from the IoT, user-clicking events on the Internet, etc.. We want to build
+low-latency applications that respond quickly to these incoming streaming data
+to provide a better user experience, real-time data insights and timely business
+decisions.
+
+However, currently, it is not easy to build such stream processing applications.
+To construct a basic stream processing architecture, we always need to combine
+multiple independent components. For example, you would need at least a
+streaming data capture subsystem, a message/event storage component, a stream
+processing engine, and multiple derived data systems for different queries.
+
+None of these should be so complicated, and this is where HStreamDB comes into
+play. Just as you can easily build a simple CRUD application based on a
+traditional database, with HStreamDB, you can easily build a basic streaming
+application without any other dependencies.
+
 ## Features
 
 _Note: The following features the milestone of HStreamDB version 1.0. Some
