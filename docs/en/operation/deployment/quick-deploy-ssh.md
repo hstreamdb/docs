@@ -6,11 +6,8 @@ and SSH.
 ## Pre-Require
 
 - The local host needs to be able to connect to the remote server via SSH
-- Using SSH Config File to help remote connect
-
-  - [Reference](https://linuxize.com/post/using-the-ssh-config-file/)
-
-- Remote server has docker installed
+- Using SSH Config File to help remote connection
+- The remote server has docker installed
 
 ## Fetching the Startup Script
 
@@ -96,7 +93,7 @@ file.
 
 The configuration of HServers is configured with the field
 `hstore.local_config_path` and `hstore.remote_config_path`. You can refer to the
-documentation [HStreamDB Configuration](../reference/config.md) for details.
+documentation [HStreamDB Configuration](../../reference/config.md) for details.
 This is optional and if the value is not filled in, the default configuration
 will be used to start.
 
@@ -105,7 +102,7 @@ which indicates which server nodes are used to start corresponding service
 instances.
 
 ::: tip Check the ZooKeeper related fields in the HStore config file to make
-sure that the ZooKeeper nodes information is consistent. 
+sure that the ZooKeeper nodes information is consistent.
 :::
 
 Each JSON object for configuring a kind of service also had some extra optional

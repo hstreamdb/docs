@@ -1,9 +1,11 @@
 # Encryption
+
 hstream supported encryption between servers and clients using TLS,
-in this chapter, we will not introduce more details about TLS, 
+in this chapter, we will not introduce more details about TLS,
 instead, we will only show steps and configurations to enable it.
 
 ## Steps
+
 If you don't have any existed CA(Certificate Authority),
 you can create one locally,
 and TLS requires that each server have a key
@@ -12,15 +14,17 @@ openssl is a good tool to generate them,
 after that, you need to configure the files paths
 in the servers and clients sides to enable it.
 
-### create a local CA
+### Create a local CA
 
 Create or choose a directory for storing keys and certificates:
+
 ```shell
 mkdir tls
 cd tls
 ```
 
 Create a database file and serial number file:
+
 ```shell
 touch index.txt
 echo 1000 > serial
@@ -28,28 +32,33 @@ echo 1000 > serial
 
 Get the template openssl.cnf file(**the template file is intended for testing and development,
 do not use it in the production environment directly**):
+
 ```shell
 wget https://raw.githubusercontent.com/hstreamdb/hstream/main/conf/openssl.cnf
 ```
 
 Generate the CA key file:
+
 ```shell
 openssl genrsa -aes256 -out ca.key.pem 4096
 ```
 
 Generate the CA certificate file:
+
 ```shell
 openssl req -config openssl.cnf -key ca.key.pem \
     -new -x509 -days 7300 -sha256 -extensions v3_ca \
     -out ca.cert.pem
 ```
 
-### create key pair and sign certificate for a server
+### Create key pair and sign certificate for a server
+
 Here we only generate a key and certificate for one server,
 you should create them for all hstream servers that have a different hostname,
 or create a certificate including all hostnames(IP or DNS) in SANs.
 
 Generate the server key file:
+
 ```shell
 openssl genrsa -out server01.key.pem 2048
 ```
@@ -57,20 +66,24 @@ openssl genrsa -out server01.key.pem 2048
 Generate the server certificate request,
 when you input Common Name,
 you should write the correct hostname(e.g., localhost):
+
 ```shell
 openssl req -config openssl.cnf \
     -key server01.key.pem -new -sha256 -out server01.csr.pem
 ```
 
 generate the server certificate with the generated CA:
+
 ```shell
 openssl ca -config openssl.cnf -extensions server_cert \
     -days 1000 -notext -md sha256 \
     -in server01.csr.pem -out signed.server01.cert.pem
 ```
 
-### configure the server and clients
+### Configure the server and clients
+
 The options for servers:
+
 ```yaml
 # TLS options
 #

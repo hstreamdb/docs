@@ -96,12 +96,12 @@ status. You can refer to [the CLI documentation](../cli/cli.md) for details.
 We provide a basic monitoring solution based on Prometheus and Grafana. Metrics
 collected by HStreamDB will be stored in Prometheus by the exporter and
 displayed on the Grafana board. For details, refer to
-[the documentation](../monitoring/grafana.md).
+[the documentation](../operation/monitoring/grafana.md).
 
 #### Deployment on K8s with Helm
 
 We provide a helm chart to support deploying HStreamDB on k8s using Helm. You
-can refer to [the documentation](../deployment/deploy-helm.md) for details.
+can refer to [the documentation](../operation/deployment/deploy-helm.md) for details.
 
 ### Java Client
 
@@ -127,7 +127,7 @@ has been released, with support for HStreamDB v0.9.
 
 #### New Features
 
-- Add [mutual TLS support](../security/overview.md)
+- Add [mutual TLS support](../operation/security/overview.md)
 - Add `maxUnackedRecords` option in Subscription: The option controls the
   maximum number of unacknowledged records allowed. When the amount of unacked
   records reaches the maximum setting, the server will stop sending records to
@@ -263,7 +263,7 @@ HStreamDB end-users.
 #### Deployment and usage
 
 - Support quick deployment via the script, see:
-  [Manual Deployment with Docker](../deployment/deploy-docker.md)
+  [Manual Deployment with Docker](../operation/deployment/deploy-docker.md)
 - Support config HStreamDB with a configuration file, see:
   [HStreamDB Configuration](../reference/config.md)
 - Support one-step docker-compose for quick-start:

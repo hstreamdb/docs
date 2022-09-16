@@ -5,7 +5,7 @@
 同时还可参考其他的相关教程：
 
 - 如何[创建和管理 Stream](./stream.md).
-- 如何[通过 Subscription 消费写入 Stream 中的 Records](./read.md).
+- 如何[通过 Subscription 消费写入 Stream 中的 Records](./consume.md).
 
 为了向 HStreamDB 写数据，我们需要将消息打包成 HStream Record，以及一个创建和发送
 消息到服务器的 Producer。

@@ -70,7 +70,7 @@ data yet. So let's do that.
 
 There are multiple ways to insert data into the streams, such as client
 libraries and HStream IO, and the data inserted will all be cheated the same
-while processing. You can refer to [guides](../write.md) for client usage or the
+while processing. You can refer to [guides](./write.md) for client usage or the
 [overview](../io/overview.md) of HStream IO.
 
 For consistency and ease of demonstration, we would use SQL statements.
