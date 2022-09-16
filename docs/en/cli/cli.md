@@ -41,11 +41,11 @@ Available commands:
 
 ### Security Settings (optional)
 
-If [security options](../security/overview.md) is enabled, here are some options that should also be configured for CLI correspondingly.
+If [security option](../operation/security/overview.md) is enabled, here are some options that should also be configured for CLI correspondingly.
 
 #### Encryption
 
-If [server encryption](../security/encryption.md) is enabled, the `--tls-ca` option should be add to CLI connection options:
+If [server encryption](../operation/security/encryption.md) is enabled, the `--tls-ca` option should be added to CLI connection options:
 
 ```sh
 hstream --tls-ca "<path to the CA certificate file>"
@@ -53,7 +53,7 @@ hstream --tls-ca "<path to the CA certificate file>"
 
 ### Authentication
 
-If [server authentication](../security/authentication.md) is enabled, the `--tls-key` and `--tls-cert` options should be add to CLI connection options:
+If [server authentication](../operation/security/authentication.md) is enabled, the `--tls-key` and `--tls-cert` options should be added to CLI connection options:
 
 ```sh
 hstream --tls-key "<path to the trusted role key file>" --tls-cert "<path to the signed certificate file>"

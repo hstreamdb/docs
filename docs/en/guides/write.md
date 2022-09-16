@@ -6,7 +6,7 @@ HStreamDB using hstreamdb-java or clients implemented in other language.
 You can also read following pages to get a more thorough understanding:
 
 - How to [create and manage Streams](./stream.md).
-- How to [consume the data written to a Stream](./read.md).
+- How to [consume the data written to a Stream](./consume.md).
 
 To write data to HStreamDB, we need to pack messages as HStream Records and a
 producer that creates and sends messages to servers.

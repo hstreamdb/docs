@@ -12,7 +12,7 @@ you need to create the corresponding key and certificate for a role,
 then give them to trusted clients,
 clients use the key and certificate(binding to a role) to connect to servers.
 
-## create a trusted role
+## Create a trusted role
 Generate a key:
 ```shell
 openssl genrsa -out role01.key.pem 2048
@@ -37,7 +37,7 @@ openssl ca -config openssl.cnf -extensions usr_cert \
       -in role01.csr.pem -out signed.role01.cert.pem
 ```
 
-## configuration
+## Configuration
 For hstream server, you can set ``tls-ca-path`` to enable TLS authentication, e.g.:
 ```yaml
 # TLS options
@@ -64,11 +64,11 @@ HStreamClient.builder()
   // enable tls
   .enableTLS()
   .tlsCaPath("/path/to/ca.pem")
-  
+
   // for authentication
   .enableTlsAuthentication()
   .tlsKeyPath("path/to/role01.key-pk8.pem")
   .tlsCertPath("path/to/signed.role01.cert.pem")
-  
+
   .build()
 ```

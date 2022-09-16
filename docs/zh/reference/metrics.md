@@ -1,7 +1,7 @@
 # HStream Metrics
 
 Table of metrics, and for usage, please refer to
-[Monitoring](../monitoring/grafana.md) chapter.
+[Monitoring](../operation/monitoring/grafana.md) chapter.
 
 Note: For metrics with intervals, such as stats in categories like stream and
 subscription, users can specify intervals (default intervals [1min, 5min,
