@@ -236,7 +236,7 @@ docker run -d --name hstream-server --network host \
         hstreamdb/hstream:v0.9.3 /usr/local/bin/hstream-server \
         --host $SERVER_HOST \
         --address $SERVER_HOST \
-        --seed-nodes $SERVER_HOST:6571 \
+        --seed-nodes $SERVER_HOST \
         --zkuri $ZK_ADDRESS \
         --store-config zk:$ZK_ADDRESS/logdevice.conf \
         --store-admin-host $ADMIN_HOST \
