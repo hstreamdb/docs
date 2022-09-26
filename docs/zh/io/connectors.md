@@ -14,3 +14,4 @@ Sinks:
 | --------------- | ------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
 | sink-mysql      | [configuration](https://github.com/hstreamdb/hstream-connectors/blob/main/docs/specs/sink_mysql_spec.md)      | hstreamdb/connector:sink-mysql      |
 | sink-postgresql | [configuration](https://github.com/hstreamdb/hstream-connectors/blob/main/docs/specs/sink_postgresql_spec.md) | hstreamdb/connector:sink-postgresql |
+| sink-mongodb    | [configuration](https://github.com/hstreamdb/hstream-connectors/blob/main/docs/specs/sink_mongodb_spec.md)    | hstreamdb/connector:sink-mongodb    |
