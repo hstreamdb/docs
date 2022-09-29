@@ -4,12 +4,12 @@
   path: introduction/introduction
 
 - title:
-    en: Getting started
+    en: Getting Started
     zh: 快速上手
   path: start/quickstart-with-docker
 
 - title:
-    en: Guides
+    en: User Guide
     zh: 使用指南
   children:
     - path: guides/write
@@ -34,7 +34,7 @@
     - path: io/connectors
 
 - title:
-    en: Operation and Maintenance
+    en: Administration 
     zh: 运维
   children:
     - path: operation/cluster
@@ -58,11 +58,6 @@
         en: Monitoring
         zh: 监控
       path: operation/monitoring/grafana.md
-
-- title:
-    en: Release notes
-    zh: Release notes
-  path: release_notes/HStreamDB
 
 - title:
     en: Reference
@@ -106,3 +101,9 @@
         - path: reference/sql/appendix
     - path: reference/config
     - path: reference/metrics
+
+- title:
+    en: Release Notes
+    zh: Release Notes
+  path: release_notes/HStreamDB
+
