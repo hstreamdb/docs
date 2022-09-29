@@ -1,15 +1,7 @@
 - title:
     en: Introduction
     zh: 介绍
-  children:
-    - path: introduction/overview
-    - title:
-        en: Architecture
-        zh: 架构
-      children:
-        - path: introduction/architecture/overview
-        - path: introduction/architecture/hstore
-        - path: introduction/architecture/hserver
+  path: introduction/introduction
 
 - title:
     en: Getting started
@@ -40,36 +32,6 @@
     - path: io/overview
     - path: io/user_guides
     - path: io/connectors
-
-- title:
-    en: HStream SQL
-    zh: HStream SQL
-  children:
-    - path: reference/sql/sql-overview
-    - path: reference/sql/sql-quick-reference
-    - title:
-        en: Statements
-        zh: Statements
-      children:
-        - path: reference/sql/statements/create-stream
-        - path: reference/sql/statements/create-view
-        - path: reference/sql/statements/create-connector
-        - path: reference/sql/statements/drop-stream
-        - path: reference/sql/statements/drop-view
-        - path: reference/sql/statements/drop-connector
-        - path: reference/sql/statements/select-stream
-        - path: reference/sql/statements/select-view
-        - path: reference/sql/statements/insert
-        - path: reference/sql/statements/show
-        - path: reference/sql/statements/pause
-        - path: reference/sql/statements/resume
-    - title:
-        en: Functions
-        zh: Functions
-      children:
-        - path: reference/sql/functions/aggregation
-        - path: reference/sql/functions/scalar
-    - path: reference/sql/appendix
 
 - title:
     en: Operation and Maintenance
@@ -106,5 +68,41 @@
     en: Reference
     zh: 参考
   children:
+    - title:
+        en: Architecture
+        zh: 架构
+      children:
+        - path: reference/architecture/overview
+        - path: reference/architecture/hstore
+        - path: reference/architecture/hserver
+    - title:
+        en: HStream SQL
+        zh: HStream SQL
+      children:
+        - path: reference/sql/sql-overview
+        - path: reference/sql/sql-quick-reference
+        - title:
+            en: Statements
+            zh: Statements
+          children:
+            - path: reference/sql/statements/create-stream
+            - path: reference/sql/statements/create-view
+            - path: reference/sql/statements/create-connector
+            - path: reference/sql/statements/drop-stream
+            - path: reference/sql/statements/drop-view
+            - path: reference/sql/statements/drop-connector
+            - path: reference/sql/statements/select-stream
+            - path: reference/sql/statements/select-view
+            - path: reference/sql/statements/insert
+            - path: reference/sql/statements/show
+            - path: reference/sql/statements/pause
+            - path: reference/sql/statements/resume
+        - title:
+            en: Functions
+            zh: Functions
+          children:
+            - path: reference/sql/functions/aggregation
+            - path: reference/sql/functions/scalar
+        - path: reference/sql/appendix
     - path: reference/config
     - path: reference/metrics
