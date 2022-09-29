@@ -21,11 +21,6 @@
     - path: guides/sql
 
 - title:
-    en: HStream CLI
-    zh: HStream CLI
-  path: cli/cli
-
-- title:
     en: HStream IO
     zh: HStream IO
   children:
@@ -99,6 +94,7 @@
             - path: reference/sql/functions/aggregation
             - path: reference/sql/functions/scalar
         - path: reference/sql/appendix
+    - path: reference/cli
     - path: reference/config
     - path: reference/metrics
 
