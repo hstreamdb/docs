@@ -89,7 +89,7 @@ To make CLI more unified and more straightforward, we have migrated the old
 HStream SQL Shell and some other node management functionalities to the new
 HStream CLI. HStream CLI currently supports operations such as starting an
 interacting SQL shell, sending bootstrap initiation and checking server node
-status. You can refer to [the CLI documentation](../cli/cli.md) for details.
+status. You can refer to [the CLI documentation](../reference/cli.md) for details.
 
 #### Monitoring with Grafana
 
