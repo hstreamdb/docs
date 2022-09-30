@@ -1,19 +1,161 @@
 # HStream IO User Guides
 
-This document will show you how to use HStream IO through a case that
-synchronizes records from a MySQL table to a PostgreSQL table, you will learn:
+Data synchronization service is used to synchronize data between systems(e.g. databases) in real time,
+which is useful for many cases, for example, MySQL is a widely-used database,
+if your application is running on MySQL, and:
 
-- How to create a source connector that synchronizes records from a MySQL table
-  to an HStreamDB stream.
-- How to create a sink connector that synchronizes records from an HStreamDB
-  stream to a PostgreSQL table.
-- How to use HStream SQLs to manage the connectors.
+* You found its query performance is not enough.
+    + You want to migrate your data to another database (e.g. PostgreSQL), but you need to switch your application seamlessly.
+    + Your applications highly depended on MySQL, migrating is difficult, so you have to migrate gradually.
+    + You don't need to migrate the whole MySQL data, instead, just copy some data from MySQL to other databases(e.g. HStreamDB) for data analysis.
+* You need to upgrade your MySQL version for some new features seamlessly.
+* You need to back up your MySQL data in multiple regions in real time.
+
+In those cases, you will find a data synchronization service is helpful,
+HStream IO is an internal data integration framework for HStreamDB,
+and it can be used as a data synchronization service,
+this document will show you how to use HStream IO to build a data synchronization service from a MySQL table to a PostgreSQL table,
+you will learn:
+
+* How to create a source connector that synchronizes records from a MySQL table to an HStreamDB stream.
+* How to create a sink connector that synchronizes records from an HStreamDB stream to a PostgreSQL table.
+* How to use HStream SQLs to manage the connectors.
 
 ## Set up an HStreamDB Cluster
 
-You can check
-[quick-start](https://hstream.io/docs/en/latest/start/quickstart-with-docker.html)
-to find how to set up an HStreamDB cluster and connect to it.
+Set up an HStreamDB cluster with docker-compose:
+
+```
+version: "3.5"
+
+services:
+  hserver0:
+    image: hstreamdb/hstream
+    depends_on:
+      - zookeeper
+      - hstore
+    ports:
+      - "127.0.0.1:6570:6570"
+    expose:
+      - 6570
+    networks:
+      - hstream-quickstart
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp:/tmp
+      - data_store:/data/store
+    command:
+      - bash
+      - "-c"
+      - |
+        set -e
+        /usr/local/script/wait-for-storage.sh hstore 6440 zookeeper 2181 600 \
+        /usr/local/bin/hstream-server \
+        --host 0.0.0.0 --port 6570 \
+        --internal-port 6571 \
+        --server-id 100 \
+        --seed-nodes "hserver0:6571,hserver1:6573" \
+        --address $$(hostname -I | awk '{print $$1}') \
+        --metastore-uri zk://zookeeper:2181 \
+        --store-config /data/store/logdevice.conf \
+        --store-admin-host hstore --store-admin-port 6440 \
+        --io-tasks-path /tmp/io/tasks \
+        --io-tasks-network hstream-quickstart
+
+  hserver1:
+    image: hstreamdb/hstream
+    depends_on:
+      - zookeeper
+      - hstore
+    ports:
+      - "127.0.0.1:6572:6572"
+    expose:
+      - 6572
+    networks:
+      - hstream-quickstart
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp:/tmp
+      - data_store:/data/store
+    command:
+      - bash
+      - "-c"
+      - |
+        set -e
+        /usr/local/script/wait-for-storage.sh hstore 6440 zookeeper 2181 600 \
+        /usr/local/bin/hstream-server \
+        --host 0.0.0.0 --port 6572 \
+        --internal-port 6573 \
+        --server-id 101 \
+        --seed-nodes "hserver0:6571,hserver1:6573" \
+        --address $$(hostname -I | awk '{print $$1}') \
+        --metastore-uri zk://zookeeper:2181 \
+        --store-config /data/store/logdevice.conf \
+        --store-admin-host hstore --store-admin-port 6440 \
+        --io-tasks-path /tmp/io/tasks \
+        --io-tasks-network hstream-quickstart
+
+  hserver-init:
+    image: hstreamdb/hstream
+    depends_on:
+      - hserver0
+      - hserver1
+    networks:
+      - hstream-quickstart
+    command:
+      - bash
+      - "-c"
+      - |
+        timeout=60
+        until ( \
+            /usr/local/bin/hadmin server --host hserver0 --port 6570 status && \
+            /usr/local/bin/hadmin server --host hserver1 --port 6572 status \
+        ) >/dev/null 2>&1; do
+            >&2 echo 'Waiting for servers ...'
+            sleep 1
+            timeout=$$((timeout - 1))
+            [ $$timeout -le 0 ] && echo 'Timeout!' && exit 1;
+        done; \
+        /usr/local/bin/hadmin server --host hserver0 init
+
+  hstore:
+    image: hstreamdb/hstream
+    networks:
+      - hstream-quickstart
+    volumes:
+      - data_store:/data/store
+    command:
+      - bash
+      - "-c"
+      - |
+        set -ex
+        /usr/local/bin/ld-dev-cluster --root /data/store \
+        --use-tcp --tcp-host $$(hostname -I | awk '{print $$1}') \
+        --user-admin-port 6440 \
+        --no-interactive
+
+  zookeeper:
+    image: zookeeper
+    expose:
+      - 2181
+    networks:
+      - hstream-quickstart
+    volumes:
+      - data_zk_data:/data
+      - data_zk_datalog:/datalog
+
+networks:
+  hstream-quickstart:
+    name: hstream-quickstart
+
+volumes:
+  data_store:
+    name: quickstart_data_store
+  data_zk_data:
+    name: quickstart_data_zk_data
+  data_zk_datalog:
+    name: quickstart_data_zk_datalog
+```
 
 ## Set up a MySQL
 
@@ -91,7 +233,7 @@ SQLs to create connectors.
 Connect to the HStream server:
 
 ```shell
-docker run -it --rm --network host hstreamdb/hstream:v0.9.3 hstream sql --port 6570
+docker run -it --rm --network host hstreamdb/hstream hstream sql --port 6570
 ```
 
 Create a source connector:
