@@ -88,8 +88,8 @@ jobs:
           ./ossutil64 cp -r dist/ oss://hstream-io-docs/docs/ -u
 
       - name: update search index
-        uses: Swilder-M/docsearch-scraper-simple@v2
-        if: env.VERSION == 'latest' && github.event_name == 'push'
+        uses: Swilder-M/docsearch-scraper-simple@v4
+        if: github.event_name == 'push'
         env:
           APPLICATION_ID: ${{ secrets.ALGOLIA_APPLICATION_ID }}
           API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
