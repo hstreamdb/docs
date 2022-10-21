@@ -16,6 +16,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           path: docs-files
+          fetch-depth: 0
 
       - name: update embedded file
         run: |
