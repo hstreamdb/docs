@@ -1,7 +1,7 @@
 - title:
     en: Introduction
     zh: 介绍
-  path: introduction/introduction
+  path: ./
 
 - title:
     en: Getting Started
@@ -29,7 +29,7 @@
     - path: io/connectors
 
 - title:
-    en: Administration 
+    en: Administration
     zh: 运维
   children:
     - path: operation/cluster
@@ -102,4 +102,3 @@
     en: Release Notes
     zh: Release Notes
   path: release_notes/HStreamDB
-
