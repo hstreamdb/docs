@@ -18,8 +18,15 @@ HStream Record:
 
 - **HRecord**: You can think of an hrecord as a piece of JSON data, just like
   the document in some NoSQL databases.
-
 - **Raw Record**: Arbitrary binary data.
+
+## End-to-End Compression
+
+To reduce transfer overhead and maximize bandwidth utilization, HStreamDB
+supports compression of written HStream records. Users can set the compression
+algorithm when creating a `BufferedProducer`. Currently HStreamDB supports both
+`gzip` and `zstd` compression algorithms. Compressed records are automatically
+decompressed by the client when they are consumed from HStreamDB.
 
 ## Write HStream Records
 
