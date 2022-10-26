@@ -28,7 +28,7 @@ play. Just as you can easily build a simple CRUD application based on a
 traditional database, with HStreamDB, you can easily build a basic streaming
 application without any other dependencies.
 
-## Key Features 
+## Key Features
 
 ### Reliable, low-latency streaming data storage
 
@@ -36,7 +36,7 @@ With an optimized storage engine design, HStreamDB provides low latency persiste
 
 It also supports hierarchical data storage and can automatically dump historical data to lower-cost storage services such as object storage, distributed file storage, etc. The storage capacity is infinitely scalable, enabling permanent storage of data.
 
-### Easy support and management of large scale data streams 
+### Easy support and management of large scale data streams
 
 HStreamDB uses a stream-native design where data is organized and accessed as streams, supporting creating and managing large data streams. Stream creation is a very lightweight operation in HStreamDB, maintaining stable read and write latency despite large numbers of streams being read and written concurrently.
 
@@ -48,22 +48,22 @@ HStreamDB is based on the classic publish-subscribe model, providing low-latency
 
 It also guarantees the orderly delivery of machines in the event of cluster failures and errors.
 
-### Powerful stream processing support built-in 
+### Powerful stream processing support built-in
 
 HStreamDB has designed a complete processing solution based on event time. It supports basic filtering and conversion operations, aggregations by key, calculations based on various time windows, joining between data streams, and processing disordered and late messages to ensure the accuracy of calculation results. Simultaneously, the stream processing solution of HStream is highly extensible, and users can extend the interface according to their own needs.
 
 ### Real-time analysis based on materialized views
-  
+
 HStreamDB will offer materialized view to support complex query and analysis operations on continuously updated data streams. The incremental computing engine updates the materialized view instantly according to the changes of data streams, and users can query the materialized view through SQL statements to get real-time data insights.
 
 ### Easy integration with multiple external systems
- 
+
 The stream-native design of HStreamDB and the powerful stream processing capabilities built-in make it ideally suited as a data hub for the enterprise, responsible for all data access and flow, connecting multiple upstream and downstream services and data systems.
 
 For this reason, HStreamDB also provides Connector components for interfacing with various external systems, such as MySQL, ClickHouse, etc., making it easy to integrate with external data systems.
 
 ### Cloud-native architecture, unlimited horizontal scaling
- 
+
 HStreamDB is built with a Cloud-Native architecture, where the compute and storage layers are separated and can be horizontally scaled independently.
 
 It also supports online cluster scaling, dynamic expansion and contraction, and is efficient in scaling without data repartitioning, mass copying, etc.

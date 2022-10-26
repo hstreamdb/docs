@@ -16,6 +16,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           path: docs-files
+          fetch-depth: 0
 
       - name: update embedded file
         run: |
@@ -69,7 +70,8 @@ jobs:
           cp -r docs-files/docs/en/* frontend/docs/en/${VERSION}/
           cp -r docs-files/docs/zh/* frontend/docs/zh/${VERSION}/
           cp docs-files/docs/directory.json frontend/docs/.vuepress/config/directory.json
-          echo "[\"latest\"]" > frontend/docs/.vuepress/public/api/${DOCS_TYPE}_versions.json
+          cd docs-files
+          git tag -l | egrep "^v[0-9]\.[0-9]\.[0-9]?" | jq -R -s -c 'split("\n")[:-1] | . += ["latest"] | reverse' > ../frontend/docs/.vuepress/public/api/${DOCS_TYPE}_versions.json
 
       - name: build docs
         run: |
@@ -87,9 +89,17 @@ jobs:
           ./ossutil64 rm -r -f oss://hstream-io-docs/docs/en/${VERSION}/
           ./ossutil64 cp -r dist/ oss://hstream-io-docs/docs/ -u
 
+      - name: flush assets cdn
+        run: |
+          pip3 install tccli
+          tccli configure set secretId ${{ secrets.TENCENT_COS_ID }}
+          tccli configure set secretKey ${{ secrets.TENCENT_COS_KEY }}
+          tccli configure set region ap-shanghai
+          tccli cdn PurgePathCache --cli-unfold-argument --Paths https://hstream-docs.emqx.net/ --FlushType delete
+
       - name: update search index
-        uses: Swilder-M/docsearch-scraper-simple@v2
-        if: env.VERSION == 'latest' && github.event_name == 'push'
+        uses: Swilder-M/docsearch-scraper-simple@v4
+        if: github.event_name == 'push'
         env:
           APPLICATION_ID: ${{ secrets.ALGOLIA_APPLICATION_ID }}
           API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
