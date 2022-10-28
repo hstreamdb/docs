@@ -1,5 +1,114 @@
 # HStreamDB release notes
 
+## v0.10.0 [2022-10-28]
+
+### Highlights
+
+#### End-to-end compression
+
+In this release we have introduced a new feature called end-to-end compression, which means data will be compressed in batches at the client side when it is written, and the compressed data will be stored directly by HStore. In addition, the client side can automatically decompress the data when it is consumed, and the whole process is not perceptible to the user.
+
+In high-throughput scenarios, enabling end-to-end data compression can significantly alleviate network bandwidth bottlenecks and improve read and write performance.Our benchmark shows more than 4x throughput improvement in this scenario, at the cost of increased CPU consumption on the client side.
+
+#### HStream SQL Enhancements
+
+In this release we have introduced many enhancements for HStream SQL, see details [link]
+
+#### HServer based on a new gRPC library
+
+In this release we replaced the gRPC-haskell library used by HServer with a new self-developed gRPC library, which brings not only better performance but also improved long-term stability.
+
+#### Rqlite Based MetaStore
+ 
+In this release we have refactored the MetaStore component of HStreamDB to make it more scalable and easier to use. We also **experimentally** support the use of Rqlite instead of Zookeeper as the default MetaStore implementation, which will make the deployment and maintenance of HStreamDB much easier. Now HServer, HStore and HStream IO  all use a unified MetaStore to store metadata.
+
+### HServer
+
+#### New Features
+
+- Add e2e compression
+
+#### Enhancements
+  
+- Refactor server module with a new grpc library [link to the highlight]
+- Adpate to the new metastore and add support for rqlite [link to he highlights]
+- Improve the mechanism of cluster resources allocation
+- Improve the cluster startup and initialization process
+- Improve thread usage and scheduling for the gossip module
+
+#### Bug fixes 
+
+- Fix a shard can be assigned to an invalid consumer
+- Fix memory leak caused by the gossip module
+- Add existence check for dependent streams when creating a view
+- Fix an issue where new nodes could fail when joining a cluster
+- Fix may overflow while decoding batchedRecord
+- Check metadata first before initializing sub when recving fetch request to avoid inconsistency
+- Fix max-record-size option validation
+
+### HStream SQL
+
+- Full support of subqueries. A subquery can replace almost any expression now.
+- Refinement of data types. It supports new types such as date, time, array and JSON. It also supports explicit type casting and JSON-related operators.
+- Adjustment of time windows. Now every source stream can have its own time window rather than a global one.
+- More general queries on materialized views.  Now any SQL clauses applicable to a stream can be performed on a materialized view, including nested subqueries and time windows.
+- Optimized JOIN clause. It supports standard JOINs such as CROSS, INNER, OUTER and NATURAL. It also allows JOIN between streams and materialized views.
+
+### HStream IO  
+
+- Add MongoDB source and sink
+- Adapt to the new metastore
+
+### Java Client 
+
+hstream-java v0.10.0[link]has been released:
+
+#### New Features
+
+- Add support for e2e compression: zstd, gzip
+- Add ``StreamBuilder `` 
+
+#### Enhancements
+
+- Use ``directExecutor`` as default executor for ``grpcChannel`` 
+
+#### Bug fixes 
+
+- Fix ``BufferedProducer`` memory is not released in time 
+- Fix missing ``RecordId`` in ``Reader``'s results
+- Fix dependency conflicts when using hstreamdb-java via maven
+
+### Go Client
+
+hstream-go v0.2.0[link] has been released:
+
+- Add support for TLS
+- Add support for e2e compression: zstd, gzip
+- Improve tests
+
+### Python Client
+
+hstream-py v0.2.0[link] has been released:
+
+- Add support for e2e compression: gzip
+
+### Rust Client
+
+Add a new rust client [link]
+
+### HStream CLI 
+
+- Add support for TLS
+- Add -e, --execute options for non-interactive execution of SQL statements
+- Add support for keeping the history of entered commands
+- Improve error messages
+- Add stream subcommands
+
+### Other Tools 
+
+- Add a new tool hdt[link] for deployment
+
+
 ## v0.9.0 [2022-07-29]
 
 ### HStreamDB
