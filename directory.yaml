@@ -82,7 +82,6 @@
             - path: reference/sql/statements/drop-view
             - path: reference/sql/statements/drop-connector
             - path: reference/sql/statements/select-stream
-            - path: reference/sql/statements/select-view
             - path: reference/sql/statements/insert
             - path: reference/sql/statements/show
             - path: reference/sql/statements/pause
