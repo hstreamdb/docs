@@ -1,13 +1,25 @@
 # HStream IO User Guides
 
-This document will show you how to use HStream IO through a case that
-synchronizes records from a MySQL table to a PostgreSQL table, you will learn:
+Data synchronization service is used to synchronize data between systems(e.g. databases) in real time,
+which is useful for many cases, for example, MySQL is a widely-used database,
+if your application is running on MySQL, and:
 
-- How to create a source connector that synchronizes records from a MySQL table
-  to an HStreamDB stream.
-- How to create a sink connector that synchronizes records from an HStreamDB
-  stream to a PostgreSQL table.
-- How to use HStream SQLs to manage the connectors.
+* You found its query performance is not enough.
+    + You want to migrate your data to another database (e.g. PostgreSQL), but you need to switch your application seamlessly.
+    + Your applications highly depended on MySQL, migrating is difficult, so you have to migrate gradually.
+    + You don't need to migrate the whole MySQL data, instead, just copy some data from MySQL to other databases(e.g. HStreamDB) for data analysis.
+* You need to upgrade your MySQL version for some new features seamlessly.
+* You need to back up your MySQL data in multiple regions in real time.
+
+In those cases, you will find a data synchronization service is helpful,
+HStream IO is an internal data integration framework for HStreamDB,
+and it can be used as a data synchronization service,
+this document will show you how to use HStream IO to build a data synchronization service from a MySQL table to a PostgreSQL table,
+you will learn:
+
+* How to create a source connector that synchronizes records from a MySQL table to an HStreamDB stream.
+* How to create a sink connector that synchronizes records from an HStreamDB stream to a PostgreSQL table.
+* How to use HStream SQLs to manage the connectors.
 
 ## Set up an HStreamDB Cluster
 
@@ -76,8 +88,8 @@ A connector plugin is a docker image, so before you can set up the connectors,
 you should download and update their plugins with `docker pull`:
 
 ```shell
-docker pull hstreamdb/source-mysql
-docker pull hstreamdb/sink-postgresql
+docker pull hstreamdb/source-mysql:v0.2.0
+docker pull hstreamdb/sink-postgresql:v0.2.0
 ```
 
 [Here](https://hstream.io/docs/en/latest/io/connectors.html) is a table of all
