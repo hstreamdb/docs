@@ -1,126 +1,371 @@
-# Quick Deployment with Docker and SSH
+# 使用 Hdt 部署 HStreamDB
 
-This document provides a way to start an HStreamDB cluster quickly using Docker
-and SSH.
+This document provides a way to start an HStreamDB cluster quickly using the deployment tool `hdt`.
 
 ## Pre-Require
 
-- The local host needs to be able to connect to the remote server via SSH
-- Using SSH Config File to help remote connection
-- The remote server has docker installed
-
-## Fetching the Startup Script
-
-```shell
-mkdir script
-wget -O script/dev-deploy https://raw.githubusercontent.com/hstreamdb/hstream/main/script/dev-deploy
-wget -O script/dev_deploy_conf_example.json https://raw.githubusercontent.com/hstreamdb/hstream/main/script/dev_deploy_conf_example.json
-```
-
-## Create a Configuration File
-
-Create a JSON-format config file to fit your situation. There is an example in
-`script/dev_deploy_conf_example.json`.
-
-```shell
-{
-    "hosts": {
-        "remote_ssh_host1": "192.168.10.1",
-        "remote_ssh_host2": "192.168.10.2",
-        "remote_ssh_host3": "192.168.10.3",
-        "remote_ssh_host4": "192.168.10.4"
-    },
-    "zookeeper": {
-        "persistent-dir": "/data/zookeeper",
-        "hosts": [
-            "remote_ssh_host2",
-            "remote_ssh_host3",
-            "remote_ssh_host4"
-        ],
-        "enable-metrics-provider": true
-    },
-    "hstore": {
-        "image": "hstreamdb/hstream:v0.9.3",
-        "persistent-dir": "/data/store",
-        "hosts": [
-            "remote_ssh_host2",
-            "remote_ssh_host3",
-            "remote_ssh_host4"
-        ],
-        "local_config_path": "$PWD/logdevice.conf",
-        "remote_config_path": "/root/.config/dev-deploy/logdevice.conf"
-    },
-    "hstore-admin": {
-        "image": "hstreamdb/hstream:v0.9.3",
-        "memory": "1024m",
-        "cpus": "0.5",
-        "hosts": [
-            "remote_ssh_host1"
-        ]
-    },
-    "hserver": {
-        "image": "hstreamdb/hstream:v0.9.3",
-        "memory": "2048m",
-        "cpus": "1.5",
-        "hosts": [
-            "remote_ssh_host2",
-            "remote_ssh_host3",
-            "remote_ssh_host4"
-        ]
-    }
-}
-```
-
-The `hosts` field stores remote server information in the form of key-value
-pairs. The key is the hostname of the server in the SSH configuration file and
-the value is the IP address of the server.
-
-The field `hosts`, among other top-level configuration field objects which each
-is about a service kind, is required in the configuration file. Other fields
-are: `zookeeper`, `hstore`, `hstore-admin` and `hserver`. The configuration file
-also supports filling in configuration items related to monitoring components
-(such as prometheus, grafana, etc.), which are not core components and are not
-described here.
-
-The HStore configuration must be set before deployment. The path of config is
-stored in the field `hstore.local_config_path` and `hstore.remote_config_path`,
-respectively. The former is the path to the HStore config file on the local
-machine which is to run the deployment script, while the latter is the
-destination that the HStore config file would be uploaded to during deployment.
-You can refer to the `Create a configuration file` section in the documentation
-[Manual Deployment with Docker](deploy-docker.md) to create an HStore config
-file.
-
-The configuration of HServers is configured with the field
-`hstore.local_config_path` and `hstore.remote_config_path`. You can refer to the
-documentation [HStreamDB Configuration](../../reference/config.md) for details.
-This is optional and if the value is not filled in, the default configuration
-will be used to start.
-
-Each JSON object for configuring a kind of service has a field named `hosts`
-which indicates which server nodes are used to start corresponding service
-instances.
-
-::: tip Check the ZooKeeper related fields in the HStore config file to make
-sure that the ZooKeeper nodes information is consistent.
-:::
-
-Each JSON object for configuring a kind of service also had some extra optional
-fields for configuring the resource constraints of containers used by this kind
-of service, such as `memory` and `cpus`. The usages of the above two are
-analogous the ones in the
-[Docker options](https://docs.docker.com/config/containers/resource_constraints/).
-
-## Cluster Management
-
-- After creating the configuration file, you can start/stop a hstreamdb cluster
-  with these commands
+- Start HStreamDB requires an operating system kernel version greater than at least Linux 4.14. Check with command:
 
   ```shell
-  # start cluster
-  dev-deploy --remote "" simple --config config_path start
-  # stop cluster: just stop containers
-  dev-deploy --remote "" simple --config config_path stop
-  # remove cluster: stop containers and delete persistent data
-  dev-deploy --remote "" simple --config config_path remove
+  uname -r
   ```
+
+- The local host needs to be able to connect to the remote server via SSH
+
+- Make sure remote server has docker installed.
+
+- Make sure that the log-in user has `sudo` execute privileges, and configure `sudo` without password.
+
+- For nodes which deploy `HStore` instances, mount the data disk to `/mnt/data*/`.
+
+  - "*" Matching incremental numbers, start from zero
+  - one disk should mount to one directory. e.g. if we have two data disks `/dev/vdb` and `/dev/vdc`, then `/dev/vdb` should mount to `/mnt/data0` and `/dev/vdc` should mount to `/mnt/data1`
+
+## Deploy `hdt` on the control machine
+
+We'll use a deployment tool `hdt` to help us set up the cluster. The binaries are available here: https://github.com/hstreamdb/deployment-tool/releases.
+
+1. Log in to the control machine and download the binaries.
+
+2. Generate configuration template with command:
+
+   ```shell
+   ./hdt init
+   ```
+
+   The current directory structure will be as follows after running the `init` command:
+
+   ```shell
+   ├── hdt
+   └── template                 
+       ├── config.yaml
+       ├── grafana
+       │   ├── dashboards
+       │   └── datasources
+       ├── prometheus
+       └── script
+   ```
+
+## Update `Config.yaml`
+
+`template/config.yaml` contains the template for the configuration file. Refer to the description of the fields in the file and modify the template according to your actual needs.
+
+Here we will deploy a cluster on 3 nodes, each consisting of a `HServer` instance, a `HStore` instance and a `Meta-Store` instance as a simple example. For hstream monitor stack, refer to [link here].
+
+The final configuration file may looks like:
+
+```shell
+global:
+  user: "root"
+  key_path: "~/.ssh/id_rsa"
+  ssh_port: 22
+
+hserver:
+  - host: 172.24.47.175
+  - host: 172.24.47.174
+  - host: 172.24.47.173
+
+hstore:
+  - host: 172.24.47.175
+    enable_admin: true
+  - host: 172.24.47.174
+  - host: 172.24.47.173
+
+meta_store:
+  - host: 172.24.47.175
+  - host: 172.24.47.174
+  - host: 172.24.47.173
+```
+
+## Set up cluster
+
+### set up cluster with ssh key-value pair
+
+```shell
+./hdt start -c template/config.yaml -i ~/.ssh/id_rsa -u root
+```
+
+### set up cluster with passwd
+
+```shell
+./hdt start -c template/config.yaml -p -u root
+```
+
+then type your password.
+
+use `./hdt start -h` for more information
+
+## Remove cluster
+
+remove cluster will stop cluster and remove ***ALL*** related data.
+
+### remove cluster with ssh key-value pair
+
+```shell
+./hdt remove -c template/config.yaml -i ~/.ssh/id_rsa -u root
+```
+
+ ### remove cluster with passwd
+
+```shell
+./hdt remove -c template/config.yaml -p -u root
+```
+
+then type your password.
+
+## Detailed configuration items
+
+This section describes in detail the meaning of each field in the configuration file. The configuration file is divided into three large sections: global configuration items, monitoring component configuration items and other component configuration items.
+
+### Global
+
+```shell
+global:
+  # # Username to login via SSH
+  user: "root"
+  # # The path of SSH identity file
+  key_path: "~/.ssh/hstream-aliyun.pem"
+  # # SSH service monitor port
+  ssh_port: 22
+  # # Replication factors of store metadata
+  meta_replica: 3
+  # # Local path to MetaStore config file
+  meta_store_config_path: ""
+  # # Local path to HStore config file
+  hstore_config_path: ""
+  # # HStore config file can be loaded from network filesystem, for example, the config file
+  # # can be stored in meta store and loaded via network request. Set this option to true will
+  # # force store load config file from its local filesystem.
+  disable_store_network_config_path: true
+  # # Local path to HServer config file
+  hserver_config_path: ""
+  # # Global container configuration
+  container_config:
+    cpu_limit: 200
+    memory_limit: 8G
+    disable_restart: true
+    remove_when_exit: true
+```
+
+Global section set the default configuration value for all other configuration items. Here are some notes:
+
+- `meta_replica` set the replication factors of HStreamDB metadata. This value should not exceed the number of `hstore` instances.
+- `meta_store_config_path`、`hstore_config_path` and `hserver_config_path` are configuration file path for `meta_store`、`hstore` and `hserver` in the control machine. If the paths are set, these configuration files will be synchronized to the specified location on the node where the respective instance is located, and the corresponding configuration items will be updated when the instance is started.
+- `container_config` let you set resource limitations for all containers.
+
+### monitor
+
+```shell
+monitor:
+  # # Node exporter port
+  node_exporter_port: 9100
+  # # Node exporter image
+  node_exporter_image: "prom/node-exporter"
+  # # Cadvisor port
+  cadvisor_port: 7000
+  # # Cadvisor image
+  cadvisor_image: "gcr.io/cadvisor/cadvisor:v0.39.3"
+  # # List of nodes that won't be monitored.
+  excluded_hosts: []
+  # # root directory for all monitor related config files.
+  remote_config_path: "/home/deploy/monitor"
+  # # root directory for all monitor related data files.
+  data_dir: "/home/deploy/data/monitor"
+  # # Set up grafana without login
+  grafana_disable_login: true
+  # # Global container configuration for monitor stacks.
+  container_config:
+    cpu_limit: 200
+    memory_limit: 8G
+    disable_restart: true
+    remove_when_exit: true
+```
+
+Monitor section sets configuration items related to `cadvisor` and `node-exporter`
+
+### hserver
+
+```shell
+hserver:
+  # # The ip address of the HServer
+  - host: 10.1.0.10
+    # # HServer docker image
+    image: "hstreamdb/hstream"
+    # # HServer listen port
+    port: 6570
+    # # HServer internal port
+    internal_port: 6571
+    # # HServer configuration
+    server_config:
+      # # HServer log level, valid values: [critical|error|warning|notify|info|debug]
+      server_log_level: info
+      # # HStore log level, valid values: [critical|error|warning|notify|info|debug|spew]
+      store_log_level: info
+      # # Specific server compression algorithm, valid values: [none|lz4|lz4hc]
+      compression: lz4
+    # # Root directory of HServer config files
+    remote_config_path: "/home/deploy/hserver"
+    # # Root directory of HServer data files
+    data_dir: "/home/deploy/data/hserver"
+    # # HServer container configuration
+    container_config:
+      cpu_limit: 200
+      memory_limit: 8G
+      disable_restart: true
+      remove_when_exit: true
+```
+
+HServer section sets configuration items for `hserver`
+
+### hstore
+
+```shell
+hstore:
+  - host: 10.1.0.10
+    # # HStore docker image
+    image: "hstreamdb/hstream"
+    # # HStore admin port
+    admin_port: 6440
+    # # Root directory of HStore config files
+    remote_config_path: "/home/deploy/hstore"
+    # # Root directory of HStore data files
+    data_dir: "/home/deploy/data/store"
+    # # Total used disks
+    disk: 1
+    # # Total shards
+    shards: 2
+    # # The role of the HStore instance.
+    role: "Both" # [Storage|Sequencer|Both]
+    # # When Enable_admin is turned on, the instance can receive and process admin requests
+    enable_admin: true
+    # # HStore container configuration
+    container_config:
+      cpu_limit: 200
+      memory_limit: 8G
+      disable_restart: true
+      remove_when_exit: true
+```
+
+HStore section sets configuration items for `hstore`.
+
+- `admin_port`: HStore service will listen on this port.
+- `disk` and `shards`: Set total used disks and total shards. For example, `disk: 2` and `shards: 4` means the hstore will persistant data in two disks, and each disk will contain 2 shards.
+- `role`: a HStore instance can act as a Storage, a Sequencer or both, default is both.
+- `enable_admin`: set the HStore instance with an admin server embedded.
+
+### meta-store
+
+```shell
+meta_store:
+  - host: 10.1.0.10
+    # # Meta-store docker image
+    image: "zookeeper:3.6"
+    # # Meta-store port, currently only works for rqlite. zk will
+    # # monitor on 4001
+    port: 4001
+    # # Raft port used by rqlite
+    raft_port: 4002
+    # # Root directory of Meta-Store config files
+    remote_config_path: "/home/deploy/metastore"
+    # # Root directory of Meta-store data files
+    data_dir: "/home/deploy/data/metastore"
+    # # Meta-store container configuration
+    container_config:
+      cpu_limit: 200
+      memory_limit: 8G
+      disable_restart: true
+      remove_when_exit: true
+```
+
+Meta-store section sets configuration items for `meta-store`.
+
+- `port` and `raft_port`: these are used by `rqlite`
+
+### monitor stack components
+
+```shell
+http_server:
+  - host: 10.1.0.15
+    # # Http_server docker image
+    image: "hstreamdb/http-server"
+    # # Http_server service monitor port
+    port: 8081
+    # # Root directory of http_server config files
+    remote_config_path: "/home/deploy/http-server"
+    # # Root directory of http_server data files
+    data_dir: "/home/deploy/data/http-server"
+    container_config:
+      cpu_limit: 200
+      memory_limit: 8G
+      disable_restart: true
+      remove_when_exit: true
+
+prometheus:
+  - host: 10.1.0.15
+    # # Prometheus docker image
+    image: "prom/prometheus"
+    # # Prometheus service monitor port
+    port: 9090
+    # # Root directory of Prometheus config files
+    remote_config_path: "/home/deploy/prometheus"
+    # # Root directory of Prometheus data files
+    data_dir: "/home/deploy/data/prometheus"
+    # # Prometheus container configuration
+    container_config:
+      cpu_limit: 200
+      memory_limit: 8G
+      disable_restart: true
+      remove_when_exit: true
+
+grafana:
+  - host: 10.1.0.15
+    # # Grafana docker image
+    image: "grafana/grafana-oss:main"
+    # # Grafana service monitor port
+    port: 3000
+    # # Root directory of Grafana config files
+    remote_config_path: "/home/deploy/grafana"
+    # # Root directory of Grafana data files
+    data_dir: "/home/deploy/data/grafana"
+    # # Grafana container configuration
+    container_config:
+      cpu_limit: 200
+      memory_limit: 8G
+      disable_restart: true
+      remove_when_exit: true
+
+# # Server configs are used to specify the configuration of Alertmanager Servers.
+alertmanager:
+  # # The ip address of the Alertmanager Server.
+  - host: 10.0.1.15
+  # # Alertmanager docker image
+  image: "prom/alertmanager"
+  # # Alertmanager service monitor port
+  port: 9093
+  # # Root directory of Alertmanager config files
+  remote_config_path: "/home/deploy/alertmanager"
+  # # Root directory of Alertmanager data files
+  data_dir: "/home/deploy/data/alertmanager"
+  # # Alertmanager container configuration
+  container_config:
+    cpu_limit: 200
+    memory_limit: 8G
+    disable_restart: true
+    remove_when_exit: true
+
+hstream_exporter:
+  - host: 10.1.0.15
+  # # hstream_exporter docker image
+  image: "hstreamdb/hstream-exporter"
+  # # hstream_exporter service monitor port
+  port: 9200
+  # # Root directory of hstream_exporter config files
+  remote_config_path: "/home/deploy/hstream-exporter"
+  # # Root directory of hstream_exporter data files
+  data_dir: "/home/deploy/data/hstream-exporter"
+  container_config:
+    cpu_limit: 200
+    memory_limit: 8G
+    disable_restart: true
+    remove_when_exit: true
+```
