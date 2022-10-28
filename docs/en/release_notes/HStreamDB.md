@@ -12,7 +12,7 @@ In high-throughput scenarios, enabling end-to-end data compression can significa
 
 #### HStream SQL Enhancements
 
-In this release we have introduced many enhancements for HStream SQL, see [here](hstream-sql) for details.
+In this release we have introduced many enhancements for HStream SQL, see [here](#hstream-sql) for details.
 
 #### HServer based on a new gRPC library
 
