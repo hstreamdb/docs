@@ -119,7 +119,7 @@ any extra computation. Thus getting results from a view is very fast.
 Here we can create a view like
 
 ```
-> CREATE VIEW result AS SELECT info.category, MAX(visit.length) as max_length FROM info, visit WHERE info.product = visit.product GROUP BY info.category EMIT CHANGES;
+> CREATE VIEW result AS SELECT info.category, MAX(visit.length) as max_length FROM info, visit WHERE info.product = visit.product GROUP BY info.category;
 Done. Query ID: 1362152824401458
 ```
 

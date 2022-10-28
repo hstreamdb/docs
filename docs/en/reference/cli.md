@@ -196,7 +196,7 @@ will create a stream that processes data from another stream.
 For example:
 
 ```sql
-CREATE STREAM stream_name AS SELECT * from demo EMIT CHANGES;
+CREATE STREAM stream_name AS SELECT * from demo;
 ```
 
 In the example above, by adding an `AS` followed by a `SELECT` statement to the
@@ -300,7 +300,7 @@ Or under some circumstances, you can choose to `TERMINATE ALL;`.
 View is a projection of specified data from streams. For example,
 
 ```sql
-CREATE VIEW v_demo AS SELECT SUM(a) FROM demo GROUP BY a EMIT CHANGES;
+CREATE VIEW v_demo AS SELECT SUM(a) FROM demo GROUP BY a;
 ```
 
 the above command will create a view that keeps track of the sum of `a` (which
@@ -322,7 +322,7 @@ This will print the sum of `a` when `a` = 1.
 If we want to create a view to record the sum of `a`s, we can:
 
 ```sql
-CREATE STREAM demo2 AS SELECT a, 1 AS b FROM demo EMIT CHANGES;
-CREATE VIEW v_demo2 AS SELECT SUM(a) FROM demo2 GROUP BY b EMIT CHANGES;
+CREATE STREAM demo2 AS SELECT a, 1 AS b FROM demo;
+CREATE VIEW v_demo2 AS SELECT SUM(a) FROM demo2 GROUP BY b;
 SELECT * FROM demo2 WHERE b = 1;
 ```

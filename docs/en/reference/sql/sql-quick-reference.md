@@ -21,32 +21,19 @@ See [CREATE VIEW](statements/create-view.md).
 CREATE VIEW view_name AS select_query;
 ```
 
-## SELECT (from streams)
+## SELECT
 
-Continuously get records from the stream(s) specified as streaming data flows in.
-It is usually used in an interactive CLI to monitor real-time changes of data.
-Note that the query writes these records to a random-named stream.
+Get records from a materialized view or a stream. Note that `SELECT` from streams can only used as a part of `CREATE STREAM` or `CREATE VIEW`. When you want to get results in a command-line session, create a materialized view first and then `SELECT` from it.
 See [SELECT (Stream)](statements/select-stream.md).
 
 ```sql
 SELECT <* | expression [ AS field_alias ] [, ...]>
-  FROM stream_name [, ...]
-  [ WHERE search_condition ]
-  [ GROUP BY field_name [, window_type] ]
-  EMIT CHANGES;
+  FROM table_ref [, ...]
+  [ WHERE expression ]
+  [ GROUP BY field_name [, ...] ]
+  [ HAVING expression ];
 ```
 
-## SELECT (from views)
-
-Get record(s) from the specified view. The fields to get have to be already in the view.
-It produces static record(s) and costs little time.
-See [Select (View)](statements/select-view.md).
-
-```sql
-SELECT <* | expression [ AS field_alias ] [, ...]>
-  FROM view_name
-  [ WHERE search_condition ];
-```
 ## INSERT
 
 Insert data into the specified stream. It can be a data record, a JSON value or binary data.
