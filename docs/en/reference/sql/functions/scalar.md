@@ -5,6 +5,40 @@ Scalar functions operate on one or more values and then return a single value. T
 
 Scalar functions are divided into serval kinds.
 
+### Type Casting Functions
+
+Our SQL supports explicit type casting in the form of `CAST(expr, type)` or `expr :: type`. Target type can be one of the follows:
+
+- `INTEGER`
+- `FLOAT`
+- `NUMERIC`
+- `BOOLEAN`
+- `BYTEA`
+- `STRING`
+- `DATE`
+- `TIME`
+- `TIMESTAMP`
+- `INTERVAL`
+- `JSONB`
+- `<type>[]` (array)
+- `MAP[<key_type> => <value_type>]` (map)
+
+### JSON Functions
+
+To use JSON data conveniently, we support the following functions:
+
+- `<json> -> <text>`, which gets the corresponded field and return as JSON format.
+- `<json> ->> <text>`, which gets the corresponded field and return as text format.
+- `<json> #> <array_of_text/int>`, which gets the corresponded field in the specified path and return as JSON format.
+- `<json> #>> <array_of_text/int>`, which gets the corresponded field in the specified path and return as text format.
+
+### Array and Map Accessing Functions
+
+To access fields of arrays and maps, we support the following functions:
+
+- `<array> [<index>]`, `<array> [<start_index>:]`, `<array> [:<end_index>]` and `<array> [<start_index>:<end_index>]`
+- `<map> => <key_expr>`
+
 ### Trigonometric Functions
 
 All trigonometric functions perform a calculation, operate on a single numeric value and then return a single numeric value.
