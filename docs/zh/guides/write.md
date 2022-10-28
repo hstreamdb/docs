@@ -16,8 +16,13 @@ Stream 中的所有数据都是以 HStream Record 的形式存在，HStreamDB �
 HStream Record：
 
 - **HRecord**: 可以看作是一段 JSON 数据，就像一些 NoSQL 数据库中的 document。
-
 - **Raw Record**: 二进制数据。
+
+## 端到端压缩
+
+为了降低传输开销，最大化带宽利用率，HStreamDB 支持对写入的 HStream Record 进行压缩。
+用户在创建 `BufferedProducer` 时可以设置压缩算法。当前可选的压缩算法有
+`gzip` 和 `zstd`。客户端从 HStreamDB 中消费数据时会自动完成解压缩操作。
 
 ## 写入 HStream Record
 
