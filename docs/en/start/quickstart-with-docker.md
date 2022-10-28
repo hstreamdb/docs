@@ -85,7 +85,7 @@ docker-compose -f quick-start.yaml logs -f hserver
 ## Start HStreamDB's interactive SQL CLI
 
 ```sh
-docker run -it --rm --name some-hstream-cli --network host hstreamdb/hstream:v0.9.3 hstream --port 6570 sql
+docker run -it --rm --name some-hstream-cli --network host hstreamdb/hstream:v0.10.0 hstream --port 6570 sql
 ```
 
 If everything works fine, you will enter an interactive CLI and see help
@@ -174,4 +174,4 @@ real time:
 ```
 
 [non-root-docker]: https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user
-[quick-start.yaml]: https://github.com/hstreamdb/hstream/raw/main/docker/quick-start.yaml
+[quick-start.yaml]: https://raw.githubusercontent.com/hstreamdb/docs/main/assets/quick-start.yaml

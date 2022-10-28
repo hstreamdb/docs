@@ -82,7 +82,7 @@ docker-compose -f quick-start.yaml logs -f hserver
 ## 启动 HStreamDB 的 SQL 命令行界面
 
 ```sh
-docker run -it --rm --name some-hstream-cli --network host hstreamdb/hstream:v0.9.3 hstream --port 6570 sql
+docker run -it --rm --name some-hstream-cli --network host hstreamdb/hstream:v0.10.0 hstream --port 6570 sql
 ```
 
 如果所有的步骤都正确运行，您将会进入到命令行界面，并且能看见一下帮助信息：
@@ -168,4 +168,4 @@ INSERT INTO demo (temperature, humidity) VALUES (28, 86);
 [non-root-docker]:
   https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user
 [quick-start.yaml]:
-  https://github.com/hstreamdb/hstream/raw/main/docker/quick-start.yaml
+  https://raw.githubusercontent.com/hstreamdb/docs/main/assets/quick-start.yaml
