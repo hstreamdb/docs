@@ -12,7 +12,7 @@ In high-throughput scenarios, enabling end-to-end data compression can significa
 
 #### HStream SQL Enhancements
 
-In this release we have introduced many enhancements for HStream SQL, see details [link]
+In this release we have introduced many enhancements for HStream SQL, see [here](hstream-sql) for details.
 
 #### HServer based on a new gRPC library
 
@@ -26,12 +26,12 @@ In this release we have refactored the MetaStore component of HStreamDB to make 
 
 #### New Features
 
-- Add e2e compression
+- Add [e2e compression](#end-to-end-compression) 
 
 #### Enhancements
   
-- Refactor server module with a new grpc library [link to the highlight]
-- Adpate to the new metastore and add support for rqlite [link to he highlights]
+- Refactor the server module with a new grpc library
+- Adpate to the new metastore and add support for rqlite
 - Improve the mechanism of cluster resources allocation
 - Improve the cluster startup and initialization process
 - Improve thread usage and scheduling for the gossip module
@@ -61,7 +61,7 @@ In this release we have refactored the MetaStore component of HStreamDB to make 
 
 ### Java Client 
 
-hstream-java v0.10.0[link]has been released:
+[hstream-java v0.10.0](https://github.com/hstreamdb/hstreamdb-java/releases/tag/v0.10.0) has been released:
 
 #### New Features
 
@@ -80,7 +80,7 @@ hstream-java v0.10.0[link]has been released:
 
 ### Go Client
 
-hstream-go v0.2.0[link] has been released:
+[hstream-go v0.3.0](https://github.com/hstreamdb/hstreamdb-go/releases/tag/v0.3.0) has been released:
 
 - Add support for TLS
 - Add support for e2e compression: zstd, gzip
@@ -88,13 +88,14 @@ hstream-go v0.2.0[link] has been released:
 
 ### Python Client
 
-hstream-py v0.2.0[link] has been released:
+[hstream-py v0.3.0](https://github.com/hstreamdb/hstreamdb-py/releases/tag/v0.3.0) has been released:
 
 - Add support for e2e compression: gzip
+- Add support for hrecord in BufferedProducer
 
 ### Rust Client
 
-Add a new rust client [link]
+Add a new [rust client](https://github.com/hstreamdb/hstreamdb-rust)
 
 ### HStream CLI 
 
@@ -106,7 +107,7 @@ Add a new rust client [link]
 
 ### Other Tools 
 
-- Add a new tool hdt[link] for deployment
+- Add a new tool [hdt](https://github.com/hstreamdb/deployment-tool) for deployment
 
 
 ## v0.9.0 [2022-07-29]
