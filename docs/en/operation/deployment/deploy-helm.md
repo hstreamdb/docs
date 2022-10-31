@@ -38,7 +38,7 @@ the cluster, you can modify `logdevice.persistence.storageClass` and
 `zookeeper.persistence.storageClass` in `value.yaml`, and use
 `helm install my-hstream -f values.yaml .` to deploy.
 
-### Check Cluster status
+### Check Cluster Status
 
 The `helm install` command will deploy the zookeeper cluster, logdevice cluster
 and hstream cluster, this can take some time, you can check the status of the

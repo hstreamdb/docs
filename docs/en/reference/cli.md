@@ -6,8 +6,8 @@ We can run the following to use HStream CLI:
 docker run -it --rm --name some-hstream-admin --network host hstreamdb/hstream:v0.10.0 hstream --help
 ```
 
-For ease of illustration, we execute an interactive bash shell in the
-HStream container to use HStream admin,
+For ease of illustration, we execute an interactive bash shell in the HStream
+container to use HStream admin,
 
 The following example usage is based on the cluster started in
 [quick start](../start/quickstart-with-docker.md), please adjust
@@ -21,7 +21,8 @@ docker exec -it docker_hserver0_1 bash
 ```
 ======= HStream CLI =======
 
-Usage: hstream [--host SERVER-HOST] [--port INT] COMMAND
+Usage: hstream [--host SERVER-HOST] [--port INT] [--tls-ca STRING]
+               [--tls-key STRING] [--tls-cert STRING] COMMAND
 
 Available options:
   --host SERVER-HOST       Server host value (default: "127.0.0.1")
@@ -37,15 +38,18 @@ Available commands:
   sql                      Start HStream SQL Shell
   nodes                    Manage HStream Server Cluster
   init                     Init HStream Server Cluster
+  stream                   Manage Streams in HStreamDB
 ```
 
 ### Security Settings (optional)
 
-If [security option](../operation/security/overview.md) is enabled, here are some options that should also be configured for CLI correspondingly.
+If [security option](../operation/security/overview.md) is enabled, here are
+some options that should also be configured for CLI correspondingly.
 
 #### Encryption
 
-If [server encryption](../operation/security/encryption.md) is enabled, the `--tls-ca` option should be added to CLI connection options:
+If [server encryption](../operation/security/encryption.md) is enabled, the
+`--tls-ca` option should be added to CLI connection options:
 
 ```sh
 hstream --tls-ca "<path to the CA certificate file>"
@@ -53,13 +57,15 @@ hstream --tls-ca "<path to the CA certificate file>"
 
 ### Authentication
 
-If [server authentication](../operation/security/authentication.md) is enabled, the `--tls-key` and `--tls-cert` options should be added to CLI connection options:
+If [server authentication](../operation/security/authentication.md) is enabled,
+the `--tls-key` and `--tls-cert` options should be added to CLI connection
+options:
 
 ```sh
 hstream --tls-key "<path to the trusted role key file>" --tls-cert "<path to the signed certificate file>"
 ```
 
-## Check Cluster status
+## Check Cluster Status
 
 ```sh
 > hstream nodes --help
@@ -73,6 +79,9 @@ Available commands:
   list                     List all running nodes in the cluster
   status                   Show the status of nodes specified, if not specified
                            show the status of all nodes
+  check-running            Check if all nodes in the the cluster are running,
+                           and the number of nodes is at least as specified
+
 > hstream nodes list
 +-----------+
 | server_id |
@@ -88,14 +97,76 @@ Available commands:
 | 100       | Running | 192.168.64.4:6570 |
 | 101       | Running | 192.168.64.5:6572 |
 +-----------+---------+-------------------+
+
+> hstream nodes check-running
+All nodes in the cluster are running.
+```
+
+## Manage Streams
+
+We can also manage streams through the hstream command line tool.
+
+```sh
+> hstream stream --help
+Usage: hstream stream COMMAND
+  Manage Streams in HStreamDB
+
+Available options:
+  -h,--help                Show this help text
+
+Available commands:
+  list                     Get all streams
+  create                   Create a stream
+  delete                   delete a stream (Warning: incomplete implementation)
+```
+
+### Create a stream
+
+```sh
+Usage: hstream stream create --name STRING [-r|--replication-factor INT]
+                             [-b|--backlog-duration INT] [-s|--shards INT]
+  Create a stream
+
+Available options:
+  --name STRING            stream name
+  -r,--replication-factor INT
+                           replication-factor (default: 3)
+  -b,--backlog-duration INT
+                           Backlog duration in seconds (default: 0)
+  -s,--shards INT          shard numbers of the stream (default: 1)
+  -h,--help                Show this help text
+```
+
+Example: Create a demo stream with the default settings.
+
+```sh
+> hstream stream create --name demo
+demo
+```
+
+### Show and delete streams
+
+```sh
+> hstream stream list
++------------------+---------+----------------+-------------+
+| Stream Name      | Replica | Retention Time | Shard Count |
++------------------+---------+----------------+-------------+
+| demo             | 1       | 0sec           | 1           |
++------------------+---------+----------------+-------------+
+
+> hstream stream delete --name demo
+Done.
+
+> hstream stream list
+Done. No results.
 ```
 
 ## HStream SQL
 
-HStreamDB also provides an interactive SQL shell for a series of operations, such as
-management of streams and views, data insertion and retrieval, etc.
+HStreamDB also provides an interactive SQL shell for a series of operations,
+such as the management of streams and views, data insertion and retrieval, etc.
 
-```
+```sh
 > hstream sql --help
 Usage: hstream sql [--update-interval INT] [--retry-timeout INT]
   Start HStream SQL Shell
@@ -184,8 +255,8 @@ There are two ways to create a new data stream.
 CREATE STREAM stream_name;
 ```
 
-This will create a stream with no particular function. You can `SELECT` data from
-the stream and `INSERT` to via corresponding SQL statement.
+This will create a stream with no particular function. You can `SELECT` data
+from the stream and `INSERT` to via corresponding SQL statement.
 
 2. Create a stream, and this stream will also run a query to select specified
    data from some other stream.
@@ -200,8 +271,8 @@ CREATE STREAM stream_name AS SELECT * from demo;
 ```
 
 In the example above, by adding an `AS` followed by a `SELECT` statement to the
-normal `CREATE` operation, it will create a stream that will also select all
-the data from the `demo`.
+normal `CREATE` operation, it will create a stream that will also select all the
+data from the `demo`.
 
 After Creating the stream, we can insert values into the stream.
 
@@ -210,8 +281,8 @@ INSERT INTO stream_name (field1, field2) VALUES (1, 2);
 ```
 
 There is no restriction on the number of fields a query can insert. Also, the
-type of value is not restricted. However, you need to make sure that the
-number of fields and the number of values are aligned.
+type of value is not restricted. However, you need to make sure that the number
+of fields and the number of values are aligned.
 
 Deletion command is `DROP STREAM <Stream_name> ;`, which deletes a stream, and
 terminate all the [queries](#queries) that depend on the stream.
@@ -252,8 +323,8 @@ You can also show all streams by using the `SHOW STREAMS` command.
 
 Run a continuous query on the stream to select data from a stream:
 
-After creating a stream, we can select data from the stream in real-time. All the
-data inserted after the select query is created will be printed out when the
+After creating a stream, we can select data from the stream in real-time. All
+the data inserted after the select query is created will be printed out when the
 insert operation happens. Select supports real-time processing on the data
 inserted into the stream.
 
