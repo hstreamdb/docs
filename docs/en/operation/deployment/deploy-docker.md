@@ -249,13 +249,14 @@ docker run -d --name hstream-server --network host \
         --host $SERVER_HOST \
         --address $SERVER_HOST \
         --seed-nodes $SERVER_HOST \
-        --zkuri $ZK_ADDRESS \
+        --metastore-uri zk://$ZK_ADDRESS \
         --store-config zk:$ZK_ADDRESS/logdevice.conf \
         --store-admin-host $ADMIN_HOST \
         --server-id 1
 ```
 
 - `$SERVER_HOST` ：The host IP address of your server node, e.g `192.168.0.1`
+- `metastore-uri`: The address of HMeta, it currently support `zk://$ZK_ADDRESS` for zookeeper and `rq://$RQ_ADDRESS` for rqlite (experimental).
 - `$ZK_ADDRESS` ：Your ZooKeeper ensemble address list, e.g
   `10.100.2.11:2181,10.100.2.12:2181,10.100.2.13:2181`
 - `--store-config` ：The path to your `HStore` configuration file. Should match

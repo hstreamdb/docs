@@ -13,7 +13,7 @@ or you can [download](https://raw.githubusercontent.com/hstreamdb/hstream/main/c
 | address |  | Server listen address value, the value must be given and shouldn't be "0.0.0.0", if you intend to start a cluster or trying to connect to the server from a different network. This value can be overwritten by cli option `--address` |
 | port |  | Server port value, the value must be given and can be overwritten by cli option `--port`
 | internal-port |  | Server port value for internal communications between server nodes, the value must be given and can be overwritten by cli option `--internal-port` |
-| zkuri |  | The server nodes in the same cluster shares a zookeeper server, this is essential for a server to start Comma separated host:port pairs, each corresponding to a zk zookeeper server. e.g. 127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183 the value must be given and can be overwritten by cli option `--zkuri` |
+| meta-store |  | The server nodes in the same cluster shares an HMeta uniy, this is used for metadata storage and is essential for a server to start. Specify the HMeta protocal such as `zk://` or `rq://`, following with Comma separated host:port pairs, each corresponding to a hmeta server. e.g. zk://127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183. The value must be given and can be overwritten by cli option `--metastore-uri` |
 log-with-color | true | optional, The options used to control whether print logs with color by the server node, can be overwritten by cli option `--log-with-color` |
 log-level | info | optional, the setting control lof print level by the server node the default value can be overwritten by cli option `--log-level` |
 | max-record-size | 1024*1024 (1MB) | The largest size of a record batch allowed by HStreamDB|
@@ -56,7 +56,7 @@ Store admin section specifies the client config when connecting to the storage a
 
 ## Command-Line Options
 
-For the ease of use, we allow user to pass some options to override the configuration in the configuration file when start server with `hstream-server` :
+For ease of use, we allow users to pass some options to override the configuration in the configuration file when starting the server with `hstream-server` :
 
 | option | meta var | description |
 | ------ | -------- | ----------- |
@@ -67,6 +67,6 @@ For the ease of use, we allow user to pass some options to override the configur
 | internal-port |  INT   | server channel port value for internal communication |
 | server-id     | UINT32 | ID of the hstream server node |
 | store-admin-port | INT | store admin port value |
-| zkuri            | STR | comma separated host:port pairs, each corresponding to a zk zookeeper server. e.g."127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183" |
+| metastore-uri    | STR | Specify the HMeta protocal such as `zk://` or `rq://`, following with Comma separated host:port pairs, each corresponding to a hmeta server. e.g. zk://127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183. |
 | log-level | <critical \| fatal \| warning \| info \| debug> | Server log level |
 | log-with-color | FLAG | Server log with color |

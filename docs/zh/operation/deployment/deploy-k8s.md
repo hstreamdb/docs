@@ -103,9 +103,9 @@ $ cat config.json | grep -A 2 zookeeper
     "timeout": "30s"
   }
 
-$ cat hstream-server.yaml | grep -A 1 zkuri
-            - "--zkuri"
-            - "zookeeper-0.zookeeper-headless:2181,zookeeper-1.zookeeper-headless:2181,zookeeper-2.zookeeper-headless:2181"
+$ cat hstream-server.yaml | grep -A 1 metastore-uri
+            - "--metastore-uri"
+            - "zk://zookeeper-0.zookeeper-headless:2181,zookeeper-1.zookeeper-headless:2181,zookeeper-2.zookeeper-headless:2181"
 ```
 
 ::: tip
