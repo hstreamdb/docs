@@ -1,4 +1,4 @@
-# Deployment with Hdt
+# Deployment with hdt
 
 This document provides a way to start an HStreamDB cluster quickly using the deployment tool `hdt`.
 
