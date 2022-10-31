@@ -237,7 +237,7 @@ docker run -d --name hstream-server --network host \
         --host $SERVER_HOST \
         --address $SERVER_HOST \
         --seed-nodes $SERVER_HOST \
-        --zkuri $ZK_ADDRESS \
+        --metastore-uri zk://$ZK_ADDRESS \
         --store-config zk:$ZK_ADDRESS/logdevice.conf \
         --store-admin-host $ADMIN_HOST \
         --replicate-factor 3 \
@@ -245,6 +245,7 @@ docker run -d --name hstream-server --network host \
 ```
 
 - `$SERVER_HOST`：你的服务器节点的主机 IP 地址，例如 `192.168.0.1`。
+- `metastore-uri`: 你的元信息存储 HMeta 地址，例如使用 `zk://$ZK_ADDRESS` 指定 zookeeper 存储元数据。同时实现性支持使用 rqlite `rq://$RQ_ADDRESS`。
 - `$ZK_ADDRESS` ：你的 ZooKeeper 集群地址列表，例如 `10.100.2.11:2181,10.100.2.12:2181,10.100.2.13:2181`。
 - `--store-config`：你的 `HStore` 配置文件的路径。应该与启动 `HStore` 集群 `--config-path` 参数的值一致。
 - `--store-admin-host`：`HStore Admin Server` 节点的 IP 地址。
