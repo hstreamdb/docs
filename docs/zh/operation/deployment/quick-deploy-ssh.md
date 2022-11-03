@@ -1,4 +1,4 @@
-# 使用 Hdt 部署 HStreamDB
+# Deployment with hdt
 
 This document provides a way to start an HStreamDB cluster quickly using the deployment tool `hdt`.
 
@@ -18,8 +18,8 @@ This document provides a way to start an HStreamDB cluster quickly using the dep
 
 - For nodes which deploy `HStore` instances, mount the data disk to `/mnt/data*/`.
 
-  - "*" Matching incremental numbers, start from zero
-  - one disk should mount to one directory. e.g. if we have two data disks `/dev/vdb` and `/dev/vdc`, then `/dev/vdb` should mount to `/mnt/data0` and `/dev/vdc` should mount to `/mnt/data1`
+    - "*" Matching incremental numbers, start from zero
+    - one disk should mount to one directory. e.g. if we have two data disks `/dev/vdb` and `/dev/vdc`, then `/dev/vdb` should mount to `/mnt/data0` and `/dev/vdc` should mount to `/mnt/data1`
 
 ## Deploy `hdt` on the control machine
 
@@ -50,7 +50,7 @@ We'll use a deployment tool `hdt` to help us set up the cluster. The binaries ar
 
 `template/config.yaml` contains the template for the configuration file. Refer to the description of the fields in the file and modify the template according to your actual needs.
 
-Here we will deploy a cluster on 3 nodes, each consisting of a `HServer` instance, a `HStore` instance and a `Meta-Store` instance as a simple example. For hstream monitor stack, refer to [link here].
+Here we will deploy a cluster on 3 nodes, each consisting of a `HServer` instance, a `HStore` instance and a `Meta-Store` instance as a simple example. For hstream monitor stack, refer to [monitor components config](./quick-deploy-ssh.md#monitor-stack-components).
 
 The final configuration file may looks like:
 
@@ -105,7 +105,7 @@ remove cluster will stop cluster and remove ***ALL*** related data.
 ./hdt remove -c template/config.yaml -i ~/.ssh/id_rsa -u root
 ```
 
- ### remove cluster with passwd
+### remove cluster with passwd
 
 ```shell
 ./hdt remove -c template/config.yaml -p -u root
@@ -334,38 +334,39 @@ grafana:
       disable_restart: true
       remove_when_exit: true
 
-# # Server configs are used to specify the configuration of Alertmanager Servers.
 alertmanager:
   # # The ip address of the Alertmanager Server.
   - host: 10.0.1.15
-  # # Alertmanager docker image
-  image: "prom/alertmanager"
-  # # Alertmanager service monitor port
-  port: 9093
-  # # Root directory of Alertmanager config files
-  remote_config_path: "/home/deploy/alertmanager"
-  # # Root directory of Alertmanager data files
-  data_dir: "/home/deploy/data/alertmanager"
-  # # Alertmanager container configuration
-  container_config:
-    cpu_limit: 200
-    memory_limit: 8G
-    disable_restart: true
-    remove_when_exit: true
+    # # Alertmanager docker image
+    image: "prom/alertmanager"
+    # # Alertmanager service monitor port
+    port: 9093
+    # # Root directory of Alertmanager config files
+    remote_config_path: "/home/deploy/alertmanager"
+    # # Root directory of Alertmanager data files
+    data_dir: "/home/deploy/data/alertmanager"
+    # # Alertmanager container configuration
+    container_config:
+      cpu_limit: 200
+      memory_limit: 8G
+      disable_restart: true
+      remove_when_exit: true
 
 hstream_exporter:
   - host: 10.1.0.15
-  # # hstream_exporter docker image
-  image: "hstreamdb/hstream-exporter"
-  # # hstream_exporter service monitor port
-  port: 9200
-  # # Root directory of hstream_exporter config files
-  remote_config_path: "/home/deploy/hstream-exporter"
-  # # Root directory of hstream_exporter data files
-  data_dir: "/home/deploy/data/hstream-exporter"
-  container_config:
-    cpu_limit: 200
-    memory_limit: 8G
-    disable_restart: true
-    remove_when_exit: true
+    # # hstream_exporter docker image
+    image: "hstreamdb/hstream-exporter"
+    # # hstream_exporter service monitor port
+    port: 9200
+    # # Root directory of hstream_exporter config files
+    remote_config_path: "/home/deploy/hstream-exporter"
+    # # Root directory of hstream_exporter data files
+    data_dir: "/home/deploy/data/hstream-exporter"
+    container_config:
+      cpu_limit: 200
+      memory_limit: 8G
+      disable_restart: true
+      remove_when_exit: true
 ```
+
+Currently, HStreamDB monitor stack contains the following components：`node-exporter`, `cadvisor`, `http-server`, `prometheus`, `grafana`, `alertmanager` and `hstream-exporter`.  The global configuration of the monitor stack is available in [monitor](./quick-deploy-ssh.md#monitor) field. 
