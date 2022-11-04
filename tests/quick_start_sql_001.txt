@@ -1,0 +1,4 @@
+{"humidity":80.0,"temperature":22.0}
+{"humidity":76.0,"temperature":31.0}
+{"humidity":82.0,"temperature":27.0}
+{"humidity":86.0,"temperature":28.0}

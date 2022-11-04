@@ -78,7 +78,7 @@ services:
       - bash
       - "-c"
       - |
-        timeout=60
+        timeout=120
         until ( \
             /usr/local/bin/hadmin server --host hserver0 --port 6570 status && \
             /usr/local/bin/hadmin server --host hserver1 --port 6572 status \
