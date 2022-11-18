@@ -1,0 +1,42 @@
+name: Docs CI on Repository Dispatch
+on:
+  repository_dispatch:
+    branches: [main]
+    types: image_updated
+
+
+jobs:
+  quick-start:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: "recursive"
+
+      - name: pull images
+        run: docker-compose -f assets/quick-start.yaml pull
+
+      - name: quick start a hstream cluster
+        run: ./tests/start_cluster.sh
+
+      - name: test simple sql
+        run: ./tests/test_quick_start.sh
+
+      - name: Post to Slack channel (succeed)
+        if: ${{ success() }}
+        run: |
+          curl -X POST -H 'Content-Type: application/json' \
+            ${{ secrets.SLACK_WEB_HOOK_URL }} \
+            --data "{\"data\": \"GitHub Action build result: ${{ job.status }} :white_check_mark: \n\
+              Commit info: https://github.com/hstreamdb/hstream/commit/${{ github.event.client_payload.commit_sha }}\n\
+              Action summary: https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID\"}"
+
+      - name: Post to Slack channel (failed)
+        if: ${{ failure() }}
+        run: |
+          curl -X POST -H 'Content-Type: application/json' \
+            ${{ secrets.SLACK_FIXME_HOOK_URL }} \
+            --data "{\"data\": \"GitHub Action build result: ${{ job.status }} :x: \n\
+              Commit info: https://github.com/hstreamdb/hstream/commit/${{ github.event.client_payload.commit_sha }}\n\
+              Action summary: https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID\"}"
