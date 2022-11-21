@@ -1,5 +1,22 @@
 # Create and Manage Streams
 
+## Guidelines to name a resource
+
+An HStream resource name uniquely identifies an HStream resource, such as a
+stream, a subscription or a reader. The resource name must fit the following
+requirements:
+
+- Start with a letter
+- Length must be no longer than 255 characters
+- Contain only the following characters: Letters `[A-Za-z]`, numbers `[0-9]`,
+  dashes `-`, underscores `_`
+
+\*For the cases where the resource name is used as a part of a SQL statement,
+  such as in [HStream SQL Shell](../reference/cli.md#hstream-sql-shell), there
+  will be situations where the resource name cannot be parsed properly (such as
+  conflicts with Keywords etc.), enclose the resource name with backticks `` ` ``.
+  With the enhancements of the SQL parser, the constriction may be removed in the future.
+
 ## Attributes of a Stream
 
 - Replication factor
@@ -103,7 +120,7 @@ To get all streams in HStreamDB:
 ```
 
 :::
-
+s
 ::: tab Go
 
 ```go

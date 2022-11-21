@@ -1,5 +1,18 @@
 # 创建和管理 Stream
 
+## 命名资源准则
+
+一个HStream资源的名称可以唯一地识别一个 HStream 资源，如一个 stream、 subscription 或 reader。
+资源名称必须符合以下要求:
+
+- 以一个字母开头
+- 长度必须不超过255个字符
+- 只包含以下字符。字母`[A-Za-z]`，数字`[0-9]`。
+  破折号`-`，下划线`_`。
+
+\*用于资源名称作为SQL语句的一部分的情况。例如在 [HStream SQL Shell](../reference/cli.md#hstream-sql) 中或者用 SQL 创建 IO 任务时，
+  将会出现资源名称无法被正确解析的情况（如与关键词冲突），此时需要用户用反斜线 `` ` ``，括住资源名称。这个限制或将会在日后的版本中被改进移除。
+
 ## Stream 的属性
 
 - Replication factor

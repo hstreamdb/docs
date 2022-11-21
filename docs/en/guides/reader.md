@@ -17,12 +17,14 @@ starting position with the following options:
 
 - The earliest available record in the shard
 - The latest available record in the shard
-- User specified record location in the shard
+- User-specified record location in the shard
 
 ## Reader Example
 
 To read from the shards, users are required to get the desired shard id with
 [`listShards`](./shards.md#listshards).
+
+The name of a reader should also follow the format specified by the [guidelines](./stream.md#guidelines-to-name-a-resource)
 
 :::: tabs
 

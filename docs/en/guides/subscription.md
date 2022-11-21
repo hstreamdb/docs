@@ -17,6 +17,8 @@
 Every subscription has to specify which stream to subscribe to, which means you
 have to make sure the stream to be subscribed has already been created.
 
+For the subscription name, please refer to the [guidelines to name a resource](./stream.md/#guidelines-to-name-a-resource)
+
 When creating a subscription, you can provide the attributes mentioned like
 this:
 
