@@ -1,4 +1,4 @@
-tag ?= v0.10.0
+tag ?= latest
 
 config:
 	script/make-config
