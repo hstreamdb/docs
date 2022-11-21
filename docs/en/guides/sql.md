@@ -177,5 +177,5 @@ The result is updated right away.
 
 ## Related Pages
 
-For a detailed introduction of the SQL, see
+For a detailed introduction to the SQL, see
 [HStream SQL](../reference/sql/sql-overview.md).

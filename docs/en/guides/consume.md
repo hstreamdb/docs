@@ -61,7 +61,7 @@ acknowledged one at a time, as shown in the example below.
 
 ::::
 
-For better performance, Batched Ack is enabled by default with setting
+For better performance, Batched Ack is enabled by default with settings
 `ackBufferSize` = 100 and `ackAgeLimit` = 100, which you can change when
 initiating your consumers.
 

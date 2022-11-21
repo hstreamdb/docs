@@ -1,9 +1,9 @@
 # Write Records to Streams
 
 This document provides information about how to write data to streams in
-HStreamDB using hstreamdb-java or clients implemented in other language.
+HStreamDB using hstreamdb-java or clients implemented in other languages.
 
-You can also read following pages to get a more thorough understanding:
+You can also read the following pages to get a more thorough understanding:
 
 - How to [create and manage Streams](./stream.md).
 - How to [consume the data written to a Stream](./consume.md).
@@ -23,10 +23,10 @@ HStream Record:
 ## End-to-End Compression
 
 To reduce transfer overhead and maximize bandwidth utilization, HStreamDB
-supports compression of written HStream records. Users can set the compression
-algorithm when creating a `BufferedProducer`. Currently HStreamDB supports both
-`gzip` and `zstd` compression algorithms. Compressed records are automatically
-decompressed by the client when they are consumed from HStreamDB.
+supports the compression of written HStream records. Users can set the
+compression algorithm when creating a `BufferedProducer`. Currently, HStreamDB
+supports both `gzip` and `zstd` compression algorithms. Compressed records are
+automatically decompressed by the client when they are consumed from HStreamDB.
 
 ## Write HStream Records
 
@@ -40,7 +40,7 @@ send the batch to servers. When a record is written to the stream, HStream
 Server will generate a corresponding record id for the record and send it back
 to the client. The record id is unique in the stream.
 
-## Write Records Using Producer
+## Write Records Using a Producer
 
 :::: tabs
 
@@ -66,7 +66,7 @@ to the client. The record id is unique in the stream.
 
 ::::
 
-## Write Records Using Buffered Producer
+## Write Records Using a Buffered Producer
 
 In almost all scenarios, we would recommend using `BufferedProducer` whenever
 possible because it offers higher throughput and provides a very flexible
@@ -111,7 +111,7 @@ assign a default key. Records with the same partition key can be guaranteed to
 be written orderly in BufferedProducer.
 
 Another important feature of HStreamDB, sharding, uses these partition keys to
-decide which shards the record will be allocated and improve write/read
+decide which shards the record will be allocated to and improve write/read
 performance. See [Manage Shards of a Stream](./shards.md) for a more detailed
 explanation.
 

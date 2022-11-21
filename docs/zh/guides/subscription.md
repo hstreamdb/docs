@@ -16,6 +16,8 @@ Subscription 的属性
 每个 subscription 都必须指定要订阅哪个 stream，这意味着你必须确保要订阅的 stream
 已经被创建。
 
+关于订阅的名称，请参考[资源命名准则](./stream.md#命名资源的准则)
+
 当创建一个 subscription 时，你可以像这样提供提到的属性：
 
 :::: tabs
