@@ -4,7 +4,7 @@
 
 - Add support for getting the creation time of streams and subscriptions
 - Add ``subscription`` subcommand in hstream CLI
-- [**Breaking change**]Remove the compression option on the hserver side, use end-to-end compression function instead
+- [**Breaking change**]Remove the compression option on the hserver side(should use end-to-end compression instead)
 - Remove logid cache
 - Unify resource naming rules and improve the corresponding resource naming checks
 - [**Breaking change**]Rename hserver's startup parameters ``host`` and ``address`` to ``bind-address`` and ``advertised-address``
