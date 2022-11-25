@@ -1,5 +1,18 @@
 # HStreamDB release notes
 
+## v0.10.0 [2022-11-25]
+
+- Add support for getting the creation time of streams and subscriptions
+- Add ``subscription`` subcommand in hstream CLI
+- [**Breaking change**]Remove the compression option on the hserver side, use end-to-end compression function instead
+- Remove logid cache
+- Unify resource naming rules and improve the corresponding resource naming checks
+- [**Breaking change**]Rename hserver's startup parameters ``host`` and ``address`` to ``bind-address`` and ``advertised-address``
+- Fix routing validation for some RPC requests
+- Fix a possible failure when saving the progress of a subscription 
+- Fix incorrect results of ``JOIN .. ON``
+- Fix the write operation cannot be retried after got a timeout error
+
 ## v0.10.0 [2022-10-28]
 
 ### Highlights
