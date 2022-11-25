@@ -1,6 +1,6 @@
 # HStreamDB release notes
 
-## v0.10.0 [2022-11-25]
+## v0.11.0 [2022-11-25]
 
 - Add support for getting the creation time of streams and subscriptions
 - Add ``subscription`` subcommand in hstream CLI
