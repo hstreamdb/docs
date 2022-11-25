@@ -162,7 +162,7 @@ For the configuration file stored on each node, assume that your file path is
 
   ```shell
   docker run --rm -d --name storeAdmin --network host -v /data/logdevice:/data/logdevice \
-          hstreamdb/hstream:latest /usr/local/bin/ld-admin-server \
+          hstreamdb/hstream:v0.11.0 /usr/local/bin/ld-admin-server \
           --config-path zk:10.100.2.11:2181/logdevice.conf \
           --enable-maintenance-manager \
           --maintenance-log-snapshotting \
@@ -184,7 +184,7 @@ For the configuration file stored on each node, assume that your file path is
 
   ```shell
   docker run --rm -d --name hstore --network host -v /data/logdevice:/data/logdevice \
-          hstreamdb/hstream:latest /usr/local/bin/logdeviced \
+          hstreamdb/hstream:v0.11.0 /usr/local/bin/logdeviced \
           --config-path zk:10.100.2.11:2181/logdevice.conf \
           --name store-0 \
           --address 192.168.0.3 \
@@ -245,7 +245,7 @@ your situation:
 
 ```shell
 docker run -d --name hstream-server --network host \
-        hstreamdb/hstream:latest /usr/local/bin/hstream-server \
+        hstreamdb/hstream:v0.11.0 /usr/local/bin/hstream-server \
         --bind-address $SERVER_HOST \
         --advertised-address $SERVER_HOST \
         --seed-nodes $SERVER_HOST \
