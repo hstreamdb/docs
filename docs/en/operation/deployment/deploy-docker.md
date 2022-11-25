@@ -246,8 +246,8 @@ your situation:
 ```shell
 docker run -d --name hstream-server --network host \
         hstreamdb/hstream:latest /usr/local/bin/hstream-server \
-        --host $SERVER_HOST \
-        --address $SERVER_HOST \
+        --bind-address $SERVER_HOST \
+        --advertised-address $SERVER_HOST \
         --seed-nodes $SERVER_HOST \
         --metastore-uri zk://$ZK_ADDRESS \
         --store-config zk:$ZK_ADDRESS/logdevice.conf \
