@@ -26,6 +26,12 @@ docker exec -t some-hstream-cli hstream --port 6570 sql -e "INSERT INTO demo (te
 sleep 5
 
 OUTPUT=$(mktemp)
+echo "-> get results..."
 docker logs some-hstream-cli > $OUTPUT
 cat $OUTPUT
-cmp --silent $OUTPUT tests/quick_start_sql_001.txt || exit 1
+echo "-> compare results..."
+cmp --silent $OUTPUT tests/quick_start_sql_001.txt || \
+    (docker-compose -f assets/quick-start.yaml logs && exit 1)
+echo "-> clean..."
+docker exec -t some-hstream-cli hstream --port 6570 sql -e "DROP STREAM demo ;"
+docker rm -f some-hstream-cli
