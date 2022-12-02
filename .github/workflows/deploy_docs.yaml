@@ -23,7 +23,7 @@ jobs:
           git clone https://github.com/hstreamdb/hstreamdb-py.git
           mkdir temp
           mv docs-files/examples/hstreamdb-java-examples/app/src/main/java/docs/code/examples/* $PWD/temp/
-          mv docs-files/examples/hstreamdb-go-examples/app/src/main/java/docs/code/examples/* $PWD/temp/
+          mv docs-files/examples/hstreamdb-go-examples/examples/* $PWD/temp/
           npm install embedme
           npx embedme --source-root $PWD/docs-files/assets docs-files/docs/*/start/quickstart-with-docker.md
           npx embedme --source-root $PWD/temp/ docs-files/docs/*/guides/*
