@@ -47,7 +47,7 @@ To list all the shards of one stream.
 :::
 
 ::: tab Python3
-@snippet hstreamdb-py/examples/snippets/guides.py common list-shards
+@snippet examples/hstreamdb-py-examples/snippets/guides.py common list-shards
 :::
 
 ::::

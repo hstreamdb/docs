@@ -61,7 +61,7 @@ to the client. The record id is unique in the stream.
 :::
 
 ::: tab Python3
-@snippet hstreamdb-py/examples/snippets/guides.py common append-records
+@snippet examples/hstreamdb-py-examples/snippets/guides.py common append-records
 :::
 
 ::::
@@ -99,7 +99,7 @@ bytes in a BufferedProducer.
 :::
 
 ::: tab Python3
-@snippet hstreamdb-py/examples/snippets/guides.py common buffered-append-records
+@snippet examples/hstreamdb-py-examples/snippets/guides.py common buffered-append-records
 :::
 
 ::::
