@@ -49,7 +49,7 @@ receiver 来接收，并逐条 ack，如下面的例子中所示。
 :::
 
 ::: tab Python3
-@snippet examples/hstreamdb-py-examples/snippets/guides.py common subscribe-records
+@snippet examples/py/snippets/guides.py common subscribe-records
 :::
 
 ::::
