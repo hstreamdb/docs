@@ -39,7 +39,7 @@ Subscription 的属性
 :::
 
 ::: tab Python3
-@snippet hstreamdb-py/examples/snippets/guides.py common create-subscription
+@snippet examples/hstreamdb-py-examples/snippets/guides.py common create-subscription
 :::
 
 ::::
@@ -75,7 +75,7 @@ Subscription 的属性
 :::
 
 ::: tab Python3
-@snippet hstreamdb-py/examples/snippets/guides.py common delete-subscription
+@snippet examples/hstreamdb-py-examples/snippets/guides.py common delete-subscription
 :::
 
 ::::
@@ -101,7 +101,7 @@ Subscription 的属性
 :::
 
 ::: tab Python3
-@snippet hstreamdb-py/examples/snippets/guides.py common list-subscription
+@snippet examples/hstreamdb-py-examples/snippets/guides.py common list-subscription
 :::
 
 ::::

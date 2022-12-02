@@ -41,7 +41,7 @@ this:
 :::
 
 ::: tab Python3
-@snippet hstreamdb-py/examples/snippets/guides.py common create-subscription
+@snippet examples/hstreamdb-py-examples/snippets/guides.py common create-subscription
 :::
 
 ::::
@@ -81,7 +81,7 @@ the deleted subscription.
 :::
 
 ::: tab Python3
-@snippet hstreamdb-py/examples/snippets/guides.py common delete-subscription
+@snippet examples/hstreamdb-py-examples/snippets/guides.py common delete-subscription
 :::
 
 ::::
@@ -109,7 +109,7 @@ To list all subscriptions in HStream
 :::
 
 ::: tab Python3
-@snippet hstreamdb-py/examples/snippets/guides.py common list-subscription
+@snippet examples/hstreamdb-py-examples/snippets/guides.py common list-subscription
 :::
 
 ::::

@@ -26,7 +26,7 @@ jobs:
           npm install embedme
           npx embedme --source-root $PWD/docs-files/assets docs-files/docs/*/start/quickstart-with-docker.md
           npx embedme --source-root $PWD/temp/ docs-files/docs/*/guides/*
-          cd docs-files && ./include_snippets.py --snippets-root .. --file-pattern "docs/*/guides/*"
+          cd docs-files && ./include_snippets.py --snippets-root . --file-pattern "docs/*/guides/*"
 
       - name: make directory.json
         run: cd docs-files && make config

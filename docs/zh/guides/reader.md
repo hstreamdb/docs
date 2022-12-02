@@ -45,7 +45,7 @@ The name of a reader should also follow the format specified by the [guidelines]
 :::
 
 ::: tab Python3
-@snippet hstreamdb-py/examples/snippets/guides.py common read-reader
+@snippet examples/hstreamdb-py-examples/snippets/guides.py common read-reader
 :::
 
 ::::

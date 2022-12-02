@@ -55,7 +55,7 @@ batch 发送到服务器。每一条 record 被写入 stream 时，HServer 将�
 :::
 
 ::: tab Python3
-@snippet hstreamdb-py/examples/snippets/guides.py common append-records
+@snippet examples/hstreamdb-py-examples/snippets/guides.py common append-records
 :::
 
 ::::
@@ -90,7 +90,7 @@ batch 发送到服务器。每一条 record 被写入 stream 时，HServer 将�
 :::
 
 ::: tab Python3
-@snippet hstreamdb-py/examples/snippets/guides.py common buffered-append-records
+@snippet examples/hstreamdb-py-examples/snippets/guides.py common buffered-append-records
 :::
 
 ::::
