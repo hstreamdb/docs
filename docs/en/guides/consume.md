@@ -56,7 +56,7 @@ acknowledged one at a time, as shown in the example below.
 :::
 
 ::: tab Python3
-@snippet examples/hstreamdb-py-examples/snippets/guides.py common subscribe-records
+@snippet examples/py/snippets/guides.py common subscribe-records
 :::
 
 ::::

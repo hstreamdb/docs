@@ -23,11 +23,34 @@ jobs:
       - name: test simple sql
         run: ./tests/test_quick_start.sh
 
-  hstreamdb-java-examples:
+  test-scripts:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: clone docs
+        uses: actions/checkout@v2
+        with:
+          path: docs-files
+          fetch-depth: 0
+
+      - name: update embedded file
+        run: |
+          mkdir temp
+          mv docs-files/examples/java/app/src/main/java/docs/code/examples/* $PWD/temp/
+          mv docs-files/examples/go/examples/* $PWD/temp/
+          npm install embedme
+          npx embedme --source-root $PWD/docs-files/assets docs-files/docs/*/start/quickstart-with-docker.md
+          npx embedme --source-root $PWD/temp/ docs-files/docs/*/guides/*
+          cd docs-files && ./include_snippets.py --snippets-root . --file-pattern "docs/*/guides/*"
+
+      - name: make directory.json
+        run: cd docs-files && make config
+
+  test-java-examples:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./examples/hstreamdb-java-examples
+        working-directory: ./examples/java
     steps:
       - uses: actions/checkout@v2
 
@@ -48,11 +71,11 @@ jobs:
 
       - run: ./gradlew run
 
-  hstream-go-examples:
+  test-go-examples:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./examples/hstreamdb-go-examples
+        working-directory: ./examples/go
     strategy:
       matrix:
         go-version: ["1.19"]

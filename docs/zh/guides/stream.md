@@ -54,7 +54,7 @@
 :::
 
 ::: tab Python3
-@snippet examples/hstreamdb-py-examples/snippets/guides.py common create-stream
+@snippet examples/py/snippets/guides.py common create-stream
 :::
 
 ::::
@@ -89,7 +89,7 @@
 :::
 
 ::: tab Python3
-@snippet examples/hstreamdb-py-examples/snippets/guides.py common delete-stream
+@snippet examples/py/snippets/guides.py common delete-stream
 :::
 
 ::::
@@ -117,7 +117,7 @@
 :::
 
 ::: tab Python3
-@snippet examples/hstreamdb-py-examples/snippets/guides.py common list-streams
+@snippet examples/py/snippets/guides.py common list-streams
 :::
 
 ::::
