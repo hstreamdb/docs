@@ -47,3 +47,34 @@ jobs:
       - run: sleep 30
 
       - run: ./gradlew run
+
+  hstream-go-examples:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./examples/hstreamdb-go-examples
+    strategy:
+      matrix:
+        go-version: ["1.19"]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: "recursive"
+
+      - uses: actions/setup-go@v3
+        with:
+          go-version: ${{ matrix.go-version }}
+
+      - name: check go fmt
+        run: |
+          go fmt ./... && \
+          git diff-index --exit-code HEAD
+
+      - name: check go build
+        run: |
+          go build github.com/hstreamdb/hstreamdb-go-examples
+
+      - name: test
+        run: |
+          ./etc/start.sh && \
+          ./hstreamdb-go-examples
