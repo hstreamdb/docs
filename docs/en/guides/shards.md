@@ -28,26 +28,6 @@ shardCount is provided when creating a
 
 To list all the shards of one stream.
 
-:::: tabs
-
-::: tab Java
-
 ```java
 // ListShardsExample.java
 ```
-
-:::
-
-::: tab Go
-
-```go
-// ExampleListShards.go
-```
-
-:::
-
-::: tab Python3
-@snippet examples/py/snippets/guides.py common list-shards
-:::
-
-::::

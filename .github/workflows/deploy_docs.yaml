@@ -6,6 +6,7 @@ on:
       - v*
     branches:
       - main
+      - pdf-source
 
 jobs:
   deploy:
@@ -46,7 +47,7 @@ jobs:
       - name: set env
         run: |
           BRANCH=$(echo ${{ github.ref }} | sed -r  "s ^refs/heads/|^refs/tags/(.*) \1 g")
-          if [ "$BRANCH" = "main" ];then
+          if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "pdf-source" ]; then
           VERSION="latest"
           else
           VERSION=$BRANCH

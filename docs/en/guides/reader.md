@@ -26,26 +26,6 @@ To read from the shards, users are required to get the desired shard id with
 
 The name of a reader should also follow the format specified by the [guidelines](./stream.md#guidelines-to-name-a-resource)
 
-:::: tabs
-
-::: tab Java
-
 ```java
 // ReadDataWithReaderExample.java
 ```
-
-:::
-
-::: tab Go
-
-```go
-// ExampleReadDataWithReader.go
-```
-
-:::
-
-::: tab Python3
-@snippet examples/py/snippets/guides.py common read-reader
-:::
-
-::::

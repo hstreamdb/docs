@@ -45,29 +45,9 @@ requirements:
 
 Create a stream before you write records or create a subscription.
 
-:::: tabs
-
-::: tab Java
-
 ```java
 // CreateStreamExample.java
 ```
-
-:::
-
-::: tab Go
-
-```go
-// ExampleCreateStream.go
-```
-
-:::
-
-::: tab Python3
-@snippet examples/py/snippets/guides.py common create-stream
-:::
-
-::::
 
 ## Delete a Stream
 
@@ -83,54 +63,15 @@ stream name `__deleted_stream__`, no new subscription creation on the deleted
 stream would be allowed, nor new records would be allowed to be written to the
 stream.
 
-:::: tabs
-
-::: tab Java
 
 ```java
 // DeleteStreamExample.java
 ```
 
-:::
-
-::: tab Go
-
-```go
-// ExampleDeleteStream.go
-```
-
-:::
-
-::: tab Python3
-@snippet examples/py/snippets/guides.py common delete-stream
-:::
-
-::::
-
 ## List Streams
 
 To get all streams in HStreamDB:
 
-:::: tabs
-
-::: tab Java
-
 ```java
 // ListStreamsExample.java
 ```
-
-:::
-s
-::: tab Go
-
-```go
-// ExampleListStreams.go
-```
-
-:::
-
-::: tab Python3
-@snippet examples/py/snippets/guides.py common list-streams
-:::
-
-::::

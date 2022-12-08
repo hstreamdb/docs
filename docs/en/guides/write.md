@@ -42,29 +42,9 @@ to the client. The record id is unique in the stream.
 
 ## Write Records Using a Producer
 
-:::: tabs
-
-::: tab Java
-
 ```java
 // WriteDataSimpleExample.java
 ```
-
-:::
-
-::: tab Go
-
-```go
-// ExampleWriteProducer.go
-```
-
-:::
-
-::: tab Python3
-@snippet examples/py/snippets/guides.py common append-records
-:::
-
-::::
 
 ## Write Records Using a Buffered Producer
 
@@ -80,29 +60,9 @@ example shows how you can use `BatchSetting` to set responding triggers to
 notify when the producer should flush and `FlowControlSetting` to limit maximum
 bytes in a BufferedProducer.
 
-:::: tabs
-
-::: tab Java
-
 ```java
 // WriteDataBufferedExample.java
 ```
-
-:::
-
-::: tab Go
-
-```go
-// ExampleWriteBatchProducer.go
-```
-
-:::
-
-::: tab Python3
-@snippet examples/py/snippets/guides.py common buffered-append-records
-:::
-
-::::
 
 ## Write Records with Partition Keys
 
@@ -117,22 +77,6 @@ explanation.
 
 You can easily write records with keys using the following example:
 
-:::: tabs
-
-::: tab Java
-
 ```java
 // WriteDataWithKeyExample.java
 ```
-
-:::
-
-::: tab Go
-
-```go
-// ExampleWriteBatchProducerMultiKey.go
-```
-
-:::
-
-::::

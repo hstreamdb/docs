@@ -37,36 +37,13 @@ that does not require your application to block for new messages. Messages can
 be received in your application using a long-running message receiver and
 acknowledged one at a time, as shown in the example below.
 
-:::: tabs
-
-::: tab Java
-
 ```java
 // ConsumeDataSimpleExample.java
 ```
 
-:::
-
-::: tab Go
-
-```go
-// ExampleConsumer.go
-```
-
-:::
-
-::: tab Python3
-@snippet examples/py/snippets/guides.py common subscribe-records
-:::
-
-::::
-
 For better performance, Batched Ack is enabled by default with settings
 `ackBufferSize` = 100 and `ackAgeLimit` = 100, which you can change when
 initiating your consumers.
-
-:::: tabs
-::: tab Java
 
 ```java
 Consumer consumer =
@@ -83,9 +60,6 @@ Consumer consumer =
         .build();
 ```
 
-:::
-::::
-
 ## Multiple consumers and shared consumption progress
 
 In HStream, a subscription is consumed by a consumer group. In this consumer
@@ -95,25 +69,9 @@ have a new consumer join the existing subscription. The code is for
 demonstration of how consumers can join the consumer group. Usually, the case is
 that users would have consumers from different clients.
 
-:::: tabs
-
-::: tab Java
-
 ```java
 // ConsumeDataSharedExample.java
 ```
-
-:::
-
-::: tab Go
-
-```go
-// ExampleConsumerGroup.go
-```
-
-:::
-
-::::
 
 ## Flow Control with `maxUnackedRecords`
 
@@ -154,9 +112,6 @@ Consumers could fail in other scenarios, such as network, deleted subscriptions,
 etc. However, as a service, you may want the consumer to keep running, so you
 can register a listener to handle a failed consumer:
 
-:::: tabs
-::: tab Java
-
 ```java
 // add Listener for handling failed consumer
 var threadPool = new ScheduledThreadPoolExecutor(1);
@@ -168,6 +123,3 @@ consumer.addListener(
     },
     threadPool);
 ```
-
-:::
-::::

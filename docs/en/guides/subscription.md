@@ -22,29 +22,9 @@ For the subscription name, please refer to the [guidelines to name a resource](.
 When creating a subscription, you can provide the attributes mentioned like
 this:
 
-:::: tabs
-
-::: tab Java
-
 ```java
 // CreateSubscriptionExample.java
 ```
-
-:::
-
-::: tab Go
-
-```go
-// ExampleCreateSubscription.go
-```
-
-:::
-
-::: tab Python3
-@snippet examples/py/snippets/guides.py common create-subscription
-:::
-
-::::
 
 ## Delete a subscription
 
@@ -62,54 +42,15 @@ subscription will be a brand new subscription. Even if they subscribe to the
 same stream, this new subscription will not share the consumption progress with
 the deleted subscription.
 
-:::: tabs
-
-::: tab Java
 
 ```java
 // DeleteSubscriptionExample.java
 ```
 
-:::
-
-::: tab Go
-
-```go
-// ExampleDeleteSubscription.go
-```
-
-:::
-
-::: tab Python3
-@snippet examples/py/snippets/guides.py common delete-subscription
-:::
-
-::::
-
 ## List subscriptions
 
 To list all subscriptions in HStream
 
-:::: tabs
-
-::: tab Java
-
 ```java
 // ListSubscriptionsExample.java
 ```
-
-:::
-
-::: tab Go
-
-```go
-// ExampleListSubscriptions.go
-```
-
-:::
-
-::: tab Python3
-@snippet examples/py/snippets/guides.py common list-subscription
-:::
-
-::::
