@@ -96,8 +96,3 @@
     - path: reference/cli
     - path: reference/config
     - path: reference/metrics
-
-- title:
-    en: Release Notes
-    zh: Release Notes
-  path: release_notes/HStreamDB
