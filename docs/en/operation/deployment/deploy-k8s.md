@@ -156,7 +156,7 @@ Once all the logdevice pods are running and ready, you'll need to bootstrap the
 cluster to enable all the nodes. To do that, run:
 
 ```sh
-kubectl run hstream-admin -it --rm --restart=Never --image=hstreamdb/hstream:latest -- \
+kubectl run hstream-admin -it --rm --restart=Never --image=hstreamdb/hstream:v0.12.0 -- \
   hadmin store --host logdevice-admin-server-service \
     nodes-config bootstrap --metadata-replicate-across 'node:3'
 ```
@@ -174,7 +174,7 @@ pod "hstream-admin" deleted
 Now, you can boostrap hstream server, by running the following command:
 
 ```sh
-kubectl run hstream-admin -it --rm --restart=Never --image=hstreamdb/hstream:latest -- \
+kubectl run hstream-admin -it --rm --restart=Never --image=hstreamdb/hstream:v0.12.0 -- \
     hadmin server --host hstream-server-0.hstream-server init
 ```
 
@@ -191,7 +191,7 @@ Note that depending on how fast the storage cluster completes bootstrap, running
 ## Managing the Storage Cluster
 
 ```sh
-kubectl run hstream-admin -it --rm --restart=Never --image=hstreamdb/hstream:latest -- bash
+kubectl run hstream-admin -it --rm --restart=Never --image=hstreamdb/hstream:v0.12.0 -- bash
 ```
 
 Now you can run `hadmin store` to manage the cluster:
