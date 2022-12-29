@@ -174,4 +174,4 @@ real time:
 ```
 
 [non-root-docker]: https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user
-[quick-start.yaml]: https://raw.githubusercontent.com/hstreamdb/docs/main/assets/quick-start.yaml
+[quick-start.yaml]: https://raw.githubusercontent.com/hstreamdb/docs/v0.12.0/assets/quick-start.yaml
