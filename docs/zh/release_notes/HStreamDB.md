@@ -1,5 +1,25 @@
 # HStreamDB release notes
 
+## v0.12.0 [2022-12-29]
+
+- Add a new RPC interface for getting information about clients connected to the subscription (including IP, type and version of client SDK, etc.)
+- Add a new RPC interface for getting the progress of consumption on a subscription
+- Add a new RPC interface for listing the current ``ShardReader``s
+- Add TLS support for ``advertised-listener``s
+- Add support for file-based metadata storage, mainly for simplifying deployment in local development and testing environments
+- Add support for configuring the number of copies of the internal stream that stores consumption progress
+- Fix the problem that the consumption progress of subscriptions was not saved correctly in some cases
+- Improve the CLI tool: 
+  - simplify some command options 
+  - improve cluster interaction
+  - add retry for requests
+  - improve delete commands
+- Switch to a new planner implementation for HStream SQL
+  - Improve stability and performance
+  - Improve the support for subqueries in the FROM clause 
+  - add a new ``EXPLAIN`` statement for viewing logical execution plans
+  - more modular design for easy extension and optimization
+
 ## v0.11.0 [2022-11-25]
 
 - Add support for getting the creation time of streams and subscriptions
