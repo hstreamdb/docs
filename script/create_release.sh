@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Create a new release from current main branch."
-read -p "Tag: " tag
+read -p "Tag(e.g. v1.0.0): " tag
 BRANCH="release_$tag"
 
 git checkout -b $BRANCH main
@@ -10,7 +10,7 @@ git add docs/ assets/
 git commit -m "Release $tag"
 git tag $tag
 git checkout main
-git --no-pager diff $BRANCH
+git --no-pager diff main $BRANCH
 
 echo ""
 echo "=================================="
