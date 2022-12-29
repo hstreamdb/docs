@@ -10,14 +10,14 @@ the cluster, starting from v0.9.0 HStreamDB provides configurations for
 advertised listeners.
 
 With advertised listeners configured, servers can return the corresponding
-address for different clients, according to the port to which the client sent
+address for different clients according to the port to which the client sent
 the request.
 
 ## Advertised Listeners Configuration
 
 For example， if we set the address of hserver to be some public IP address.
-However, we would also want some local client to be able to connect to the
-cluster. In this case, we can set the advertised listeners to be the local IP
+However, we would also want some local clients to be able to connect to the
+cluster. In this case, we can set the advertised listeners as the local IP
 address.
 
 ```yaml
@@ -26,4 +26,20 @@ hserver:
     private:
       - address: "127.0.0.1"
         port: 6580
-````
+```
+
+## Set Tls for advertised listeners
+
+The default setting is shown as follows, which does not enable Tls for advertised-listener with key `private`
+
+```yaml
+hserver:
+  listeners-security-protocol-map: private:plaintext
+```
+
+To use the same Tls setting as the main advertised listener, we can use the following settings:
+
+```yaml
+hserver:
+  listeners-security-protocol-map: private:tls
+```

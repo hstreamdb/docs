@@ -14,7 +14,7 @@ The following example usage is based on the cluster started in
 correspondingly.
 
 ```sh
-docker exec -it docker_hserver0_1 bash
+docker exec -it docker_hserver_1 bash
 > hstream --help
 ```
 
@@ -22,7 +22,8 @@ docker exec -it docker_hserver0_1 bash
 ======= HStream CLI =======
 
 Usage: hstream [--host SERVER-HOST] [--port INT] [--tls-ca STRING]
-               [--tls-key STRING] [--tls-cert STRING] COMMAND
+               [--tls-key STRING] [--tls-cert STRING] [--retry-timeout INT]
+               COMMAND
 
 Available options:
   --host SERVER-HOST       Server host value (default: "127.0.0.1")
@@ -32,13 +33,16 @@ Available options:
   --tls-key STRING         path name of the client TLS private key file
   --tls-cert STRING        path name of the client TLS public key certificate
                            file
+  --retry-timeout INT      timeout to retry connecting to a server in seconds
+                           (default: 60)
   -h,--help                Show this help text
 
 Available commands:
   sql                      Start HStream SQL Shell
-  nodes                    Manage HStream Server Cluster
+  node                     Manage HStream Server Cluster
   init                     Init HStream Server Cluster
   stream                   Manage Streams in HStreamDB
+  subscription             Manage Subscriptions in HStreamDB
 ```
 
 ### Security Settings (optional)
@@ -68,8 +72,8 @@ hstream --tls-key "<path to the trusted role key file>" --tls-cert "<path to the
 ## Check Cluster Status
 
 ```sh
-> hstream nodes --help
-Usage: hstream nodes COMMAND
+> hstream node --help
+Usage: hstream node COMMAND
   Manage HStream Server Cluster
 
 Available options:
@@ -82,7 +86,7 @@ Available commands:
   check-running            Check if all nodes in the the cluster are running,
                            and the number of nodes is at least as specified
 
-> hstream nodes list
+> hstream node list
 +-----------+
 | server_id |
 +-----------+
@@ -90,7 +94,7 @@ Available commands:
 | 101       |
 +-----------+
 
-> hstream nodes status
+> hstream node status
 +-----------+---------+-------------------+
 | server_id |  state  |      address      |
 +-----------+---------+-------------------+
@@ -98,7 +102,7 @@ Available commands:
 | 101       | Running | 192.168.64.5:6572 |
 +-----------+---------+-------------------+
 
-> hstream nodes check-running
+> hstream node check-running
 All nodes in the cluster are running.
 ```
 
@@ -117,48 +121,127 @@ Available options:
 Available commands:
   list                     Get all streams
   create                   Create a stream
-  delete                   delete a stream (Warning: incomplete implementation)
+  describe                 Get the details of a stream
+  delete                   Delete a stream
 ```
 
 ### Create a stream
 
 ```sh
-Usage: hstream stream create --name STRING [-r|--replication-factor INT]
+Usage: hstream stream create STREAM_NAME [-r|--replication-factor INT]
                              [-b|--backlog-duration INT] [-s|--shards INT]
   Create a stream
 
 Available options:
-  --name STRING            stream name
+  STREAM_NAME              The name of the stream
   -r,--replication-factor INT
-                           replication-factor (default: 3)
+                           The replication factor for the stream (default: 1)
   -b,--backlog-duration INT
-                           Backlog duration in seconds (default: 0)
-  -s,--shards INT          shard numbers of the stream (default: 1)
+                           The backlog duration of records in stream in seconds
+                           (default: 0)
+  -s,--shards INT          The number of shards the stream should have
+                           (default: 1)
   -h,--help                Show this help text
 ```
 
 Example: Create a demo stream with the default settings.
 
 ```sh
-> hstream stream create --name demo
-demo
+> hstream stream create demo
++-------------+---------+----------------+-------------+
+| Stream Name | Replica | Retention Time | Shard Count |
++-------------+---------+----------------+-------------+
+| demo        | 1       | 0 seconds      | 1           |
++-------------+---------+----------------+-------------+
 ```
 
 ### Show and delete streams
 
 ```sh
 > hstream stream list
-+------------------+---------+----------------+-------------+
-| Stream Name      | Replica | Retention Time | Shard Count |
-+------------------+---------+----------------+-------------+
-| demo             | 1       | 0sec           | 1           |
-+------------------+---------+----------------+-------------+
++-------------+---------+----------------+-------------+
+| Stream Name | Replica | Retention Time | Shard Count |
++-------------+---------+----------------+-------------+
+| demo2       | 1       | 0 seconds      | 1           |
++-------------+---------+----------------+-------------+
 
-> hstream stream delete --name demo
+> hstream stream delete demo
 Done.
 
 > hstream stream list
-Done. No results.
++-------------+---------+----------------+-------------+
+| Stream Name | Replica | Retention Time | Shard Count |
++-------------+---------+----------------+-------------+
+```
+
+## Manage Subscription
+
+We can also manage streams through the hstream command line tool.
+
+```sh
+> hstream stream --help
+Usage: hstream subscription COMMAND
+  Manage Subscriptions in HStreamDB
+
+Available options:
+  -h,--help                Show this help text
+
+Available commands:
+  list                     Get all subscriptions
+  create                   Create a subscription
+  describe                 Get the details of a subscription
+  delete                   Delete a subscription
+```
+
+### Create a subscription
+
+```sh
+Usage: hstream subscription create SUB_ID --stream STREAM_NAME
+                                   [--ack-timeout INT]
+                                   [--max-unacked-records INT]
+                                   [--offset [earliest|latest]]
+  Create a subscription
+
+Available options:
+  SUB_ID                   The ID of the subscription
+  --stream STREAM_NAME     The stream associated with the subscription
+  --ack-timeout INT        Timeout for acknowledgements in seconds
+  --max-unacked-records INT
+                           Maximum number of unacked records allowed per
+                           subscription
+  --offset [earliest|latest]
+                           The offset of the subscription to start from
+  -h,--help                Show this help text
+```
+
+Example: Create a subscription to stream `demo` with the default settings.
+
+```sh
+> hstream subscription create --stream demo sub_demo
++-----------------+-------------+-------------+---------------------+
+| Subscription ID | Stream Name | Ack Timeout | Max Unacked Records |
++-----------------+-------------+-------------+---------------------+
+| sub_demo        | demo        | 60 seconds  | 10000               |
++-----------------+-------------+-------------+---------------------+
+```
+
+### Show and delete streams
+
+```sh
+> hstream subscription list
++-----------------+-------------+-------------+---------------------+
+| Subscription ID | Stream Name | Ack Timeout | Max Unacked Records |
++-----------------+-------------+-------------+---------------------+
+| sub_demo        | demo        | 60 seconds  | 10000               |
++-----------------+-------------+-------------+---------------------+
+
+> hstream subscription delete sub_demo
+Done.
+
+> hstream subscription list
++-----------------+-------------+-------------+---------------------+
+| Subscription ID | Stream Name | Ack Timeout | Max Unacked Records |
++-----------------+-------------+-------------+---------------------+
 ```
 
 ## HStream SQL
