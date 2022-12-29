@@ -2,7 +2,7 @@
 
 ## v0.12.0 [2022-12-29]
 
-- Add a new RPC interface to get information about clients connected to the subscription (including IP, type and version of client SDK, etc.)
+- Add a new RPC interface for getting information about clients connected to the subscription (including IP, type and version of client SDK, etc.)
 - Add a new RPC interface for getting the progress of consumption on a subscription
 - Add a new RPC interface for listing the current ``ShardReader``s
 - Add TLS support for ``advertised-listener``s
