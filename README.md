@@ -3,11 +3,10 @@
 Documentation for HStreamDB.
 
 Push to the `main` branch will automatically deploy the `latest` document
-through GitHub action. Tagging will deploy a specfic versioned document which is
-just the tag's name.
+through GitHub action. To create a new release, you need to run
+`./script/create_release.sh`
 
 ## Preview with docker
-
 
 ```sh
 make
@@ -20,4 +19,5 @@ docker run --rm -p 8080:8080 -it --name hstream-doc-preview \
     ghcr.io/emqx/emqx-io-docs-frontend:latest
 ```
 
-Now, open <http://localhost:8080/docs/en/latest/start/quickstart-with-docker.html>
+Now, open
+<http://localhost:8080/docs/en/latest/start/quickstart-with-docker.html>
