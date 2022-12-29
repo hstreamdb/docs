@@ -2,12 +2,12 @@
 set -e
 
 docker-compose -f assets/quick-start.yaml up -d
-docker-compose -f assets/quick-start.yaml run --no-deps --rm hserver0 \
+docker-compose -f assets/quick-start.yaml run --no-deps --rm hserver \
   bash -c 'set -e; \
     export timeout=120; \
     until ( \
-      hstream --host hserver0 --port 6570 node check-running -n 1 && \
-      hadmin server --host hserver0 --port 6570 status \
+      hstream --host hserver --port 6570 node check-running -n 1 && \
+      hadmin server --host hserver --port 6570 status \
     ); do \
       >&2 echo "Waiting for cluster..."; \
       sleep 10; \

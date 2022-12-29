@@ -105,7 +105,7 @@ outputs as follows:
 
 Note that `max_len` changes from `10` to `20`, which is expected.
 
-## Step 3: Create materialized views
+## Step 4: Create materialized views
 
 Now let's do some more complex analysis. If we want to know the longest visit
 time of each category **any time we need it**, the best way is to create
@@ -151,7 +151,7 @@ Done.
 Done.
 ```
 
-## Step 4: Get results from views
+## Step 5: Get results from views
 
 Now let's find out what is in our view:
 

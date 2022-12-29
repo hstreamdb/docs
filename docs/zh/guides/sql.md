@@ -105,7 +105,7 @@ outputs as follows:
 
 Note that `max_len` changes from `10` to `20`, which is expected.
 
-## Step 3: Create materialized views
+## Step 4: Create materialized views
 
 Now let's do some more complex analysis. If we want to know the longest visit
 time of each category **any time we need it**, the best way is to create
@@ -119,7 +119,7 @@ any extra computation. Thus getting results from a view is very fast.
 Here we can create a view like
 
 ```
-> CREATE VIEW result AS SELECT info.category, MAX(visit.length) as max_length FROM info, visit WHERE info.product = visit.product GROUP BY info.category EMIT CHANGES;
+> CREATE VIEW result AS SELECT info.category, MAX(visit.length) as max_length FROM info, visit WHERE info.product = visit.product GROUP BY info.category;
 Done. Query ID: 1362152824401458
 ```
 
@@ -151,7 +151,7 @@ Done.
 Done.
 ```
 
-## Step 4: Get results from views
+## Step 5: Get results from views
 
 Now let's find out what is in our view:
 
@@ -177,5 +177,5 @@ The result is updated right away.
 
 ## Related Pages
 
-For a detailed introduction of the SQL, see
+For a detailed introduction to the SQL, see
 [HStream SQL](../reference/sql/sql-overview.md).

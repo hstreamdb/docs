@@ -21,7 +21,7 @@ Available commands:
 下面的示例用法是在你在[快速启动](../start/quickstart-with-docker.md)中启动的集群上演示的，请相应调整。
 
 ```sh
-docker exec -it docker_hserver0_1 bash
+docker exec -it docker_hserver_1 bash
 $ hadmin server --help
 ```
 

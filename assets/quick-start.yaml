@@ -1,7 +1,7 @@
 version: "3.5"
 
 services:
-  hserver0:
+  hserver:
     image: hstreamdb/hstream:latest
     depends_on:
       - zookeeper
