@@ -9,7 +9,7 @@ import java.util.concurrent.TimeoutException;
 
 public class ConsumeDataSharedExample {
   public static void main(String[] args) throws Exception {
-    String serviceUrl = "127.0.0.1:6570";
+    String serviceUrl = "hstream://127.0.0.1:6570";
     if (System.getenv("serviceUrl") != null) {
       serviceUrl = System.getenv("serviceUrl");
     }
