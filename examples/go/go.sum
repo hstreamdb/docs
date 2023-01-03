@@ -61,6 +61,8 @@ github.com/hstreamdb/hstreamdb-go v0.1.5-0.20221026060144-5ba03c32ae01 h1:PFkWgd
 github.com/hstreamdb/hstreamdb-go v0.1.5-0.20221026060144-5ba03c32ae01/go.mod h1:Lu422o7n+CoWbui5DfMRWb488dWeqbf/ZQYf8NzF6xw=
 github.com/hstreamdb/hstreamdb-go v0.1.5-0.20221104065615-f47e174d1434 h1:nyWvQJyIva/RBe3rHS+iNiOE4+bK5J/gS6kYBAKgtKk=
 github.com/hstreamdb/hstreamdb-go v0.1.5-0.20221104065615-f47e174d1434/go.mod h1:Lu422o7n+CoWbui5DfMRWb488dWeqbf/ZQYf8NzF6xw=
+github.com/hstreamdb/hstreamdb-go v0.3.0 h1:2R0AvksVQ+TnA5rHcwXrhI/o+6k++n5ky6bGXXHRYCI=
+github.com/hstreamdb/hstreamdb-go v0.3.0/go.mod h1:Lu422o7n+CoWbui5DfMRWb488dWeqbf/ZQYf8NzF6xw=
 github.com/kisielk/errcheck v1.5.0/go.mod h1:pFxgyoBC7bSaBwPgfKdkLd5X25qrDl4LWUI2bnpBCr8=
 github.com/kisielk/gotool v1.0.0/go.mod h1:XhKaO+MFFWcvkIS/tQcRk01m1F5IRFswLeQ+oQHNcck=
 github.com/klauspost/compress v1.15.11 h1:Lcadnb3RKGin4FYM/orgq0qde+nc15E5Cbqg4B9Sx9c=
