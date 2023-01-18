@@ -45,9 +45,39 @@ Available commands:
   subscription             Manage Subscriptions in HStreamDB
 ```
 
+## Connection
+
+### HStream URL
+
+The HStream CLI Client supports connecting to the server cluster with a url in
+the following format:
+
+```
+<scheme>://<endpoint>:<port>
+```
+
+｜Components| Description | Required |
+｜-｜-｜-|
+| `<scheme>` | The scheme of the connection. Currently, we have `hstream`. To enable security options, `hstreams` is also supported  | Yes |
+| `<endpoint>` | The endpoint of the server cluster, which can be the hostname or address of the server cluster. |  |
+| `<port>` | The port of the server cluster. | If not given, the value will be set to the default 6570 |
+
+### Connection Parameters
+
+HStream commands accept connection parameters as separate command-line flags, in addition (or in replacement) to `--service-url`.
+
+::: tip
+In the cases where both `--service-url` and the options below are specified, the client will use the value in `--service-url`.
+:::
+
+| Option | Description |
+|-|-|
+| `--host` | The server host and port number to connect to. This can be the address of any node in the cluster.  Default: `127.0.0.1` |
+| `--port` | The server port to connect to. Default: `6570`|
+
 ### Security Settings (optional)
 
-If [security option](../operation/security/overview.md) is enabled, here are
+If the [security option](../operation/security/overview.md) is enabled, here are
 some options that should also be configured for CLI correspondingly.
 
 #### Encryption
@@ -214,7 +244,7 @@ Available options:
   -h,--help                Show this help text
 ```
 
-Example: Create a subscription to stream `demo` with the default settings.
+Example: Create a subscription to the stream `demo` with the default settings.
 
 ```sh
 > hstream subscription create --stream demo sub_demo
@@ -299,7 +329,7 @@ There are two kinds of commands:
 
 ### Basic CLI Operations
 
-To quit current cli session:
+To quit the current CLI session:
 
 ```sh
 > :q
@@ -311,7 +341,7 @@ To print out help info overview:
 > :h
 ```
 
-To show specific usage of some SQL statements:
+To show the specific usage of some SQL statements:
 
 ```sh
 > :help CREATE
@@ -339,7 +369,7 @@ CREATE STREAM stream_name;
 ```
 
 This will create a stream with no particular function. You can `SELECT` data
-from the stream and `INSERT` to via corresponding SQL statement.
+from the stream and `INSERT` to via the corresponding SQL statement.
 
 2. Create a stream, and this stream will also run a query to select specified
    data from some other stream.
@@ -367,8 +397,8 @@ There is no restriction on the number of fields a query can insert. Also, the
 type of value is not restricted. However, you need to make sure that the number
 of fields and the number of values are aligned.
 
-Deletion command is `DROP STREAM <Stream_name> ;`, which deletes a stream, and
-terminate all the [queries](#queries) that depend on the stream.
+The deletion command is `DROP STREAM <Stream_name> ;`, which deletes a stream,
+and terminates all the [queries](#queries) that depend on the stream.
 
 For example:
 
@@ -408,7 +438,7 @@ Run a continuous query on the stream to select data from a stream:
 
 After creating a stream, we can select data from the stream in real-time. All
 the data inserted after the select query is created will be printed out when the
-insert operation happens. Select supports real-time processing on the data
+insert operation happens. Select supports real-time processing of the data
 inserted into the stream.
 
 For example, we can choose the field and filter the data selected from the
@@ -418,7 +448,7 @@ stream.
 SELECT a FROM demo EMIT CHANGES;
 ```
 
-This will only select field `a` from stream demo.
+This will only select field `a` from the stream demo.
 
 How to terminate a query?
 
@@ -451,7 +481,7 @@ Or under some circumstances, you can choose to `TERMINATE ALL;`.
 
 ### View
 
-View is a projection of specified data from streams. For example,
+The view is a projection of specified data from streams. For example,
 
 ```sql
 CREATE VIEW v_demo AS SELECT SUM(a) FROM demo GROUP BY a;
@@ -465,7 +495,7 @@ The operations on view are very similar to those on streams.
 
 Except we can not use `SELECT ... EMIT CHANGES` performed on streams because a
 view is static and there are no changes to emit. Instead, for example, we select
-from view with:
+from the view with:
 
 ```sql
 SELECT * FROM v_demo WHERE a = 1;

@@ -120,7 +120,7 @@ To get all streams in HStreamDB:
 ```
 
 :::
-s
+
 ::: tab Go
 
 ```go
