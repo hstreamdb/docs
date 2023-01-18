@@ -103,7 +103,7 @@ SQLs to create connectors.
 Connect to the HStream server:
 
 ```shell
-docker run -it --rm --network host hstreamdb/hstream:latest hstream sql --port 6570
+docker run -it --rm --network host hstreamdb/hstream:v0.13.0 hstream sql --port 6570
 ```
 
 Create a source connector:
