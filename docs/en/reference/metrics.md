@@ -55,7 +55,7 @@ subscription, users can specify intervals (default intervals [1min, 5min,
       <td>subscription_counter</td>
       <td>resend_records</td>
       <td>#</td>
-      <td>Total number of resent records per subscription</td>
+      <td>Number of successfully resent records per subscription</td>
     </tr>
     <tr>
       <td rowspan="4">subscription</td>
@@ -76,7 +76,7 @@ subscription, users can specify intervals (default intervals [1min, 5min,
     <tr>
       <td>response_messages</td>
       <td>#/s</td>
-      <td>Rate of response sent to clients per subscription</td>
+      <td>Rate of response successfully sent to clients per subscription</td>
     </tr>
   </tbody>
 </table>
