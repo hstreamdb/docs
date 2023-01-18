@@ -4,7 +4,7 @@ This document provides a way to start an HStreamDB cluster quickly using the dep
 
 ## Pre-Require
 
-- Start HStreamDB requires an operating system kernel version greater than at least Linux 4.14. Check with command:
+- Start HStreamDB requires an operating system kernel version greater than at least Linux 4.x. Check with command:
 
   ```shell
   uname -r
@@ -18,8 +18,8 @@ This document provides a way to start an HStreamDB cluster quickly using the dep
 
 - For nodes which deploy `HStore` instances, mount the data disk to `/mnt/data*/`.
 
-    - "*" Matching incremental numbers, start from zero
-    - one disk should mount to one directory. e.g. if we have two data disks `/dev/vdb` and `/dev/vdc`, then `/dev/vdb` should mount to `/mnt/data0` and `/dev/vdc` should mount to `/mnt/data1`
+  - "*" Matching incremental numbers, start from zero
+  - one disk should mount to one directory. e.g. if we have two data disks `/dev/vdb` and `/dev/vdc`, then `/dev/vdb` should mount to `/mnt/data0` and `/dev/vdc` should mount to `/mnt/data1`
 
 ## Deploy `hdt` on the control machine
 
@@ -35,14 +35,20 @@ We'll use a deployment tool `hdt` to help us set up the cluster. The binaries ar
 
    The current directory structure will be as follows after running the `init` command:
 
-   ```shell
+   ```markdown
    ├── hdt
    └── template                 
        ├── config.yaml
+       ├── logdevice.conf
+       ├── alertmanager
+       |   └── alertmanager.yml
        ├── grafana
        │   ├── dashboards
        │   └── datasources
        ├── prometheus
+       ├── filebeat
+       ├── kibana
+       │   └── export.ndjson
        └── script
    ```
 
@@ -54,7 +60,7 @@ Here we will deploy a cluster on 3 nodes, each consisting of a `HServer` instanc
 
 The final configuration file may looks like:
 
-```shell
+```yaml
 global:
   user: "root"
   key_path: "~/.ssh/id_rsa"
@@ -105,7 +111,7 @@ remove cluster will stop cluster and remove ***ALL*** related data.
 ./hdt remove -c template/config.yaml -i ~/.ssh/id_rsa -u root
 ```
 
-### remove cluster with passwd
+ ### remove cluster with passwd
 
 ```shell
 ./hdt remove -c template/config.yaml -p -u root
@@ -119,7 +125,7 @@ This section describes in detail the meaning of each field in the configuration 
 
 ### Global
 
-```shell
+```yaml
 global:
   # # Username to login via SSH
   user: "root"
@@ -139,6 +145,10 @@ global:
   disable_store_network_config_path: true
   # # Local path to HServer config file
   hserver_config_path: ""
+  # # use grpc-haskell framework
+  enable_grpc_haskell: false
+  # # Local path to ElasticSearch config file
+  elastic_search_config_path: ""
   # # Global container configuration
   container_config:
     cpu_limit: 200
@@ -149,13 +159,14 @@ global:
 
 Global section set the default configuration value for all other configuration items. Here are some notes:
 
-- `meta_replica` set the replication factors of HStreamDB metadata. This value should not exceed the number of `hstore` instances.
+- `meta_replica` set the replication factors of HStreamDB metadata logs. This value should not exceed the number of `hstore` instances.
 - `meta_store_config_path`、`hstore_config_path` and `hserver_config_path` are configuration file path for `meta_store`、`hstore` and `hserver` in the control machine. If the paths are set, these configuration files will be synchronized to the specified location on the node where the respective instance is located, and the corresponding configuration items will be updated when the instance is started.
+- `enable_grpc_haskell`: use `grpc-haskell` framework. The default value is false, which will use `hs-grpc` framework.
 - `container_config` let you set resource limitations for all containers.
 
 ### monitor
 
-```shell
+```yaml
 monitor:
   # # Node exporter port
   node_exporter_port: 9100
@@ -185,7 +196,7 @@ Monitor section sets configuration items related to `cadvisor` and `node-exporte
 
 ### hserver
 
-```shell
+```yaml
 hserver:
   # # The ip address of the HServer
   - host: 10.1.0.10
@@ -217,9 +228,32 @@ hserver:
 
 HServer section sets configuration items for `hserver`
 
+### hadmin
+
+```yaml
+hadmin:
+  - host: 10.1.0.10
+    # # HAdmin docker image
+    image: "hstreamdb/hstream"
+    # # HAdmin listen port
+    admin_port: 6440
+    # # Root directory of HStore config files
+    remote_config_path: "/home/deploy/hadmin"
+    # # Root directory of HStore data files
+    data_dir: "/home/deploy/data/hadmin"
+    # # HStore container configuration
+    container_config:
+      cpu_limit: 2.00
+      memory_limit: 8G
+      disable_restart: true
+      remove_when_exit: true
+```
+
+Hadmin section sets configuration items for `hadmin`. 
+
 ### hstore
 
-```shell
+```yaml
 hstore:
   - host: 10.1.0.10
     # # HStore docker image
@@ -255,7 +289,7 @@ HStore section sets configuration items for `hstore`.
 
 ### meta-store
 
-```shell
+```yaml
 meta_store:
   - host: 10.1.0.10
     # # Meta-store docker image
@@ -283,23 +317,7 @@ Meta-store section sets configuration items for `meta-store`.
 
 ### monitor stack components
 
-```shell
-http_server:
-  - host: 10.1.0.15
-    # # Http_server docker image
-    image: "hstreamdb/http-server"
-    # # Http_server service monitor port
-    port: 8081
-    # # Root directory of http_server config files
-    remote_config_path: "/home/deploy/http-server"
-    # # Root directory of http_server data files
-    data_dir: "/home/deploy/data/http-server"
-    container_config:
-      cpu_limit: 200
-      memory_limit: 8G
-      disable_restart: true
-      remove_when_exit: true
-
+```yaml
 prometheus:
   - host: 10.1.0.15
     # # Prometheus docker image
@@ -357,7 +375,7 @@ hstream_exporter:
     # # hstream_exporter docker image
     image: "hstreamdb/hstream-exporter"
     # # hstream_exporter service monitor port
-    port: 9200
+    port: 9250
     # # Root directory of hstream_exporter config files
     remote_config_path: "/home/deploy/hstream-exporter"
     # # Root directory of hstream_exporter data files
@@ -370,3 +388,57 @@ hstream_exporter:
 ```
 
 Currently, HStreamDB monitor stack contains the following components：`node-exporter`, `cadvisor`, `http-server`, `prometheus`, `grafana`, `alertmanager` and `hstream-exporter`.  The global configuration of the monitor stack is available in [monitor](./quick-deploy-ssh.md#monitor) field. 
+
+### elasticsearch, kibana and filebeat
+
+```yaml
+lasticsearch:
+  - host: 10.1.0.15
+  # # Elasticsearch service monitor port
+  port: 9200
+  # # Elasticsearch docker image
+  image: "docker.elastic.co/elasticsearch/elasticsearch:8.5.0"
+  # # Root directory of Elasticsearch config files
+  remote_config_path: "/home/deploy/elasticsearch"
+  # # Root directory of Elasticsearch data files
+  data_dir: "/home/deploy/data/elasticsearch"
+  # # Elasticsearch container configuration
+  container_config:
+    cpu_limit: 2.00
+    memory_limit: 8G
+    disable_restart: true
+    remove_when_exit: true
+
+kibana:
+  - host: 10.1.0.15
+  # # Kibana service monitor port
+  port: 5601
+  # # Kibana docker image
+  image: "docker.elastic.co/kibana/kibana:8.5.0"
+  # # Root directory of Kibana config files
+  remote_config_path: "/home/deploy/kibana"
+  # # Root directory of Kibana data files
+  data_dir: "/home/deploy/data/kibana"
+  # # Kibana container configuration
+  container_config:
+    cpu_limit: 2.00
+    memory_limit: 8G
+    disable_restart: true
+    remove_when_exit: true
+
+filebeat:
+  - host: 10.1.0.10
+    # # Filebeat docker image
+    image: "docker.elastic.co/beats/filebeat:8.5.0"
+    # # Root directory of Filebeat config files
+    remote_config_path: "/home/deploy/filebeat"
+    # # Root directory of Filebeat data files
+    data_dir: "/home/deploy/data/filebeat"
+    # # Filebeat container configuration
+    container_config:
+      cpu_limit: 2.00
+      memory_limit: 8G
+      disable_restart: true
+      remove_when_exit: true
+```
+
