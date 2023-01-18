@@ -56,18 +56,20 @@ the following format:
 <scheme>://<endpoint>:<port>
 ```
 
-｜Components| Description | Required |
-｜-｜-｜-|
-| `<scheme>` | The scheme of the connection. Currently, we have `hstream`. To enable security options, `hstreams` is also supported  | Yes |
-| `<endpoint>` | The endpoint of the server cluster, which can be the hostname or address of the server cluster. |  |
-| `<port>` | The port of the server cluster. | If not given, the value will be set to the default 6570 |
+| Components | Description | Required |
+|------------|-------------|----------|
+| scheme | The scheme of the connection. Currently, we have `hstream`. To enable security options, `hstreams` is also supported  | Yes |
+| endpoint | The endpoint of the server cluster, which can be the hostname or address of the server cluster. |  |
+| port | The port of the server cluster. | If not given, the value will be set to the default 6570 |
 
 ### Connection Parameters
 
 HStream commands accept connection parameters as separate command-line flags, in addition (or in replacement) to `--service-url`.
 
 ::: tip
+
 In the cases where both `--service-url` and the options below are specified, the client will use the value in `--service-url`.
+
 :::
 
 | Option | Description |
