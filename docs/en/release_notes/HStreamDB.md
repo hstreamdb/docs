@@ -1,5 +1,14 @@
 # HStreamDB release notes
 
+## v0.13.0 [2023-01-18]
+
+- hserver is built with ghc 9.2 by default now
+- Add support for getting the IP of the proxied client
+- Add support for overloading the client's ``user-agent`` by setting ``proxy-agent``
+- Fix the statistics of retransmission and response metrics of subscriptions
+- Fix some issues of the processing engine
+- CLI: add ``service-url`` option
+
 ## v0.12.0 [2022-12-29]
 
 - Add a new RPC interface for getting information about clients connected to the subscription (including IP, type and version of client SDK, etc.)
