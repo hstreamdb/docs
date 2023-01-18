@@ -23,7 +23,7 @@ docker exec -it docker_hserver_1 bash
 
 Usage: hstream [--host SERVER-HOST] [--port INT] [--tls-ca STRING]
                [--tls-key STRING] [--tls-cert STRING] [--retry-timeout INT]
-               COMMAND
+               [--service-url ARG] COMMAND
 
 Available options:
   --host SERVER-HOST       Server host value (default: "127.0.0.1")
@@ -35,6 +35,7 @@ Available options:
                            file
   --retry-timeout INT      timeout to retry connecting to a server in seconds
                            (default: 60)
+  --service-url ARG        The endpoint to connect to
   -h,--help                Show this help text
 
 Available commands:
@@ -59,8 +60,8 @@ the following format:
 | Components | Description | Required |
 |------------|-------------|----------|
 | scheme | The scheme of the connection. Currently, we have `hstream`. To enable security options, `hstreams` is also supported  | Yes |
-| endpoint | The endpoint of the server cluster, which can be the hostname or address of the server cluster. |  |
-| port | The port of the server cluster. | If not given, the value will be set to the default 6570 |
+| endpoint | The endpoint of the server cluster, which can be the hostname or address of the server cluster. | If not given, the value will be set to the `--host` default `127.0.0.1` |
+| port | The port of the server cluster. | If not given, the value will be set to the `--port` default `6570` |
 
 ### Connection Parameters
 
