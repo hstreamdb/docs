@@ -57,12 +57,8 @@ github.com/google/uuid v1.1.2/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+
 github.com/grpc-ecosystem/go-grpc-middleware v1.3.0 h1:+9834+KizmvFV7pXQGSXQTsaWhq2GjuNUt0aUU0YBYw=
 github.com/grpc-ecosystem/go-grpc-middleware v1.3.0/go.mod h1:z0ButlSOZa5vEBq9m2m2hlwIgKw+rp3sdCBRoJY+30Y=
 github.com/grpc-ecosystem/grpc-gateway v1.16.0/go.mod h1:BDjrQk3hbvj6Nolgz8mAMFbcEtjT1g+wF4CSlocrBnw=
-github.com/hstreamdb/hstreamdb-go v0.1.5-0.20221026060144-5ba03c32ae01 h1:PFkWgd1/s1yGsn1dDh9Ez4d46AwDljoyBwLkpqzI5nA=
-github.com/hstreamdb/hstreamdb-go v0.1.5-0.20221026060144-5ba03c32ae01/go.mod h1:Lu422o7n+CoWbui5DfMRWb488dWeqbf/ZQYf8NzF6xw=
-github.com/hstreamdb/hstreamdb-go v0.1.5-0.20221104065615-f47e174d1434 h1:nyWvQJyIva/RBe3rHS+iNiOE4+bK5J/gS6kYBAKgtKk=
-github.com/hstreamdb/hstreamdb-go v0.1.5-0.20221104065615-f47e174d1434/go.mod h1:Lu422o7n+CoWbui5DfMRWb488dWeqbf/ZQYf8NzF6xw=
-github.com/hstreamdb/hstreamdb-go v0.3.0 h1:2R0AvksVQ+TnA5rHcwXrhI/o+6k++n5ky6bGXXHRYCI=
-github.com/hstreamdb/hstreamdb-go v0.3.0/go.mod h1:Lu422o7n+CoWbui5DfMRWb488dWeqbf/ZQYf8NzF6xw=
+github.com/hstreamdb/hstreamdb-go v0.3.1 h1:1S21KcxYKAImN5+YezzzW8xXfilceDKpM91dkHnMgLA=
+github.com/hstreamdb/hstreamdb-go v0.3.1/go.mod h1:Lu422o7n+CoWbui5DfMRWb488dWeqbf/ZQYf8NzF6xw=
 github.com/kisielk/errcheck v1.5.0/go.mod h1:pFxgyoBC7bSaBwPgfKdkLd5X25qrDl4LWUI2bnpBCr8=
 github.com/kisielk/gotool v1.0.0/go.mod h1:XhKaO+MFFWcvkIS/tQcRk01m1F5IRFswLeQ+oQHNcck=
 github.com/klauspost/compress v1.15.11 h1:Lcadnb3RKGin4FYM/orgq0qde+nc15E5Cbqg4B9Sx9c=
