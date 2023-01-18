@@ -73,9 +73,11 @@ jobs:
 
       - run: ./gradlew spotlessJavaCheck
 
-      - run: docker compose -f ../../assets/quick-start.yaml up -d
-
-      - run: sleep 30
+      - name: Start cluster
+        run: |
+          docker compose -f ../../assets/quick-start.yaml up -d
+          sleep 5
+          ../../wait_hserver.sh
 
       - run: ./gradlew run
 
@@ -118,7 +120,8 @@ jobs:
       - name: Start cluster
         run: |
           docker compose -f ./assets/quick-start.yaml up -d
-          sleep 30
+          sleep 5
+          ./wait_hserver.sh
 
       - name: Run examples
         run: |
