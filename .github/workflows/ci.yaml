@@ -78,6 +78,7 @@ jobs:
           docker compose -f ../../assets/quick-start.yaml up -d
           sleep 5
           ../../wait_hserver.sh
+          sleep 5
 
       - run: ./gradlew run
 
@@ -122,6 +123,7 @@ jobs:
           docker compose -f ./assets/quick-start.yaml up -d
           sleep 5
           ./wait_hserver.sh
+          sleep 5
 
       - name: Run examples
         run: |
