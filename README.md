@@ -9,15 +9,8 @@ through GitHub action. To create a new release, you need to run
 ## Preview with docker
 
 ```sh
-make
-docker run --rm -p 8080:8080 -it --name hstream-doc-preview \
-        -v $PWD/docs/directory.json:/app/docs/.vuepress/config/directory.json \
-        -v $PWD/docs/en:/app/docs/en/latest \
-        -v $PWD/docs/zh:/app/docs/zh/latest \
-        -e DOCS_TYPE=hstreamdb \
-        -e VERSION=latest \
-    ghcr.io/emqx/emqx-io-docs-frontend:latest
+make demo
 ```
 
 Now, open
-<http://localhost:8080/docs/en/latest/start/quickstart-with-docker.html>
+<http://127.0.0.1:8080/docs/en/latest/start/quickstart-with-docker.html>

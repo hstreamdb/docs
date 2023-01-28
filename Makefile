@@ -21,3 +21,14 @@ upgrade-docker-image:
 		sed -i -E \
 			"s#hstreamdb/hstream:latest#hstreamdb/hstream:$(tag)#g; \
 			" {} +
+
+demo_port ?= 8080
+
+demo: config
+	docker run --rm -p $(demo_port):8080 -it --name hstream-doc-preview \
+	        -v ${PWD}/docs/directory.json:/app/docs/.vuepress/config/directory.json \
+	        -v ${PWD}/docs/en:/app/docs/en/latest \
+	        -v ${PWD}/docs/zh:/app/docs/zh/latest \
+	        -e DOCS_TYPE=hstreamdb \
+	        -e VERSION=latest \
+	    ghcr.io/emqx/emqx-io-docs-frontend:latest
