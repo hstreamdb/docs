@@ -18,7 +18,7 @@ subscription, users can specify intervals (default intervals [1min, 5min,
   </thead>
   <tbody>
     <tr>
-      <td rowspan="2">stream_counter</td>
+      <td rowspan="4">stream_counter</td>
       <td>append_total<br /></td>
       <td>#<br /></td>
       <td>Total number of append requests of a stream<br /></td>
@@ -27,6 +27,16 @@ subscription, users can specify intervals (default intervals [1min, 5min,
       <td>append_failed</td>
       <td>#<br /></td>
       <td>Total number of failed append request of a stream</td>
+    </tr>
+    <tr>
+      <td>append_in_bytes</td>
+      <td>#<br /></td>
+      <td>Total payload bytes successfully written to the stream</td>
+    </tr>
+    <tr>
+      <td>append_in_records</td>
+      <td>#<br /></td>
+      <td>Total payload records successfully written to the stream</td>
     </tr>
     <tr>
       <td rowspan="4">stream</td>
@@ -52,10 +62,45 @@ subscription, users can specify intervals (default intervals [1min, 5min,
       <td>Rate of failed append requests received per stream</td>
     </tr>
     <tr>
-      <td>subscription_counter</td>
+      <td rowspan="8">subscription_counter</td>
+      <td>send_out_bytes</td>
+      <td>#</td>
+      <td>Number of bytes sent by the server per subscription</td>
+    </tr>
+    <tr>
+      <td>send_out_records</td>
+      <td>#</td>
+      <td>Number of records successfully sent by the server per subscription</td>
+    </tr>
+    <tr>
+      <td>send_out_records_failed</td>
+      <td>#</td>
+      <td>Number of records failed to send by the server per subscription</td>
+    </tr>
+    <tr>
       <td>resend_records</td>
       <td>#</td>
       <td>Number of successfully resent records per subscription</td>
+    </tr>
+    <tr>
+      <td>resend_records_failed</td>
+      <td>#</td>
+      <td>Number of records failed to resend per subscription</td>
+    </tr>
+    <tr>
+      <td>received_acks</td>
+      <td>#</td>
+      <td>Number of acknowledgements received per subscription</td>
+    </tr>
+    <tr>
+      <td>request_messages</td>
+      <td>#</td>
+      <td>Number of streaming fetch requests received from clients per subscription</td>
+    </tr>
+    <tr>
+      <td>response_messages</td>
+      <td>#</td>
+      <td>Number of streaming send requests successfully sent to clients per subscription, including resends</td>
     </tr>
     <tr>
       <td rowspan="4">subscription</td>
@@ -71,12 +116,12 @@ subscription, users can specify intervals (default intervals [1min, 5min,
     <tr>
       <td>request_messages</td>
       <td>#/s</td>
-      <td>Rate of requests received from clients per subcription<br /></td>
+      <td>Rate of streaming fetch requests received from clients per subscription<br /></td>
     </tr>
     <tr>
       <td>response_messages</td>
       <td>#/s</td>
-      <td>Rate of response successfully sent to clients per subscription</td>
+      <td>Rate of streaming send requests successfully sent to clients per subscription, including resends</td>
     </tr>
   </tbody>
 </table>
