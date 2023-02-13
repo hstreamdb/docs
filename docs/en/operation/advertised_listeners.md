@@ -28,16 +28,16 @@ hserver:
         port: 6580
 ```
 
-## Set Tls for advertised listeners
+## Set TLS for advertised listeners
 
-The default setting is shown as follows, which does not enable Tls for advertised-listener with key `private`
+The default setting is shown as follows, which does not enable TLS for advertised-listener with key `private`
 
 ```yaml
 hserver:
   listeners-security-protocol-map: private:plaintext
 ```
 
-To use the same Tls setting as the main advertised listener, we can use the following settings:
+To use the same TLS setting as the main advertised listener, we can use the following settings:
 
 ```yaml
 hserver:
