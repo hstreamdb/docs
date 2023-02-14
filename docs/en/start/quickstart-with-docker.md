@@ -2,7 +2,7 @@
 
 ## Requirement
 
-Start HStream requires an operating system kernel version greater than at least Linux 4.14
+Start HStream requires an Linux kernel version at least 4.14.
 
 ## Installation
 
