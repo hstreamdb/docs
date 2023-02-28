@@ -4,22 +4,14 @@ This document provides a way to start an HStreamDB cluster quickly using the dep
 
 ## Pre-Require
 
-- Start HStreamDB requires an operating system kernel version greater than at least Linux 4.x. Check with command:
-
-  ```shell
-  uname -r
-  ```
-
 - The local host needs to be able to connect to the remote server via SSH
 
 - Make sure remote server has docker installed.
 
-- Make sure that the log-in user has `sudo` execute privileges, and configure `sudo` without password.
+- Make sure that the logged-in user has `sudo` execute privileges and configure `sudo` to run without prompting for a password.
 
-- For nodes which deploy `HStore` instances, mount the data disk to `/mnt/data*/`.
-
-  - "*" Matching incremental numbers, start from zero
-  - one disk should mount to one directory. e.g. if we have two data disks `/dev/vdb` and `/dev/vdc`, then `/dev/vdb` should mount to `/mnt/data0` and `/dev/vdc` should mount to `/mnt/data1`
+- For nodes that deploy `HStore` instances, mount the data disks to `/mnt/data*`, where `*` matches an incremental number starting from zero.
+  - Each disk should be mounted to a separate directory. For example, if there are two data disks, `/dev/vdb` and `/dev/vdc`, then `/dev/vdb` should be mounted to `/mnt/data0`, and `/dev/vdc` should be mounted to `/mnt/data1`.
 
 ## Deploy `hdt` on the control machine
 
@@ -46,6 +38,7 @@ We'll use a deployment tool `hdt` to help us set up the cluster. The binaries ar
        │   ├── dashboards
        │   └── datasources
        ├── prometheus
+       ├── hstream_console
        ├── filebeat
        ├── kibana
        │   └── export.ndjson
@@ -56,7 +49,7 @@ We'll use a deployment tool `hdt` to help us set up the cluster. The binaries ar
 
 `template/config.yaml` contains the template for the configuration file. Refer to the description of the fields in the file and modify the template according to your actual needs.
 
-Here we will deploy a cluster on 3 nodes, each consisting of a `HServer` instance, a `HStore` instance and a `Meta-Store` instance as a simple example. For hstream monitor stack, refer to [monitor components config](./quick-deploy-ssh.md#monitor-stack-components).
+As a simple example, we will be deploying a cluster on three nodes, each consisting of an HServer instance, an HStore instance, and a Meta-Store instance. In addition, we will deploy HStream Console, Prometheus, and HStream Exporter on another node. For hstream monitor stack, refer to [monitor components config](./quick-deploy-ssh.md#monitor-stack-components).
 
 The final configuration file may looks like:
 
@@ -81,6 +74,15 @@ meta_store:
   - host: 172.24.47.175
   - host: 172.24.47.174
   - host: 172.24.47.173
+  
+hstream_console:
+  - host: 172.24.47.172
+  
+prometheus:
+  - host: 172.24.47.172
+  
+hstream_exporter:
+  - host: 172.24.47.172
 ```
 
 ## Set up cluster
@@ -121,7 +123,7 @@ then type your password.
 
 ## Detailed configuration items
 
-This section describes in detail the meaning of each field in the configuration file. The configuration file is divided into three large sections: global configuration items, monitoring component configuration items and other component configuration items.
+This section describes the meaning of each field in the configuration file in detail. The configuration file is divided into three main sections: global configuration items, monitoring component configuration items, and other component configuration items.
 
 ### Global
 
@@ -134,7 +136,7 @@ global:
   # # SSH service monitor port
   ssh_port: 22
   # # Replication factors of store metadata
-  meta_replica: 3
+  meta_replica: 1
   # # Local path to MetaStore config file
   meta_store_config_path: ""
   # # Local path to HStore config file
@@ -149,6 +151,9 @@ global:
   enable_grpc_haskell: false
   # # Local path to ElasticSearch config file
   elastic_search_config_path: ""
+  # # Only enable for linux kernel which support dscp reflection(linux kernel version
+  # # greater and equal than 4.x)
+  enable_dscp_reflection: false
   # # Global container configuration
   container_config:
     cpu_limit: 200
@@ -157,14 +162,15 @@ global:
     remove_when_exit: true
 ```
 
-Global section set the default configuration value for all other configuration items. Here are some notes:
+The Global section is used to set the default configuration values for all other configuration items. 
 
 - `meta_replica` set the replication factors of HStreamDB metadata logs. This value should not exceed the number of `hstore` instances.
 - `meta_store_config_path`、`hstore_config_path` and `hserver_config_path` are configuration file path for `meta_store`、`hstore` and `hserver` in the control machine. If the paths are set, these configuration files will be synchronized to the specified location on the node where the respective instance is located, and the corresponding configuration items will be updated when the instance is started.
 - `enable_grpc_haskell`: use `grpc-haskell` framework. The default value is false, which will use `hs-grpc` framework.
+- `enable_dscp_reflection`: if your operation system version is greater and equal to linux 4.x, you can set this field to true. 
 - `container_config` let you set resource limitations for all containers.
 
-### monitor
+### Monitor
 
 ```yaml
 monitor:
@@ -192,9 +198,9 @@ monitor:
     remove_when_exit: true
 ```
 
-Monitor section sets configuration items related to `cadvisor` and `node-exporter`
+The Monitor section is used to specify the configuration options for the `cadvisor` and `node-exporter`.
 
-### hserver
+### HServer
 
 ```yaml
 hserver:
@@ -202,6 +208,12 @@ hserver:
   - host: 10.1.0.10
     # # HServer docker image
     image: "hstreamdb/hstream"
+    # # The listener is an adderss that a server advertises to its clients so they can connect to the server.
+    # # Each listener is specified as "listener_name:hstream://host_name:port_number". The listener_name is
+    # # a name that identifies the listener, and the "host_name" and "port_number" are the IP address and
+    # # port number that reachable from the client's network. Multi listener will split by comma.
+    # # For example: public_ip:hstream://39.101.190.70:6582
+    advertised_listener: ""
     # # HServer listen port
     port: 6570
     # # HServer internal port
@@ -226,9 +238,13 @@ hserver:
       remove_when_exit: true
 ```
 
-HServer section sets configuration items for `hserver`
+The HServer section is used to specify the configuration options for the `hserver` instance.
 
-### hadmin
+- `advertised_listener`: please refer to [advertised_listeners](../advertised_listeners.md) for detailed information. 
+
+  
+
+### HAdmin
 
 ```yaml
 hadmin:
@@ -249,9 +265,13 @@ hadmin:
       remove_when_exit: true
 ```
 
-Hadmin section sets configuration items for `hadmin`. 
+The HAdmin section is used to specify the configuration options for the `hadmin` instance.
 
-### hstore
+- Hadmin is not a necessary component. You can configure `hstore` instance to take on the functionality of `hadmin` by setting the configuration option `enable_admin: true` within the hstore.
+
+- If you have both a HAdmin instance and a HStore instance running on the same node, please note that they cannot both use the same `admin_port` for monitoring purposes. To avoid conflicts, you will need to assign a unique `admin_port` value to each instance. 
+
+### HStore
 
 ```yaml
 hstore:
@@ -280,14 +300,14 @@ hstore:
       remove_when_exit: true
 ```
 
-HStore section sets configuration items for `hstore`.
+The HStore section is used to specify the configuration options for the `hstore` instance.
 
 - `admin_port`: HStore service will listen on this port.
 - `disk` and `shards`: Set total used disks and total shards. For example, `disk: 2` and `shards: 4` means the hstore will persistant data in two disks, and each disk will contain 2 shards.
 - `role`: a HStore instance can act as a Storage, a Sequencer or both, default is both.
-- `enable_admin`: set the HStore instance with an admin server embedded.
+- `enable_admin`: If the 'true' value is assigned to this setting, the current hstore instance will be able to perform the same functions as hadmin.
 
-### meta-store
+### Meta-store
 
 ```yaml
 meta_store:
@@ -311,11 +331,11 @@ meta_store:
       remove_when_exit: true
 ```
 
-Meta-store section sets configuration items for `meta-store`.
+The Meta-store section is used to specify the configuration options for the `meta-store` instance.
 
 - `port` and `raft_port`: these are used by `rqlite`
 
-### monitor stack components
+### Monitor stack components
 
 ```yaml
 prometheus:
@@ -387,12 +407,12 @@ hstream_exporter:
       remove_when_exit: true
 ```
 
-Currently, HStreamDB monitor stack contains the following components：`node-exporter`, `cadvisor`, `http-server`, `prometheus`, `grafana`, `alertmanager` and `hstream-exporter`.  The global configuration of the monitor stack is available in [monitor](./quick-deploy-ssh.md#monitor) field. 
+Currently, HStreamDB monitor stack contains the following components：`node-exporter`, `cadvisor`, `hstream-exporter`,  `grafana`, `alertmanager` and `hstream-exporter`.  The global configuration of the monitor stack is available in [monitor](./quick-deploy-ssh.md#monitor) field. 
 
-### elasticsearch, kibana and filebeat
+### Elasticsearch, Kibana and Filebeat
 
 ```yaml
-lasticsearch:
+elasticsearch:
   - host: 10.1.0.15
   # # Elasticsearch service monitor port
   port: 9200
