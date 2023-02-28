@@ -2,7 +2,7 @@ version: "3.5"
 
 services:
   hserver:
-    image: hstreamdb/hstream:latest
+    image: hstreamdb/hstream:v0.14.0
     depends_on:
       - zookeeper
       - hstore
@@ -35,7 +35,7 @@ services:
         --io-tasks-network hstream-quickstart
 
   hstore:
-    image: hstreamdb/hstream:latest
+    image: hstreamdb/hstream:v0.14.0
     networks:
       - hstream-quickstart
     volumes:

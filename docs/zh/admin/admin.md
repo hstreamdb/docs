@@ -3,7 +3,7 @@
 我们可以运行以下命令来使用 hstream admin：
 
 ```sh
-docker run -it --rm --name some-hstream-admin --network host hstreamdb/hstream:latest hadmin --help
+docker run -it --rm --name some-hstream-admin --network host hstreamdb/hstream:v0.14.0 hadmin --help
 ======= HStream Admin CLI =======
 
 Usage: hadmin COMMAND
