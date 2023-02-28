@@ -4,6 +4,11 @@
 
 启动 HStream 需要一个内核版本不小于 Linux 4.14 的操作系统。
 
+::: tip
+在用户无法使用 4.14 或以上版本的 Linux 内核的情况下，我们建议在启动 HStreamDB 集群时，
+在添加选项 `--enable-dscp-reflection=false` 到 HStore。
+:::
+
 ## 安装
 
 ### 安装 docker
