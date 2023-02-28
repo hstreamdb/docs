@@ -1,5 +1,18 @@
 # HStreamDB release notes
 
+## v0.14.0 [2023-02-28]
+
+- HServer now uses the in-house Haskell GRPC framework by default
+- Add deployment support for CentOS 7
+- Add stats for failed record delivery in subscriptions
+- Remove `pushQuery` RPC from the protocol
+- Fix the issue causing client stalls when multiple clients consume the same subscription, and one fails to acknowledge
+- Fix possible memory leaks caused by STM
+- Fix cluster bootstrap issue causing incorrect status display
+- Fix the issue that allows duplicate consumer names on the same subscription
+- Fix the issue that allows readers to be created on non-existent shards
+- Fix the issue causing the system to stall with the io check command
+
 ## v0.13.0 [2023-01-18]
 
 - hserver is built with ghc 9.2 by default now
@@ -18,14 +31,14 @@
 - Add support for file-based metadata storage, mainly for simplifying deployment in local development and testing environments
 - Add support for configuring the number of copies of the internal stream that stores consumption progress
 - Fix the problem that the consumption progress of subscriptions was not saved correctly in some cases
-- Improve the CLI tool: 
-  - simplify some command options 
+- Improve the CLI tool:
+  - simplify some command options
   - improve cluster interaction
   - add retry for requests
   - improve delete commands
 - Switch to a new planner implementation for HStream SQL
   - Improve stability and performance
-  - Improve the support for subqueries in the FROM clause 
+  - Improve the support for subqueries in the FROM clause
   - add a new ``EXPLAIN`` statement for viewing logical execution plans
   - more modular design for easy extension and optimization
 
@@ -38,7 +51,7 @@
 - Unify resource naming rules and improve the corresponding resource naming checks
 - [**Breaking change**]Rename hserver's startup parameters ``host`` and ``address`` to ``bind-address`` and ``advertised-address``
 - Fix routing validation for some RPC requests
-- Fix a possible failure when saving the progress of a subscription 
+- Fix a possible failure when saving the progress of a subscription
 - Fix incorrect results of ``JOIN .. ON``
 - Fix the write operation cannot be retried after got a timeout error
 
@@ -61,24 +74,24 @@ In this release we have introduced many enhancements for HStream SQL, see [here]
 In this release we replaced the gRPC-haskell library used by HServer with a new self-developed gRPC library, which brings not only better performance but also improved long-term stability.
 
 #### Rqlite Based MetaStore
- 
+
 In this release we have refactored the MetaStore component of HStreamDB to make it more scalable and easier to use. We also **experimentally** support the use of Rqlite instead of Zookeeper as the default MetaStore implementation, which will make the deployment and maintenance of HStreamDB much easier. Now HServer, HStore and HStream IO  all use a unified MetaStore to store metadata.
 
 ### HServer
 
 #### New Features
 
-- Add [e2e compression](#end-to-end-compression) 
+- Add [e2e compression](#end-to-end-compression)
 
 #### Enhancements
-  
+
 - Refactor the server module with a new grpc library
 - Adpate to the new metastore and add support for rqlite
 - Improve the mechanism of cluster resources allocation
 - Improve the cluster startup and initialization process
 - Improve thread usage and scheduling for the gossip module
 
-#### Bug fixes 
+#### Bug fixes
 
 - Fix a shard can be assigned to an invalid consumer
 - Fix memory leak caused by the gossip module
@@ -96,27 +109,27 @@ In this release we have refactored the MetaStore component of HStreamDB to make 
 - More general queries on materialized views.  Now any SQL clauses applicable to a stream can be performed on a materialized view, including nested subqueries and time windows.
 - Optimized JOIN clause. It supports standard JOINs such as CROSS, INNER, OUTER and NATURAL. It also allows JOIN between streams and materialized views.
 
-### HStream IO  
+### HStream IO
 
 - Add MongoDB source and sink
 - Adapt to the new metastore
 
-### Java Client 
+### Java Client
 
 [hstream-java v0.10.0](https://github.com/hstreamdb/hstreamdb-java/releases/tag/v0.10.0) has been released:
 
 #### New Features
 
 - Add support for e2e compression: zstd, gzip
-- Add ``StreamBuilder `` 
+- Add ``StreamBuilder ``
 
 #### Enhancements
 
-- Use ``directExecutor`` as default executor for ``grpcChannel`` 
+- Use ``directExecutor`` as default executor for ``grpcChannel``
 
-#### Bug fixes 
+#### Bug fixes
 
-- Fix ``BufferedProducer`` memory is not released in time 
+- Fix ``BufferedProducer`` memory is not released in time
 - Fix missing ``RecordId`` in ``Reader``'s results
 - Fix dependency conflicts when using hstreamdb-java via maven
 
@@ -139,7 +152,7 @@ In this release we have refactored the MetaStore component of HStreamDB to make 
 
 Add a new [rust client](https://github.com/hstreamdb/hstreamdb-rust)
 
-### HStream CLI 
+### HStream CLI
 
 - Add support for TLS
 - Add -e, --execute options for non-interactive execution of SQL statements
@@ -147,7 +160,7 @@ Add a new [rust client](https://github.com/hstreamdb/hstreamdb-rust)
 - Improve error messages
 - Add stream subcommands
 
-### Other Tools 
+### Other Tools
 
 - Add a new tool [hdt](https://github.com/hstreamdb/deployment-tool) for deployment
 
