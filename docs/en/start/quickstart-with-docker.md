@@ -2,7 +2,14 @@
 
 ## Requirement
 
-Start HStream requires an Linux kernel version at least 4.14.
+For optimal performance, we suggest utilizing a Linux kernel version of 4.14 or
+higher when initializing an HStreamDB Cluster.
+
+::: tip
+In the case it is not possible for the user to use a Linux kernel version of
+4.14 or above, we recommend adding the option `--enable-dscp-reflection=false`
+to HStore while starting the HStreamDB Cluster.
+:::
 
 ## Installation
 
@@ -13,8 +20,8 @@ If you have already installed docker, you can skip this step.
 :::
 
 See [Install Docker Engine](https://docs.docker.com/engine/install/), and
-install it for your operating system. Please carefully check that you have met all
-prerequisites.
+install it for your operating system. Please carefully check that you have met
+all prerequisites.
 
 Confirm that the Docker daemon is running:
 
@@ -47,8 +54,8 @@ docker-compose version
 Do NOT use this configuration in your production environment!
 :::
 
-Create a docker-compose.yaml file for docker compose,
-you can [download][quick-start.yaml] or paste the following contents:
+Create a docker-compose.yaml file for docker compose, you can
+[download][quick-start.yaml] or paste the following contents:
 
 ```yaml
 # quick-start.yaml
@@ -151,8 +158,8 @@ docker exec -it some-hstream-cli hstream --port 6570 sql
 
 ## Insert data into the stream
 
-Run each of the given `INSERT` statement in the new CLI session and keep an eye on
-the CLI session created in (2).
+Run each of the given `INSERT` statement in the new CLI session and keep an eye
+on the CLI session created in (2).
 
 ```sql
 INSERT INTO demo (temperature, humidity) VALUES (22, 80);
@@ -173,5 +180,7 @@ real time:
 {"temperature":28,"humidity":86}
 ```
 
-[non-root-docker]: https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user
-[quick-start.yaml]: https://raw.githubusercontent.com/hstreamdb/docs/main/assets/quick-start.yaml
+[non-root-docker]:
+  https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user
+[quick-start.yaml]:
+  https://raw.githubusercontent.com/hstreamdb/docs/main/assets/quick-start.yaml
