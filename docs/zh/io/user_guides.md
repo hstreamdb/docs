@@ -88,8 +88,8 @@ A connector plugin is a docker image, so before you can set up the connectors,
 you should download and update their plugins with `docker pull`:
 
 ```shell
-docker pull hstreamdb/source-mysql:v0.2.2
-docker pull hstreamdb/sink-postgresql:v0.2.2
+docker pull hstreamdb/source-mysql:v0.2.3
+docker pull hstreamdb/sink-postgresql:v0.2.3
 ```
 
 [Here](https://hstream.io/docs/en/latest/io/connectors.html) is a table of all
