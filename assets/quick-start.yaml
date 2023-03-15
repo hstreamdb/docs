@@ -31,6 +31,7 @@ services:
         --metastore-uri zk://zookeeper:2181 \
         --store-config /data/store/logdevice.conf \
         --store-admin-host hstore --store-admin-port 6440 \
+        --store-log-level warning \
         --io-tasks-path /tmp/io/tasks \
         --io-tasks-network hstream-quickstart
 
