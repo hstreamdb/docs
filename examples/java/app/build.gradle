@@ -14,6 +14,7 @@ plugins {
 
 repositories {
     // Use Maven Central for resolving dependencies.
+    mavenLocal()
     mavenCentral()
     maven {
         url 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
@@ -21,12 +22,12 @@ repositories {
 }
 
 dependencies {
-    implementation 'io.hstream:hstreamdb-java:0.12.0'
+    implementation 'io.hstream:hstreamdb-java:0.14.0-SNAPSHOT'
 }
 
 application {
     // Define the main class for the application.
-    mainClass = 'docs.code.examples.App'
+    mainClass = 'docs.code.examples.QueryExample'
 }
 
 tasks.named('test') {
