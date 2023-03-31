@@ -34,5 +34,4 @@ CREATE VIEW view_name AS select_query;
 
 ```sql
 CREATE VIEW foo AS SELECT a, SUM(a), COUNT(*) FROM s1 GROUP BY b;
-CREATE VIEW bar AS SELECT * FROM s2; // valid but not recommended
 ```
