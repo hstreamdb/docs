@@ -28,7 +28,7 @@ See [SELECT (Stream)](statements/select-stream.md).
 
 ```sql
 SELECT <* | expression [ AS field_alias ] [, ...]>
-  FROM table_ref [, ...]
+  FROM stream_ref
   [ WHERE expression ]
   [ GROUP BY field_name [, ...] ]
   [ HAVING expression ];
