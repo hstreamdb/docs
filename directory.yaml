@@ -9,6 +9,11 @@
   path: start/quickstart-with-docker
 
 - title:
+    en: Concepts
+    zh: 概念 
+  path: ./concepts
+
+- title:
     en: User Guide
     zh: 使用指南
   children:
