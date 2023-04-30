@@ -2,8 +2,8 @@
 
 ## Prerequisites
 
-- hstreamdb server v0.10.0
-- hstreamdb-java v0.10.0
+- hstreamdb server v0.15.0
+- hstreamdb-java v0.15.0
 
 ## Examples
 
