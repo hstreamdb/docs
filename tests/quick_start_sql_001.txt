@@ -1,4 +1,4 @@
-{"humidity":80.0,"temperature":22.0}
-{"humidity":76.0,"temperature":31.0}
-{"humidity":82.0,"temperature":27.0}
-{"humidity":86.0,"temperature":28.0}
+{"humidity":{"$numberLong":"80"},"temperature":{"$numberLong":"22"}}
+{"humidity":{"$numberLong":"76"},"temperature":{"$numberLong":"31"}}
+{"humidity":{"$numberLong":"82"},"temperature":{"$numberLong":"27"}}
+{"humidity":{"$numberLong":"86"},"temperature":{"$numberLong":"28"}}
